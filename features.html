@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>TekiNova</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    /* Reset and Global Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      background-color: #012f47;
+      color: white;
+      padding: 10px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      z-index: 1001;
+    }
+
+    .logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid gold;
+      margin-right: 8px;
+    }
+
+    .logo h1 {
+      color: gold;
+      font-size: 18px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* Navigation */
+    .navbar {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 8px;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+      white-space: nowrap;
+    }
+
+    .navbar a:hover {
+      background-color: #033d3d;
+      color: gold;
+    }
+
+    /* Hamburger Menu Icon */
+    .hamburger-icon {
+      font-size: 18px;
+      cursor: pointer;
+      color: white;
+      transition: color 0.3s;
+      padding: 6px;
+    }
+
+    .hamburger-icon:hover {
+      color: gold;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 6px;
+      color: white;
+      z-index: 1001;
+    }
+
+    /* Dropdown Navigation */
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #002366;
+      min-width: 220px;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 999;
+      padding: 8px;
+    }
+
+    .dropdown h2 {
+      color: gold;
+      font-size: 13px;
+      margin: 8px 0 4px;
+      padding-left: 4px;
+    }
+
+    .dropdown a {
+      padding: 6px 10px;
+      display: block;
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+
+    .dropdown a:hover {
+      background-color: #033d3d;
+      padding-left: 12px;
+    }
+
+    .navbar li {
+      position: relative;
+    }
+
+    .navbar li:hover .dropdown {
+      display: block;
+    }
+
+    /* Sidebar Hamburger Menu */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -280px;
+      width: 260px;
+      height: 100vh;
+      background-color: #002240;
+      color: white;
+      padding: 15px;
+      transition: right 0.3s ease;
+      z-index: 999;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+      overflow-y: auto;
+    }
+
+    .sidebar.active {
+      right: 0;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      color: gold;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #555;
+    }
+
+    .sidebar-header i {
+      cursor: pointer;
+      transition: color 0.3s;
+      font-size: 18px;
+    }
+
+    .sidebar-header i:hover {
+      color: #d4af37;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      padding: 10px 0;
+      text-decoration: none;
+      transition: color 0.3s;
+      font-size: 13px;
+    }
+
+    .sidebar a:hover {
+      color: gold;
+    }
+
+    .sidebar i {
+      width: 18px;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    /* Hamburger Menu Widgets */
+    .hamburger-widget {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+    .hamburger-widget h3 {
+      color: gold;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .hamburger-widget p {
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .hamburger-widget .widget-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .widget-stats div {
+      text-align: center;
+      flex: 1;
+    }
+
+    .widget-stats span {
+      display: block;
+      font-size: 15px;
+      font-weight: bold;
+      color: gold;
+    }
+
+    .widget-stats small {
+      font-size: 11px;
+      opacity: 0.8;
+    }
+
+    /* Main Content */
+    .main-content {
+      max-width: 100%;
+      margin: 15px auto;
+      padding: 10px;
+    }
+
+    /* Features Section */
+    .features-container {
+      max-width: 1200px;
+      margin: 15px auto;
+      padding: 10px;
+    }
+
+    .features-container h1 {
+      text-align: center;
+      color: #012f47;
+      margin-bottom: 15px;
+      font-size: 1.6rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .feature-box {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .feature-box img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-bottom: 3px solid #012f47;
+    }
+
+    .feature-content {
+      padding: 12px;
+    }
+
+    .feature-box h2 {
+      color: #012f47;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+
+    .feature-box p {
+      color: #555;
+      margin-bottom: 12px;
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .apply-btn {
+      display: inline-block;
+      background-color: #012f47;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s;
+      font-size: 13px;
+      text-align: center;
+      min-width: 100px;
+    }
+
+    .apply-btn:hover {
+      background-color: #034d6d;
+    }
+
+    .job-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+      font-size: 0.75rem;
+      color: #777;
+      flex-wrap: wrap;
+    }
+
+    .job-type {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background-color: gold;
+      color: #012f47;
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.65rem;
+    }
+
+    .last-updated {
+      text-align: center;
+      margin-top: 15px;
+      color: #777;
+      font-style: italic;
+      font-size: 13px;
+    }
+
+    .filter-controls {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 6px 12px;
+      background: #e0e0e0;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 13px;
+    }
+
+    .filter-btn.active {
+      background: #012f47;
+      color: white;
+    }
+
+    .filter-btn:hover {
+      background: #d0d0d0;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #012f47;
+      color: white;
+      padding: 20px 10px;
+    }
+
+    .footer-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 15px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-columns .col h3 {
+      color: gold;
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+
+    .footer-columns .col h2 {
+      color: gold;
+      margin: 12px 0 8px;
+      font-size: 15px;
+    }
+
+    .footer-columns .col a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 5px;
+      transition: color 0.3s;
+      font-size: 13px;
+    }
+
+    .footer-columns .col a:hover {
+      color: #d4af37;
+    }
+
+    /* Mobile Navigation */
+    .mobile-nav {
+      display: none;
+      width: 100%;
+      background-color: #012f47;
+      padding: 8px;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      z-index: 998;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    .mobile-nav.active {
+      display: block;
+    }
+
+    .mobile-nav ul {
+      list-style: none;
+    }
+
+    .mobile-nav li {
+      margin-bottom: 8px;
+    }
+
+    .mobile-nav a {
+      display: block;
+      padding: 8px 12px;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+      font-size: 13px;
+    }
+
+    .mobile-nav a:hover {
+      background-color: #033d3d;
+    }
+
+    /* Mobile Dropdown */
+    .mobile-dropdown {
+      display: none;
+      padding-left: 12px;
+      margin-top: 4px;
+      border-left: 2px solid gold;
+    }
+
+    .mobile-dropdown a {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .mobile-dropdown h3 {
+      color: gold;
+      font-size: 12px;
+      margin: 8px 0 4px;
+      padding-left: 4px;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 1024px) {
+      .navbar ul {
+        gap: 4px;
+      }
+      
+      .navbar a {
+        font-size: 12px;
+        padding: 5px 7px;
+      }
+      
+      .dropdown {
+        min-width: 200px;
+      }
+
+      .features-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 8px 12px;
+      }
+      
+      .logo h1 {
+        font-size: 16px;
+      }
+      
+      .navbar ul {
+        display: none;
+      }
+      
+      .menu-toggle {
+        display: block;
+      }
+      
+      .hamburger-icon {
+        margin-left: auto;
+        margin-right: 12px;
+      }
+      
+      .sidebar {
+        width: 220px;
+      }
+      
+      .features-container h1 {
+        font-size: 1.4rem;
+        margin-bottom: 12px;
+      }
+      
+      .feature-box h2 {
+        font-size: 1rem;
+      }
+      
+      .filter-btn {
+        padding: 5px 10px;
+        font-size: 12px;
+      }
+      
+      .dropdown {
+        position: static;
+        display: none;
+        width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+      }
+      
+      .navbar li:hover .dropdown {
+        display: none;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .logo img {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .logo h1 {
+        font-size: 14px;
+      }
+      
+      .menu-toggle {
+        font-size: 18px;
+      }
+      
+      .hamburger-icon {
+        font-size: 16px;
+      }
+      
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .filter-controls {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .footer-columns {
+        grid-template-columns: 1fr;
+      }
+      
+      .feature-box img {
+        height: 140px;
+      }
+      
+      .mobile-nav {
+        top: 52px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-content {
+        padding: 8px;
+        margin: 10px auto;
+      }
+
+      .features-container {
+        padding: 8px;
+        margin: 10px auto;
+      }
+
+      .features-container h1 {
+        font-size: 1.2rem;
+      }
+
+      .sidebar {
+        width: 100%;
+        right: -100%;
+      }
+    }
+
+    /* Prevent horizontal scrolling */
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="logo">
+      <img src="logo.jpeg" alt="TEKINOVA Logo">
+      <h1>TekiNova</h1>
+    </div>
+    
+    <div class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </div>
+    
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav" id="mobileNav">
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li>
+          <a href="#" data-dropdown="aboutDropdown">About <i class="fas fa-chevron-down"></i></a>
+          <div class="mobile-dropdown" id="aboutDropdown">
+            <h3>About TEKINOVA</h3>
+            <a href="About.html">About Us</a>
+            <a href="#">Company Background & Vision</a>
+            <a href="#">Mission & Goals</a>
+            <a href="#">Contacts</a>
+            <h3>Administrative</h3>
+            <a href="#">Team or Founders</a>
+            <a href="#">Core Values</a>
+            <a href="#">Executive Organ</a>
+            <a href="#">Senior Management</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" data-dropdown="servicesDropdown">Services <i class="fas fa-chevron-down"></i></a>
+          <div class="mobile-dropdown" id="servicesDropdown">
+            <a href="services.html">Got Services</a>
+            <a href="#">Web Development</a>
+            <a href="#">App Development</a>
+            <a href="#">Tech Consultancy</a>
+            <a href="#">Custom Software</a>
+            <a href="#">AI/IoT/Automation Services</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" data-dropdown="productsDropdown">Product <i class="fas fa-chevron-down"></i></a>
+          <div class="mobile-dropdown" id="productsDropdown">
+            <a href="Products.html">Products</a>
+            <a href="#">App Development</a>
+            <a href="#">Tech Consultancy</a>
+            <a href="#">Custom Software</a>
+            <a href="#">AI/IoT/Automation Services</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" data-dropdown="newsDropdown">Tech News <i class="fas fa-chevron-down"></i></a>
+          <div class="mobile-dropdown" id="newsDropdown">
+            <h3>Blog</h3>
+            <a href="Blog_Tech_News.html">Blog Tech News</a>
+            <a href="#">Articles About Technology Trends</a>
+            <a href="#">How-to Guides or Tutorials</a>
+            <a href="#">Company Updates</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" data-dropdown="careersDropdown">Careers <i class="fas fa-chevron-down"></i></a>
+          <div class="mobile-dropdown" id="careersDropdown">
+            <a href="Careers.html">Develop Your Careers</a>
+            <a href="#">Articles About Technology Trends</a>
+            <a href="#">How-to Guides or Tutorials</a>
+            <a href="#">Company Updates</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" data-dropdown="jobsDropdown">Jobs <i class="fas fa-chevron-down"></i></a>
+          <div class="mobile-dropdown" id="jobsDropdown">
+            <h3>Apply Job</h3>
+            <a href="features.html">Go to Jobs & Internships</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" data-dropdown="contactDropdown">Contact <i class="fas fa-chevron-down"></i></a>
+          <div class="mobile-dropdown" id="contactDropdown">
+            <a href="contact_us.html">Tell Us Anything</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" data-dropdown="calendarDropdown">Working Calendar <i class="fas fa-chevron-down"></i></a>
+          <div class="mobile-dropdown" id="calendarDropdown">
+            <a href="amasahayakazi.html">Our Calendar Days</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Desktop Navigation (hidden on mobile) -->
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li>
+          <a href="#">About</a>
+          <div class="dropdown">
+            <h2>About TEKINOVA</h2>
+            <a href="About.html">About Us</a>
+            <a href="#">Company Background & Vision</a>
+            <a href="#">Mission & Goals</a>
+            <a href="#">Contacts</a>
+            <h2>Administrative</h2>
+            <a href="#">Team or Founders</a>
+            <a href="#">Core Values</a>
+            <a href="#">Executive Organ</a>
+            <a href="#">Senior Management</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Services</a>
+          <div class="dropdown">
+            <a href="services.html">Our Services</a>
+            <a href="#">Web Development</a>
+            <a href="#">App Development</a>
+            <a href="#">Tech Consultancy</a>
+            <a href="#">Custom Software</a>
+            <a href="#">AI/IoT/Automation Services</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Products</a>
+          <div class="dropdown">
+            <a href="Products.html">Products</a>
+            <a href="#">App Development</a>
+            <a href="#">Tech Consultancy</a>
+            <a href="#">Custom Software</a>
+            <a href="#">AI/IoT Services</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Tech News</a>
+          <div class="dropdown">
+            <h2>Blog</h2>
+            <a href="Events.html">Events</a>
+            <a href="#">Upcoming Events</a>
+            <a href="#">Past Events</a>
+            <a href="#">Company Updates</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Careers</a>
+          <div class="dropdown">
+            <a href="Careers.html">Careers</a>
+            <a href="#">Career Paths</a>
+            <a href="#">Benefits</a>
+            <a href="#">Career Updates</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Jobs</a>
+          <div class="dropdown">
+            <h2>Apply Now</h2>
+            <a href="features.html">View Jobs & Internships</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Contact</a>
+          <div class="dropdown">
+            <a href="contact_us.html">Contact Us</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Hamburger Menu Icon (right side) -->
+    <div class="hamburger-icon" id="hamburgerIcon">
+      <i class="fas fa-bars"></i>
+    </div>
+  </header>
+
+  <!-- ===== HAMBURGER MENU SIDEBAR ===== -->
+  <aside class="sidebar" id="hamburgerMenu">
+    <div class="sidebar-header">
+      <span><i class="fas fa-bars"></i> Hamburger Menu</span>
+      <i class="fas fa-times" id="closeHamburger"></i>
+    </div>
+    
+    <nav>
+      <a href="index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="About.html"><i class="fas fa-info-circle"></i> About</a>
+      <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
+      <a href="Products.html"><i class="fas fa-box"></i> Products</a>
+      <a href="Blog_Tech_News.html"><i class="fas fa-blog"></i> Blog</a>
+      <a href="Careers.html"><i class="fas fa-briefcase"></i> Careers</a>
+      <a href="features.html"><i class="fas fa-laptop-code"></i> Jobs</a>
+      <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+    
+    <!-- Hamburger Menu Widgets -->
+    <div class="hamburger-widget">
+      <h3>Quick Stats</h3>
+      <p>Overview of your recent activity</p>
+      <div class="widget-stats">
+        <div>
+          <span>1,245</span>
+          <small>Visitors</small>
+        </div>
+        <div>
+          <span>24</span>
+          <small>Projects</small>
+        </div>
+        <div>
+          <span>18</span>
+          <small>Team</small>
+        </div>
+      </div>
+    </div>
+    
+    <div class="hamburger-widget">
+      <h3>Recent Activity</h3>
+      <p><i class="fas fa-check-circle"></i> New project started</p>
+      <p><i class="fas fa-user-plus"></i> 3 new team members</p>
+      <p><i class="fas fa-sync-alt"></i> Website updated</p>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="features-container">
+    <h1>Latest Global Opportunities</h1>
+    <div class="filter-controls"></div>
+    <div class="features-grid">
+      <!-- Jobs, internships, scholarships, and other opportunities will be inserted here by JavaScript -->
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-columns">
+      <div class="col">
+        <h3>Contact</h3>
+        <a href="./contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <strong>WhatsApp:</strong>
+        <a href="https://wa.me/+250733253803" target="_blank" class="toto"> +250 733 253 803</a>
+        <strong>Email:</strong>
+        <a href="mailto:info@tekinova.com" class="toto">info@tekinova.com</a>
+      </div>
+      <div class="col">
+        <h2>About TEKINOVA</h2>
+        <a href="About.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Company Background & Vision</a>
+        <a href="#">Mission & Goals</a>
+        <a href="#">Contacts</a>
+        <h2>Administrative</h2>
+        <a href="#">Team or Founders</a>
+        <a href="#">Core Values</a>
+        <a href="#">Executive Organ</a>
+        <a href="#">Senior Management</a>
+      </div>
+      <div class="col">
+        <h3>Services</h3>
+        <a href="services.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Web Development</a>
+        <a href="#">App Development</a>
+        <a href="#">Tech Consultancy</a>
+        <a href="#">Custom Software</a>
+        <a href="#">AI/IoT/Automation Services</a>
+      </div>
+      <div class="col">
+        <h3>Products</h3>
+        <a href="Products.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">App Development</a>
+        <a href="#">Tech Consultancy</a>
+        <a href="#">Custom Software</a>
+        <a href="#">AI/IoT/Automation Services</a>
+      </div>
+      <div class="col">
+        <h3>Careers</h3>
+        <a href="Careers.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Articles About Technology Trends</a>
+        <a href="#">How-to Guides or Tutorials</a>
+        <a href="#">Company Updates</a>
+      </div>
+      <div class="col">
+        <h3>Jobs & Internships</h3>
+        <a href="features.html" style="text-decoration: underline;"><b>More Info</b></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // === Hamburger Menu Toggle Logic ===
+    function toggleHamburgerMenu() {
+      const hamburgerMenu = document.getElementById('hamburgerMenu');
+      hamburgerMenu.classList.toggle('active');
+      // Reset scroll position of sidebar when opened
+      if (hamburgerMenu.classList.contains('active')) {
+        hamburgerMenu.scrollTop = 0;
+      }
+    }
+
+    // === Mobile Navigation Toggle ===
+    function toggleMobileNav() {
+      const mobileNav = document.getElementById('mobileNav');
+      mobileNav.classList.toggle('active');
+      
+      // Reset scroll position of mobile nav when opened
+      if (mobileNav.classList.contains('active')) {
+        mobileNav.scrollTop = 0;
+      }
+      
+      // Close all dropdowns when toggling mobile nav
+      if (!mobileNav.classList.contains('active')) {
+        document.querySelectorAll('.mobile-dropdown').forEach(dd => {
+          dd.style.display = 'none';
+        });
+      }
+    }
+
+    // === Mobile Dropdown Toggle ===
+    function toggleMobileDropdown(event, dropdownId) {
+      event.preventDefault();
+      const dropdown = document.getElementById(dropdownId);
+      const isOpen = dropdown.style.display === 'block';
+      document.querySelectorAll('.mobile-dropdown').forEach(dd => {
+        dd.style.display = 'none';
+      });
+      dropdown.style.display = isOpen ? 'none' : 'block';
+      
+      // Scroll to top of mobile nav after dropdown toggle
+      const mobileNav = document.getElementById('mobileNav');
+      if (mobileNav.classList.contains('active')) {
+        mobileNav.scrollTop = 0;
+      }
+      
+      event.stopPropagation();
+    }
+
+    // === Event Listeners ===
+    document.addEventListener('DOMContentLoaded', function () {
+      // Hamburger Menu
+      const hamburgerIcon = document.getElementById('hamburgerIcon');
+      const closeHamburger = document.getElementById('closeHamburger');
+      hamburgerIcon.addEventListener('click', toggleHamburgerMenu);
+      closeHamburger.addEventListener('click', toggleHamburgerMenu);
+
+      // Mobile Navigation
+      const menuToggle = document.getElementById('menuToggle');
+      menuToggle.addEventListener('click', toggleMobileNav);
+
+      // Mobile Dropdowns
+      document.querySelectorAll('.mobile-nav a[data-dropdown]').forEach(link => {
+        link.addEventListener('click', (event) => {
+          const dropdownId = link.getAttribute('data-dropdown');
+          toggleMobileDropdown(event, dropdownId);
+        });
+      });
+
+      // Close hamburger menu on outside click
+      document.addEventListener('click', function (event) {
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        if (hamburgerMenu.classList.contains('active') &&
+            !hamburgerMenu.contains(event.target) &&
+            !hamburgerIcon.contains(event.target)) {
+          hamburgerMenu.classList.remove('active');
+        }
+      });
+
+      // Close mobile nav on outside click
+      const mobileNav = document.getElementById('mobileNav');
+      document.addEventListener('click', function(event) {
+        if (mobileNav.classList.contains('active') && 
+            !mobileNav.contains(event.target) && 
+            !menuToggle.contains(event.target)) {
+          mobileNav.classList.remove('active');
+          document.querySelectorAll('.mobile-dropdown').forEach(dd => {
+            dd.style.display = 'none';
+          });
+        }
+      });
+
+      // Close hamburger menu on Escape key
+      document.addEventListener('keydown', function (event) {
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        if (event.key === 'Escape' && hamburgerMenu.classList.contains('active')) {
+          hamburgerMenu.classList.remove('active');
+        }
+      });
+
+      // === Features Jobs, Internships, Scholarships, and Other Opportunities ===
+      const jobsData = [
+        // Jobs (30)
+        {
+          id: 1,
+          title: "Google Software Engineer",
+          description: "Join Google's engineering team to build scalable systems.",
+          image: "images/google-job.jpg",
+          link: "https://careers.google.com/",
+          type: "job",
+          location: "Mountain View, CA",
+          posted: "2025-06-01",
+          featured: true
+        },
+        {
+          id: 2,
+          title: "United Nations Programme Officer",
+          description: "Work on global development projects with the UN.",
+          image: "images/un-job.jpg",
+          link: "https://careers.un.org",
+          type: "job",
+          location: "New York, NY",
+          posted: "2025-05-20",
+          featured: true
+        },
+        {
+          id: 3,
+          title: "Remote UI/UX Designer",
+          description: "Design user-friendly interfaces for a tech startup.",
+          image: "images/uiux-job.jpg",
+          link: "https://remoteok.com/",
+          type: "job",
+          location: "Remote",
+          posted: "2025-05-15",
+          featured: true
+        },
+        // Add 27 more job entries
+        {
+          id: 4,
+          title: "AWS Cloud Architect",
+          description: "Design cloud solutions for enterprise clients.",
+          image: "images/aws-job.jpg",
+          link: "https://aws.amazon.com/careers/",
+          type: "job",
+          location: "Seattle, WA",
+          posted: "2025-06-02",
+          featured: false
+        },
+        {
+          id: 5,
+          title: "Data Scientist at Microsoft",
+          description: "Analyze data to drive business insights.",
+          image: "images/microsoft-job.jpg",
+          link: "https://careers.microsoft.com/",
+          type: "job",
+          location: "Redmond, WA",
+          posted: "2025-05-25",
+          featured: false
+        },
+        // ... (Add more jobs up to 30, following the same structure)
+        {
+          id: 30,
+          title: "Cybersecurity Analyst",
+          description: "Protect systems from cyber threats.",
+          image: "images/cybersecurity-job.jpg",
+          link: "https://jobs.cisco.com/",
+          type: "job",
+          location: "San Francisco, CA",
+          posted: "2025-05-10",
+          featured: false
+        },
+        // Internships (6)
+        {
+          id: 31,
+          title: "Google Software Engineering Internship",
+          description: "Summer internship for CS students at Google.",
+          image: "images/internship-google.jpg",
+          link: "https://careers.google.com/students/",
+          type: "internship",
+          location: "Global",
+          posted: "2025-05-15",
+          featured: true
+        },
+        {
+          id: 32,
+          title: "Facebook Data Science Intern",
+          description: "Work on data analysis projects at Meta.",
+          image: "images/facebook-intern.jpg",
+          link: "https://www.metacareers.com/",
+          type: "internship",
+          location: "Menlo Park, CA",
+          posted: "2025-05-12",
+          featured: true
+        },
+        {
+          id: 33,
+          title: "Amazon Web Services Intern",
+          description: "Learn cloud computing with AWS teams.",
+          image: "images/aws-intern.jpg",
+          link: "https://aws.amazon.com/careers/",
+          type: "internship",
+          location: "Seattle, WA",
+          posted: "2025-05-10",
+          featured: false
+        },
+        {
+          id: 34,
+          title: "Microsoft AI Intern",
+          description: "Explore AI technologies with Microsoft.",
+          image: "images/microsoft-intern.jpg",
+          link: "https://careers.microsoft.com/",
+          type: "internship",
+          location: "Redmond, WA",
+          posted: "2025-05-08",
+          featured: false
+        },
+        {
+          id: 35,
+          title: "Tesla Engineering Intern",
+          description: "Work on innovative projects at Tesla.",
+          image: "images/tesla-intern.jpg",
+          link: "https://www.tesla.com/careers",
+          type: "internship",
+          location: "Fremont, CA",
+          posted: "2025-05-05",
+          featured: false
+        },
+        {
+          id: 36,
+          title: "IBM Research Intern",
+          description: "Contribute to cutting-edge research at IBM.",
+          image: "images/ibm-intern.jpg",
+          link: "https://www.ibm.com/careers",
+          type: "internship",
+          location: "Yorktown Heights, NY",
+          posted: "2025-05-03",
+          featured: false
+        },
+        // Scholarships (50)
+        {
+          id: 37,
+          title: "Gates Millennium Scholarship",
+          description: "Full funding for outstanding minority students.",
+          image: "images/gates-scholarship.jpg",
+          link: "https://www.gmsp.org/",
+          type: "scholarship",
+          location: "Global",
+          posted: "2025-06-01",
+          featured: true
+        },
+        {
+          id: 38,
+          title: "Horatio Alger Scholarship",
+          description: "Support for students overcoming adversity.",
+          image: "images/horatio-scholarship.jpg",
+          link: "https://www.horatioalger.org/",
+          type: "scholarship",
+          location: "USA",
+          posted: "2025-05-20",
+          featured: true
+        },
+        {
+          id: 39,
+          title: "Chevening Scholarship",
+          description: "Fully-funded UK master's degree for global leaders.",
+          image: "images/chevening-scholarship.jpg",
+          link: "https://www.chevening.org/",
+          type: "scholarship",
+          location: "UK",
+          posted: "2025-05-15",
+          featured: true
+        },
+        // ... (Add more scholarships up to 50, following the same structure)
+        {
+          id: 86,
+          title: "STEM Scholarship for Women",
+          description: "Funding for women pursuing STEM degrees.",
+          image: "images/stem-scholarship.jpg",
+          link: "https://www.womeninstem.org/",
+          type: "scholarship",
+          location: "Global",
+          posted: "2025-05-01",
+          featured: false
+        }
+      ];
+
+      const featuresGrid = document.querySelector('.features-grid');
+      const filterControls = document.querySelector('.filter-controls');
+      const lastUpdatedEl = document.createElement('div');
+      lastUpdatedEl.className = 'last-updated';
+      featuresGrid.parentNode.insertBefore(lastUpdatedEl, featuresGrid);
+
+      renderJobs(jobsData);
+      renderFilters();
+      updateLastUpdated();
+
+      filterControls.addEventListener('click', function (e) {
+        if (e.target.classList.contains('filter-btn')) {
+          document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+          e.target.classList.add('active');
+
+          const filter = e.target.dataset.filter;
+          const filteredJobs = filter === 'all' ? jobsData : jobsData.filter(job => job.type === filter);
+          renderJobs(filteredJobs);
+          // Scroll to top of features section after filtering
+          document.querySelector('.features-container').scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+
+      function renderJobs(jobs) {
+        featuresGrid.innerHTML = '';
+        jobs.forEach(job => {
+          const jobEl = document.createElement('div');
+          jobEl.className = 'feature-box';
+          jobEl.innerHTML = `
+            <img src="${job.image}" alt="${job.title}">
+            <div class="job-type">${job.type === 'internship' ? 'Internship' : job.type === 'job' ? 'Job' : job.type === 'scholarship' ? 'Scholarship' : 'Other'}</div>
+            <div class="feature-content">
+              <h2>${job.title}</h2>
+              <p>${job.description}</p>
+              <div class="job-meta">
+                <span>📍 ${job.location}</span>
+                <span>📅 ${formatDate(job.posted)}</span>
+              </div>
+              <a class="apply-btn" href="${job.link}" target="_blank">Apply Now</a>
+            </div>
+          `;
+          featuresGrid.appendChild(jobEl);
+        });
+      }
+
+      function renderFilters() {
+        const filters = [
+          { name: 'All', value: 'all' },
+          { name: 'Jobs', value: 'job' },
+          { name: 'Internships', value: 'internship' },
+          { name: 'Scholarships', value: 'scholarship' },
+          { name: 'Other', value: 'other' }
+        ];
+
+        filters.forEach(filter => {
+          const btn = document.createElement('button');
+          btn.className = `filter-btn ${filter.value === 'all' ? 'active' : ''}`;
+          btn.textContent = filter.name;
+          btn.dataset.filter = filter.value;
+          filterControls.appendChild(btn);
+        });
+      }
+
+      function updateLastUpdated() {
+        const now = new Date();
+        lastUpdatedEl.textContent = `Last updated: ${now.toLocaleString()}`;
+      }
+
+      function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+      }
+
+      setInterval(updateLastUpdated, 86400000); // Update every 24 hours
+    });
+  </script>
+</body>
+</html>

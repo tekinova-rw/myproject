@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>TekiNova</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    /* Reset and Global Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      background-color: #012f47;
+      color: white;
+      padding: 10px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid gold;
+      margin-right: 8px;
+    }
+
+    .logo h1 {
+      color: gold;
+      font-size: 18px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 12px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 5px 8px;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      background-color: #033d3d;
+      color: gold;
+    }
+
+    /* Hamburger Menu Icon */
+    .hamburger-icon {
+      font-size: 18px;
+      cursor: pointer;
+      color: white;
+      transition: color 0.3s;
+      margin-left: 12px;
+    }
+
+    .hamburger-icon:hover {
+      color: gold;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 18px;
+      cursor: pointer;
+      margin-left: 12px;
+    }
+
+    /* Sidebar Hamburger Menu */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -260px;
+      width: 260px;
+      height: 100vh;
+      background-color: #002240;
+      color: white;
+      padding: 15px;
+      transition: right 0.3s ease;
+      z-index: 999;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+      overflow-y: auto;
+    }
+
+    .sidebar.active {
+      right: 0;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      color: gold;
+      margin-bottom: 15px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #555;
+    }
+
+    .sidebar-header i {
+      cursor: pointer;
+      transition: color 0.3s;
+      font-size: 16px;
+    }
+
+    .sidebar-header i:hover {
+      color: #d4af37;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      padding: 8px 0;
+      text-decoration: none;
+      transition: color 0.3s;
+      font-size: 13px;
+    }
+
+    .sidebar a:hover {
+      color: gold;
+    }
+
+    .sidebar i {
+      width: 16px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    /* Menu Panels */
+    .menu-panel {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+    .menu-panel h3 {
+      color: gold;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .menu-panel p {
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    .menu-panel .panel-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+    }
+
+    .panel-stats div {
+      text-align: center;
+      flex: 1;
+    }
+
+    .panel-stats span {
+      display: block;
+      font-size: 15px;
+      font-weight: bold;
+      color: gold;
+    }
+
+    .panel-stats small {
+      font-size: 10px;
+      opacity: 0.8;
+    }
+
+    /* Staff Cards */
+    .main-content {
+      max-width: 1000px;
+      margin: 80px auto 20px;
+      padding: 12px;
+    }
+
+    .staff-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .staff-card {
+      background-color: white;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 160px;
+      padding: 10px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin: 0 auto;
+    }
+
+    .staff-card img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #012f47;
+      color: white;
+      padding: 20px 12px;
+    }
+
+    .footer-columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: space-between;
+    }
+
+    .footer-columns .col {
+      flex: 1 1 180px;
+      margin-bottom: 15px;
+    }
+
+    .footer-columns .col h3 {
+      color: gold;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .footer-columns .col h2 {
+      color: gold;
+      margin: 10px 0 6px;
+      font-size: 14px;
+    }
+
+    .footer-columns .col a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 4px;
+      transition: color 0.3s;
+      font-size: 12px;
+    }
+
+    .footer-columns .col a:hover {
+      color: #d4af37;
+    }
+
+    /* Navigation Dropdowns */
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .navbar li {
+      position: relative;
+    }
+
+    .navbar a {
+      display: block;
+      padding: 8px 10px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .navbar a:hover {
+      background-color: #033d3d;
+    }
+
+    .navbar a.active {
+      color: #eaedf1;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #002366;
+      min-width: 180px;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 999;
+      padding: 5px;
+    }
+
+    .dropdown a {
+      padding: 8px 10px;
+      display: block;
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+    }
+
+    .dropdown a:hover {
+      background-color: #033d3d;
+    }
+
+    .navbar li:hover .dropdown {
+      display: block;
+    }
+
+    /* Talk to Us */
+    .contact-compact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      background: #eef6fb;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+    }
+
+    .contact-compact > div {
+      flex: 1 1 180px;
+    }
+
+    .contact-compact h3 {
+      margin: 0 0 0.2rem;
+      color: #004080;
+      font-size: 0.9rem;
+    }
+
+    .contact-compact p {
+      margin: 0 0 0.3rem;
+      color: #444;
+      font-size: 0.75rem;
+    }
+
+    .contact-compact .btn {
+      display: inline-block;
+      padding: 0.3rem 0.6rem;
+      background: #487081;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .contact-compact .btn:hover {
+      opacity: 0.9;
+    }
+
+    /* Floating WhatsApp Buttons */
+    .floating-whatsapp-buttons {
+      position: fixed;
+      bottom: 15px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .floating-whatsapp-buttons.left-side {
+      left: 12px;
+    }
+
+    .float-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background-color: #031a58;
+      color: white;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 13px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease;
+    }
+
+    .float-btn:hover {
+      transform: scale(1.05);
+      background-color: rgb(2, 81, 92);
+    }
+
+    .float-btn .icon {
+      width: 16px;
+      height: 16px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      display: inline-block;
+    }
+
+    /* Icons */
+    .float-btn.chat .icon {
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg');
+    }
+
+    .float-btn.group .icon {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/124/124034.png');
+    }
+
+    /* Calendar */
+    .timeline-container {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    .timeline-title {
+      text-transform: uppercase;
+      color: #b30000;
+      border-left: 4px solid #b30000;
+      padding-left: 0.4rem;
+      margin-bottom: 1.2rem;
+      font-size: 1.4rem;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 25px;
+      border-left: 4px solid #b30000;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .timeline-dot {
+      width: 20px;
+      height: 20px;
+      background-color: #b30000;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 20px;
+      position: absolute;
+      left: -12px;
+      top: 0;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      font-size: 11px;
+    }
+
+    .timeline-content {
+      margin-left: 20px;
+      background: #f9f9f9;
+      padding: 0.6rem 0.8rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .timeline-content h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-content p {
+      font-size: 0.85rem;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none;
+      width: 100%;
+      background-color: #012f47;
+      padding: 8px 0;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      z-index: 998;
+    }
+
+    .mobile-menu.active {
+      display: block;
+    }
+
+    .mobile-menu ul {
+      list-style: none;
+    }
+
+    .mobile-menu li {
+      position: relative;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 8px 12px;
+      color: white;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      font-size: 12px;
+    }
+
+    .mobile-menu .dropdown {
+      display: none;
+      background-color: #001a33;
+      padding: 0 12px;
+    }
+
+    .mobile-menu .dropdown a {
+      padding: 6px 20px;
+      font-size: 11px;
+    }
+
+    .mobile-menu .has-dropdown::after {
+      content: '+';
+      position: absolute;
+      right: 12px;
+      top: 8px;
+      font-weight: bold;
+    }
+
+    .mobile-menu .has-dropdown.active::after {
+      content: '-';
+    }
+
+    /* Overlay for sidebar */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 998;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+    /* Responsive Toggle */
+    @media (max-width: 992px) {
+      header {
+        padding: 8px 12px;
+      }
+
+      .navbar > ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #012f47;
+        flex-direction: column;
+        padding: 12px;
+        z-index: 998;
+      }
+      
+      .navbar > ul.active {
+        display: flex;
+      }
+      
+      .navbar li {
+        width: 100%;
+      }
+      
+      .dropdown {
+        position: static;
+        display: none;
+        width: 100%;
+        box-shadow: none;
+        background-color: rgba(0,0,0,0.2);
+        margin-top: 4px;
+        padding: 0 12px;
+      }
+      
+      .menu-toggle {
+        display: block;
+        color: white;
+      }
+      
+      .hamburger-icon {
+        margin-left: auto;
+        margin-right: 12px;
+      }
+      
+      .sidebar {
+        width: 240px;
+        max-width: 260px;
+      }
+      
+      .footer-columns {
+        gap: 12px;
+        flex-direction: column;
+      }
+      
+      nav ul {
+        gap: 8px;
+      }
+      
+      .mobile-menu {
+        display: block;
+        top: 56px;
+      }
+      
+      .desktop-menu {
+        display: none;
+      }
+
+      .main-content {
+        margin-top: 64px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 8px 12px;
+      }
+      
+      .logo h1 {
+        font-size: 16px;
+      }
+      
+      .logo img {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .timeline-container {
+        padding: 1rem;
+      }
+      
+      .footer-columns .col {
+        flex: 1 1 160px;
+      }
+
+      .staff-container {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+
+      .main-content {
+        margin-top: 60px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      header {
+        padding: 6px 10px;
+      }
+      
+      .logo {
+        min-width: 100%;
+        justify-content: center;
+        margin-bottom: 6px;
+      }
+      
+      .logo h1 {
+        font-size: 15px;
+      }
+      
+      .timeline-container {
+        padding: 0.8rem;
+      }
+      
+      .footer-columns .col {
+        flex: 1 1 100%;
+      }
+      
+      .hamburger-icon {
+        font-size: 16px;
+        margin-right: 8px;
+      }
+      
+      .menu-toggle {
+        font-size: 16px;
+      }
+      
+      .floating-whatsapp-buttons.left-side {
+        left: 10px;
+        bottom: 12px;
+      }
+
+      .main-content {
+        margin-top: 56px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sidebar {
+        width: 100%;
+        right: -100%;
+      }
+      
+      .timeline-container {
+        padding: 0.6rem;
+      }
+      
+      .timeline-title {
+        font-size: 1.2rem;
+      }
+      
+      .timeline-content {
+        padding: 0.5rem 0.6rem;
+      }
+      
+      .timeline-content h3 {
+        font-size: 0.9rem;
+      }
+      
+      .timeline-content p {
+        font-size: 0.8rem;
+      }
+      
+      .float-btn {
+        padding: 0.3rem 0.6rem;
+        font-size: 12px;
+      }
+      
+      .float-btn .icon {
+        width: 14px;
+        height: 14px;
+      }
+      
+      .staff-card {
+        max-width: 140px;
+        padding: 8px;
+      }
+      
+      .staff-card img {
+        height: 120px;
+      }
+
+      .main-content {
+        margin-top: 52px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .logo h1 {
+        font-size: 14px;
+      }
+      
+      .logo img {
+        width: 30px;
+        height: 30px;
+      }
+      
+      .timeline-title {
+        font-size: 1.1rem;
+      }
+      
+      .float-btn {
+        font-size: 11px;
+      }
+
+      .main-content {
+        margin-top: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="logo">
+      <img src="logo.jpeg" alt="TEKINOVA Logo">
+      <h1>TekiNova</h1>
+    </div>
+    
+    <nav class="navbar">
+      <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      
+      <ul class="desktop-menu" id="desktopMenu">
+        <li><a href="index.html">Home</a></li>
+        <li>
+          <a href="#">About</a>
+          <div class="dropdown">
+            <h2>About TEKINOVA</h2>
+            <a href="About.html">About Us</a>
+            <a href="#">Company Background & Vision</a>
+            <a href="#">Mission & Goals</a>
+            <a href="#">Contacts</a>
+            <h2>Administrative</h2>
+            <a href="#">Team or Founders</a>
+            <a href="#">Core Values</a>
+            <a href="#">Executive Organ</a>
+            <a href="#">Senior Management</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Services</a>
+          <div class="dropdown">
+            <h2>Services</h2>
+            <a href="services.html">Our Services</a>
+            <a href="#">Web Development</a>
+            <a href="#">App Development</a>
+            <a href="#">Tech Consultancy</a>
+            <a href="#">Custom Software</a>
+            <a href="#">AI/IoT/Automation Services</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Products</a>
+          <div class="dropdown">
+            <h2>Products</h2>
+            <a href="Products.html">Products</a>
+            <a href="#">App Development</a>
+            <a href="#">Tech Consultancy</a>
+            <a href="#">Custom Software</a>
+            <a href="#">AI/IoT/Automation Services</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Tech News</a>
+          <div class="dropdown">
+            <h2>Blog</h2>
+            <a href="Blog_Tech_News.html">Blog Tech News</a>
+            <a href="#">Articles About Technology Trends</a>
+            <a href="#">How-to Guides or Tutorials</a>
+            <a href="#">Company Updates</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Careers</a>
+          <div class="dropdown">
+            <h2>Careers</h2>
+            <a href="Careers.html">Develop Your Careers</a>
+            <a href="#">Articles About Technology Trends</a>
+            <a href="#">How-to Guides or Tutorials</a>
+            <a href="#">Company Updates</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Jobs</a>
+          <div class="dropdown">
+            <h2>Apply Job</h2>
+            <a href="features.html">Go to Jobs & Internships</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Contact</a>
+          <div class="dropdown">
+            <h2>Contact</h2>
+            <a href="contact_us.html">Tell Us Anything</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Working Calendar</a>
+          <div class="dropdown">
+            <h2>Calendar</h2>
+            <a href="amasahayakazi.html">Our Calendar Days</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Hamburger Menu Icon (right side) -->
+    <div class="hamburger-icon">
+      <i class="fas fa-bars"></i>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li class="has-dropdown">
+        <a href="#">About</a>
+        <div class="dropdown">
+          <h2>About TEKINOVA</h2>
+          <a href="About.html">About Us</a>
+          <a href="#">Company Background & Vision</a>
+          <a href="#">Mission & Goals</a>
+          <a href="#">Contacts</a>
+          <h2>Administrative</h2>
+          <a href="#">Team or Founders</a>
+          <a href="#">Core Values</a>
+          <a href="#">Executive Organ</a>
+          <a href="#">Senior Management</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Services</a>
+        <div class="dropdown">
+          <h2>Services</h2>
+          <a href="services.html">Our Services</a>
+          <a href="#">Webdevelopment</a>
+          <a href="#">App Development</a>
+          <a href="#">Tech Consultancy</a>
+          <a href="#">Custom Software</a>
+          <a href="#">AI/IoT/Automation Services</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Products</a>
+        <div class="dropdown">
+          <h2>Products</h2>
+          <a href="Products.html">Products</a>
+          <a href="#">App Development</a>
+          <a href="#">Tech Consultancy</a>
+          <a href="#">Custom Software</a>
+          <a href="#">AI/IoT/Automation Services</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Tech News</a>
+        <div class="dropdown">
+          <h2>Blog</h2>
+          <a href="Blog_Tech_News.html">Blog Tech News</a>
+          <a href="#">Articles About Technology Trends</a>
+          <a href="#">How-to Guides or Tutorials</a>
+          <a href="#">Company Updates</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Careers</a>
+        <div class="dropdown">
+          <h2>Careers</h2>
+          <a href="Careers.html">Develop Your Careers</a>
+          <a href="#">Articles About Technology Trends</a>
+          <a href="#">How-to Guides or Tutorials</a>
+          <a href="#">Company Updates</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Jobs</a>
+        <div class="dropdown">
+          <h2>Apply Job</h2>
+          <a href="features.html">Go to Jobs & Internships</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Contact</a>
+        <div class="dropdown">
+          <h2>Contact</h2>
+          <a href="contact_us.html">Tell Us Anything</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Working Calendar</a>
+        <div class="dropdown">
+          <h2>Calendar</h2>
+          <a href="amasahayakazi.html">Our Calendar Days</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Overlay for sidebar -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- ===== HAMBURGER MENU SIDEBAR ===== -->
+  <aside class="sidebar" id="hamburgerMenu">
+    <div class="sidebar-header">
+      <span><i class="fas fa-bars"></i> Hamburger Menu</span>
+      <i class="fas fa-times"></i>
+    </div>
+    
+    <nav>
+      <a href="index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="About.html"><i class="fas fa-info-circle"></i> About</a>
+      <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
+      <a href="Products.html"><i class="fas fa-box"></i> Products</a>
+      <a href="Blog_Tech_News.html"><i class="fas fa-blog"></i> Blog</a>
+      <a href="Careers.html"><i class="fas fa-briefcase"></i> Careers</a>
+      <a href="features.html"><i class="fas fa-laptop-code"></i> Jobs</a>
+      <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+    
+    <!-- Menu Panels -->
+    <div class="menu-panel">
+      <h3>Quick Stats</h3>
+      <p>Overview of your recent activity</p>
+      <div class="panel-stats">
+        <div>
+          <span>1,245</span>
+          <small>Visitors</small>
+        </div>
+        <div>
+          <span>24</span>
+          <small>Projects</small>
+        </div>
+        <div>
+          <span>18</span>
+          <small>Team</small>
+        </div>
+      </div>
+    </div>
+    
+    <div class="menu-panel">
+      <h3>Recent Activity</h3>
+      <p><i class="fas fa-check-circle"></i> New project started</p>
+      <p><i class="fas fa-user-plus"></i> 3 new team members</p>
+      <p><i class="fas fa-sync-alt"></i> Website updated</p>
+    </div>
+  </aside>
+  
+  <!-- Talk to Us -->
+  <div class="floating-whatsapp-buttons left-side">
+    <a href="https://wa.me/250733253803" class="float-btn chat" target="_blank">
+      <span class="icon"></span>
+      <span class="label">Chat</span>
+    </a>
+    <a href="https://chat.whatsapp.com/CoPf3siZOpKB2B9UNh2fYC" class="float-btn group" target="_blank">
+      <span class="icon"></span>
+      <span class="label">Join Group</span>
+    </a>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="main-content">
+    <div class="timeline-container">
+      <h2 class="timeline-title">Weekly Work Schedule</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot start-dot">🕒</div>
+          <div class="timeline-content">
+            <h3>Start</h3>
+            <p>Weekly working hours</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">1</div>
+          <div class="timeline-content">
+            <h3>Monday (Day 1)</h3>
+            <p>09:00 – 15:00 <br><strong>+ Extra Time</strong></p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">2</div>
+          <div class="timeline-content">
+            <h3>Tuesday (Day 2)</h3>
+            <p>09:00 – 15:00 <br><strong>+ Extra Time</strong></p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">3</div>
+          <div class="timeline-content">
+            <h3>Wednesday (Day 3)</h3>
+            <p>09:00 – 15:00 <br><strong>+ Extra Time</strong></p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">4</div>
+          <div class="timeline-content">
+            <h3>Thursday (Day 4)</h3>
+            <p>09:00 – 15:00 <br><strong>+ Extra Time</strong></p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">5</div>
+          <div class="timeline-content">
+            <h3>Friday (Day 5)</h3>
+            <p>09:00 – 15:00 <br><strong>+ Extra Time</strong></p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">6</div>
+          <div class="timeline-content">
+            <h3>Saturday (Day 6)</h3>
+            <p>09:00 – 15:00 <br><strong>+ Extra Time</strong></p>
+          </div>
+        </div>
+
+        <div class="timeline-item sunday">
+          <div class="timeline-dot">7</div>
+          <div class="timeline-content">
+            <h3>Sunday (Day 7)</h3>
+            <p><strong>Afternoon only</strong> (after 12:00)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-columns">
+      <div class="col">
+        <h3>Contact</h3>
+        <a href="./contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <strong>WhatsApp:</strong>
+        <a href="https://wa.me/+250733253803" target="_blank" class="toto"> +250 733 253 803</a>
+        <strong>Email:</strong>
+        <a href="mailto:fiqueat@gmail.com" class="toto">fiqueat@gmail.com</a>
+      </div>
+      <div class="col">
+        <h3>About TEKINOVA</h3>
+        <a href="About.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Company Background & Vision</a>
+        <a href="#">Mission & Goals</a>
+        <a href="#">Contacts</a>
+        <h2>Administrative</h2>
+        <a href="#">Team or Founders</a>
+        <a href="#">Core Values</a>
+        <a href="#">Executive Organ</a>
+        <a href="#">Senior Management</a>
+      </div>
+      <div class="col">
+        <h3>Services</h3>
+        <a href="services.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Web Development</a>
+        <a href="#">App Development</a>
+        <a href="#">Tech Consultancy</a>
+        <a href="#">Custom Software</a>
+        <a href="#">AI/IoT/Automation Services</a>
+      </div>
+      <div class="col">
+        <h3>Products</h3>
+        <a href="Products.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">App Development</a>
+        <a href="#">Tech Consultancy</a>
+        <a href="#">Custom Software</a>
+        <a href="#">AI/IoT/Automation Services</a>
+      </div>
+      <div class="col">
+        <h3>Careers</h3>
+        <a href="Careers.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Articles About Technology Trends</a>
+        <a href="#">How-to Guides or Tutorials</a>
+        <a href="#">Company Updates</a>
+      </div>
+      <div class="col">
+        <h3>Jobs & Internships</h3>
+        <a href="features.html" style="text-decoration: underline;"><b>More Info</b></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JS ===== -->
+  <script>
+    // Object to store scroll positions for each page
+    const scrollPositions = {};
+
+    // Save scroll position before navigating
+    function saveScrollPosition() {
+      scrollPositions[window.location.pathname] = window.scrollY;
+    }
+
+    // Restore scroll position or scroll to top
+    function restoreScrollPosition() {
+      const savedPosition = scrollPositions[window.location.pathname] || 0;
+      window.scrollTo({ top: savedPosition, behavior: 'smooth' });
+    }
+
+    // Toggle hamburger menu open/close
+    function openCloseSideMenu() {
+      const hamburgerMenu = document.getElementById('hamburgerMenu');
+      const overlay = document.getElementById('overlay');
+      hamburgerMenu.classList.toggle('active');
+      overlay.classList.toggle('active');
+    }
+
+    // Toggle mobile menu
+    function openCloseMobileNav() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('active');
+      
+      // Close dropdowns when closing menu
+      if (!mobileMenu.classList.contains('active')) {
+        document.querySelectorAll('.mobile-menu .dropdown').forEach(dropdown => {
+          dropdown.style.display = 'none';
+          dropdown.parentElement.classList.remove('active');
+        });
+      }
+    }
+
+    // Mobile dropdown toggle
+    function openCloseMobileDropdown(element) {
+      element.classList.toggle('active');
+      const dropdown = element.querySelector('.dropdown');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Add event listeners
+    document.querySelector('.hamburger-icon').addEventListener('click', openCloseSideMenu);
+    document.querySelector('.menu-toggle').addEventListener('click', openCloseMobileNav);
+    document.querySelectorAll('.mobile-menu .has-dropdown').forEach(item => {
+      item.addEventListener('click', () => openCloseMobileDropdown(item));
+    });
+    document.querySelector('.sidebar-header .fa-times').addEventListener('click', openCloseSideMenu);
+    document.querySelector('#overlay').addEventListener('click', openCloseSideMenu);
+
+    // Close hamburger menu and mobile menu when clicking outside
+    document.addEventListener('click', function (event) {
+      const hamburgerMenu = document.getElementById('hamburgerMenu');
+      const hamburgerIcon = document.querySelector('.hamburger-icon');
+      const overlay = document.getElementById('overlay');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuToggle = document.querySelector('.menu-toggle');
+
+      if (hamburgerMenu.classList.contains('active') &&
+          !hamburgerMenu.contains(event.target) &&
+          !hamburgerIcon.contains(event.target)) {
+        hamburgerMenu.classList.remove('active');
+        overlay.classList.remove('active');
+      }
+      
+      if (mobileMenu.classList.contains('active') &&
+          !mobileMenu.contains(event.target) &&
+          !menuToggle.contains(event.target)) {
+        mobileMenu.classList.remove('active');
+        document.querySelectorAll('.mobile-menu .dropdown').forEach(dropdown => {
+          dropdown.style.display = 'none';
+          dropdown.parentElement.classList.remove('active');
+        });
+      }
+    });
+
+    // Close hamburger menu on Escape key
+    document.addEventListener('keydown', function (event) {
+      const hamburgerMenu = document.getElementById('hamburgerMenu');
+      const overlay = document.getElementById('overlay');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (event.key === 'Escape') {
+        if (hamburgerMenu.classList.contains('active')) {
+          hamburgerMenu.classList.remove('active');
+          overlay.classList.remove('active');
+        }
+        if (mobileMenu.classList.contains('active')) {
+          mobileMenu.classList.remove('active');
+          document.querySelectorAll('.mobile-menu .dropdown').forEach(dropdown => {
+            dropdown.style.display = 'none';
+            dropdown.parentElement.classList.remove('active');
+          });
+        }
+      }
+    });
+    
+    // Close mobile menu and sidebar when clicking a link, and scroll to top
+    document.querySelectorAll('.mobile-menu a, .sidebar a').forEach(link => {
+      link.addEventListener('click', function() {
+        if (!this.parentElement.classList.contains('has-dropdown')) {
+          document.getElementById('mobileMenu').classList.remove('active');
+          document.getElementById('hamburgerMenu').classList.remove('active');
+          document.getElementById('overlay').classList.remove('active');
+          document.querySelectorAll('.mobile-menu .dropdown').forEach(dropdown => {
+            dropdown.style.display = 'none';
+            dropdown.parentElement.classList.remove('active');
+          });
+          saveScrollPosition();
+          setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
+        }
+      });
+    });
+
+    // Restore scroll position on page load
+    window.addEventListener('load', restoreScrollPosition);
+    
+    // Save scroll position before unloading the page
+    window.addEventListener('beforeunload', saveScrollPosition);
+    
+    // Handle window resize
+    function handleResize() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const hamburgerMenu = document.getElementById('hamburgerMenu');
+      const overlay = document.getElementById('overlay');
+      if (window.innerWidth > 992) {
+        mobileMenu.classList.remove('active');
+        hamburgerMenu.classList.remove('active');
+        overlay.classList.remove('active');
+        document.querySelectorAll('.mobile-menu .dropdown').forEach(dropdown => {
+          dropdown.style.display = 'none';
+        });
+        document.querySelectorAll('.mobile-menu .has-dropdown').forEach(item => {
+          item.classList.remove('active');
+        });
+      }
+    }
+    
+    window.addEventListener('resize', handleResize);
+  </script>
+</body>
+</html>

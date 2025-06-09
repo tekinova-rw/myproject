@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TekiNova</title>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    /* Reset and Global Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+      padding-top: 60px; /* Adjusted for sticky header */
+    }
+
+    /* Header */
+    header {
+      background-color: #012f47;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed; /* Changed to fixed for sticky header */
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid gold;
+      margin-right: 8px;
+    }
+
+    .logo h1 {
+      color: gold;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #033d3d;
+      color: gold;
+    }
+
+    /* Hamburger Menu Icon */
+    .hamburger-icon {
+      font-size: 22px;
+      cursor: pointer;
+      color: white;
+      transition: color 0.3s;
+    }
+
+    .hamburger-icon:hover {
+      color: gold;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    /* Sidebar Menu */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -280px;
+      width: 260px;
+      height: 100vh;
+      background-color: #002240;
+      color: white;
+      padding: 15px;
+      transition: right 0.3s ease;
+      z-index: 999;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+      overflow-y: auto;
+    }
+
+    .sidebar.active {
+      right: 0;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+      color: gold;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #555;
+    }
+
+    .sidebar-header i {
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .sidebar-header i:hover {
+      color: #d4af37;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      padding: 10px 0;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .sidebar a:hover {
+      color: gold;
+    }
+
+    .sidebar i {
+      width: 18px;
+      text-align: center;
+    }
+
+    /* Menu Widgets */
+    .menu-widget {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+    .menu-widget h3 {
+      color: gold;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .menu-widget p {
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .menu-widget .widget-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .widget-stats div {
+      text-align: center;
+      flex: 1;
+    }
+
+    .widget-stats span {
+      display: block;
+      font-size: 16px;
+      font-weight: bold;
+      color: gold;
+    }
+
+    .widget-stats small {
+      font-size: 11px;
+      opacity: 0.8;
+    }
+
+    /* Main Content */
+    .main-content {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 15px;
+      overflow-x: hidden; /* Prevent horizontal overflow */
+    }
+
+    /* Footer */
+    footer {
+      background-color: #012f47;
+      color: white;
+      padding: 30px 15px;
+    }
+
+    .footer-columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+    }
+
+    .footer-columns .col {
+      flex: 1 1 180px;
+      min-width: 160px;
+    }
+
+    .footer-columns .col h3 {
+      color: gold;
+      margin-bottom: 10px;
+    }
+
+    .footer-columns .col a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 5px;
+      transition: color 0.3s;
+    }
+
+    .footer-columns .col a:hover {
+      color: #d4af37;
+    }
+
+    /* Navigation Dropdowns */
+    .navbar ul {
+      list-style: none;
+      display: flex;
+    }
+
+    .navbar li {
+      position: relative;
+    }
+
+    .navbar a {
+      display: block;
+      padding: 12px 16px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+
+    .navbar a:hover {
+      background-color: #033d3d;
+    }
+
+    .navbar a.active {
+      color: #eaedf1;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #002366;
+      min-width: 220px;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 999;
+    }
+
+    .dropdown a {
+      padding: 10px 14px;
+      display: block;
+      color: white;
+      text-decoration: none;
+    }
+
+    .dropdown a:hover {
+      background-color: #033d3d;
+    }
+
+    .navbar li:hover .dropdown {
+      display: block;
+    }
+
+    /* Sliding Gallery */
+    .sliding-gallery {
+      max-width: 100%;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1.5rem 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .gallery-track {
+      display: flex;
+      width: max-content;
+      animation: slideGallery 15s linear infinite;
+    }
+
+    .gallery-track img {
+      width: 100%;
+      max-width: 500px;
+      flex-shrink: 0;
+      object-fit: cover;
+      margin-right: 8px;
+      border-radius: 10px;
+    }
+
+    @keyframes slideGallery {
+      0% { transform: translateX(0); }
+      33% { transform: translateX(-100%); }
+      66% { transform: translateX(-200%); }
+      100% { transform: translateX(0); }
+    }
+
+    .amahugurwa, ul, li {
+      font-family: 'Times New Roman', Times, serif;
+      text-align: center;
+      font-size: larger;
+    }
+
+    .amahugurwa p {
+      margin-bottom: 0.8rem;
+    }
+
+    .amahugurwa ul {
+      margin-bottom: 0.8rem;
+      padding-left: 20px;
+    }
+
+    .amahugurwa a {
+      display: inline-block;
+      margin-top: 0.5rem;
+      color: #0055aa;
+      text-decoration: none;
+    }
+
+    .amahugurwa a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .logo h1 {
+        font-size: 20px;
+      }
+
+      .logo img {
+        width: 36px;
+        height: 36px;
+      }
+
+      .sidebar {
+        width: 240px;
+      }
+
+      .gallery-track img {
+        max-width: 400px;
+      }
+
+      .main-content {
+        padding: 12px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+        color: white;
+      }
+
+      .hamburger-icon {
+        display: none;
+      }
+
+      .sidebar {
+        width: 200px;
+      }
+
+      .footer-columns {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-columns .col {
+        text-align: center;
+      }
+
+      .gallery-track img {
+        max-width: 300px;
+      }
+
+      .main-content {
+        margin: 20px auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 8px 12px;
+      }
+
+      .logo img {
+        width: 32px;
+        height: 32px;
+      }
+
+      .logo h1 {
+        font-size: 18px;
+      }
+
+      .sidebar {
+        width: 100%;
+        right: -100%;
+      }
+
+      .main-content {
+        padding: 10px;
+        margin: 15px auto;
+      }
+
+      .sliding-gallery {
+        margin: 1rem 0;
+      }
+
+      .gallery-track img {
+        max-width: 100%;
+      }
+
+      .amahugurwa, ul, li {
+        font-size: medium;
+      }
+
+      .amahugurwa h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="logo">
+      <img src="logo.jpeg" alt="TEKINOVA Logo">
+      <h1>TekiNova</h1>
+    </div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li>
+          <a href="#">About</a>
+            <div class="dropdown">
+              <h2>About TEKINOVA</h2>
+                    <a href="About.html">About Us</a>
+                    <a href="#">Company Background & Vision</a>
+                    <a href="#">Mission & Goals</a>
+                    <a href="#">Contacts</a>
+                    <h2>Organization</h2>
+                    <a href="#">Team or Founders</a>
+                    <a href="#">Core Values</a>
+                    <a href="#">Leadership Council</a>
+                    <a href="#">Leadership Team</a>
+            </div>
+          </li>
+        <li>
+          <a href="#">Services</a>
+            <div class="dropdown">
+              <a href="services.html">Got Services</a>
+              <a href="">Web Development</a>
+              <a href="">App Development</a>
+              <a href="">Tech Consultancy</a>
+              <a href="">Custom Software</a>
+              <a href="">AI/IoT/Automation Services</a>
+            </div>
+        </li>
+        <li>
+          <a href="#">Product</a>
+           <div class="dropdown">
+              <a href="Products.html">Products</a>
+              <a href="">App Development</a>
+             </div>
+        </li>
+        <li>
+          <a href="#">Tech News</a>
+           <div class="dropdown">
+                    <h2>Blog</h2>
+                    <a href="Blog_Tech_News.html">Blog Tech News</a>
+                    <a href="">Articles About Technology Trends</a>
+                    <a href="">How-to Guides or Tutorials</a>
+                    <a href="">Company Updates</a>
+            </div>
+        </li>
+        <li>
+          <a href="#">Careers</a>
+          <div class="dropdown">
+                    <a href="Careers.html">Develop Your Careers</a>
+                    <a href="">Articles About Technology Trends</a>
+                    <a href="">How-to Guides or Tutorials</a>
+                    <a href="">Company Updates</a>
+          </div>
+        </li>
+        <li>
+          <a href="">Jobs</a>
+          <div class="dropdown">
+                    <h2>Apply Job</h2>
+                    <a href="features.html">Go to Jobs & Internships</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Contact</a>
+              <div class="dropdown">
+                    <a href="contact_us.html">Tell Us Anything</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Working Calendar</a>
+              <div class="dropdown">
+                    <a href="amasahayakazi.html">Our Calendar Days</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Hamburger Menu Icon (right side) -->
+    <div class="hamburger-icon" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
+    
+    <!-- Mobile menu toggle (hidden by default) -->
+    <div class="menu-toggle" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </div>
+  </header>
+
+  <!-- ===== HAMBURGER MENU SIDEBAR ===== -->
+  <aside class="sidebar" id="menu">
+    <div class="sidebar-header">
+      <span><i class="fas fa-bars"></i> Hamburger Menu</span>
+      <i class="fas fa-times" onclick="toggleMenu()"></i>
+    </div>
+    
+    <nav>
+      <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+      <a href="About.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
+      <a href="Services.html" class="nav-link"><i class="fas fa-cogs"></i> Services</a>
+      <a href="Products.html" class="nav-link"><i class="fas fa-box"></i> Products</a>
+      <a href="Blog_Tech_News.html" class="nav-link"><i class="fas fa-blog"></i> Blog</a>
+      <a href="Careers.html" class="nav-link"><i class="fas fa-briefcase"></i> Careers</a>
+      <a href="features.html" class="nav-link"><i class="fas fa-laptop-code"></i> Jobs</a>
+      <a href="contact_us.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+    
+    <!-- Menu Widgets -->
+    <div class="menu-widget">
+      <h3>Quick Stats</h3>
+      <p>Overview of your recent activity</p>
+      <div class="widget-stats">
+        <div>
+          <span>1,245</span>
+          <small>Visitors</small>
+        </div>
+        <div>
+          <span>24</span>
+          <small>Projects</small>
+        </div>
+        <div>
+          <span>18</span>
+          <small>Team</small>
+        </div>
+      </div>
+    </div>
+    
+    <div class="menu-widget">
+      <h3>Recent Activity</h3>
+      <p><i class="fas fa-check-circle"></i> New project started</p>
+      <p><i class="fas fa-user-plus"></i> 3 new team members</p>
+      <p><i class="fas fa-sync-alt"></i> Website updated</p>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="main-content">
+    <h1>Gukora Websites & Apps</h1>
+
+    <!-- Amafoto atambuka -->
+    <div class="sliding-gallery">
+      <div class="gallery-track">
+        <img src="images/web1.jpg" alt="Design ya website">
+        <img src="images/web2.jpg" alt="Dashboard app">
+        <img src="images/web3.jpg" alt="Responsive view">
+      </div>
+    </div>
+    <div class="amahugurwa">
+      <h1>Dutanga Serivisi zo Gukora Imbuga za Internet na Applications</h1>
+      <ul>
+        <li>Imbuga zisubiza kuri byose (responsive design)</li>
+        <li>Applications za business (dashboards, portals)</li>
+        <li>Kugenzura no kuvugurura imbuga zisanzwe</li>
+        <li>Kugenzura umutekano no gutunganya hosting</li>
+      </ul>
+      <a href="index.html">← Subira ku Rubuga Nyamukuru</a>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-columns">
+      <div class="col">
+        <h3>Contact</h3>
+        <a href="./contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <strong>WhatsApp:</strong>
+          <a href="https://wa.me/+250733253803" target="_blank" class="toto"> +250 733 253 803</a>
+        <strong>Email:</strong>
+          <a href="mailto:fiqueat@gmail.com" class="toto">fiqueat@gmail.com</a>
+      </div>
+      <div class="col">
+        <h3>About Tekinova</h3>
+        <a href="About.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Company Background & Vision</a>
+        <a href="#">Mission & Goals</a>
+        <a href="#">Contacts</a>
+        <h2>Organization</h2>
+        <a href="#">Team or Founders</a>
+        <a href="#">Core Values</a>
+        <a href="#">Leadership Council</a>
+        <a href="#">Leadership Team</a>
+      </div>
+      <div class="col">
+        <h3>Services</h3>
+        <a href="services.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="">Web Development</a>
+        <a href="">App Development</a>
+        <a href="">Tech Consultancy</a>
+        <a href="">Custom Software</a>
+        <a href="">AI/IoT/Automation Services</a>
+      </div>
+      <div class="col">
+        <h3>Product</h3>
+        <a href="Products.html" style="text-decoration: underline;"><b>Moretps://wa.me/+250733253803" target="_blank" class="toto"> +250 733 253 803</a>
+        <strong>Email:</strong>
+          <a href="mailto:fiqueat@gmail.com" class="toto">fiqueat@gmail.com</a>
+      </div>
+      <div class="col">
+        <h3>About Tekinova</h3>
+        <a href="About.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Company Background & Vision</a>
+        <a href="#">Mission & Goals</a>
+        <a href="#">Contacts</a>
+        <h2>Organization</h2>
+        <a href="#">Team or Founders</a>
+        <a href="#">Core Values</a>
+        <a href="#">Leadership Council</a>
+        <a href="#">Leadership Team</a>
+      </div>
+      <div class="col">
+        <h3>Services</h3>
+        <a href="services.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="">Web Development</a>
+        <a href="">App Development</a>
+        <a href="">Tech Consultancy</a>
+        <a href="">Custom Software</a>
+        <a href="">AI/IoT/Automation Services</a>
+      </div>
+      <div class="col">
+        <h3>Product</h3>
+        <a href="Products.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="">App Development</a>
+        <a href="">Tech Consultancy</a>
+        <a href="">Custom Software</a>
+        <a href="">AI/IoT/Automation Services</a>
+      </div>
+      <div class="col">
+        <h3>Careers</h3>
+        <a href="Careers.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="">Articles About Technology Trends</a>
+        <a href="">How-to Guides or Tutorials</a>
+        <a href="">Company Updates</a>
+      </div>
+      <div class="col">
+        <h3>Jobs & Internships</h3>
+        <a href="features.html" style="text-decoration: underline;"><b>More Info</b></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JS: Toggle Menu and Scroll Management ===== -->
+  <script>
+    // Store scroll position before navigation
+    let scrollPositions = {};
+
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.classList.toggle('active');
+      
+      // Save scroll position when opening menu
+      if (menu.classList.contains('active')) {
+        scrollPositions['main'] = window.scrollY;
+      } else {
+        // Restore scroll position when closing menu
+        window.scrollTo(0, scrollPositions['main'] || 0);
+      }
+    }
+
+    function toggleSidebar() {
+      toggleMenu();
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function (event) {
+      const menu = document.getElementById('menu');
+      const hamburgerIcon = document.querySelector('.hamburger-icon');
+      const menuToggle = document.querySelector('.menu-toggle');
+
+      if (menu.classList.contains('active') &&
+          !menu.contains(event.target) &&
+          !hamburgerIcon.contains(event.target) &&
+          !menuToggle.contains(event.target)) {
+        menu.classList.remove('active');
+        window.scrollTo(0, scrollPositions['main'] || 0);
+      }
+    });
+
+    // Close menu on Escape key
+    document.addEventListener('keydown', function (event) {
+      const menu = document.getElementById('menu');
+      if (event.key === 'Escape' && menu.classList.contains('active')) {
+        menu.classList.remove('active');
+        window.scrollTo(0, scrollPositions['main'] || 0);
+      }
+    });
+
+    // Restore scroll position after navigation
+    document.addEventListener('DOMContentLoaded', () => {
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          // Save current scroll position before navigating
+          scrollPositions['main'] = window.scrollY;
+          
+          // On mobile, close sidebar after clicking a link
+          const menu = document.getElementById('menu');
+          if (menu.classList.contains('active')) {
+            menu.classList.remove('active');
+          }
+        });
+      });
+
+      // Restore scroll position if returning to page
+      if (scrollPositions['main']) {
+        window.scrollTo(0, scrollPositions['main']);
+      }
+    });
+  </script>
+</body>
+</html>

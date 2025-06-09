@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="description" content="TekiNova - Your digital career and services hub">
+  <title>TekiNova</title>
+
+  <!-- Font Awesome Icons with Subresource Integrity and Fallback -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="strict-origin-when-cross-origin" />
+  <style>
+    /* Fallback if Font Awesome fails */
+    .fa, .fas { font-family: sans-serif; }
+    .fa-home::before { content: "\2302"; }
+    .fa-info-circle::before { content: "\24D8"; }
+    .fa-cogs::before { content: "\2699"; }
+    .fa-box::before { content: "\2610"; }
+    .fa-blog::before { content: "\270D"; }
+    .fa-laptop-code::before { content: "\1F4BB"; }
+    .fa-briefcase::before { content: "\1F4BC"; }
+    .fa-envelope::before { content: "\2709"; }
+    .fa-bars::before { content: "\2630"; }
+    .fa-times::before { content: "\2715"; }
+    .fa-check-circle::before { content: "\2713"; }
+    .fa-user-plus::before { content: "\1F464"; }
+    .fa-sync-alt::before { content: "\21BB"; }
+
+    /* Reset and Global Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      background-color: #012f47;
+      color: white;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid gold;
+      margin-right: 10px;
+      transition: transform 0.3s;
+      will-change: transform;
+    }
+
+    .logo:hover img {
+      transform: rotate(15deg);
+    }
+
+    .logo h1 {
+      color: gold;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 12px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    nav a:hover {
+      background-color: #033d3d;
+      color: gold;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: gold;
+      transition: all 0.3s;
+      transform: translateX(-50%);
+    }
+
+    nav a:hover::after {
+      width: 80%;
+    }
+
+    /* Hamburger Menu Icon */
+    .hamburger-icon {
+      font-size: 22px;
+      cursor: pointer;
+      color: white;
+      transition: all 0.3s;
+      padding: 5px;
+      will-change: transform, color;
+    }
+
+    .hamburger-icon:hover {
+      color: gold;
+      transform: scale(1.1);
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 22px;
+      cursor: pointer;
+      transition: transform 0.3s;
+      padding: 5px;
+      will-change: transform;
+    }
+
+    .menu-toggle.active {
+      transform: rotate(90deg);
+    }
+
+    /* Sidebar Hamburger Menu */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      max-width: 80%;
+      height: 100vh;
+      background-color: #002240;
+      color: white;
+      padding: 15px;
+      transition: right 0.3s ease;
+      z-index: 999;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+      overflow-y: auto;
+    }
+
+    .sidebar.active {
+      right: 0;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+      color: gold;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #555;
+    }
+
+    .sidebar-header i {
+      cursor: pointer;
+      transition: color 0.3s;
+      will-change: transform, color;
+    }
+
+    .sidebar-header i:hover {
+      color: #d4af37;
+      transform: scale(1.2);
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      padding: 10px 0;
+      text-decoration: none;
+      transition: all 0.3s;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar a:hover {
+      color: gold;
+      padding-left: 8px;
+    }
+
+    .sidebar i {
+      width: 18px;
+      text-align: center;
+    }
+
+    /* Menu Widgets */
+    .menu-widget {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      padding: 12px;
+      margin: 12px 0;
+      transition: transform 0.3s;
+      will-change: transform;
+    }
+
+    .menu-widget:hover {
+      transform: translateY(-3px);
+    }
+
+    .menu-widget h3 {
+      color: gold;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .menu-widget p {
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .menu-widget .widget-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .widget-stats div {
+      text-align: center;
+      flex: 1;
+    }
+
+    .widget-stats span {
+      display: block;
+      font-size: 16px;
+      font-weight: bold;
+      color: gold;
+    }
+
+    .widget-stats small {
+      font-size: 11px;
+      opacity: 0.8;
+    }
+
+    /* Staff Cards */
+    .main-content {
+      max-width: 1200px;
+      margin: 80px auto 30px;
+      padding: 15px;
+    }
+
+    .staff-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .staff-card {
+      background-color: white;
+      border-radius: 10px;
+      width: 180px;
+      min-width: 160px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s;
+      cursor: pointer;
+      will-change: transform, box-shadow;
+    }
+
+    .staff-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .staff-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #012f47;
+      color: white;
+      padding: 30px 15px;
+    }
+
+    .footer-columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-columns .col {
+      flex: 1;
+      min-width: 160px;
+    }
+
+    .footer-columns .col h3 {
+      color: gold;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .footer-columns .col a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 6px;
+      transition: all 0.3s;
+    }
+
+    .footer-columns .col a:hover {
+      color: #d4af37;
+      padding-left: 3px;
+    }
+
+    /* Navigation Dropdowns */
+    .navbar ul {
+      list-style: none;
+      display: flex;
+    }
+
+    .navbar li {
+      position: relative;
+    }
+
+    .navbar a {
+      display: block;
+      padding: 12px 15px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+
+    .navbar a:hover {
+      background-color: #033d3d;
+    }
+
+    .navbar a.active {
+      color: #eaedf1;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #002366;
+      min-width: 200px;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      z-index: 999;
+      animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropdown a {
+      padding: 10px 12px;
+      display: block;
+      color: white;
+      text-decoration: none;
+    }
+
+    .dropdown a:hover {
+      background-color: #033d3d;
+    }
+
+    .navbar li:hover .dropdown {
+      display: block;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      nav ul {
+        gap: 8px;
+      }
+      
+      .navbar a {
+        padding: 10px 8px;
+        font-size: 13px;
+      }
+
+      .main-content {
+        margin: 70px auto 20px;
+        padding: 10px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #012f47;
+        flex-direction: column;
+        padding: 15px;
+        box-shadow: 0 8px 12px rgba(0,0,0,0.1);
+        z-index: 998;
+      }
+      
+      nav ul.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+        color: white;
+      }
+
+      .hamburger-icon {
+        display: block;
+      }
+      
+      .sidebar {
+        width: 80%;
+      }
+      
+      .dropdown {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        animation: none;
+        background-color: #002240;
+      }
+
+      .dropdown a {
+        padding-left: 20px;
+      }
+
+      .staff-card {
+        width: 45%;
+        min-width: 140px;
+      }
+
+      .abb {
+        margin: 70px 10px 20px;
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 8px 10px;
+      }
+      
+      .logo h1 {
+        font-size: 18px;
+      }
+      
+      .staff-card {
+        width: 100%;
+        max-width: 300px;
+      }
+      
+      .footer-columns .col {
+        min-width: 100%;
+      }
+
+      .abb {
+        margin: 60px 5px 10px;
+        padding: 10px;
+      }
+
+      .abb h1 {
+        font-size: 1.5rem;
+      }
+
+      .abb h2 {
+        font-size: 1.2rem;
+      }
+    }
+
+    /* About CSS */
+    .abb {
+      max-width: 1200px;
+      margin: 80px auto 30px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .abb h1 {
+      color: #012f47;
+      margin-bottom: 15px;
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    .abb h2 {
+      color: #012f47;
+      margin: 20px 0 12px;
+      border-bottom: 2px solid gold;
+      padding-bottom: 4px;
+    }
+
+    .abb p {
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+
+    .abb ul {
+      margin: 12px 0 20px;
+      padding-left: 18px;
+    }
+
+    .abb li {
+      margin-bottom: 6px;
+      position: relative;
+      padding-left: 12px;
+    }
+
+    .abb li::before {
+      content: "•";
+      color: gold;
+      position: absolute;
+      left: 0;
+    }
+
+    .highlight {
+      background-color: rgba(1, 47, 71, 0.1);
+      padding: 12px;
+      border-left: 3px solid gold;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .cta {
+      display: inline-block;
+      background-color: #012f47;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 12px;
+      transition: all 0.3s;
+      will-change: transform, background-color;
+    }
+
+    .cta:hover {
+      background-color: gold;
+      color: #012f47;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Loading animation */
+    .loading {
+      display: none;
+      text-align: center;
+      margin: 15px 0;
+    }
+
+    .spinner {
+      width: 35px;
+      height: 35px;
+      border: 3px solid rgba(0,0,0,0.1);
+      border-radius: 50%;
+      border-top-color: #012f47;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+      will-change: transform;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Form styles */
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      font-family: inherit;
+    }
+
+    .form-group textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .btn {
+      background-color: #012f47;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+      will-change: background-color;
+    }
+
+    .btn:hover {
+      background-color: gold;
+      color: #012f47;
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      background-color: #012f47;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 4px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 1001;
+      will-change: transform, opacity;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast.success {
+      background-color: #4CAF50;
+    }
+
+    .toast.error {
+      background-color: #F44336;
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="logo" id="logo">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAMAAAC7IEhfAAAAA1BMVEV7e3u0vP8AAAAAJ0lEQVR4AWOQEBAACQABAAAAAAAAAAAAAABAgICAgICAgICAgID/AKzMDR8C6S+UAAAAAElFTkSuQmCC" alt="TEKINOVA Logo">
+      <h1>TekiNova</h1>
+    </div>
+    <nav class="navbar">
+      <ul id="main-nav" role="navigation" aria-label="Main navigation">
+        <li><a href="index.html">Home</a></li>
+        <li>
+          <a href="#" aria-haspopup="true" aria-expanded="false">About</a>
+          <div class="dropdown">
+            <h2>About TEKINOVA</h2>
+            <a href="About.html">About</a>
+            <a href="#">Mission & goals</a>
+            <a href="#">Contacts</a>
+            <h2>Administrative</h2>
+            <a href="#">Team or founders</a>
+            <a href="#">Core values</a>
+            <a href="#">Executive Organ</a>
+            <a href="#">Senior Management</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Services</a>
+          <div class="dropdown">
+            <a href="services.html">Got Services</a>
+            <a href="#">Web development</a>
+            <a href="#">App development</a>
+            <a href="#">Tech consultancy</a>
+            <a href="#">Custom software</a>
+            <a href="#">AI/IoT/Automation services</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Product</a>
+          <div class="dropdown">
+            <a href="Products.html">Web development</a>
+            <a href="#">App development</a>
+            <a href="#">Tech consultancy</a>
+            <a href="#">Custom software</a>
+            <a href="#">AI/IoT/Automation services</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Tech News</a>
+          <div class="dropdown">
+            <h2>Blog</h2>
+            <a href="Blog_Tech_News.html">Blog_Tech_News</a>
+            <a href="#">Articles about technology trends</a>
+            <a href="#">How-to guides or tutorials</a>
+            <a href="#">Company updates</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Careers</a>
+          <div class="dropdown">
+            <a href="Careers.html">Develop your careers</a>
+            <a href="#">Articles about technology trends</a>
+            <a href="#">How-to guides or tutorials</a>
+            <a href="#">Company updates</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Jobs</a>
+          <div class="dropdown">
+            <h2>Apply Job</h2>
+            <a href="features.html">Go to Jobs & internships</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Contact</a>
+          <div class="dropdown">
+            <a href="contact_us.html">Tell us anything</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Working Calendar</a>
+          <div class="dropdown">
+            <a href="amasahayakazi.html">Our Calendar Days</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Hamburger Menu Icon (right side) -->
+    <div class="hamburger-icon" id="hamburger-icon" role="button" aria-label="Toggle sidebar menu">
+      <i class="fas fa-bars"></i>
+    </div>
+    
+    <!-- Mobile menu toggle (hidden by default) -->
+    <div class="menu-toggle" id="menu-toggle" role="button" aria-label="Toggle mobile menu" aria-expanded="false">
+      <i class="fas fa-bars"></i>
+    </div>
+  </header>
+
+  <!-- ===== HAMBURGER MENU SIDEBAR ===== -->
+  <aside class="sidebar" id="hamburgerMenu" role="navigation" aria-label="Sidebar menu">
+    <div class="sidebar-header">
+      <span><i class="fas fa-bars"></i> Menu</span>
+      <i class="fas fa-times" id="close-sidebar" role="button" aria-label="Close sidebar menu"></i>
+    </div>
+    
+    <nav>
+      <a href="index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="About.html"><i class="fas fa-info-circle"></i> About</a>
+      <a href="Services.html"><i class="fas fa-cogs"></i> Services</a>
+      <a href="Products.html"><i class="fas fa-box"></i> Products</a>
+      <a href="Blog_Tech_News.html"><i class="fas fa-blog"></i> Blog</a>
+      <a href="features.html"><i class="fas fa-laptop-code"></i> Jobs</a>
+      <a href="Careers.html"><i class="fas fa-briefcase"></i> Careers</a>
+      <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+    
+    <!-- Menu Widgets -->
+    <div class="menu-widget">
+      <h3>Quick Stats</h3>
+      <p>Overview of your recent activity</p>
+      <div class="widget-stats">
+        <div>
+          <span id="visitors-count">1,245</span>
+          <small>Visitors</small>
+        </div>
+        <div>
+          <span>24</span>
+          <small>Projects</small>
+        </div>
+        <div>
+          <span>18</span>
+          <small>Team</small>
+        </div>
+      </div>
+    </div>
+    
+    <div class="menu-widget">
+      <h3>Recent Activity</h3>
+      <p><i class="fas fa-check-circle"></i> New project started</p>
+      <p><i class="fas fa-user-plus"></i> 3 new team members</p>
+      <p><i class="fas fa-sync-alt"></i> Website updated</p>
+    </div>
+  </aside>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast" role="alert" aria-live="assertive"></div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="abb">
+    <h1>Welcome to TekiNova</h1>
+    <p>Your one-stop hub for digital careers and services</p>
+
+    <main>
+      <section>
+        <h2>Who We Are</h2>
+        <p><strong>TekiNova</strong> is a modern online platform offering digital services for individuals and businesses. From job seekers to tech startups, we empower our community with tools and opportunities to thrive in the digital world.</p>
+      </section>
+
+      <section>
+        <h2>What We Offer</h2>
+        <ul>
+          <li>Job Listings and Applications</li>
+          <li>Internship Opportunities</li>
+          <li>Website Development Services</li>
+          <li>Freelance Projects</li>
+          <li>Resume & CV Building Help</li>
+          <li>Online Portfolio Hosting</li>
+          <li>Tech Courses and Training</li>
+          <li>Startup & Tech Consulting</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Our Vision</h2>
+        <p class="highlight">To become a leading global platform that bridges the gap between talent and opportunity, helping people unlock their full potential and businesses thrive through technology.</p>
+      </section>
+
+      <section>
+        <h2>Our Mission</h2>
+        <p>To empower individuals and organizations by providing accessible digital tools, career-building services, and professional development opportunities in a rapidly evolving tech landscape.</p>
+      </section>
+
+      <section>
+        <h2>Founded</h2>
+        <p>TekiNova was proudly founded on <strong>May 22, 2025</strong> by <strong>Jane Doe</strong> with a vision to build a platform that supports growth, innovation, and career success in technology.</p>
+      </section>
+
+      <section>
+        <h2>Location</h2>
+        <p>TekiNova HQ
+          <br>123 Innovation Street
+          <br>Tech City, Rwanda</p>
+      </section>
+
+      <section>
+        <h2>Operating Hours</h2>
+        <ul>
+          <li><strong>Monday – Friday:</strong> 9:00 AM – 6:00 PM</li>
+          <li><strong>Saturday:</strong> 10:00 AM – 4:00 PM</li>
+          <li><strong>Sunday:</strong> Closed</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Who We Serve</h2>
+        <ul>
+          <li>Students and fresh graduates</li>
+          <li>Freelancers and job seekers</li>
+          <li>Startups and small businesses</li>
+          <li>Anyone passionate about tech and growth</li>
+        </ul>
+      </section>
+
+      <section style="text-align: center;">
+        <h2>Join the TekiNova Community</h2>
+        <p>Explore opportunities, grow your skills, and connect with a future in tech.</p>
+        <a href="#" class="cta" id="join-btn">Get Started</a>
+      </section>
+    </main>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-columns">
+      <div class="col">
+        <h3>Contact</h3>
+        <a href="./contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <strong>WhatsApp:</strong>
+        <a href="https://wa.me/+250733253803" target="_blank" class="toto" rel="noopener noreferrer">+250 733 253 803</a>
+        <strong>Email:</strong>
+        <a href="mailto:info@tekinova.com" class="toto" rel="noopener noreferrer">info@tekinova.com</a>
+      </div>
+      <div class="col">
+        <h3>About TekiNova</h3>
+        <a href="About.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Company background & vision</a>
+        <a href="#">Mission & goals</a>
+        <a href="#">Contacts</a>
+        <h2>Administrative</h2>
+        <a href="#">Team or founders</a>
+        <a href="#">Core values</a>
+        <a href="#">Executive Organ</a>
+        <a href="#">Senior Management</a>
+      </div>
+      <div class="col">
+        <h3>Services</h3>
+        <a href="services.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Web development</a>
+        <a href="#">App development</a>
+        <a href="#">Tech consultancy</a>
+        <a href="#">Custom software</a>
+        <a href="#">AI/IoT/Automation services</a>
+      </div>
+      <div class="col">
+        <h3>Product</h3>
+        <a href="Products.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">App development</a>
+        <a href="#">Tech consultancy</a>
+        <a href="#">Custom software</a>
+        <a href="#">AI/IoT/Automation services</a>
+      </div>
+      <div class="col">
+        <h3>Careers</h3>
+        <a href="Careers.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Articles about technology trends</a>
+        <a href="#">How-to guides or tutorials</a>
+        <a href="#">Company updates</a>
+      </div>
+      <div class="col">
+        <h3>Jobs & Internships</h3>
+        <a href="features.html" style="text-decoration: underline;"><b>More Info</b></a>
+      </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+      <p>© 2025 TekiNova. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ===== JS: Enhanced Functionality ===== -->
+  <script>
+    // DOM Elements
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const menuToggle = document.getElementById('menu-toggle');
+    const mainNav = document.getElementById('main-nav');
+    const joinBtn = document.getElementById('join-btn');
+    const toast = document.getElementById('toast');
+    const visitorCount = document.getElementById('visitors-count');
+    const logo = document.getElementById('logo');
+    const closeSidebar = document.getElementById('close-sidebar');
+
+    // Store scroll position
+    let scrollPosition = 0;
+
+    // Debounce utility to prevent rapid successive clicks
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+
+    // Toggle hamburger menu open/close
+    function toggleHamburgerMenu() {
+      const isActive = hamburgerMenu.classList.toggle('active');
+      document.body.style.overflow = isActive ? 'hidden' : '';
+      if (isActive) {
+        scrollPosition = window.scrollY;
+      } else {
+        window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
+      }
+    }
+
+    // Toggle mobile menu
+    function toggleMobileMenu() {
+      const isActive = menuToggle.classList.toggle('active');
+      mainNav.classList.toggle('active');
+      menuToggle.setAttribute('aria-expanded', isActive);
+      if (isActive) {
+        scrollPosition = window.scrollY;
+      } else {
+        window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
+      }
+    }
+
+    // Prevent default navigation for placeholder links
+    document.querySelectorAll('a[href="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+      });
+    });
+
+    // Toggle dropdown accessibility
+    document.querySelectorAll('.navbar a[aria-haspopup="true"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const isExpanded = link.getAttribute('aria-expanded') === 'true';
+        link.setAttribute('aria-expanded', !isExpanded);
+      });
+    });
+
+    // Event Listeners
+    if (hamburgerIcon) {
+      hamburgerIcon.addEventListener('click', toggleHamburgerMenu);
+    }
+
+    if (closeSidebar) {
+      closeSidebar.addEventListener('click', toggleHamburgerMenu);
+    }
+
+    if (menuToggle) {
+      menuToggle.addEventListener('click', toggleMobileMenu);
+    }
+
+    if (logo) {
+      logo.addEventListener('click', () => {
+        window.location.href = 'home.html';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Close hamburger menu when clicking outside
+    document.addEventListener('click', function(event) {
+      if (hamburgerMenu.classList.contains('active') &&
+          !hamburgerMenu.contains(event.target) &&
+          !hamburgerIcon.contains(event.target)) {
+        hamburgerMenu.classList.remove('active');
+        document.body.style.overflow = '';
+        window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
+      }
+    });
+
+    // Close hamburger menu on Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape' && hamburgerMenu.classList.contains('active')) {
+        hamburgerMenu.classList.remove('active');
+        document.body.style.overflow = '';
+        window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
+      }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId !== '#') {
+          const target = document.querySelector(targetId);
+          if (target) {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+
+    // Show toast notification (use textContent to prevent XSS)
+    function showToast(message, type = '') {
+      if (toast && typeof message === 'string') {
+        toast.textContent = message;
+        toast.className = 'toast show ' + type;
+        setTimeout(() => {
+          toast.className = toast.className.replace('show', '');
+        }, 3000);
+      }
+    }
+
+    // Join button click handler with debouncing
+    if (joinBtn) {
+      const debouncedJoin = debounce(function(e) {
+        e.preventDefault();
+        if (!joinBtn.disabled) {
+          showToast('Thank you for your interest! We will contact you soon.', 'success');
+          joinBtn.disabled = true;
+          setTimeout(() => {
+            console.log('Join request submitted');
+            joinBtn.disabled = false;
+          }, 1000);
+        } else {
+          showToast('Please wait before submitting again.', 'error');
+        }
+      }, 1000);
+      joinBtn.addEventListener('click', debouncedJoin);
+    }
+
+    // Update visitor count (run once on load)
+    function updateVisitorCount() {
+      try {
+        const baseCount = 1245;
+        const randomIncrement = Math.floor(Math.random() * 10);
+        if (visitorCount) {
+          visitorCount.textContent = (baseCount + randomIncrement).toLocaleString();
+        }
+      } catch (error) {
+        console.error('Error updating visitor count:', error);
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      updateVisitorCount();
+      
+      // Highlight current page in navigation
+      try {
+        const currentPage = location.pathname.split('/').pop();
+        document.querySelectorAll('nav a').forEach(link => {
+          if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+          }
+        });
+      } catch (error) {
+        console.error('Error setting active navigation link:', error);
+      }
+    });
+
+    // Backend simulation (for demo purposes)
+    const backend = {
+      async getStaffMembers() {
+        try {
+          return [
+            { name: 'John Doe', position: 'CEO', image: 'staff1.jpg' },
+            { name: 'Jane Smith', position: 'CTO', image: 'staff2.jpg' }
+          ];
+        } catch (error) {
+          console.error('Error fetching staff members:', error);
+          return [];
+        }
+      }
+    };
+  </script>
+</body>
+</html>

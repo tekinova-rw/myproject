@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>TekiNova</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    /* ===== CSS ===== */
+    /* Reset and Global Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-top: 60px; /* Adjusted for sticky header height */
+    }
+
+    /* Header */
+    header {
+      background-color: #012f47;
+      color: white;
+      padding: 10px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed; /* Make header sticky */
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid gold;
+      margin-right: 8px;
+    }
+
+    .logo h1 {
+      color: gold;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 12px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #033d3d;
+      color: gold;
+    }
+
+    /* Hamburger Menu Icon */
+    .hamburger-menu {
+      font-size: 20px;
+      cursor: pointer;
+      color: white;
+      transition: color 0.3s;
+      padding: 6px;
+    }
+
+    .hamburger-menu:hover {
+      color: gold;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* Sidebar Menu */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -280px;
+      width: 260px;
+      height: 100vh;
+      background-color: #002240;
+      color: white;
+      padding: 15px;
+      transition: right 0.3s ease;
+      z-index: 999;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+      overflow-y: auto;
+    }
+
+    .sidebar.active {
+      right: 0;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      color: gold;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #555;
+    }
+
+    .sidebar-header i {
+      cursor: pointer;
+      transition: color 0.3s;
+      font-size: 18px;
+    }
+
+    .sidebar-header i:hover {
+      color: #d4af37;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      padding: 10px 0;
+      text-decoration: none;
+      transition: color 0.3s;
+      font-size: 13px;
+    }
+
+    .sidebar a:hover {
+      color: gold;
+    }
+
+    .sidebar i {
+      width: 18px;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    /* Menu Widgets */
+    .menu-widget {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+    .menu-widget h3 {
+      color: gold;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .menu-widget p {
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .menu-widget .widget-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .widget-stats div {
+      text-align: center;
+      flex: 1;
+    }
+
+    .widget-stats span {
+      display: block;
+      font-size: 16px;
+      font-weight: bold;
+      color: gold;
+    }
+
+    .widget-stats small {
+      font-size: 11px;
+      opacity: 0.8;
+    }
+
+    /* Main Content */
+    .main-content {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 15px;
+    }
+
+    /* Staff Cards */
+    .staff-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .staff-card {
+      background-color: white;
+      border-radius: 12px;
+      width: 180px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .staff-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #012f47;
+      color: white;
+      padding: 20px 10px;
+    }
+
+    .footer-columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-columns .col {
+      flex: 1 1 180px;
+    }
+
+    .footer-columns .col h3 {
+      color: gold;
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+
+    .footer-columns .col h2 {
+      color: gold;
+      margin: 12px 0 8px;
+      font-size: 15px;
+    }
+
+    .footer-columns .col a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 5px;
+      transition: color 0.3s;
+      font-size: 13px;
+    }
+
+    .footer-columns .col a:hover {
+      color: #d4af37;
+    }
+
+    /* Navigation Dropdowns */
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .navbar li {
+      position: relative;
+    }
+
+    .navbar a {
+      display: block;
+      padding: 10px 12px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .navbar a:hover {
+      background-color: #033d3d;
+    }
+
+    .navbar a.active {
+      color: #eaedf1;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #002366;
+      min-width: 220px;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 999;
+      padding: 8px;
+    }
+
+    .dropdown a {
+      padding: 6px 10px;
+      display: block;
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+
+    .dropdown a:hover {
+      background-color: #033d3d;
+      padding-left: 12px;
+    }
+
+    .navbar li:hover .dropdown {
+      display: block;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none;
+      width: 100%;
+      background-color: #012f47;
+      padding: 8px;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      z-index: 998;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    .mobile-menu.active {
+      display: block;
+    }
+
+    .mobile-menu ul {
+      list-style: none;
+    }
+
+    .mobile-menu li {
+      margin-bottom: 8px;
+    }
+
+    .mobile-menu a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      font-size: 13px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .mobile-menu a:hover {
+      background-color: #033d3d;
+    }
+
+    /* Sliding Gallery */
+    .sliding-gallery {
+      max-width: 100%;
+      overflow: hidden;
+      margin: 1.5rem 0;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .sliding-gallery .gallery-track {
+      display: flex;
+      width: max-content;
+      animation: slideGallery 18s linear infinite;
+      gap: 8px;
+    }
+
+    .sliding-gallery .gallery-track img {
+      max-width: 280px;
+      height: auto;
+      flex-shrink: 0;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    /* Animation */
+    @keyframes slideGallery {
+      0% { transform: translateX(0); }
+      33% { transform: translateX(-100%); }
+      66% { transform: translateX(-200%); }
+      100% { transform: translateX(0); }
+    }
+
+    .amahugurwa, .amahugurwa ul, .amahugurwa li {
+      font-family: 'Times New Roman', Times, serif;
+      text-align: center;
+      font-size: large;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .navbar ul {
+        gap: 8px;
+      }
+      
+      .navbar a {
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+      
+      .dropdown {
+        min-width: 200px;
+      }
+      
+      .sliding-gallery .gallery-track img {
+        max-width: 240px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: 52px; /* Adjusted for smaller header height */
+      }
+
+      header {
+        padding: 8px 12px;
+      }
+      
+      .navbar {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .hamburger-menu {
+        display: block;
+      }
+      
+      .sidebar {
+        width: 220px;
+      }
+      
+      .mobile-menu {
+        display: none;
+      }
+      
+      .mobile-menu.active {
+        display: block;
+      }
+      
+      .dropdown {
+        position: static;
+        display: none;
+        width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+      }
+      
+      .navbar li:hover .dropdown {
+        display: none;
+      }
+      
+      .navbar li.active .dropdown {
+        display: block;
+      }
+      
+      .staff-card {
+        width: 160px;
+      }
+      
+      .sliding-gallery .gallery-track img {
+        max-width: 200px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .logo h1 {
+        font-size: 16px;
+      }
+      
+      .logo img {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .staff-card {
+        width: 140px;
+      }
+      
+      .footer-columns .col {
+        flex: 1 1 100%;
+      }
+      
+      .mobile-menu {
+        top: 52px;
+      }
+      
+      .sliding-gallery .gallery-track img {
+        max-width: 160px;
+      }
+      
+      .amahugurwa, .amahugurwa ul, .amahugurwa li {
+        font-size: medium;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-content {
+        margin: 15px auto;
+        padding: 10px;
+      }
+      
+      .staff-card {
+        width: 130px;
+        padding: 10px;
+      }
+      
+      .staff-card img {
+        height: 160px;
+      }
+      
+      .sidebar {
+        width: 100%;
+        right: -100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== HTML ===== -->
+  <!-- ===== HEADER ===== -->
+  <header id="main-header">
+    <div class="logo">
+      <img src="logo.jpeg" alt="TEKINOVA Logo">
+      <h1>TekiNova</h1>
+    </div>
+    
+    <button class="mobile-menu-btn" aria-label="Toggle mobile menu" onclick="toggleMobileMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <nav class="navbar" id="navbar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li>
+          <a href="#">About</a>
+          <div class="dropdown">
+            <h2>About TEKINOVA</h2>
+            <a href="About.html">About Us</a>
+            <a href="#">Company Background & Vision</a>
+            <a href="#">Mission & Goals</a>
+            <a href="#">Contacts</a>
+            <h2>Management</h2>
+            <a href="#">Team or Founders</a>
+            <a href="#">Core Values</a>
+            <a href="#">Leadership Structure</a>
+            <a href="#">Senior Management</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Services</a>
+          <div class="dropdown">
+            <a href="services.html">Our Services</a>
+            <a href="#">Web Development</a>
+            <a href="#">App Development</a>
+            <a href="#">Tech Consultancy</a>
+            <a href="#">Custom Software</a>
+            <a href="#">AI/IoT/Automation Services</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Product</a>
+          <div class="dropdown">
+            <a href="Products.html">Products</a>
+            <a href="#">App Development</a>
+            <a href="#">Tech Consultancy</a>
+            <a href="#">Custom Software</a>
+            <a href="#">AI/IoT/Automation Services</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Tech News</a>
+          <div class="dropdown">
+            <h2>Blog</h2>
+            <a href="Blog_Tech_News.html">Blog Tech News</a>
+            <a href="#">Articles About Technology Trends</a>
+            <a href="#">How-to Guides or Tutorials</a>
+            <a href="#">Company Updates</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Careers</a>
+          <div class="dropdown">
+            <a href="Careers.html">Develop Your Careers</a>
+            <a href="#">Articles About Technology Trends</a>
+            <a href="#">How-to Guides or Tutorials</a>
+            <a href="#">Company Updates</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Jobs</a>
+          <div class="dropdown">
+            <h2>Apply Job</h2>
+            <a href="features.html">Go to Jobs & Internships</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Contact</a>
+          <div class="dropdown">
+            <a href="contact_us.html">Tell Us Anything</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Working Calendar</a>
+          <div class="dropdown">
+            <a href="amasahayakazi.html">Our Calendar Days</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Hamburger Menu Icon (right side) -->
+    <div class="hamburger-menu" aria-label="Toggle sidebar menu" onclick="toggleHamburgerMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
+  </header>
+
+  <!-- ===== HAMBURGER MENU SIDEBAR ===== -->
+  <aside class="sidebar" id="hamburgerMenu">
+    <div class="sidebar-header">
+      <span><i class="fas fa-bars"></i> Hamburger Menu</span>
+      <i class="fas fa-times" onclick="toggleHamburgerMenu()" aria-label="Close sidebar"></i>
+    </div>
+    
+    <nav>
+      <a href="index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="About.html"><i class="fas fa-info-circle"></i> About</a>
+      <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
+      <a href="Products.html"><i class="fas fa-box"></i> Products</a>
+      <a href="Blog_Tech_News.html"><i class="fas fa-blog"></i> Blog</a>
+      <a href="Careers.html"><i class="fas fa-briefcase"></i> Careers</a>
+      <a href="features.html"><i class="fas fa-laptop-code"></i> Jobs</a>
+      <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+    
+    <!-- Menu Widgets -->
+    <div class="menu-widget">
+      <h3>Quick Stats</h3>
+      <p>Overview of your recent activity</p>
+      <div class="widget-stats">
+        <div>
+          <span>1,245</span>
+          <small>Visitors</small>
+        </div>
+        <div>
+          <span>24</span>
+          <small>Projects</small>
+        </div>
+        <div>
+          <span>18</span>
+          <small>Team</small>
+        </div>
+      </div>
+    </div>
+    
+    <div class="menu-widget">
+      <h3>Recent Activity</h3>
+      <p><i class="fas fa-check-circle"></i> New project started</p>
+      <p><i class="fas fa-user-plus"></i> 3 new team members</p>
+      <p><i class="fas fa-sync-alt"></i> Website updated</p>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content">
+    <h1 style="text-align: center; margin: 15px 0; font-size: 1.6rem;">Blog & Events</h1>
+
+    <!-- Sliding Gallery -->
+    <div class="sliding-gallery">
+      <div class="gallery-track">
+        <img src="images/blog1.jpg" alt="Inkuru ya coding">
+        <img src="images/blog2.jpg" alt="Event ya tech">
+        <img src="images/blog3.jpg" alt="Tutorial mu Kinyarwanda">
+      </div>
+    </div>
+    <div class="amahugurwa">
+      <p>Turandika inkuru z'ubumenyi, tutorials, n'ama tips ya tech:</p>
+      <ul>
+        <li>Inyandiko zijyanye na coding, design na business</li>
+        <li>Amakuru agezweho muri tech community</li>
+        <li>Gutanga tutorials mu Kinyarwanda</li>
+        <li>Gukoresha blog mu gutanga internships & jobs</li>
+      </ul>
+      <a href="index.html">← Subira ku rubuga nyamukuru</a>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-columns">
+      <div class="col">
+        <h3>Contact</h3>
+        <a href="./contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <strong>WhatsApp:</strong>
+        <a href="https://wa.me/+250733253803" target="_blank" class="toto"> +250 733 253 803</a>
+        <strong>Email:</strong>
+        <a href="mailto:fiqueat@gmail.com" class="toto">fiqueat@gmail.com</a>
+      </div>
+      <div class="col">
+        <h3>About TEKINOVA</h3>
+        <a href="About.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Company Background & Vision</a>
+        <a href="#">Mission & Goals</a>
+        <a href="#">Contacts</a>
+        <h2>Management</h2>
+        <a href="#">Team or Founders</a>
+        <a href="#">Core Values</a>
+        <a href="#">Leadership Structure</a>
+        <a href="#">Senior Management</a>
+      </div>
+      <div class="col">
+        <h3>Services</h3>
+        <a href="services.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Web Development</a>
+        <a href="#">App Development</a>
+        <a href="#">Tech Consultancy</a>
+        <a href="#">Custom Software</a>
+        <a href="#">AI/IoT/Automation Services</a>
+      </div>
+      <div class="col">
+        <h3>Products</h3>
+        <a href="Products.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">App Development</a>
+        <a href="#">Tech Consultancy</a>
+        <a href="#">Custom Software</a>
+        <a href="#">AI/IoT/Automation Services</a>
+      </div>
+      <div class="col">
+        <h3>Careers</h3>
+        <a href="Careers.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Articles About Technology Trends</a>
+        <a href="#">How-to Guides or Tutorials</a>
+        <a href="#">Company Updates</a>
+      </div>
+      <div class="col">
+        <h3>Jobs & Internships</h3>
+        <a href="features.html" style="text-decoration: underline;"><b>More Info</b></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JavaScript ===== -->
+  <script>
+    // Toggle hamburger menu open/close
+    function toggleHamburgerMenu() {
+      const menu = document.getElementById('hamburgerMenu');
+      menu.classList.toggle('active');
+      // Prevent body scrolling when sidebar is open
+      document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function (event) {
+      const menu = document.getElementById('hamburgerMenu');
+      const menuIcon = document.querySelector('.hamburger-menu');
+
+      if (menu.classList.contains('active') &&
+          !menu.contains(event.target) &&
+          !menuIcon.contains(event.target)) {
+        menu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Close menu on Escape key
+    document.addEventListener('keydown', function (event) {
+      const menu = document.getElementById('hamburgerMenu');
+      if (event.key === 'Escape' && menu.classList.contains('active')) {
+        menu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const navbar = document.getElementById('navbar');
+      navbar.classList.toggle('active');
+      
+      // Close dropdowns and prevent body scrolling when mobile menu is open
+      if (navbar.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(dropdown => {
+          dropdown.style.display = 'none';
+        });
+      } else {
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    // Store scroll position before navigation
+    let scrollPosition = 0;
+    function saveScrollPosition() {
+      scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    }
+
+    // Restore scroll position after navigation
+    function restoreScrollPosition() {
+      window.scrollTo(0, scrollPosition);
+    }
+
+    // Toggle dropdowns on mobile and save/restore scroll position
+    document.querySelectorAll('.navbar li > a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          const dropdown = this.nextElementSibling;
+          if (dropdown && dropdown.classList.contains('dropdown')) {
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+            this.parentElement.classList.toggle('active');
+          } else {
+            saveScrollPosition();
+            window.location.href = this.href;
+            // Restore scroll position after page load (simulated with timeout)
+            setTimeout(restoreScrollPosition, 100);
+          }
+        }
+      });
+    });
+
+    // Restore scroll position on page load
+    window.addEventListener('load', restoreScrollPosition);
+  </script>
+</body>
+</html>

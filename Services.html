@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TekiNova</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous"/>
+  <style>
+    /* Reset and Global Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+      padding-top: 60px; /* Space for sticky header */
+    }
+
+    /* Header */
+    header {
+      background-color: #012f47;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid gold;
+      margin-right: 8px;
+    }
+
+    .logo h1 {
+      color: gold;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #033d3d;
+      color: gold;
+    }
+
+    .dashboard-icon {
+      font-size: 22px;
+      cursor: pointer;
+      color: white;
+      transition: color 0.3s;
+      order: 2; /* Ensure icon stays on the right */
+    }
+
+    .dashboard-icon:hover {
+      color: gold;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: white;
+      order: 3; /* Ensure mobile toggle is on the right */
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 260px;
+      height: 100vh;
+      background-color: #002240;
+      color: white;
+      padding: 15px;
+      transition: right 0.3s ease;
+      z-index: 999;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+      overflow-y: auto;
+    }
+
+    .sidebar.active {
+      right: 0;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+      color: gold;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #555;
+    }
+
+    .sidebar-header i {
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .sidebar-header i:hover {
+      color: #d4af37;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      padding: 10px 0;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .sidebar a:hover {
+      color: gold;
+    }
+
+    .sidebar i {
+      width: 18px;
+      text-align: center;
+    }
+
+    /* Dashboard Widgets */
+    .dashboard-widget {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+    .dashboard-widget h3 {
+      color: gold;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .dashboard-widget p {
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .widget-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .widget-stats div {
+      text-align: center;
+      flex: 1;
+    }
+
+    .widget-stats span {
+      display: block;
+      font-size: 16px;
+      font-weight: bold;
+      color: gold;
+    }
+
+    .widget-stats small {
+      font-size: 11px;
+      opacity: 0.8;
+    }
+
+    /* Main Content */
+    .main-content {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 15px;
+    }
+
+    .staff-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .staff-card {
+      background-color: white;
+      border-radius: 12px;
+      width: 180px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      flex: 1 1 180px;
+      max-width: 200px;
+    }
+
+    .staff-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #012f47;
+      color: white;
+      padding: 30px 15px;
+    }
+
+    .footer-columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-columns .col {
+      flex: 1 1 180px;
+      min-width: 160px;
+    }
+
+    .footer-columns .col h3 {
+      color: gold;
+      margin-bottom: 10px;
+    }
+
+    .footer-columns .col a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 5px;
+      transition: color 0.3s;
+    }
+
+    .footer-columns .col a:hover {
+      color: #d4af37;
+    }
+
+    /* Navigation Dropdowns */
+    .navbar ul {
+      list-style: none;
+      display: flex;
+    }
+
+    .navbar li {
+      position: relative;
+    }
+
+    .navbar a {
+      display: block;
+      padding: 12px 16px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+
+    .navbar a:hover {
+      background-color: #033d3d;
+    }
+
+    .navbar a.active {
+      color: #eaedf1;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #002366;
+      min-width: 220px;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 999;
+    }
+
+    .dropdown a {
+      padding: 10px 14px;
+      display: block;
+      color: white;
+      text-decoration: none;
+    }
+
+    .dropdown a:hover {
+      background-color: #033d3d;
+    }
+
+    .navbar li:hover .dropdown {
+      display: block;
+    }
+
+    /* Services Section */
+    .services-section {
+      padding: 2rem 0.8rem;
+      background-color: #f4f8fb;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      color: #002244;
+      margin-bottom: 1.5rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      flex: 1 1 240px;
+      max-width: 300px;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .icon {
+      font-size: 2.2rem;
+      color: #0055aa;
+      margin-bottom: 0.8rem;
+    }
+
+    .service-card h3 {
+      margin: 0.4rem 0;
+      font-size: 1.2rem;
+      color: #003366;
+    }
+
+    .service-card p {
+      font-size: 0.9rem;
+      color: #444;
+      margin-bottom: 0.8rem;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 0.4rem;
+      padding: 0.4rem 1rem;
+      background-color: #0055aa;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #003f88;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .logo h1 {
+        font-size: 20px;
+      }
+
+      .logo img {
+        width: 36px;
+        height: 36px;
+      }
+
+      .sidebar {
+        width: 240px;
+      }
+
+      .service-card {
+        max-width: 280px;
+      }
+
+      .staff-card {
+        max-width: 180px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav.navbar {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .dashboard-icon {
+        display: block;
+      }
+
+      .sidebar {
+        width: 240px;
+      }
+
+      .staff-card {
+        max-width: 160px;
+        flex: 1 1 160px;
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+      }
+
+      .service-card {
+        max-width: 260px;
+      }
+
+      .footer-columns {
+        gap: 15px;
+      }
+
+      .footer-columns .col {
+        flex: 1 1 150px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 8px 12px;
+      }
+
+      .logo img {
+        width: 32px;
+        height: 32px;
+      }
+
+      .logo h1 {
+        font-size: 18px;
+      }
+
+      .sidebar {
+        width: 100%;
+        right: -100%;
+      }
+
+      .main-content {
+        padding: 10px;
+        margin: 20px auto;
+      }
+
+      .staff-card {
+        max-width: 100%;
+        flex: 1 1 100%;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+      }
+
+      .service-card {
+        max-width: 100%;
+      }
+
+      .footer-columns {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="logo.jpeg" alt="TEKINOVA Logo">
+      <h1>TekiNova</h1>
+    </div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li>
+          <a href="#">About</a>
+          <div class="dropdown">
+            <h2>About TEKINOVA</h2>
+            <a href="About.html">About US</a>
+            <a href="#">Company background & vision</a>
+            <a href="#">Mission & goals</a>
+            <a href="#">Contacts</a>
+            <h2>Administrative</h2>
+            <a href="#">Team or founders</a>
+            <a href="#">Core values</a>
+            <a href="#">Leadership Board</a>
+            <a href="#">Senior Management</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Services</a>
+          <div class="dropdown">
+            <a href="services.html">Got Services</a>
+            <a href="">Web development</a>
+            <a href="">App development</a>
+            <a href="">Tech consultancy</a>
+            <a href="">Custom software</a>
+            <a href="">AI/IoT/Automation services</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Product</a>
+          <div class="dropdown">
+            <a href="Products.html">Web development</a>
+            <a href="">App development</a>
+            <a href="">Tech consultancy</a>
+            <a href="">Custom software</a>
+            <a href="">AI/IoT/Automation services</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Tch News</a>
+          <div class="dropdown">
+            <h2>blog</h2>
+            <a href="Blog_Tech_News.html">Blog_Tech_New</a>
+            <a href="">Articles about technology trends</a>
+            <a href="">How-to guides or tutorials</a>
+            <a href="">Company updates</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Careers</a>
+          <div class="dropdown">
+            <a href="Careers.html">Develop Your Career</a>
+            <a href="">Articles about technology trends</a>
+            <a href="">How-to guides or tutorials</a>
+            <a href="">Company updates</a>
+          </div>
+        </li>
+        <li>
+          <a href="">Jobs</a>
+          <div class="dropdown">
+            <h2>apply job</h2>
+            <a href="features.html">go to Jobs & Internships</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Contact</a>
+          <div class="dropdown">
+            <a href="contact_us.html">tell us anything</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Working Calendar</a>
+          <div class="dropdown">
+            <a href="amasahayakazi.html"> ▼ Our Calendar Days</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+    <div class="dashboard-icon">
+      <i class="fas fa-bars"></i>
+    </div>
+    <div class="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="dashboard">
+    <div class="sidebar-header">
+      <span><i class="fas fa-bars"></i> Hamburger Menu</span>
+      <i class="fas fa-times"></i>
+    </div>
+    <nav>
+      <a href="index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="About.html"><i class="fas fa-info-circle"></i> About</a>
+      <a href="Services.html"><i class="fas fa-cogs"></i> Services</a>
+      <a href="Products.html"><i class="fas fa-box"></i> Products</a>
+      <a href="Blog_Tech_News.html"><i class="fas fa-blog"></i> Blog</a>
+      <a href="Careers.html"><i class="fas fa-briefcase"></i> Careers</a>
+      <a href="features.html"><i class="fas fa-briefcase"></i> Jobs</a>
+      <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+    <div class="dashboard-widget">
+      <h3>Quick Stats</h3>
+      <p>Overview of your recent activity</p>
+      <div class="widget-stats">
+        <div>
+          <span>1,245</span>
+          <small>Visitors</small>
+        </div>
+        <div>
+          <span>24</span>
+          <small>Projects</small>
+        </div>
+        <div>
+          <span>18</span>
+          <small>Team</small>
+        </div>
+      </div>
+    </div>
+    <div class="dashboard-widget">
+      <h3>Recent Activity</h3>
+      <p><i class="fas fa-check-circle"></i> New project started</p>
+      <p><i class="fas fa-user-plus"></i> 3 new team members</p>
+      <p><i class="fas fa-sync-alt"></i> Website updated</p>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <section class="services-section">
+    <h2 class="section-title">Serivisi za TekiNova</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <i class="fas fa-laptop-code icon"></i>
+        <h3>Amahugurwa y’Ikoranabuhanga</h3>
+        <p>Web development, UI/UX, data analysis, n'ibindi.</p>
+        <a href="amahugurwa-section.html" class="btn">Soma byinshi</a>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-globe icon"></i>
+        <h3>Gukora Websites & Apps</h3>
+        <p>Gukora, gutunganya no gucunga imbuga na applications.</p>
+        <a href="gukorawebsites.html" class="btn">Soma byinshi</a>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-comments icon"></i>
+        <h3>Ubujyanama</h3>
+        <p>Inama ku mishinga ya tech, product planning, na digital strategy.</p>
+        <a href="ubujyanama.html" class="btn">Soma byinshi</a>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-tools icon"></i>
+        <h3>Support ya Software</h3>
+        <p>Gufasha gukemura ibibazo bya software na mudasobwa.</p>
+        <a href="suprt.html" class="btn">Soma byinshi</a>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-user-graduate icon"></i>
+        <h3>Internships & Projects</h3>
+        <p>Amahirwe yo kwitoza no gukorera kuri real projects.</p>
+        <a href="internalships.html" class="btn">Soma byinshi</a>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-blog icon"></i>
+        <h3>Blog & Events</h3>
+        <p>Inyandiko z’ubumenyi, tutorials, jobs, na hackathons.</p>
+        <a href="events.html" class="btn">Soma byinshi</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-columns">
+      <div class="col">
+        <h3>Contact</h3>
+        <a href="./contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <strong>WhatsApp:</strong>
+        <a href="https://wa.me/+250733253803" target="_blank" class="toto">+250 733 253 803</a>
+        <strong>Email:</strong>
+        <a href="mailto:fiqueat@gmail.com" class="toto">fiqueat@gmail.com</a>
+      </div>
+      <div class="col">
+        <h3>About TekiNova</h3>
+        <a href="About.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Company background & vision</a>
+        <a href="#">Mission & goals</a>
+        <a href="#">Contacts</a>
+        <h2>Administrative</h2>
+        <a href="#">Team or founders</a>
+        <a href="#">Core values</a>
+        <a href="#">Leadership Board</a>
+        <a href="#">Senior Management</a>
+      </div>
+      <div class="col">
+        <h3>Services</h3>
+        <a href="services.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="">Web development</a>
+        <a href="">App development</a>
+        <a href="">Tech consultancy</a>
+        <a href="">Custom software</a>
+        <a href="">AI/IoT/Automation services</a>
+      </div>
+      <div class="col">
+        <h3>Product</h3>
+        <a href="Products.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="">App development</a>
+        <a href="">Tech consultancy</a>
+        <a href="">Custom software</a>
+        <a href="">AI/IoT/Automation services</a>
+      </div>
+      <div class="col">
+        <h3>Careers</h3>
+        <a href="Careers.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="">Articles about technology trends</a>
+        <a href="">How-to guides or tutorials</a>
+        <a href="">Company updates</a>
+      </div>
+      <div class="col">
+        <h3>Jobs & Internships</h3>
+        <a href="features.html" style="text-decoration: underline;"><b>More Info</b></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Get DOM elements
+    const dashboard = document.getElementById('dashboard');
+    const dashboardIcon = document.querySelector('.dashboard-icon');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const closeButton = document.querySelector('.sidebar-header .fa-times');
+    const sidebarLinks = document.querySelectorAll('.sidebar a');
+
+    // Toggle sidebar
+    function toggleSidebar() {
+      dashboard.classList.toggle('active');
+      if (dashboard.classList.contains('active')) {
+        dashboard.scrollTop = 0; // Scroll to top when opening
+      }
+    }
+
+    // Store scroll position before clicking a link
+    function saveScrollPosition() {
+      sessionStorage.setItem('scrollPosition', window.scrollY);
+    }
+
+    // Restore scroll position after page load
+    function restoreScrollPosition() {
+      const scrollPosition = sessionStorage.getItem('scrollPosition');
+      if (scrollPosition) {
+        window.scrollTo(0, parseInt(scrollPosition));
+        sessionStorage.removeItem('scrollPosition');
+      }
+    }
+
+    // Event listeners
+    dashboardIcon.addEventListener('click', toggleSidebar);
+    menuToggle.addEventListener('click', toggleSidebar);
+    closeButton.addEventListener('click', toggleSidebar);
+
+    // Save scroll position when clicking sidebar links
+    sidebarLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        saveScrollPosition();
+        toggleSidebar();
+      });
+    });
+
+    // Close sidebar when clicking outside
+    document.addEventListener('click', function (event) {
+      if (dashboard.classList.contains('active') &&
+          !dashboard.contains(event.target) &&
+          !dashboardIcon.contains(event.target) &&
+          !menuToggle.contains(event.target)) {
+        dashboard.classList.remove('active');
+      }
+    });
+
+    // Close sidebar on Escape key
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && dashboard.classList.contains('active')) {
+        dashboard.classList.remove('active');
+      }
+    });
+
+    // Restore scroll position on page load
+    window.addEventListener('load', restoreScrollPosition);
+  </script>
+</body>
+</html>
