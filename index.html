@@ -97,18 +97,6 @@
       border-radius: 50%;
     }
 
-    .menu-toggle {
-      display: none;
-      font-size: 22px;
-      cursor: pointer;
-      padding: 6px;
-    }
-
-    .menu-toggle:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-    }
-
     /* Sidebar Menu */
     .sidebar {
       position: fixed;
@@ -454,79 +442,6 @@
       background-image: url('https://cdn-icons-png.flaticon.com/512/124/124034.png');
     }
 
-    /* Mobile Menu */
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      top: 64px;
-      left: 0;
-      width: 100%;
-      background-color: #012f47;
-      z-index: 998;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease-out;
-    }
-
-    .mobile-menu.active {
-      display: block;
-      max-height: 1000px;
-      overflow-y: auto;
-    }
-
-    .mobile-menu ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .mobile-menu li {
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .mobile-menu a {
-      display: block;
-      padding: 12px 15px;
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .mobile-menu a:hover {
-      background-color: #033d3d;
-      color: gold;
-    }
-
-    .mobile-dropdown {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease-out;
-      background-color: #002240;
-    }
-
-    .mobile-dropdown.active {
-      max-height: 1000px;
-    }
-
-    .mobile-dropdown a {
-      padding-left: 30px;
-    }
-
-    .mobile-dropdown-toggle {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .mobile-dropdown-toggle i {
-      transition: transform 0.3s;
-    }
-
-    .mobile-dropdown-toggle.active i {
-      transform: rotate(180deg);
-    }
-
     /* Responsive Styles */
     @media (max-width: 1024px) {
       .footer-columns {
@@ -549,11 +464,6 @@
         display: none;
       }
 
-      .menu-toggle {
-        display: block;
-        color: white;
-      }
-
       .menu-icon {
         display: block;
       }
@@ -562,10 +472,6 @@
         width: 80%;
         max-width: 300px;
         right: -100%;
-      }
-      
-      .mobile-menu {
-        display: block;
       }
       
       .footer-columns {
@@ -678,30 +584,6 @@
         max-width: 480px;
       }
     }
-
-    /* Animation for mobile menu */
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .mobile-menu.active li {
-      animation: slideDown 0.3s ease forwards;
-    }
-
-    .mobile-menu.active li:nth-child(1) { animation-delay: 0.1s; }
-    .mobile-menu.active li:nth-child(2) { animation-delay: 0.2s; }
-    .mobile-menu.active li:nth-child(3) { animation-delay: 0.3s; }
-    .mobile-menu.active li:nth-child(4) { animation-delay: 0.4s; }
-    .mobile-menu.active li:nth-child(5) { animation-delay: 0.5s; }
-    .mobile-menu.active li:nth-child(6) { animation-delay: 0.6s; }
-    .mobile-menu.active li:nth-child(7) { animation-delay: 0.7s; }
 
     /* home image css */
     .moving-image {
@@ -824,98 +706,8 @@
     <div class="menu-icon" id="menuIcon">
       <i class="fas fa-bars"></i>
     </div>
-    
-    <!-- Mobile menu toggle -->
-    <div class="menu-toggle" id="menuToggle">
-      <i class="fas fa-bars"></i>
-    </div>
   </header>
   <img src="./TITI.png" class="moving-image" alt="Moving Image">
-
-  <!-- Mobile Menu -->
-  <div class="mobile-menu" id="mobileMenu">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li>
-        <div class="mobile-dropdown-toggle" data-toggle="about">
-          <a href="#">About</a>
-          <i class="fas fa-chevron-down"></i>
-        </div>
-        <div class="mobile-dropdown">
-          <a href="About.html">About Us</a>
-          <a href="./amasahayakazi.html">Amasaha y'akazi</a>
-          <a href="#">Company Background & Vision</a>
-          <a href="#">Mission & Goals</a>
-          <a href="#">Contacts</a>
-          <a href="#">Team or Founders</a>
-          <a href="#">Core Values</a>
-          <a href="#">Leadership Team</a>
-          <a href="#">Senior Management</a>
-        </div>
-      </li>
-      <li>
-        <div class="mobile-dropdown-toggle" data-toggle="services">
-          <a href="#">Services</a>
-          <i class="fas fa-chevron-down"></i>
-        </div>
-        <div class="mobile-dropdown">
-          <a href="services.html">Got Services</a>
-          <a href="">Web Development</a>
-          <a href="">App Development</a>
-          <a href="">Tech Consultancy</a>
-          <a href="">Custom Software</a>
-          <a href="">AI/IoT/Automation Services</a>
-        </div>
-      </li>
-      <li>
-        <div class="mobile-dropdown-toggle" data-toggle="product">
-          <a href="#">Product</a>
-          <i class="fas fa-chevron-down"></i>
-        </div>
-        <div class="mobile-dropdown">
-          <a href="Products.html">Products</a>
-          <a href="">App Development</a>
-          <a href="">Tech Consultancy</a>
-          <a href="">Custom Software</a>
-          <a href="">AI/IoT/Automation Services</a>
-        </div>
-      </li>
-      <li>
-        <div class="mobile-dropdown-toggle" data-toggle="tech-news">
-          <a href="#">Tech News</a>
-          <i class="fas fa-chevron-down"></i>
-        </div>
-        <div class="mobile-dropdown">
-          <a href="Blog_Tech_News.html">Blog Tech News</a>
-          <a href="">Articles About Technology Trends</a>
-          <a href="">How-to Guides or Tutorials</a>
-          <a href="">Company Updates</a>
-        </div>
-      </li>
-      <li>
-        <div class="mobile-dropdown-toggle" data-toggle="careers">
-          <a href="#">Careers</a>
-          <i class="fas fa-chevron-down"></i>
-        </div>
-        <div class="mobile-dropdown">
-          <a href="Careers.html">Develop Your Careers</a>
-          <a href="">Articles About Technology Trends</a>
-          <a href="">How-to Guides or Tutorials</a>
-          <a href="">Company Updates</a>
-        </div>
-      </li>
-      <li>
-        <div class="mobile-dropdown-toggle" data-toggle="jobs">
-          <a href="">Jobs</a>
-          <i class="fas fa-chevron-down"></i>
-        </div>
-        <div class="mobile-dropdown">
-          <a href="features.html">Go to Jobs & Internships</a>
-        </div>
-      </li>
-      <li><a href="contact_us.html">Contact</a></li>
-    </ul>
-  </div>
 
   <!-- ===== SIDEBAR MENU ===== -->
   <aside class="sidebar" id="menuSidebar">
@@ -1067,58 +859,15 @@
       }
     }
 
-    // Toggle mobile menu
-    function toggleMobileMenu() {
-      const mobileMenu = document.getElementById('mobileMenu');
-      const body = document.body;
-      
-      mobileMenu.classList.toggle('active');
-      if (!mobileMenu.classList.contains('active')) {
-        document.querySelectorAll('.mobile-dropdown').forEach(dropdown => {
-          dropdown.classList.remove('active');
-        });
-        document.querySelectorAll('.mobile-dropdown-toggle').forEach(toggle => {
-          toggle.classList.remove('active');
-          const icon = toggle.querySelector('i');
-          icon.classList.remove('fa-chevron-up');
-          icon.classList.add('fa-chevron-down');
-        });
-        body.classList.remove('no-scroll');
-      } else {
-        body.classList.add('no-scroll');
-      }
-    }
-
-    // Mobile dropdown toggle
-    function toggleMobileDropdown(element) {
-      const parent = element.parentElement;
-      const dropdown = parent.querySelector('.mobile-dropdown');
-      const icon = element.querySelector('i');
-      
-      element.classList.toggle('active');
-      dropdown.classList.toggle('active');
-      icon.classList.toggle('fa-chevron-down');
-      icon.classList.toggle('fa-chevron-up');
-    }
-
     // Event listeners for menu toggles
     document.getElementById('menuIcon').addEventListener('click', toggleMenuSidebar);
-    document.getElementById('menuToggle').addEventListener('click', toggleMobileMenu);
     document.getElementById('closeMenu').addEventListener('click', toggleMenuSidebar);
     document.getElementById('overlay').addEventListener('click', toggleMenuSidebar);
-
-    // Mobile dropdown toggles
-    document.querySelectorAll('.mobile-dropdown-toggle').forEach(toggle => {
-      toggle.addEventListener('click', () => toggleMobileDropdown(toggle));
-      toggle.addEventListener('touchstart', () => toggleMobileDropdown(toggle));
-    });
 
     // Close sidebar menu when clicking outside
     document.addEventListener('click', function (event) {
       const menu = document.getElementById('menuSidebar');
       const menuIcon = document.getElementById('menuIcon');
-      const mobileMenu = document.getElementById('mobileMenu');
-      const menuToggle = document.getElementById('menuToggle');
       const overlay = document.getElementById('overlay');
 
       if (menu.classList.contains('active') &&
@@ -1128,19 +877,11 @@
         overlay.classList.remove('active');
         document.body.classList.remove('no-scroll');
       }
-
-      if (mobileMenu.classList.contains('active') &&
-          !mobileMenu.contains(event.target) &&
-          !menuToggle.contains(event.target)) {
-        mobileMenu.classList.remove('active');
-        document.body.classList.remove('no-scroll');
-      }
     });
 
     // Close sidebar menu on Escape key
     document.addEventListener('keydown', function (event) {
       const menu = document.getElementById('menuSidebar');
-      const mobileMenu = document.getElementById('mobileMenu');
       const overlay = document.getElementById('overlay');
       if (event.key === 'Escape') {
         if (menu.classList.contains('active')) {
@@ -1148,21 +889,23 @@
           overlay.classList.remove('active');
           document.body.classList.remove('no-scroll');
         }
-        if (mobileMenu.classList.contains('active')) {
-          mobileMenu.classList.remove('active');
-          document.body.classList.remove('no-scroll');
-        }
       }
     });
 
     // Scroll to top and close menus on link click
-    document.querySelectorAll('.mobile-menu a, .sidebar a').forEach(link => {
+    document.querySelectorAll('.sidebar a').forEach(link => {
       link.addEventListener('click', () => {
-        document.getElementById('mobileMenu').classList.remove('active');
         document.getElementById('menuSidebar').classList.remove('active');
         document.getElementById('overlay').classList.remove('active');
         document.body.classList.remove('no-scroll');
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // Add touch support for sidebar links
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('touchstart', () => {
+        link.click();
       });
     });
   </script>
