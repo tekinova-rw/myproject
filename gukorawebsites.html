@@ -22,6 +22,7 @@
       color: #333;
       line-height: 1.6;
       padding-top: 60px; /* Adjusted for sticky header */
+      overflow-x: hidden; /* Prevent horizontal overflow */
     }
 
     /* Header */
@@ -32,7 +33,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: fixed; /* Changed to fixed for sticky header */
+      position: fixed;
       top: 0;
       width: 100%;
       z-index: 1000;
@@ -203,7 +204,6 @@
       max-width: 1200px;
       margin: 30px auto;
       padding: 15px;
-      overflow-x: hidden; /* Prevent horizontal overflow */
     }
 
     /* Footer */
@@ -377,7 +377,7 @@
     }
 
     @media (max-width: 768px) {
-      nav ul {
+      nav.navbar ul {
         display: none;
       }
 
@@ -455,7 +455,6 @@
   </style>
 </head>
 <body>
-
   <!-- ===== HEADER ===== -->
   <header>
     <div class="logo">
@@ -467,80 +466,80 @@
         <li><a href="index.html">Home</a></li>
         <li>
           <a href="#">About</a>
-            <div class="dropdown">
-              <h2>About TEKINOVA</h2>
-                    <a href="About.html">About Us</a>
-                    <a href="#">Company Background & Vision</a>
-                    <a href="#">Mission & Goals</a>
-                    <a href="#">Contacts</a>
-                    <h2>Organization</h2>
-                    <a href="#">Team or Founders</a>
-                    <a href="#">Core Values</a>
-                    <a href="#">Leadership Council</a>
-                    <a href="#">Leadership Team</a>
-            </div>
-          </li>
+          <div class="dropdown">
+            <h2>About TEKINOVA</h2>
+            <a href="About.html">About Us</a>
+            <a href="#">Company Background & Vision</a>
+            <a href="#">Mission & Goals</a>
+            <a href="#">Contacts</a>
+            <h2>Organization</h2>
+            <a href="#">Team or Founders</a>
+            <a href="#">Core Values</a>
+            <a href="#">Leadership Council</a>
+            <a href="#">Leadership Team</a>
+          </div>
+        </li>
         <li>
           <a href="#">Services</a>
-            <div class="dropdown">
-              <a href="services.html">Got Services</a>
-              <a href="">Web Development</a>
-              <a href="">App Development</a>
-              <a href="">Tech Consultancy</a>
-              <a href="">Custom Software</a>
-              <a href="">AI/IoT/Automation Services</a>
-            </div>
+          <div class="dropdown">
+            <a href="services.html">Got Services</a>
+            <a href="">Web Development</a>
+            <a href="">App Development</a>
+            <a href="">Tech Consultancy</a>
+            <a href="">Custom Software</a>
+            <a href="">AI/IoT/Automation Services</a>
+          </div>
         </li>
         <li>
           <a href="#">Product</a>
-           <div class="dropdown">
-              <a href="Products.html">Products</a>
-              <a href="">App Development</a>
-             </div>
+          <div class="dropdown">
+            <a href="Products.html">Products</a>
+            <a href="">App Development</a>
+          </div>
         </li>
         <li>
           <a href="#">Tech News</a>
-           <div class="dropdown">
-                    <h2>Blog</h2>
-                    <a href="Blog_Tech_News.html">Blog Tech News</a>
-                    <a href="">Articles About Technology Trends</a>
-                    <a href="">How-to Guides or Tutorials</a>
-                    <a href="">Company Updates</a>
-            </div>
+          <div class="dropdown">
+            <h2>Blog</h2>
+            <a href="Blog_Tech_News.html">Blog Tech News</a>
+            <a href="">Articles About Technology Trends</a>
+            <a href="">How-to Guides or Tutorials</a>
+            <a href="">Company Updates</a>
+          </div>
         </li>
         <li>
           <a href="#">Careers</a>
           <div class="dropdown">
-                    <a href="Careers.html">Develop Your Careers</a>
-                    <a href="">Articles About Technology Trends</a>
-                    <a href="">How-to Guides or Tutorials</a>
-                    <a href="">Company Updates</a>
+            <a href="Careers.html">Develop Your Careers</a>
+            <a href="">Articles About Technology Trends</a>
+            <a href="">How-to Guides or Tutorials</a>
+            <a href="">Company Updates</a>
           </div>
         </li>
         <li>
-          <a href="">Jobs</a>
+          <a href="#">Jobs</a>
           <div class="dropdown">
-                    <h2>Apply Job</h2>
-                    <a href="features.html">Go to Jobs & Internships</a>
+            <h2>Apply Job</h2>
+            <a href="features.html">Go to Jobs & Internships</a>
           </div>
         </li>
         <li>
           <a href="#">Contact</a>
-              <div class="dropdown">
-                    <a href="contact_us.html">Tell Us Anything</a>
+          <div class="dropdown">
+            <a href="contact_us.html">Tell Us Anything</a>
           </div>
         </li>
         <li>
           <a href="#">Working Calendar</a>
-              <div class="dropdown">
-                    <a href="amasahayakazi.html">Our Calendar Days</a>
+          <div class="dropdown">
+            <a href="amasahayakazi.html">Our Calendar Days</a>
           </div>
         </li>
       </ul>
     </nav>
 
     <!-- Hamburger Menu Icon (right side) -->
-    <div class="hamburger-icon" onclick="toggleMenu()">
+    <div class="hamburger-icon" onclick="toggleSidebar()">
       <i class="fas fa-bars"></i>
     </div>
     
@@ -551,10 +550,10 @@
   </header>
 
   <!-- ===== HAMBURGER MENU SIDEBAR ===== -->
-  <aside class="sidebar" id="menu">
+  <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <span><i class="fas fa-bars"></i> Hamburger Menu</span>
-      <i class="fas fa-times" onclick="toggleMenu()"></i>
+      <i class="fas fa-times" onclick="toggleSidebar()"></i>
     </div>
     
     <nav>
@@ -627,36 +626,9 @@
         <h3>Contact</h3>
         <a href="./contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
         <strong>WhatsApp:</strong>
-          <a href="https://wa.me/+250733253803" target="_blank" class="toto"> +250 733 253 803</a>
+        <a href="https://wa.me/+250733253803" target="_blank" class="toto"> +250 733 253 803</a>
         <strong>Email:</strong>
-          <a href="mailto:fiqueat@gmail.com" class="toto">fiqueat@gmail.com</a>
-      </div>
-      <div class="col">
-        <h3>About Tekinova</h3>
-        <a href="About.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="#">Company Background & Vision</a>
-        <a href="#">Mission & Goals</a>
-        <a href="#">Contacts</a>
-        <h2>Organization</h2>
-        <a href="#">Team or Founders</a>
-        <a href="#">Core Values</a>
-        <a href="#">Leadership Council</a>
-        <a href="#">Leadership Team</a>
-      </div>
-      <div class="col">
-        <h3>Services</h3>
-        <a href="services.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="">Web Development</a>
-        <a href="">App Development</a>
-        <a href="">Tech Consultancy</a>
-        <a href="">Custom Software</a>
-        <a href="">AI/IoT/Automation Services</a>
-      </div>
-      <div class="col">
-        <h3>Product</h3>
-        <a href="Products.html" style="text-decoration: underline;"><b>Moretps://wa.me/+250733253803" target="_blank" class="toto"> +250 733 253 803</a>
-        <strong>Email:</strong>
-          <a href="mailto:fiqueat@gmail.com" class="toto">fiqueat@gmail.com</a>
+        <a href="mailto:fiqueat@gmail.com" class="toto">fiqueat@gmail.com</a>
       </div>
       <div class="col">
         <h3>About Tekinova</h3>
@@ -706,66 +678,79 @@
     // Store scroll position before navigation
     let scrollPositions = {};
 
-    function toggleMenu() {
-      const menu = document.getElementById('menu');
-      menu.classList.toggle('active');
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('active');
       
-      // Save scroll position when opening menu
-      if (menu.classList.contains('active')) {
+      // Save or restore scroll position
+      if (sidebar.classList.contains('active')) {
         scrollPositions['main'] = window.scrollY;
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
       } else {
-        // Restore scroll position when closing menu
+        document.body.style.overflow = 'auto';
         window.scrollTo(0, scrollPositions['main'] || 0);
       }
     }
 
-    function toggleSidebar() {
-      toggleMenu();
-    }
-
     // Close menu when clicking outside
     document.addEventListener('click', function (event) {
-      const menu = document.getElementById('menu');
+      const sidebar = document.getElementById('sidebar');
       const hamburgerIcon = document.querySelector('.hamburger-icon');
       const menuToggle = document.querySelector('.menu-toggle');
 
-      if (menu.classList.contains('active') &&
-          !menu.contains(event.target) &&
+      if (sidebar.classList.contains('active') &&
+          !sidebar.contains(event.target) &&
           !hamburgerIcon.contains(event.target) &&
           !menuToggle.contains(event.target)) {
-        menu.classList.remove('active');
+        sidebar.classList.remove('active');
+        document.body.style.overflow = 'auto';
         window.scrollTo(0, scrollPositions['main'] || 0);
       }
     });
 
     // Close menu on Escape key
     document.addEventListener('keydown', function (event) {
-      const menu = document.getElementById('menu');
-      if (event.key === 'Escape' && menu.classList.contains('active')) {
-        menu.classList.remove('active');
+      const sidebar = document.getElementById('sidebar');
+      if (event.key === 'Escape' && sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+        document.body.style.overflow = 'auto';
         window.scrollTo(0, scrollPositions['main'] || 0);
       }
     });
 
-    // Restore scroll position after navigation
+    // Restore scroll position after navigation and prevent duplicate rendering
     document.addEventListener('DOMContentLoaded', () => {
       const navLinks = document.querySelectorAll('.nav-link');
       navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-          // Save current scroll position before navigating
           scrollPositions['main'] = window.scrollY;
-          
-          // On mobile, close sidebar after clicking a link
-          const menu = document.getElementById('menu');
-          if (menu.classList.contains('active')) {
-            menu.classList.remove('active');
+          const sidebar = document.getElementById('sidebar');
+          if (sidebar.classList.contains('active')) {
+            sidebar.classList.remove('active');
+            document.body.style.overflow = 'auto';
           }
         });
       });
 
-      // Restore scroll position if returning to page
+      // Ensure only one main-content is rendered
+      const mainContents = document.querySelectorAll('.main-content');
+      if (mainContents.length > 1) {
+        mainContents.forEach((content, index) => {
+          if (index > 0) content.remove(); // Remove duplicates
+        });
+      }
+
+      // Restore scroll position
       if (scrollPositions['main']) {
         window.scrollTo(0, scrollPositions['main']);
+      }
+
+      // Prevent duplicate sidebar rendering
+      const sidebars = document.querySelectorAll('.sidebar');
+      if (sidebars.length > 1) {
+        sidebars.forEach((sidebar, index) => {
+          if (index > 0) sidebar.remove();
+        });
       }
     });
   </script>

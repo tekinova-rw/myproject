@@ -6,6 +6,8 @@
   <title>TekiNova</title>
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <!-- Tailwind CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
   <style>
     /* Reset and Global Styles */
     * {
@@ -151,18 +153,19 @@
       display: block;
     }
 
-    /* Sidebar Hamburger Menu */
+    /* Sidebar */
     .sidebar {
       position: fixed;
       top: 0;
-      right: -280px;
-      width: 260px;
+      right: -100%;
+      width: 100%;
+      max-width: 280px;
       height: 100vh;
       background-color: #002240;
       color: white;
       padding: 15px;
       transition: right 0.3s ease;
-      z-index: 999;
+      z-index: 1000;
       box-shadow: -5px 0 15px rgba(0,0,0,0.2);
       overflow-y: auto;
     }
@@ -233,14 +236,14 @@
     }
 
     .hamburger-widget .widget-stats {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
       margin-top: 8px;
     }
 
     .widget-stats div {
       text-align: center;
-      flex: 1;
     }
 
     .widget-stats span {
@@ -410,15 +413,9 @@
       margin: 0 auto;
     }
 
-    .footer-columns .col h3 {
+    .footer-columns .col h3, .footer-columns .col h2 {
       color: gold;
       margin-bottom: 10px;
-      font-size: 15px;
-    }
-
-    .footer-columns .col h2 {
-      color: gold;
-      margin: 12px 0 8px;
       font-size: 15px;
     }
 
@@ -499,12 +496,12 @@
       .navbar ul {
         gap: 4px;
       }
-      
+
       .navbar a {
         font-size: 12px;
         padding: 5px 7px;
       }
-      
+
       .dropdown {
         min-width: 200px;
       }
@@ -512,48 +509,52 @@
       .features-grid {
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       }
+
+      .hamburger-widget .widget-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     @media (max-width: 768px) {
       header {
         padding: 8px 12px;
       }
-      
+
       .logo h1 {
         font-size: 16px;
       }
-      
-      .navbar ul {
+
+      .navbar {
         display: none;
       }
-      
+
       .menu-toggle {
         display: block;
       }
-      
+
       .hamburger-icon {
-        margin-left: auto;
-        margin-right: 12px;
+        display: none;
       }
-      
+
       .sidebar {
-        width: 220px;
+        width: 100%;
+        max-width: 100%;
       }
-      
+
       .features-container h1 {
         font-size: 1.4rem;
         margin-bottom: 12px;
       }
-      
+
       .feature-box h2 {
         font-size: 1rem;
       }
-      
+
       .filter-btn {
         padding: 5px 10px;
         font-size: 12px;
       }
-      
+
       .dropdown {
         position: static;
         display: none;
@@ -561,9 +562,14 @@
         box-shadow: none;
         border-radius: 0;
       }
-      
+
       .navbar li:hover .dropdown {
         display: none;
+      }
+
+      .hamburger-widget .widget-stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
       }
     }
 
@@ -572,59 +578,45 @@
         width: 32px;
         height: 32px;
       }
-      
+
       .logo h1 {
         font-size: 14px;
       }
-      
+
       .menu-toggle {
         font-size: 18px;
       }
-      
-      .hamburger-icon {
-        font-size: 16px;
-      }
-      
+
       .features-grid {
         grid-template-columns: 1fr;
       }
-      
+
       .filter-controls {
         flex-direction: column;
         align-items: center;
       }
-      
+
       .footer-columns {
         grid-template-columns: 1fr;
       }
-      
+
       .feature-box img {
         height: 140px;
       }
-      
+
       .mobile-nav {
         top: 52px;
       }
     }
 
     @media (max-width: 480px) {
-      .main-content {
-        padding: 8px;
-        margin: 10px auto;
-      }
-
-      .features-container {
+      .main-content, .features-container {
         padding: 8px;
         margin: 10px auto;
       }
 
       .features-container h1 {
         font-size: 1.2rem;
-      }
-
-      .sidebar {
-        width: 100%;
-        right: -100%;
       }
     }
 
@@ -635,32 +627,31 @@
     }
   </style>
 </head>
-<body>
-
+<body class="min-h-screen flex flex-col">
   <!-- ===== HEADER ===== -->
-  <header>
-    <div class="logo">
-      <img src="tekilogo.jpg" alt="TEKINOVA Logo">
-      <h1>TekiNova</h1>
+  <header class="flex justify-between items-center">
+    <div class="logo flex items-center">
+      <img src="tekilogo.jpg" alt="TEKINOVA Logo" class="w-9 h-9 rounded-full border-2 border-yellow-400 mr-2">
+      <h1 class="text-yellow-400 text-lg font-bold">TekiNova</h1>
     </div>
     
-    <div class="menu-toggle" id="menuToggle">
+    <div class="menu-toggle md:hidden" id="menuToggle">
       <i class="fas fa-bars"></i>
     </div>
     
     <!-- Mobile Navigation -->
-    <nav class="mobile-nav" id="mobileNav">
-      <ul>
-        <li><a href="index.html">Home</a></li>
+    <nav class="mobile-nav hidden md:hidden" id="mobileNav">
+      <ul class="flex flex-col">
+        <li><a href="index.html" class="hover:bg-teal-900">Home</a></li>
         <li>
-          <a href="#" data-dropdown="aboutDropdown">About <i class="fas fa-chevron-down"></i></a>
+          <a href="#" data-dropdown="aboutDropdown" class="hover:bg-teal-900">About <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="aboutDropdown">
-            <h3>About TEKINOVA</h3>
+            <h3 class="text-yellow-400">About TEKINOVA</h3>
             <a href="About.html">About Us</a>
             <a href="#">Company Background & Vision</a>
             <a href="#">Mission & Goals</a>
             <a href="#">Contacts</a>
-            <h3>Administrative</h3>
+            <h3 class="text-yellow-400">Administrative</h3>
             <a href="#">Team or Founders</a>
             <a href="#">Core Values</a>
             <a href="#">Executive Organ</a>
@@ -668,7 +659,7 @@
           </div>
         </li>
         <li>
-          <a href="#" data-dropdown="servicesDropdown">Services <i class="fas fa-chevron-down"></i></a>
+          <a href="#" data-dropdown="servicesDropdown" class="hover:bg-teal-900">Services <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="servicesDropdown">
             <a href="services.html">Got Services</a>
             <a href="#">Web Development</a>
@@ -679,7 +670,7 @@
           </div>
         </li>
         <li>
-          <a href="#" data-dropdown="productsDropdown">Product <i class="fas fa-chevron-down"></i></a>
+          <a href="#" data-dropdown="productsDropdown" class="hover:bg-teal-900">Product <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="productsDropdown">
             <a href="Products.html">Products</a>
             <a href="#">App Development</a>
@@ -689,9 +680,9 @@
           </div>
         </li>
         <li>
-          <a href="#" data-dropdown="newsDropdown">Tech News <i class="fas fa-chevron-down"></i></a>
+          <a href="#" data-dropdown="newsDropdown" class="hover:bg-teal-900">Tech News <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="newsDropdown">
-            <h3>Blog</h3>
+            <h3 class="text-yellow-400">Blog</h3>
             <a href="Blog_Tech_News.html">Blog Tech News</a>
             <a href="#">Articles About Technology Trends</a>
             <a href="#">How-to Guides or Tutorials</a>
@@ -699,7 +690,7 @@
           </div>
         </li>
         <li>
-          <a href="#" data-dropdown="careersDropdown">Careers <i class="fas fa-chevron-down"></i></a>
+          <a href="#" data-dropdown="careersDropdown" class="hover:bg-teal-900">Careers <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="careersDropdown">
             <a href="Careers.html">Develop Your Careers</a>
             <a href="#">Articles About Technology Trends</a>
@@ -708,20 +699,20 @@
           </div>
         </li>
         <li>
-          <a href="#" data-dropdown="jobsDropdown">Jobs <i class="fas fa-chevron-down"></i></a>
+          <a href="#" data-dropdown="jobsDropdown" class="hover:bg-teal-900">Jobs <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="jobsDropdown">
-            <h3>Apply Job</h3>
+            <h3 class="text-yellow-400">Apply Job</h3>
             <a href="features.html">Go to Jobs & Internships</a>
           </div>
         </li>
         <li>
-          <a href="#" data-dropdown="contactDropdown">Contact <i class="fas fa-chevron-down"></i></a>
+          <a href="#" data-dropdown="contactDropdown" class="hover:bg-teal-900">Contact <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="contactDropdown">
             <a href="contact_us.html">Tell Us Anything</a>
           </div>
         </li>
         <li>
-          <a href="#" data-dropdown="calendarDropdown">Working Calendar <i class="fas fa-chevron-down"></i></a>
+          <a href="#" data-dropdown="calendarDropdown" class="hover:bg-teal-900">Working Calendar <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="calendarDropdown">
             <a href="amasahayakazi.html">Our Calendar Days</a>
           </div>
@@ -729,19 +720,19 @@
       </ul>
     </nav>
 
-    <!-- Desktop Navigation (hidden on mobile) -->
-    <nav class="navbar">
-      <ul>
-        <li><a href="index.html">Home</a></li>
+    <!-- Desktop Navigation -->
+    <nav class="navbar hidden md:flex">
+      <ul class="flex gap-2">
+        <li><a href="index.html" class="hover:bg-teal-900">Home</a></li>
         <li>
           <a href="#">About</a>
           <div class="dropdown">
-            <h2>About TEKINOVA</h2>
+            <h2 class="text-yellow-400">About TEKINOVA</h2>
             <a href="About.html">About Us</a>
             <a href="#">Company Background & Vision</a>
             <a href="#">Mission & Goals</a>
             <a href="#">Contacts</a>
-            <h2>Administrative</h2>
+            <h2 class="text-yellow-400">Administrative</h2>
             <a href="#">Team or Founders</a>
             <a href="#">Core Values</a>
             <a href="#">Executive Organ</a>
@@ -772,7 +763,7 @@
         <li>
           <a href="#">Tech News</a>
           <div class="dropdown">
-            <h2>Blog</h2>
+            <h2 class="text-yellow-400">Blog</h2>
             <a href="Events.html">Events</a>
             <a href="#">Upcoming Events</a>
             <a href="#">Past Events</a>
@@ -791,7 +782,7 @@
         <li>
           <a href="#">Jobs</a>
           <div class="dropdown">
-            <h2>Apply Now</h2>
+            <h2 class="text-yellow-400">Apply Now</h2>
             <a href="features.html">View Jobs & Internships</a>
           </div>
         </li>
@@ -804,8 +795,8 @@
       </ul>
     </nav>
 
-    <!-- Hamburger Menu Icon (right side) -->
-    <div class="hamburger-icon" id="hamburgerIcon">
+    <!-- Hamburger Menu Icon (right side, desktop only) -->
+    <div class="hamburger-icon hidden md:block" id="hamburgerIcon">
       <i class="fas fa-bars"></i>
     </div>
   </header>
@@ -817,20 +808,20 @@
       <i class="fas fa-times" id="closeHamburger"></i>
     </div>
     
-    <nav>
-      <a href="index.html"><i class="fas fa-home"></i> Home</a>
-      <a href="About.html"><i class="fas fa-info-circle"></i> About</a>
-      <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
-      <a href="Products.html"><i class="fas fa-box"></i> Products</a>
-      <a href="Blog_Tech_News.html"><i class="fas fa-blog"></i> Blog</a>
-      <a href="Careers.html"><i class="fas fa-briefcase"></i> Careers</a>
-      <a href="features.html"><i class="fas fa-laptop-code"></i> Jobs</a>
-      <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
+    <nav class="flex flex-col gap-2">
+      <a href="index.html" class="hover:text-yellow-400"><i class="fas fa-home w-5"></i> Home</a>
+      <a href="About.html" class="hover:text-yellow-400"><i class="fas fa-info-circle w-5"></i> About</a>
+      <a href="services.html" class="hover:text-yellow-400"><i class="fas fa-cogs w-5"></i> Services</a>
+      <a href="Products.html" class="hover:text-yellow-400"><i class="fas fa-box w-5"></i> Products</a>
+      <a href="Blog_Tech_News.html" class="hover:text-yellow-400"><i class="fas fa-blog w-5"></i> Blog</a>
+      <a href="Careers.html" class="hover:text-yellow-400"><i class="fas fa-briefcase w-5"></i> Careers</a>
+      <a href="features.html" class="hover:text-yellow-400"><i class="fas fa-laptop-code w-5"></i> Jobs</a>
+      <a href="contact_us.html" class="hover:text-yellow-400"><i class="fas fa-envelope w-5"></i> Contact</a>
     </nav>
     
     <!-- Hamburger Menu Widgets -->
     <div class="hamburger-widget">
-      <h3>Quick Stats</h3>
+      <h3 class="text-yellow-400">Quick Stats</h3>
       <p>Overview of your recent activity</p>
       <div class="widget-stats">
         <div>
@@ -849,48 +840,47 @@
     </div>
     
     <div class="hamburger-widget">
-      <h3>Recent Activity</h3>
-      <p><i class="fas fa-check-circle"></i> New project started</p>
-      <p><i class="fas fa-user-plus"></i> 3 new team members</p>
-      <p><i class="fas fa-sync-alt"></i> Website updated</p>
+      <h3 class="text-yellow-400">Recent Activity</h3>
+      <p><i class="fas fa-check-circle mr-2"></i> New project started</p>
+      <p><i class="fas fa-user-plus mr-2"></i> 3 new team members</p>
+      <p><i class="fas fa-sync-alt mr-2"></i> Website updated</p>
     </div>
   </aside>
 
   <!-- ===== MAIN CONTENT ===== -->
-  <main class="features-container">
-    <h1>Latest Global Opportunities</h1>
-    <div class="filter-controls"></div>
-    <div class="features-grid">
-      <!-- Jobs, internships, scholarships, and other opportunities will be inserted here by JavaScript -->
-    </div>
+  <main class="features-container flex-1">
+    <h1 class="text-center text-2xl md:text-3xl">Latest Global Opportunities</h1>
+    <div class="filter-controls flex justify-center gap-2 flex-wrap"></div>
+    <div class="features-grid"></div>
+    <div class="last-updated text-center mt-4 text-gray-600 italic"></div>
   </main>
 
   <!-- ===== FOOTER ===== -->
-  <footer>
-    <div class="footer-columns">
+  <footer class="bg-teal-900 text-white py-6">
+    <div class="footer-columns max-w-6xl mx-auto">
       <div class="col">
-        <h3>Contact</h3>
-        <a href="./contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <h3 class="text-yellow-400">Contact</h3>
+        <a href="./contact_us.html" class="underline font-bold">More Info</a>
         <strong>WhatsApp:</strong>
         <a href="https://wa.me/+250733253803" target="_blank" class="toto"> +250 733 253 803</a>
         <strong>Email:</strong>
         <a href="mailto:info@tekinova.com" class="toto">info@tekinova.com</a>
       </div>
       <div class="col">
-        <h2>About TEKINOVA</h2>
-        <a href="About.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <h2 class="text-yellow-400">About TEKINOVA</h2>
+        <a href="About.html" class="underline font-bold">More Info</a>
         <a href="#">Company Background & Vision</a>
         <a href="#">Mission & Goals</a>
         <a href="#">Contacts</a>
-        <h2>Administrative</h2>
+        <h2 class="text-yellow-400">Administrative</h2>
         <a href="#">Team or Founders</a>
         <a href="#">Core Values</a>
         <a href="#">Executive Organ</a>
         <a href="#">Senior Management</a>
       </div>
       <div class="col">
-        <h3>Services</h3>
-        <a href="services.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <h3 class="text-yellow-400">Services</h3>
+        <a href="services.html" class="underline font-bold">More Info</a>
         <a href="#">Web Development</a>
         <a href="#">App Development</a>
         <a href="#">Tech Consultancy</a>
@@ -898,23 +888,23 @@
         <a href="#">AI/IoT/Automation Services</a>
       </div>
       <div class="col">
-        <h3>Products</h3>
-        <a href="Products.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <h3 class="text-yellow-400">Products</h3>
+        <a href="Products.html" class="underline font-bold">More Info</a>
         <a href="#">App Development</a>
         <a href="#">Tech Consultancy</a>
         <a href="#">Custom Software</a>
         <a href="#">AI/IoT/Automation Services</a>
       </div>
       <div class="col">
-        <h3>Careers</h3>
-        <a href="Careers.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <h3 class="text-yellow-400">Careers</h3>
+        <a href="Careers.html" class="underline font-bold">More Info</a>
         <a href="#">Articles About Technology Trends</a>
         <a href="#">How-to Guides or Tutorials</a>
         <a href="#">Company Updates</a>
       </div>
       <div class="col">
-        <h3>Jobs & Internships</h3>
-        <a href="features.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <h3 class="text-yellow-400">Jobs & Internships</h3>
+        <a href="features.html" class="underline font-bold">More Info</a>
       </div>
     </div>
   </footer>
@@ -924,7 +914,6 @@
     function toggleHamburgerMenu() {
       const hamburgerMenu = document.getElementById('hamburgerMenu');
       hamburgerMenu.classList.toggle('active');
-      // Reset scroll position of sidebar when opened
       if (hamburgerMenu.classList.contains('active')) {
         hamburgerMenu.scrollTop = 0;
       }
@@ -934,13 +923,9 @@
     function toggleMobileNav() {
       const mobileNav = document.getElementById('mobileNav');
       mobileNav.classList.toggle('active');
-      
-      // Reset scroll position of mobile nav when opened
       if (mobileNav.classList.contains('active')) {
         mobileNav.scrollTop = 0;
       }
-      
-      // Close all dropdowns when toggling mobile nav
       if (!mobileNav.classList.contains('active')) {
         document.querySelectorAll('.mobile-dropdown').forEach(dd => {
           dd.style.display = 'none';
@@ -957,29 +942,22 @@
         dd.style.display = 'none';
       });
       dropdown.style.display = isOpen ? 'none' : 'block';
-      
-      // Scroll to top of mobile nav after dropdown toggle
       const mobileNav = document.getElementById('mobileNav');
       if (mobileNav.classList.contains('active')) {
         mobileNav.scrollTop = 0;
       }
-      
       event.stopPropagation();
     }
 
     // === Event Listeners ===
     document.addEventListener('DOMContentLoaded', function () {
-      // Hamburger Menu
       const hamburgerIcon = document.getElementById('hamburgerIcon');
       const closeHamburger = document.getElementById('closeHamburger');
+      const menuToggle = document.getElementById('mobileNav');
       hamburgerIcon.addEventListener('click', toggleHamburgerMenu);
       closeHamburger.addEventListener('click', toggleHamburgerMenu);
-
-      // Mobile Navigation
-      const menuToggle = document.getElementById('menuToggle');
       menuToggle.addEventListener('click', toggleMobileNav);
 
-      // Mobile Dropdowns
       document.querySelectorAll('.mobile-nav a[data-dropdown]').forEach(link => {
         link.addEventListener('click', (event) => {
           const dropdownId = link.getAttribute('data-dropdown');
@@ -987,7 +965,6 @@
         });
       });
 
-      // Close hamburger menu on outside click
       document.addEventListener('click', function (event) {
         const hamburgerMenu = document.getElementById('hamburgerMenu');
         if (hamburgerMenu.classList.contains('active') &&
@@ -995,11 +972,7 @@
             !hamburgerIcon.contains(event.target)) {
           hamburgerMenu.classList.remove('active');
         }
-      });
-
-      // Close mobile nav on outside click
-      const mobileNav = document.getElementById('mobileNav');
-      document.addEventListener('click', function(event) {
+        const mobileNav = document.getElementById('mobileNav');
         if (mobileNav.classList.contains('active') && 
             !mobileNav.contains(event.target) && 
             !menuToggle.contains(event.target)) {
@@ -1010,7 +983,6 @@
         }
       });
 
-      // Close hamburger menu on Escape key
       document.addEventListener('keydown', function (event) {
         const hamburgerMenu = document.getElementById('hamburgerMenu');
         if (event.key === 'Escape' && hamburgerMenu.classList.contains('active')) {
@@ -1020,7 +992,6 @@
 
       // === Features Jobs, Internships, Scholarships, and Other Opportunities ===
       const jobsData = [
-        // Jobs (30)
         {
           id: 1,
           title: "Google Software Engineer",
@@ -1054,7 +1025,6 @@
           posted: "2025-05-15",
           featured: true
         },
-        // Add 27 more job entries
         {
           id: 4,
           title: "AWS Cloud Architect",
@@ -1077,7 +1047,6 @@
           posted: "2025-05-25",
           featured: false
         },
-        // ... (Add more jobs up to 30, following the same structure)
         {
           id: 30,
           title: "Cybersecurity Analyst",
@@ -1089,7 +1058,6 @@
           posted: "2025-05-10",
           featured: false
         },
-        // Internships (6)
         {
           id: 31,
           title: "Google Software Engineering Internship",
@@ -1156,7 +1124,6 @@
           posted: "2025-05-03",
           featured: false
         },
-        // Scholarships (50)
         {
           id: 37,
           title: "Gates Millennium Scholarship",
@@ -1190,7 +1157,6 @@
           posted: "2025-05-15",
           featured: true
         },
-        // ... (Add more scholarships up to 50, following the same structure)
         {
           id: 86,
           title: "STEM Scholarship for Women",
@@ -1206,9 +1172,7 @@
 
       const featuresGrid = document.querySelector('.features-grid');
       const filterControls = document.querySelector('.filter-controls');
-      const lastUpdatedEl = document.createElement('div');
-      lastUpdatedEl.className = 'last-updated';
-      featuresGrid.parentNode.insertBefore(lastUpdatedEl, featuresGrid);
+      const lastUpdatedEl = document.querySelector('.last-updated');
 
       renderJobs(jobsData);
       renderFilters();
@@ -1218,11 +1182,9 @@
         if (e.target.classList.contains('filter-btn')) {
           document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
           e.target.classList.add('active');
-
           const filter = e.target.dataset.filter;
           const filteredJobs = filter === 'all' ? jobsData : jobsData.filter(job => job.type === filter);
           renderJobs(filteredJobs);
-          // Scroll to top of features section after filtering
           document.querySelector('.features-container').scrollIntoView({ behavior: 'smooth' });
         }
       });
@@ -1233,12 +1195,12 @@
           const jobEl = document.createElement('div');
           jobEl.className = 'feature-box';
           jobEl.innerHTML = `
-            <img src="${job.image}" alt="${job.title}">
+            <img src="${job.image}" alt="${job.title}" class="w-full h-40 object-cover border-b-4 border-teal-900">
             <div class="job-type">${job.type === 'internship' ? 'Internship' : job.type === 'job' ? 'Job' : job.type === 'scholarship' ? 'Scholarship' : 'Other'}</div>
             <div class="feature-content">
-              <h2>${job.title}</h2>
-              <p>${job.description}</p>
-              <div class="job-meta">
+              <h2 class="text-teal-900 text-lg">${job.title}</h2>
+              <p class="text-gray-600">${job.description}</p>
+              <div class="job-meta flex justify-between flex-wrap text-xs text-gray-500">
                 <span>📍 ${job.location}</span>
                 <span>📅 ${formatDate(job.posted)}</span>
               </div>
@@ -1260,7 +1222,7 @@
 
         filters.forEach(filter => {
           const btn = document.createElement('button');
-          btn.className = `filter-btn ${filter.value === 'all' ? 'active' : ''}`;
+          btn.className = `filter-btn ${filter.value === 'all' ? 'active' : ''} px-3 py-1 bg-gray-200 rounded-full text-sm hover:bg-gray-300`;
           btn.textContent = filter.name;
           btn.dataset.filter = filter.value;
           filterControls.appendChild(btn);
@@ -1277,7 +1239,7 @@
         return new Date(dateString).toLocaleDateString(undefined, options);
       }
 
-      setInterval(updateLastUpdated, 86400000); // Update every 24 hours
+      setInterval(updateLastUpdated, 86400000);
     });
   </script>
 </body>

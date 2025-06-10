@@ -2,7 +2,7 @@
 <html lang="rw">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TekiNova</title>
 
   <!-- Font Awesome Icons -->
@@ -21,7 +21,7 @@
       background-color: #f4f4f4;
       color: #333;
       line-height: 1.6;
-      overflow-x: hidden; /* Prevent horizontal overflow */
+      overflow-x: hidden;
     }
 
     /* Header */
@@ -32,7 +32,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: sticky; /* Make header sticky */
+      position: sticky;
       top: 0;
       z-index: 1000;
       width: 100%;
@@ -78,12 +78,13 @@
       color: gold;
     }
 
-    /* Hamburger Menu Icon */
+    /* Hamburger Menu Icons */
     .dashboard-icon {
       font-size: 24px;
       cursor: pointer;
       color: white;
       transition: color 0.3s;
+      display: inline-block; /* Visible on desktop */
     }
 
     .dashboard-icon:hover {
@@ -91,14 +92,14 @@
     }
 
     .menu-toggle {
-      display: none;
       font-size: 24px;
       cursor: pointer;
       color: white;
+      display: none; /* Hidden by default, shown on mobile */
     }
 
     /* Sidebar Hamburger Menu */
-    .sidebar {
+    .dashboard {
       position: fixed;
       top: 0;
       right: -300px;
@@ -113,7 +114,7 @@
       overflow-y: auto;
     }
 
-    .sidebar.active {
+    .dashboard.active {
       right: 0;
     }
 
@@ -137,7 +138,7 @@
       color: #d4af37;
     }
 
-    .sidebar a {
+    .dashboard a {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -147,11 +148,11 @@
       transition: color 0.3s;
     }
 
-    .sidebar a:hover {
+    .dashboard a:hover {
       color: gold;
     }
 
-    .sidebar i {
+    .dashboard i {
       width: 20px;
       text-align: center;
     } 
@@ -179,13 +180,13 @@
       display: flex;
       justify-content: space-between;
       margin-top: 10px;
-      flex-wrap: wrap; /* Ensure stats wrap on smaller screens */
+      flex-wrap: wrap;
     }
 
     .widget-stats div {
       text-align: center;
       flex: 1;
-      min-width: 80px; /* Prevent stats from shrinking too much */
+      min-width: 80px;
     }
 
     .widget-stats span {
@@ -370,7 +371,7 @@
         font-size: 20px;
       }
 
-      .sidebar {
+      .dashboard {
         width: 250px;
       }
 
@@ -384,20 +385,21 @@
     }
 
     @media (max-width: 768px) {
-      nav ul {
-        display: none;
+      nav.navbar ul {
+        display: none; /* Hide desktop navbar on mobile */
       }
 
       .menu-toggle {
-        display: block;
+        display: inline-block; /* Show hamburger icon on mobile */
       }
 
       .dashboard-icon {
-        display: none;
+        display: none; /* Hide dashboard-icon on mobile */
       }
 
-      .sidebar {
-        width: 220px;
+      .dashboard {
+        width: 100%; /* Full width for mobile */
+        right: -100%;
       }
 
       .staff-card {
@@ -436,14 +438,14 @@
         font-size: 18px;
       }
 
-      .sidebar {
+      .dashboard {
         width: 100%;
         right: -100%;
       }
 
       .main-content {
         padding: 15px;
-        margin: 20px 10px; /* Reduced margin for small screens */
+        margin: 20px 10px;
       }
 
       .staff-card {
@@ -453,7 +455,7 @@
 
       .gallery-track img {
         max-width: 100%;
-        height: auto; /* Ensure images scale properly */
+        height: auto;
       }
 
       .footer-columns {
@@ -467,11 +469,11 @@
       }
 
       .navbar ul {
-        flex-direction: column; /* Stack navbar items vertically */
+        flex-direction: column;
       }
 
       .dropdown {
-        position: static; /* Prevent dropdowns from being cut off */
+        position: static;
         width: 100%;
       }
     }
@@ -490,97 +492,95 @@
         <li><a href="index.html">Home</a></li>
         <li>
           <a href="#">About</a>
-            <div class="dropdown">
-              <h2>About TEKINOVA</h2>
-              <a href="About.html">About US</a>
-              <a href="#">Company background & vision</a>
-              <a href="#">Mission & goals</a>
-              <a href="#">Contacts</a>
-              <h2>Administrative</h2>
-              <a href="#">Team or founders</a>
-              <a href="#">Core values (e.g. innovation, protection, accessibility)</a>
-              <a href="#">Leadership Organ</a>
-              <a href="#">Senior Management</a>
-            </div>
+          <div class="dropdown">
+            <h2>About TEKINOVA</h2>
+            <a href="About.html">About US</a>
+            <a href="#">Company background & vision</a>
+            <a href="#">Mission & goals</a>
+            <a href="#">Contacts</a>
+            <h2>Administrative</h2>
+            <a href="#">Team or founders</a>
+            <a href="#">Core values (e.g. innovation, protection, accessibility)</a>
+            <a href="#">Leadership Organ</a>
+            <a href="#">Senior Management</a>
+          </div>
         </li>
         <li>
           <a href="#">Services</a>
-            <div class="dropdown">
-              <a href="services.html">Got Services</a>
-              <a href="">Web development</a>
-              <a href="">App development</a>
-              <a href="">Tech consultancy</a>
-              <a href="">Custom software</a>
-              <a href="">AI/IoT/Automation services</a>
-            </div>
+          <div class="dropdown">
+            <a href="services.html">Got Services</a>
+            <a href="">Web development</a>
+            <a href="">App development</a>
+            <a href="">Tech consultancy</a>
+            <a href="">Custom software</a>
+            <a href="">AI/IoT/Automation services</a>
+          </div>
         </li>
         <li>
           <a href="#">Product</a>
-           <div class="dropdown">
-              <a href="Products.html">Web development</a>
-              <a href="">App development</a>
-              <a href="">Tech consultancy</a>
-              <a href="">Custom software</a>
-              <a href="">AI/IoT/Automation services</a>
-            </div>
+          <div class="dropdown">
+            <a href="Products.html">Web development</a>
+            <a href="">App development</a>
+            <a href="">Tech consultancy</a>
+            <a href="">Custom software</a>
+            <a href="">AI/IoT/Automation services</a>
+          </div>
         </li>
         <li>
           <a href="#">Tech News</a>
-           <div class="dropdown">
-              <h2>Blog</h2>
-              <a href="Blog_Tech_News.html">Blog Tech News</a>
-              <a href="">Articles about technology trends</a>
-              <a href="">How-to guides or tutorials</a>
-              <a href="">Company updates</a>
-            </div>
+          <div class="dropdown">
+            <h2>Blog</h2>
+            <a href="Blog_Tech_News.html">Blog Tech News</a>
+            <a href="">Articles about technology trends</a>
+            <a href="">How-to guides or tutorials</a>
+            <a href="">Company updates</a>
+          </div>
         </li>
         <li>
           <a href="#">Careers</a>
           <div class="dropdown">
-              <a href="Careers.html">Develop your career</a>
-              <a href="">Articles about technology trends</a>
-              <a href="">How-to guides or tutorials</a>
-              <a href="">Company updates</a>
+            <a href="Careers.html">Develop your career</a>
+            <a href="">Articles about technology trends</a>
+            <a href="">How-to guides or tutorials</a>
+            <a href="">Company updates</a>
           </div>
         </li>
         <li>
           <a href="#">Jobs</a>
           <div class="dropdown">
-              <h2>Apply for Jobs</h2>
-              <a href="features.html">Go to Jobs & Internships</a>
+            <h2>Apply for Jobs</h2>
+            <a href="features.html">Go to Jobs & Internships</a>
           </div>
         </li>
         <li>
           <a href="#">Contact</a>
           <div class="dropdown">
-              <a href="contact_us.html">Tell us anything</a>
+            <a href="contact_us.html">Tell us anything</a>
           </div>
         </li>
         <li>
           <a href="#">Working Calendar</a>
           <div class="dropdown">
-              <a href="amasahayakazi.html">▼ Our Calendar Days</a>
+            <a href="amasahayakazi.html">▼ Our Calendar Days</a>
           </div>
         </li>
       </ul>
     </nav>
 
-    <!-- Hamburger Menu Icon (right side) -->
+    <!-- Hamburger Menu Icons -->
     <div class="dashboard-icon">
       <i class="fas fa-bars"></i>
     </div>
-    
-    <!-- Mobile menu toggle (hidden by default) -->
     <div class="menu-toggle">
       <i class="fas fa-bars"></i>
     </div>
   </header>
 
-  <!-- ===== HAMBURGER MENU SIDEBAR ===== -->
-  <aside class="sidebar" id="dashboard">
+  <!-- ===== DASHBOARD SIDEBAR ===== -->
+  <aside class="dashboard" id="dashboard-wrapper">
     <div class="sidebar-header">
       <span><i class="fas fa-bars"></i> Menu</span>
-      <i class="fas fa-times close-sidebar"></i>
+      <i class="fas fa-times close"></i>
     </div>
     
     <nav>
@@ -594,7 +594,6 @@
       <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
     </nav>
     
-    <!-- Hamburger Menu Widgets -->
     <div class="dashboard-widget">
       <h3>Quick Stats</h3>
       <p>Overview of your recent activity</p>
@@ -615,7 +614,7 @@
     </div>
     
     <div class="dashboard-widget">
-      <h3>Recent Activity</h3>
+      <h3>Activity</h3>
       <p><i class="fas fa-check-circle"></i> New project started</p>
       <p><i class="fas fa-user-plus"></i> 3 new team members</p>
       <p><i class="fas fa-sync-alt"></i> Website updated</p>
@@ -625,22 +624,21 @@
   <!-- ===== MAIN CONTENT ===== -->
   <h1 style="text-align: center;">Internships & Projects</h1>
 
-  <!-- Amafoto atambuka -->
   <div class="sliding-gallery">
     <div class="gallery-track">
-      <img src="images/intern1.jpg" alt="Abanyeshuri bari mu mahugurwa">
-      <img src="images/intern2.jpg" alt="Team ikora kuri project">
-      <img src="images/intern3.jpg" alt="Mentorship session">
+      <img src="images/intern1.jpg" alt="Abanyashuri">
+      <img src="images/intern2.jpg" alt="Team ikora">
+      <img src="images/intern3.jpg" alt="Mentorship">
     </div>
   </div>
   <div class="amahugurwa">
-    <p>TekiNova itanga amahirwe yo kwitoza no gukura mu mwuga:</p>
+    <p>TekiNova itanga amahirwe yo kwita no gukura mu mwuga:</p>
     <ul>
-      <li>Kwitabira imishinga y'abakiriya</li>
-      <li>Mentorship by professionals</li>
-      <li>Career coaching and portfolio building</li>
+      <li>Kwitabira imishinga y'abakir</li>
+      <li>Mentorship</li>
+      <li>Career coaching</li>
     </ul>
-    <a href="index.html">← Subira ku rubuga nyamukuru</a>
+    <a href="index.html">← Subira</a>
   </div>
 
   <!-- ===== FOOTER ===== -->
@@ -648,95 +646,105 @@
     <div class="footer-columns">
       <div class="col">
         <h3>Contact</h3>
-        <a href="./contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="./contact_us.html" style="text-decoration:underline;"><b>More Info</b></a>
         <strong>WhatsApp:</strong>
           <a href="https://wa.me/+250733253803" target="_blank" class="toto">+250 733 253 803</a>
         <strong>Email:</strong>
-          <a href="mailto:fiqueat@gmail.com" class="toto">fiqueat@gmail.com</a>
+          <a href="mailto:info@tekinova.com" class="toto">info@tekinova.com</a>
       </div>
       <div class="col">
         <h3>About TekiNova</h3>
-        <a href="About.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="About.html" style="text-decoration:underline;"><b>More Info</b></a>
         <a href="#">Company background & vision</a>
         <a href="#">Mission & goals</a>
         <a href="#">Contacts</a>
         <h2>Administrative</h2>
         <a href="#">Team or founders</a>
-        <a href="#">Core values (e.g. innovation, protection, accessibility)</a>
-        <a href="#">Leadership Organ</a>
-        <a href="#">Senior Management</a>
+        <a href="#">Core values</a>
+        <a href="#">Leadership</a>
+        <a href="#">Management</a>
       </div>
       <div class="col">
         <h3>Services</h3>
-        <a href="services.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="services.html" style="text-decoration:underline;"><b>More Info</b></a>
         <a href="">Web development</a>
         <a href="">App development</a>
         <a href="">Tech consultancy</a>
         <a href="">Custom software</a>
-        <a href="">AI/IoT/Automation services</a>
+        <a href="">AI/IoT/Automation</a>
       </div>
       <div class="col">
         <h3>Product</h3>
-        <a href="Products.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="Products.html" style="text-decoration:underline;"><b>More Info</b></a>
         <a href="">App development</a>
         <a href="">Tech consultancy</a>
         <a href="">Custom software</a>
-        <a href="">AI/IoT/Automation services</a>
+        <a href="">AI/IoT/Automation</a>
       </div>
       <div class="col">
         <h3>Careers</h3>
-        <a href="Careers.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="">Articles about technology trends</a>
-        <a href="">How-to guides or tutorials</a>
-        <a href="">Company updates</a>
+        <a href="Careers.html" style="text-decoration:underline;"><b>More Info</b></a>
+        <a href="">Tech trends</a>
+        <a href="">Guides</a>
+        <a href="">Updates</a>
       </div>
       <div class="col">
         <h3>Jobs & Internships</h3>
-        <a href="features.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="features.html" style="text-decoration:underline;"><b>More Info</b></a>
       </div>
     </div>
   </footer>
 
-  <!-- ===== JS: Toggle Hamburger Menu and Scroll Restoration ===== -->
+  <!-- ===== JS: Toggle Dashboard and Scroll Restoration ===== -->
   <script>
-    // Store scroll position before navigation
+    // Store scroll position
     let scrollPositions = {};
 
-    // Toggle hamburger menu open/close
-    function toggleSidebar() {
-      const sidebar = document.getElementById('dashboard');
-      sidebar.classList.toggle('active');
+    // Toggle dashboard
+    function toggleDashboard() {
+      const dashboard = document.getElementById('dashboard-wrapper');
+      dashboard.classList.toggle('active');
     }
 
     // Attach event listeners
-    document.querySelector('.dashboard-icon').addEventListener('click', toggleSidebar);
-    document.querySelector('.menu-toggle').addEventListener('click', toggleSidebar);
-    document.querySelector('.close-sidebar').addEventListener('click', toggleSidebar);
+    const dashboardIcon = document.querySelector('.dashboard-icon');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const closeDashboard = document.querySelector('.close');
 
-    // Close hamburger menu when clicking outside
+    if (dashboardIcon) {
+      dashboardIcon.addEventListener('click', toggleDashboard);
+    }
+    if (menuToggle) {
+      menuToggle.addEventListener('click', toggleDashboard);
+    }
+    if (closeDashboard) {
+      closeDashboard.addEventListener('click', toggleDashboard);
+    }
+
+    // Close dashboard when clicking outside
     document.addEventListener('click', function (event) {
-      const sidebar = document.getElementById('dashboard');
+      const dashboard = document.getElementById('dashboard-wrapper');
       const dashboardIcon = document.querySelector('.dashboard-icon');
       const menuToggle = document.querySelector('.menu-toggle');
-
-      if (sidebar.classList.contains('active') &&
-          !sidebar.contains(event.target) &&
-          !dashboardIcon.contains(event.target) &&
-          !menuToggle.contains(event.target)) {
-        sidebar.classList.remove('active');
+      
+      if (dashboard.classList.contains('active') &&
+          !dashboard.contains(event.target) &&
+          !(dashboardIcon && dashboardIcon.contains(event.target)) &&
+          !(menuToggle && menuToggle.contains(event.target))) {
+        dashboard.classList.remove('active');
       }
     });
 
-    // Close hamburger menu on Escape key
+    // Close dashboard on Escape key
     document.addEventListener('keydown', function (event) {
-      const sidebar = document.getElementById('dashboard');
-      if (event.key === 'Escape' && sidebar.classList.contains('active')) {
-        sidebar.classList.remove('active');
+      const dashboard = document.getElementById('dashboard-wrapper');
+      if (event.key === 'Escape' && dashboard.classList.contains('active')) {
+        dashboard.classList.remove('active');
       }
     });
 
     // Save scroll position before navigating
-    document.querySelectorAll('.sidebar a, .navbar a').forEach(link => {
+    document.querySelectorAll('.dashboard a, .navbar a').forEach(link => {
       link.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
         if (href && !href.startsWith('#')) {
@@ -758,7 +766,7 @@
       }
     });
 
-    // Ensure smooth scrolling for anchor links
+    // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
