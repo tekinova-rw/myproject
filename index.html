@@ -19,12 +19,8 @@
       background-color: #f4f4f4;
       color: #333;
       line-height: 1.6;
-      padding-top: 64px;
-      overflow-x: hidden;
-    }
-
-    body.no-scroll {
-      overflow: hidden;
+      padding-top: 64px; /* Space for sticky header */
+      overscroll-behavior: none; /* Prevent overscroll issues on mobile */
     }
 
     /* Header */
@@ -89,10 +85,23 @@
       color: white;
       transition: color 0.3s;
       padding: 6px;
+      display: none; /* Hidden by default, shown on desktop */
     }
 
     .menu-icon:hover {
       color: gold;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    .menu-toggle {
+      font-size: 22px;
+      cursor: pointer;
+      padding: 6px;
+      display: none; /* Hidden by default, shown on mobile */
+    }
+
+    .menu-toggle:hover {
       background-color: rgba(255, 255, 255, 0.1);
       border-radius: 50%;
     }
@@ -102,7 +111,7 @@
       position: fixed;
       top: 0;
       right: -250px;
-      width: 250px;
+      width: 240px;
       height: 100vh;
       background-color: #002240;
       color: white;
@@ -111,7 +120,6 @@
       z-index: 999;
       box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
       overflow-y: auto;
-      touch-action: pan-y;
     }
 
     .sidebar.active {
@@ -197,25 +205,6 @@
     .widget-stats small {
       font-size: 11px;
       opacity: 0.8;
-    }
-
-    /* Overlay */
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 998;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-
-    .overlay.active {
-      opacity: 1;
-      visibility: visible;
     }
 
     /* Staff Cards */
@@ -419,6 +408,7 @@
       font-size: 14px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       transition: transform 0.2s ease, background-color 0.3s;
+      touch-action: manipulation; /* Improve touch responsiveness */
     }
 
     .float-btn:hover {
@@ -440,6 +430,79 @@
 
     .float-btn.group .icon {
       background-image: url('https://cdn-icons-png.flaticon.com/512/124/124034.png');
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      width: 100%;
+      background-color: #012f47;
+      z-index: 998;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .mobile-menu.active {
+      max-height: 1000px;
+      overflow-y: auto;
+    }
+
+    .mobile-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .mobile-menu li {
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 12px 15px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      touch-action: manipulation; /* Improve touch responsiveness */
+    }
+
+    .mobile-menu a:hover {
+      background-color: #033d3d;
+      color: gold;
+    }
+
+    .mobile-dropdown {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      background-color: #002240;
+    }
+
+    .mobile-dropdown.active {
+      max-height: 1000px;
+    }
+
+    .mobile-dropdown a {
+      padding-left: 30px;
+    }
+
+    .mobile-dropdown-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mobile-dropdown-toggle i {
+      transition: transform 0.3s;
+    }
+
+    .mobile-dropdown-toggle.active i {
+      transform: rotate(180deg);
     }
 
     /* Responsive Styles */
@@ -464,14 +527,21 @@
         display: none;
       }
 
-      .menu-icon {
+      .menu-toggle {
         display: block;
+        color: white;
+      }
+
+      .menu-icon {
+        display: none;
       }
       
       .sidebar {
-        width: 80%;
-        max-width: 300px;
-        right: -100%;
+        display: none; /* Hide sidebar on mobile to prevent duplicate dashboard */
+      }
+      
+      .mobile-menu {
+        display: block;
       }
       
       .footer-columns {
@@ -541,9 +611,8 @@
         font-size: 1.4rem;
       }
       
-      .sidebar {
-        width: 100%;
-        right: -100%;
+      .mobile-menu {
+        top: 56px;
       }
 
       .moving-image {
@@ -585,7 +654,31 @@
       }
     }
 
-    /* home image css */
+    /* Animation for mobile menu */
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .mobile-menu.active li {
+      animation: slideDown 0.3s ease forwards;
+    }
+
+    .mobile-menu.active li:nth-child(1) { animation-delay: 0.1s; }
+    .mobile-menu.active li:nth-child(2) { animation-delay: 0.2s; }
+    .mobile-menu.active li:nth-child(3) { animation-delay: 0.3s; }
+    .mobile-menu.active li:nth-child(4) { animation-delay: 0.4s; }
+    .mobile-menu.active li:nth-child(5) { animation-delay: 0.5s; }
+    .mobile-menu.active li:nth-child(6) { animation-delay: 0.6s; }
+    .mobile-menu.active li:nth-child(7) { animation-delay: 0.7s; }
+
+    /* Home image CSS */
     .moving-image {
       position: relative;
       width: 100%;
@@ -606,12 +699,20 @@
         transform: translateX(0);
       }
     }
+
+    /* Ensure only one dashboard on mobile */
+    @media (max-width: 768px) {
+      .sidebar.active {
+        display: none; /* Ensure sidebar doesn't appear on mobile */
+      }
+
+      .mobile-menu.active {
+        display: block; /* Only mobile menu is active */
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Overlay -->
-  <div class="overlay" id="overlay"></div>
-
   <!-- ===== HEADER ===== -->
   <header>
     <div class="logo">
@@ -623,91 +724,178 @@
         <li><a href="index.html">Home</a></li>
         <li>
           <a href="#">About</a>
-            <div class="dropdown">
-              <h2>About TEKINOVA</h2>
-                    <a href="About.html">About Us</a>
-                    <a href="./amasahayakazi.html">Amasaha y'akazi</a>
-                    <a href="#">Company Background & Vision</a>
-                    <a href="#">Mission & Goals</a>
-                    <a href="#">Contacts</a>
-                    <h2>Administrative</h2>
-                    <a href="#">Team or Founders</a>
-                    <a href="#">Core Values</a>
-                    <a href="#">Leadership Team</a>
-                    <a href="#">Senior Management</a>
-            </div>
-          </li>
+          <div class="dropdown">
+            <h2>About TEKINOVA</h2>
+            <a href="About.html">About Us</a>
+            <a href="./amasahayakazi.html">Amasaha y'akazi</a>
+            <a href="#">Company Background & Vision</a>
+            <a href="#">Mission & Goals</a>
+            <a href="#">Contacts</a>
+            <h2>Administrative</h2>
+            <a href="#">Team or Founders</a>
+            <a href="#">Core Values</a>
+            <a href="#">Leadership Team</a>
+            <a href="#">Senior Management</a>
+          </div>
+        </li>
         <li>
           <a href="#">Services</a>
-            <div class="dropdown">
-              <a href="services.html">Got Services</a>
-              <a href="">Web Development</a>
-              <a href="">App Development</a>
-              <a href="">Tech Consultancy</a>
-              <a href="">Custom Software</a>
-              <a href="">AI/IoT/Automation Services</a>
-            </div>
+          <div class="dropdown">
+            <a href="services.html">Got Services</a>
+            <a href="">Web Development</a>
+            <a href="">App Development</a>
+            <a href="">Tech Consultancy</a>
+            <a href="">Custom Software</a>
+            <a href="">AI/IoT/Automation Services</a>
+          </div>
         </li>
         <li>
           <a href="#">Product</a>
-           <div class="dropdown">
-              <a href="Products.html">Products</a>
-              <a href="">App Development</a>
-              <a href="">Tech Consultancy</a>
-              <a href="">Custom Software</a>
-              <a href="">AI/IoT/Automation Services</a>
-            </div>
+          <div class="dropdown">
+            <a href="Products.html">Products</a>
+            <a href="">App Development</a>
+            <a href="">Tech Consultancy</a>
+            <a href="">Custom Software</a>
+            <a href="">AI/IoT/Automation Services</a>
+          </div>
         </li>
         <li>
           <a href="#">Tech News</a>
-           <div class="dropdown">
-                    <h2>Blog</h2>
-                    <a href="Blog_Tech_News.html">Blog Tech News</a>
-                    <a href="">Articles About Technology Trends</a>
-                    <a href="">How-to Guides or Tutorials</a>
-                    <a href="">Company Updates</a>
-            </div>
+          <div class="dropdown">
+            <h2>Blog</h2>
+            <a href="Blog_Tech_News.html">Blog Tech News</a>
+            <a href="">Articles About Technology Trends</a>
+            <a href="">How-to Guides or Tutorials</a>
+            <a href="">Company Updates</a>
+          </div>
         </li>
         <li>
           <a href="#">Careers</a>
           <div class="dropdown">
-                    <h2></h2>
-                    <a href="Careers.html">Develop Your Careers</a>
-                    <a href="">Articles About Technology Trends</a>
-                    <a href="">How-to Guides or Tutorials</a>
-                    <a href="">Company Updates</a>
+            <a href="Careers.html">Develop Your Careers</a>
+            <a href="">Articles About Technology Trends</a>
+            <a href="">How-to Guides or Tutorials</a>
+            <a href="">Company Updates</a>
           </div>
         </li>
         <li>
-          <a href="">Jobs</a>
+          <a href="#">Jobs</a>
           <div class="dropdown">
-                    <h2>Apply Job</h2>
-                    <a href="features.html">Go to Jobs & Internships</a>
+            <h2>Apply Job</h2>
+            <a href="features.html">Go to Jobs & Internships</a>
           </div>
         </li>
         <li>
           <a href="#">Contact</a>
-              <div class="dropdown">
-                    <h2></h2>
-                    <a href="contact_us.html">Tell Us Anything</a>
+          <div class="dropdown">
+            <a href="contact_us.html">Tell Us Anything</a>
           </div>
         </li>
         <li>
           <a href="#">Working Calendar</a>
-              <div class="dropdown">
-                    <h2></h2>
-                    <a href="amasahayakazi.html">Our Calendar Days</a>
+          <div class="dropdown">
+            <a href="amasahayakazi.html">Our Calendar Days</a>
           </div>
         </li>
       </ul>
     </nav>
 
-    <!-- Menu Icon (right side) -->
+    <!-- Menu Icon (right side, desktop) -->
     <div class="menu-icon" id="menuIcon">
+      <i class="fas fa-bars"></i>
+    </div>
+    
+    <!-- Mobile menu toggle (mobile) -->
+    <div class="menu-toggle" id="menuToggle">
       <i class="fas fa-bars"></i>
     </div>
   </header>
   <img src="./TITI.png" class="moving-image" alt="Moving Image">
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li>
+        <div class="mobile-dropdown-toggle" data-toggle="about">
+          <a href="#">About</a>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="mobile-dropdown">
+          <a href="About.html">About Us</a>
+          <a href="./amasahayakazi.html">Amasaha y'akazi</a>
+          <a href="#">Company Background & Vision</a>
+          <a href="#">Mission & Goals</a>
+          <a href="#">Contacts</a>
+          <a href="#">Team or Founders</a>
+          <a href="#">Core Values</a>
+          <a href="#">Leadership Team</a>
+          <a href="#">Senior Management</a>
+        </div>
+      </li>
+      <li>
+        <div class="mobile-dropdown-toggle" data-toggle="services">
+          <a href="#">Services</a>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="mobile-dropdown">
+          <a href="services.html">Got Services</a>
+          <a href="">Web Development</a>
+          <a href="">App Development</a>
+          <a href="">Tech Consultancy</a>
+          <a href="">Custom Software</a>
+          <a href="">AI/IoT/Automation Services</a>
+        </div>
+      </li>
+      <li>
+        <div class="mobile-dropdown-toggle" data-toggle="product">
+          <a href="#">Product</a>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="mobile-dropdown">
+          <a href="Products.html">Products</a>
+          <a href="">App Development</a>
+          <a href="">Tech Consultancy</a>
+          <a href="">Custom Software</a>
+          <a href="">AI/IoT/Automation Services</a>
+        </div>
+      </li>
+      <li>
+        <div class="mobile-dropdown-toggle" data-toggle="tech-news">
+          <a href="#">Tech News</a>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="mobile-dropdown">
+          <a href="Blog_Tech_News.html">Blog Tech News</a>
+          <a href="">Articles About Technology Trends</a>
+          <a href="">How-to Guides or Tutorials</a>
+          <a href="">Company Updates</a>
+        </div>
+      </li>
+      <li>
+        <div class="mobile-dropdown-toggle" data-toggle="careers">
+          <a href="#">Careers</a>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="mobile-dropdown">
+          <a href="Careers.html">Develop Your Careers</a>
+          <a href="">Articles About Technology Trends</a>
+          <a href="">How-to Guides or Tutorials</a>
+          <a href="">Company Updates</a>
+        </div>
+      </li>
+      <li>
+        <div class="mobile-dropdown-toggle" data-toggle="jobs">
+          <a href="">Jobs</a>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="mobile-dropdown">
+          <a href="features.html">Go to Jobs & Internships</a>
+        </div>
+      </li>
+      <li><a href="contact_us.html">Contact</a></li>
+    </ul>
+  </div>
 
   <!-- ===== SIDEBAR MENU ===== -->
   <aside class="sidebar" id="menuSidebar">
@@ -754,6 +942,7 @@
     </div>
   </aside>
   
+  <!-- Talk to Us -->
   <div class="floating-whatsapp-buttons left-side">
     <a href="https://wa.me/250733253803" class="float-btn chat" target="_blank" rel="noopener noreferrer">
       <span class="icon"></span>
@@ -841,72 +1030,125 @@
     </div>
   </footer>
 
-  <!-- ===== internal JS ===== -->
+  <!-- ===== Internal JS ===== -->
   <script>
-    // Toggle sidebar menu open/close
+    // Toggle sidebar menu (desktop only)
     function toggleMenuSidebar() {
       const menu = document.getElementById('menuSidebar');
-      const overlay = document.getElementById('overlay');
-      const body = document.body;
-      
-      menu.classList.toggle('active');
-      overlay.classList.toggle('active');
-      
-      if (menu.classList.contains('active')) {
-        body.classList.add('no-scroll');
-      } else {
-        body.classList.remove('no-scroll');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (window.innerWidth > 768) { // Only allow sidebar on desktop
+        menu.classList.toggle('active');
+        mobileMenu.classList.remove('active'); // Ensure mobile menu is closed
       }
+    }
+
+    // Toggle mobile menu
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuSidebar = document.getElementById('menuSidebar');
+      if (window.innerWidth <= 768) { // Only allow mobile menu on mobile
+        mobileMenu.classList.toggle('active');
+        menuSidebar.classList.remove('active'); // Ensure sidebar is closed
+        if (!mobileMenu.classList.contains('active')) {
+          // Close all dropdowns when closing mobile menu
+          document.querySelectorAll('.mobile-dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+          });
+          document.querySelectorAll('.mobile-dropdown-toggle').forEach(toggle => {
+            toggle.classList.remove('active');
+            const icon = toggle.querySelector('i');
+            icon.classList.remove('fa-chevron-up');
+            icon.classList.add('fa-chevron-down');
+          });
+        }
+      }
+    }
+
+    // Mobile dropdown toggle
+    function toggleMobileDropdown(element) {
+      const parent = element.parentElement;
+      const dropdown = parent.querySelector('.mobile-dropdown');
+      const icon = element.querySelector('i');
+      
+      element.classList.toggle('active');
+      dropdown.classList.toggle('active');
+      icon.classList.toggle('fa-chevron-down');
+      icon.classList.toggle('fa-chevron-up');
     }
 
     // Event listeners for menu toggles
     document.getElementById('menuIcon').addEventListener('click', toggleMenuSidebar);
+    document.getElementById('menuToggle').addEventListener('click', toggleMobileMenu);
     document.getElementById('closeMenu').addEventListener('click', toggleMenuSidebar);
-    document.getElementById('overlay').addEventListener('click', toggleMenuSidebar);
 
-    // Close sidebar menu when clicking outside
+    // Mobile dropdown toggles
+    document.querySelectorAll('.mobile-dropdown-toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => toggleMobileDropdown(toggle));
+    });
+
+    // Close menus when clicking outside
     document.addEventListener('click', function (event) {
-      const menu = document.getElementById('menuSidebar');
+      const menuSidebar = document.getElementById('menuSidebar');
       const menuIcon = document.getElementById('menuIcon');
-      const overlay = document.getElementById('overlay');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuToggle = document.getElementById('menuToggle');
 
-      if (menu.classList.contains('active') &&
-          !menu.contains(event.target) &&
+      if (menuSidebar.classList.contains('active') &&
+          !menuSidebar.contains(event.target) &&
           !menuIcon.contains(event.target)) {
-        menu.classList.remove('active');
-        overlay.classList.remove('active');
-        document.body.classList.remove('no-scroll');
+        menuSidebar.classList.remove('active');
+      }
+
+      if (mobileMenu.classList.contains('active') &&
+          !mobileMenu.contains(event.target) &&
+          !menuToggle.contains(event.target)) {
+        mobileMenu.classList.remove('active');
       }
     });
 
-    // Close sidebar menu on Escape key
+    // Close menus on Escape key
     document.addEventListener('keydown', function (event) {
-      const menu = document.getElementById('menuSidebar');
-      const overlay = document.getElementById('overlay');
+      const menuSidebar = document.getElementById('menuSidebar');
+      const mobileMenu = document.getElementById('mobileMenu');
       if (event.key === 'Escape') {
-        if (menu.classList.contains('active')) {
-          menu.classList.remove('active');
-          overlay.classList.remove('active');
-          document.body.classList.remove('no-scroll');
-        }
+        menuSidebar.classList.remove('active');
+        mobileMenu.classList.remove('active');
       }
     });
 
     // Scroll to top and close menus on link click
-    document.querySelectorAll('.sidebar a').forEach(link => {
+    document.querySelectorAll('.mobile-menu a, .sidebar a').forEach(link => {
       link.addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.remove('active');
         document.getElementById('menuSidebar').classList.remove('active');
-        document.getElementById('overlay').classList.remove('active');
-        document.body.classList.remove('no-scroll');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
 
-    // Add touch support for sidebar links
-    document.querySelectorAll('.sidebar a').forEach(link => {
-      link.addEventListener('touchstart', () => {
-        link.click();
-      });
+    // Ensure correct menu visibility on resize
+    window.addEventListener('resize', () => {
+      const menuSidebar = document.getElementById('menuSidebar');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (window.innerWidth > 768) {
+        mobileMenu.classList.remove('active');
+        document.getElementById('menuIcon').style.display = 'block';
+        document.getElementById('menuToggle').style.display = 'none';
+      } else {
+        menuSidebar.classList.remove('active');
+        document.getElementById('menuIcon').style.display = 'none';
+        document.getElementById('menuToggle').style.display = 'block';
+      }
+    });
+
+    // Initialize menu visibility based on screen size
+    window.addEventListener('load', () => {
+      if (window.innerWidth > 768) {
+        document.getElementById('menuIcon').style.display = 'block';
+        document.getElementById('menuToggle').style.display = 'none';
+      } else {
+        document.getElementById('menuIcon').style.display = 'none';
+        document.getElementById('menuToggle').style.display = 'block';
+      }
     });
   </script>
 </body>
