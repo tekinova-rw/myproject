@@ -1112,6 +1112,15 @@
     }
     
     window.addEventListener('resize', handleResize);
+    // 
+    document.querySelector('.menu-toggle').addEventListener('click', () => {
+  document.querySelector('.sidebar').classList.toggle('active');
+});
+
+document.querySelector('.sidebar-header i').addEventListener('click', () => {
+  document.querySelector('.sidebar').classList.remove('active');
+});
+
   </script>
 </body>
 </html>

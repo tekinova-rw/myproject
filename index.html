@@ -7,7 +7,6 @@
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link rel="stylesheet" href="styles.css">
   <style>
     * {
       box-sizing: border-box;
@@ -20,7 +19,12 @@
       background-color: #f4f4f4;
       color: #333;
       line-height: 1.6;
-      padding-top: 64px; /* Space for sticky header */
+      padding-top: 64px;
+      overflow-x: hidden;
+    }
+
+    body.no-scroll {
+      overflow: hidden;
     }
 
     /* Header */
@@ -31,7 +35,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: fixed; /* Sticky header */
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
@@ -110,7 +114,7 @@
       position: fixed;
       top: 0;
       right: -250px;
-      width: 240px;
+      width: 250px;
       height: 100vh;
       background-color: #002240;
       color: white;
@@ -119,6 +123,7 @@
       z-index: 999;
       box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
       overflow-y: auto;
+      touch-action: pan-y;
     }
 
     .sidebar.active {
@@ -204,6 +209,25 @@
     .widget-stats small {
       font-size: 11px;
       opacity: 0.8;
+    }
+
+    /* Overlay */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 998;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
     }
 
     /* Staff Cards */
@@ -422,7 +446,6 @@
       display: inline-block;
     }
 
-    /* Icons */
     .float-btn.chat .icon {
       background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg');
     }
@@ -532,11 +555,13 @@
       }
 
       .menu-icon {
-        display: none;
+        display: block;
       }
       
       .sidebar {
-        width: 200px;
+        width: 80%;
+        max-width: 300px;
+        right: -100%;
       }
       
       .mobile-menu {
@@ -570,7 +595,7 @@
 
     @media (max-width: 576px) {
       body {
-        padding-top: 56px; /* Adjust for smaller header on mobile */
+        padding-top: 56px;
       }
 
       header {
@@ -702,6 +727,9 @@
   </style>
 </head>
 <body>
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
   <!-- ===== HEADER ===== -->
   <header>
     <div class="logo">
@@ -797,7 +825,7 @@
       <i class="fas fa-bars"></i>
     </div>
     
-    <!-- Mobile menu toggle (hidden by default) -->
+    <!-- Mobile menu toggle -->
     <div class="menu-toggle" id="menuToggle">
       <i class="fas fa-bars"></i>
     </div>
@@ -907,7 +935,6 @@
       <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
     </nav>
     
-    <!-- Menu Widgets -->
     <div class="menu-widget">
       <h3>Quick Stats</h3>
       <p>Overview of your recent activity</p>
@@ -935,7 +962,6 @@
     </div>
   </aside>
   
-  <!-- Talk to Us -->
   <div class="floating-whatsapp-buttons left-side">
     <a href="https://wa.me/250733253803" class="float-btn chat" target="_blank" rel="noopener noreferrer">
       <span class="icon"></span>
@@ -1028,15 +1054,26 @@
     // Toggle sidebar menu open/close
     function toggleMenuSidebar() {
       const menu = document.getElementById('menuSidebar');
+      const overlay = document.getElementById('overlay');
+      const body = document.body;
+      
       menu.classList.toggle('active');
+      overlay.classList.toggle('active');
+      
+      if (menu.classList.contains('active')) {
+        body.classList.add('no-scroll');
+      } else {
+        body.classList.remove('no-scroll');
+      }
     }
 
     // Toggle mobile menu
     function toggleMobileMenu() {
       const mobileMenu = document.getElementById('mobileMenu');
+      const body = document.body;
+      
       mobileMenu.classList.toggle('active');
       if (!mobileMenu.classList.contains('active')) {
-        // Close all dropdowns when closing mobile menu
         document.querySelectorAll('.mobile-dropdown').forEach(dropdown => {
           dropdown.classList.remove('active');
         });
@@ -1046,6 +1083,9 @@
           icon.classList.remove('fa-chevron-up');
           icon.classList.add('fa-chevron-down');
         });
+        body.classList.remove('no-scroll');
+      } else {
+        body.classList.add('no-scroll');
       }
     }
 
@@ -1065,10 +1105,12 @@
     document.getElementById('menuIcon').addEventListener('click', toggleMenuSidebar);
     document.getElementById('menuToggle').addEventListener('click', toggleMobileMenu);
     document.getElementById('closeMenu').addEventListener('click', toggleMenuSidebar);
+    document.getElementById('overlay').addEventListener('click', toggleMenuSidebar);
 
     // Mobile dropdown toggles
     document.querySelectorAll('.mobile-dropdown-toggle').forEach(toggle => {
       toggle.addEventListener('click', () => toggleMobileDropdown(toggle));
+      toggle.addEventListener('touchstart', () => toggleMobileDropdown(toggle));
     });
 
     // Close sidebar menu when clicking outside
@@ -1077,17 +1119,21 @@
       const menuIcon = document.getElementById('menuIcon');
       const mobileMenu = document.getElementById('mobileMenu');
       const menuToggle = document.getElementById('menuToggle');
+      const overlay = document.getElementById('overlay');
 
       if (menu.classList.contains('active') &&
           !menu.contains(event.target) &&
           !menuIcon.contains(event.target)) {
         menu.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.classList.remove('no-scroll');
       }
 
       if (mobileMenu.classList.contains('active') &&
           !mobileMenu.contains(event.target) &&
           !menuToggle.contains(event.target)) {
         mobileMenu.classList.remove('active');
+        document.body.classList.remove('no-scroll');
       }
     });
 
@@ -1095,12 +1141,16 @@
     document.addEventListener('keydown', function (event) {
       const menu = document.getElementById('menuSidebar');
       const mobileMenu = document.getElementById('mobileMenu');
+      const overlay = document.getElementById('overlay');
       if (event.key === 'Escape') {
         if (menu.classList.contains('active')) {
           menu.classList.remove('active');
+          overlay.classList.remove('active');
+          document.body.classList.remove('no-scroll');
         }
         if (mobileMenu.classList.contains('active')) {
           mobileMenu.classList.remove('active');
+          document.body.classList.remove('no-scroll');
         }
       }
     });
@@ -1110,6 +1160,8 @@
       link.addEventListener('click', () => {
         document.getElementById('mobileMenu').classList.remove('active');
         document.getElementById('menuSidebar').classList.remove('active');
+        document.getElementById('overlay').classList.remove('active');
+        document.body.classList.remove('no-scroll');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
