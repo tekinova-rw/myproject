@@ -23,16 +23,21 @@
       overflow-x: hidden;
     }
 
+    body.no-scroll {
+      overflow: hidden;
+    }
+
     /* Header */
     header {
       background-color: #012f47;
       color: white;
-      padding: 10px 20px;
+      padding: 10px 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: sticky;
+      position: fixed;
       top: 0;
+      width: 100%;
       z-index: 1000;
       flex-wrap: wrap;
     }
@@ -40,75 +45,80 @@
     .logo {
       display: flex;
       align-items: center;
+      min-width: 180px;
     }
 
     .logo img {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       border: 2px solid gold;
-      margin-right: 10px;
+      margin-right: 8px;
     }
 
     .logo h1 {
       color: gold;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
+      white-space: nowrap;
     }
 
     nav ul {
       list-style: none;
       display: flex;
-      gap: 15px;
+      gap: 12px;
     }
 
-    nav a {
+    .navbar a {
       text-decoration: none;
       color: white;
       font-weight: 600;
-      font-size: 14px;
-      padding: 6px 10px;
+      font-size: 13px;
+      padding: 5px 10px;
       border-radius: 6px;
-      transition: all 0.3s;
+      transition: background-color 0.3s ease;
+      white-space: nowrap;
     }
 
-    nav a:hover {
+    .navbar a:hover {
       background-color: #033d3d;
       color: gold;
     }
 
+    .navbar a.active {
+      color: #eaedf1;
+    }
+
     /* Hamburger Menu Icon */
     .hamburger-icon {
-      font-size: 20px;
+      font-size: 18px;
       cursor: pointer;
       color: white;
-      transition: color 0.3s;
+      transition: color 0.3s ease;
+      margin-left: 12px;
     }
 
     .hamburger-icon:hover {
       color: gold;
     }
 
-    .menu-toggle {
-      display: none;
-      font-size: 20px;
-      cursor: pointer;
-    }
-
     /* Sidebar Hamburger Menu */
     .sidebar {
       position: fixed;
       top: 0;
-      right: -260px;
-      width: 260px;
+      right: -280px;
+      width: 280px;
       height: 100vh;
       background-color: #002240;
       color: white;
-      padding: 15px;
+      padding: 20px 15px;
       transition: right 0.3s ease;
       z-index: 999;
       box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
       overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .sidebar.active {
@@ -119,16 +129,16 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 18px;
+      font-size: 16px;
       color: gold;
       margin-bottom: 15px;
-      padding-bottom: 10px;
+      padding-bottom: 8px;
       border-bottom: 1px solid #555;
     }
 
     .sidebar-header i {
       cursor: pointer;
-      transition: color 0.3s;
+      transition: color 0.3s ease;
       font-size: 16px;
     }
 
@@ -141,38 +151,41 @@
       align-items: center;
       gap: 8px;
       color: white;
-      padding: 10px 0;
+      padding: 8px 12px;
       text-decoration: none;
-      transition: color 0.3s;
-      font-size: 14px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      font-size: 13px;
+      border-radius: 5px;
     }
 
     .sidebar a:hover {
+      background-color: #033d3d;
       color: gold;
     }
 
     .sidebar i {
-      width: 18px;
+      width: 16px;
       text-align: center;
+      font-size: 14px;
     }
 
     /* Menu Widgets */
     .menu-widget {
       background-color: rgba(255, 255, 255, 0.1);
       border-radius: 8px;
-      padding: 12px;
-      margin: 12px 0;
+      padding: 10px;
+      margin-bottom: 10px;
     }
 
     .menu-widget h3 {
       color: gold;
-      margin-bottom: 8px;
-      font-size: 15px;
+      margin-bottom: 6px;
+      font-size: 14px;
     }
 
     .menu-widget p {
-      font-size: 13px;
-      margin-bottom: 6px;
+      font-size: 11px;
+      margin-bottom: 5px;
     }
 
     .menu-widget .widget-stats {
@@ -188,174 +201,32 @@
 
     .widget-stats span {
       display: block;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: bold;
       color: gold;
     }
 
     .widget-stats small {
-      font-size: 11px;
+      font-size: 9px;
       opacity: 0.8;
     }
 
-    /* Staff Cards */
+    /* Main Content */
     .main-content {
       max-width: 100%;
       width: calc(100% - 30px);
-      margin: 30px auto;
+      margin: 80px auto 30px;
       padding: 15px;
     }
 
-    .staff-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-    }
-
-    .staff-card {
-      background-color: white;
-      border-radius: 12px;
-      width: 180px;
-      padding: 12px;
+    .main-content h1 {
+      color: #012f47;
+      margin-bottom: 15px;
+      font-size: 24px;
       text-align: center;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s;
     }
 
-    .staff-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .staff-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-
-    /* Footer */
-    footer {
-      background-color: #012f47;
-      color: white;
-      padding: 30px 15px;
-    }
-
-    .footer-columns {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: space-between;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .footer-columns .col {
-      flex: 1;
-      min-width: 180px;
-    }
-
-    .footer-columns .col h3 {
-      color: gold;
-      margin-bottom: 10px;
-      font-size: 16px;
-    }
-
-    .footer-columns .col h2 {
-      color: gold;
-      margin: 10px 0 8px;
-      font-size: 15px;
-    }
-
-    .footer-columns .col a {
-      display: block;
-      color: white;
-      text-decoration: none;
-      margin-bottom: 5px;
-      transition: color 0.3s;
-      font-size: 14px;
-    }
-
-    .footer-columns .col a:hover {
-      color: #d4af37;
-    }
-
-    .copyright {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 14px;
-    }
-
-    /* Navigation Dropdowns */
-    .navbar ul {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    .navbar li {
-      position: relative;
-    }
-
-    .navbar a {
-      display: block;
-      padding: 10px 14px;
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    .navbar a:hover {
-      background-color: #033d3d;
-    }
-
-    .navbar a.active {
-      color: #eaedf1;
-    }
-
-    .dropdown {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #002366;
-      min-width: 220px;
-      border-radius: 0 0 5px 5px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      z-index: 999;
-      padding: 5px;
-    }
-
-    .dropdown a {
-      padding: 10px 12px;
-      display: block;
-      color: white;
-      text-decoration: none;
-      font-size: 13px;
-    }
-
-    .dropdown a:hover {
-      background-color: #033d3d;
-    }
-
-    .navbar li:hover .dropdown {
-      display: block;
-    }
-
-    /* Mobile dropdown toggle */
-    .dropdown-toggle {
-      display: none;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 14px;
-      cursor: pointer;
-      padding: 6px 10px;
-      vertical-align: middle;
-    }
-
-    /* Amahugurwa CSS */
+    /* Sliding Gallery */
     .sliding-gallery {
       max-width: 100%;
       width: calc(100% - 30px);
@@ -394,6 +265,7 @@
       100% { transform: translateX(0); }
     }
 
+    /* Amahugurwa Section */
     .amahugurwa, .amahugurwa ul, .amahugurwa li {
       font-family: 'Times New Roman', Times, serif;
       text-align: center;
@@ -481,15 +353,126 @@
       text-align: center;
     }
 
-    /* Back to top button */
+    /* Footer */
+    footer {
+      background-color: #012f47;
+      color: white;
+      padding: 20px 15px;
+    }
+
+    .footer-columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-columns .col {
+      flex: 1;
+      min-width: 180px;
+      margin-bottom: 15px;
+    }
+
+    .footer-columns .col h3 {
+      color: gold;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .footer-columns .col h2 {
+      color: gold;
+      margin: 10px 0 6px;
+      font-size: 14px;
+    }
+
+    .footer-columns .col a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 4px;
+      transition: color 0.3s ease;
+      font-size: 12px;
+    }
+
+    .footer-columns .col a:hover {
+      color: #d4af37;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 12px;
+    }
+
+    /* Navigation Dropdowns */
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .navbar li {
+      position: relative;
+    }
+
+    .navbar a {
+      display: block;
+      padding: 8px 12px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #002366;
+      min-width: 200px;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      z-index: 100;
+      padding: 8px;
+    }
+
+    .dropdown a {
+      padding: 8px 15px;
+      font-size: 12px;
+    }
+
+    .navbar li:hover .dropdown {
+      display: block;
+    }
+
+    /* Overlay for Sidebar */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 998;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+    /* Back to Top Button */
     .back-to-top {
       position: fixed;
       bottom: 15px;
       right: 15px;
       background-color: #012f47;
       color: gold;
-      width: 45px;
-      height: 45px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       display: flex;
       justify-content: center;
@@ -511,14 +494,14 @@
       color: #012f47;
     }
 
-    /* Loading animation */
+    /* Loading Animation */
     .loader {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(255,255,255,0.8);
+      background-color: rgba(255, 255, 255, 0.8);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -533,8 +516,8 @@
 
     .loader::after {
       content: "";
-      width: 45px;
-      height: 45px;
+      width: 40px;
+      height: 40px;
       border: 4px solid #012f47;
       border-top-color: gold;
       border-radius: 50%;
@@ -546,156 +529,71 @@
       to { transform: rotate(1turn); }
     }
 
-    /* Mobile Menu */
-    .mobile-menu {
-      display: none;
-      width: 100%;
-      background-color: #012f47;
-      padding: 10px 0;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      z-index: 998;
-    }
-
-    .mobile-menu.active {
-      display: block;
-    }
-
-    .mobile-menu ul {
-      list-style: none;
-    }
-
-    .mobile-menu li {
-      position: relative;
-    }
-
-    .mobile-menu a {
-      display: block;
-      padding: 10px 15px;
-      color: white;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      font-size: 14px;
-    }
-
-    .mobile-menu .dropdown {
-      display: none;
-      background-color: #001a33;
-      padding: 0 15px;
-    }
-
-    .mobile-menu .dropdown a {
-      padding: 8px 20px;
-      font-size: 13px;
-    }
-
-    .mobile-menu .has-dropdown::after {
-      content: '+';
-      position: absolute;
-      right: 15px;
-      top: 10px;
-      font-weight: bold;
-    }
-
-    .mobile-menu .has-dropdown.active::after {
-      content: '-';
-    }
-
-    /* Overlay for sidebar */
-    .overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      z-index: 998;
-    }
-
-    .overlay.active {
-      display: block;
-    }
-
-    /* Responsive Toggle */
-    @media (max-width: 768px) {
-      nav ul {
-        display: none;
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      header {
+        padding: 8px 12px;
       }
 
-      .menu-toggle {
-        display: block;
-        color: white;
+      .navbar ul {
+        display: none;
       }
 
       .hamburger-icon {
-        display: none;
+        margin-left: auto;
+        margin-right: 12px;
       }
 
       .sidebar {
-        width: 240px;
+        width: 260px;
       }
 
-      .navbar li:hover .dropdown {
-        display: none;
+      .main-content {
+        margin-top: 64px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 8px 12px;
       }
 
-      .dropdown {
-        position: static;
-        display: none;
-        width: 100%;
-        padding: 0;
+      .logo h1 {
+        font-size: 16px;
       }
 
-      .dropdown.active {
-        display: block;
+      .logo img {
+        width: 32px;
+        height: 32px;
       }
 
-      .dropdown-toggle {
-        display: inline-block;
+      .main-content {
+        margin-top: 60px;
       }
 
       .gallery-track img {
         height: 200px;
         max-width: 400px;
       }
-
-      .mobile-menu {
-        display: block;
-      }
-
-      .desktop-menu {
-        display: none;
-      }
-
-      .main-content {
-        padding: 10px;
-      }
-
-      .sliding-gallery {
-        width: 100%;
-      }
     }
 
     @media (max-width: 576px) {
       header {
-        padding: 8px 15px;
+        padding: 6px 10px;
       }
 
       .logo {
         min-width: 100%;
         justify-content: center;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
       }
 
       .logo h1 {
-        font-size: 18px;
+        font-size: 15px;
       }
 
-      .logo img {
-        width: 36px;
-        height: 36px;
+      .main-content {
+        margin-top: 56px;
       }
 
       .amahugurwa h1 {
@@ -716,7 +614,7 @@
 
       .footer-columns {
         flex-direction: column;
-        gap: 15px;
+        gap: 12px;
       }
 
       .footer-columns .col {
@@ -726,34 +624,34 @@
       .back-to-top {
         bottom: 12px;
         right: 12px;
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 36px;
+      }
+
+      .hamburger-icon {
+        font-size: 16px;
+        margin-right: 8px;
       }
     }
 
     @media (max-width: 480px) {
       header {
-        padding: 6px 12px;
-      }
-
-      .gallery-track img {
-        height: 150px;
-        max-width: 300px;
-      }
-
-      .staff-card {
-        width: 100%;
-        max-width: 280px;
-        padding: 10px;
-      }
-
-      .staff-card img {
-        height: 160px;
+        padding: 6px 10px;
       }
 
       .sidebar {
         width: 100%;
         right: -100%;
+      }
+
+      .main-content {
+        margin-top: 52px;
+        padding: 10px;
+      }
+
+      .gallery-track img {
+        height: 150px;
+        max-width: 300px;
       }
 
       .amahugurwa {
@@ -774,12 +672,16 @@
 
     @media (max-width: 360px) {
       .logo h1 {
-        font-size: 16px;
+        font-size: 14px;
       }
 
       .logo img {
-        width: 32px;
-        height: 32px;
+        width: 30px;
+        height: 30px;
+      }
+
+      .main-content {
+        margin-top: 50px;
       }
 
       .gallery-track img {
@@ -795,6 +697,47 @@
         font-size: 16px;
       }
     }
+     /* muving image  */
+    .top-right-slider {
+  position: sticky;      /* sticky aho */
+  top: 60px;             /* itegereze hejuru ya header (height ya header) */
+  width: 100%;
+  background: #02635e;
+  color: white;
+  padding: 8px 0;
+  text-align: center;
+  overflow: hidden;
+  z-index: 9000;
+  
+}
+
+/* animation ntiyahinduwe */
+.slider-text {
+  display: inline-block;
+  padding-left: 100%;
+  white-space: nowrap;
+  animation: slide-left 35s linear infinite;
+  font-size: 1rem;
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* content isikororinga */
+.content {
+  margin-top: 20px;
+  padding: 20px;
+}
+.slider-text b{
+font-family: 'Times New Roman', Times, serif;
+  font-size: x-large;
+}
   </style>
 </head>
 <body>
@@ -803,21 +746,17 @@
     <div class="loader-spinner"></div>
   </div>
 
-  <!-- ===== HEADER ===== -->
+  <!-- HEADER -->
   <header>
     <div class="logo" id="logo">
       <img src="tekilogo.jpg" alt="TEKINOVA Logo">
       <h1>TekiNova</h1>
     </div>
     <nav class="navbar">
-      <div class="menu-toggle" id="menu-toggle" role="button" aria-label="Toggle mobile menu">
-        <i class="fas fa-bars"></i>
-      </div>
       <ul class="desktop-menu" id="desktop-menu">
         <li><a href="index.html">Home</a></li>
         <li>
           <a href="#">About</a>
-          <button class="dropdown-toggle" aria-label="Toggle About dropdown">▼</button>
           <div class="dropdown">
             <h2>About TEKINOVA</h2>
             <a href="About.html">About Us</a>
@@ -833,7 +772,6 @@
         </li>
         <li>
           <a href="#">Services</a>
-          <button class="dropdown-toggle" aria-label="Toggle Services dropdown">▼</button>
           <div class="dropdown">
             <h2>Services</h2>
             <a href="services.html">Our Services</a>
@@ -846,7 +784,6 @@
         </li>
         <li>
           <a href="#">Products</a>
-          <button class="dropdown-toggle" aria-label="Toggle Products dropdown">▼</button>
           <div class="dropdown">
             <h2>Products</h2>
             <a href="Products.html">Products</a>
@@ -858,7 +795,6 @@
         </li>
         <li>
           <a href="#">Tech News</a>
-          <button class="dropdown-toggle" aria-label="Toggle Tech News dropdown">▼</button>
           <div class="dropdown">
             <h2>Blog</h2>
             <a href="Blog_Tech_News.html">Blog Tech News</a>
@@ -869,7 +805,6 @@
         </li>
         <li>
           <a href="#">Careers</a>
-          <button class="dropdown-toggle" aria-label="Toggle Careers dropdown">▼</button>
           <div class="dropdown">
             <h2>Careers</h2>
             <a href="Careers.html">Develop Your Careers</a>
@@ -880,7 +815,6 @@
         </li>
         <li>
           <a href="#">Jobs</a>
-          <button class="dropdown-toggle" aria-label="Toggle Jobs dropdown">▼</button>
           <div class="dropdown">
             <h2>Apply Job</h2>
             <a href="features.html">Go to Jobs & Internships</a>
@@ -888,7 +822,6 @@
         </li>
         <li>
           <a href="#">Contact</a>
-          <button class="dropdown-toggle" aria-label="Toggle Contact dropdown">▼</button>
           <div class="dropdown">
             <h2>Contact</h2>
             <a href="contact_us.html">Tell Us Anything</a>
@@ -896,7 +829,6 @@
         </li>
         <li>
           <a href="#">Working Calendar</a>
-          <button class="dropdown-toggle" aria-label="Toggle Calendar dropdown">▼</button>
           <div class="dropdown">
             <h2>Calendar</h2>
             <a href="amasahayakazi.html">Our Calendar Days</a>
@@ -904,109 +836,23 @@
         </li>
       </ul>
     </nav>
-
-    <!-- Hamburger Menu Icon (right side) -->
     <div class="hamburger-icon" id="hamburger-icon" role="button" aria-label="Toggle sidebar menu">
       <i class="fas fa-bars"></i>
     </div>
   </header>
-
-  <!-- Mobile Menu -->
-  <div class="mobile-menu" id="mobileMenu">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li class="has-dropdown">
-        <a href="#">About</a>
-        <div class="dropdown">
-          <h2>About TEKINOVA</h2>
-          <a href="About.html">About Us</a>
-          <a href="#">Company Background & Vision</a>
-          <a href="#">Mission & Goals</a>
-          <a href="#">Contacts</a>
-          <h2>Administrative</h2>
-          <a href="#">Team or Founders</a>
-          <a href="#">Core Values</a>
-          <a href="#">Executive Organ</a>
-          <a href="#">Senior Management</a>
-        </div>
-      </li>
-      <li class="has-dropdown">
-        <a href="#">Services</a>
-        <div class="dropdown">
-          <h2>Services</h2>
-          <a href="services.html">Our Services</a>
-          <a href="#">Web Development</a>
-          <a href="#">App Development</a>
-          <a href="#">Tech Consultancy</a>
-          <a href="#">Custom Software</a>
-          <a href="#">AI/IoT/Automation Services</a>
-        </div>
-      </li>
-      <li class="has-dropdown">
-        <a href="#">Products</a>
-        <div class="dropdown">
-          <h2>Products</h2>
-          <a href="Products.html">Products</a>
-          <a href="#">App Development</a>
-          <a href="#">Tech Consultancy</a>
-          <a href="#">Custom Software</a>
-          <a href="#">AI/IoT/Automation Services</a>
-        </div>
-      </li>
-      <li class="has-dropdown">
-        <a href="#">Tech News</a>
-        <div class="dropdown">
-          <h2>Blog</h2>
-          <a href="Blog_Tech_News.html">Blog Tech News</a>
-          <a href="#">Articles About Technology Trends</a>
-          <a href="#">How-to Guides or Tutorials</a>
-          <a href="#">Company Updates</a>
-        </div>
-      </li>
-      <li class="has-dropdown">
-        <a href="#">Careers</a>
-        <div class="dropdown">
-          <h2>Careers</h2>
-          <a href="Careers.html">Develop Your Careers</a>
-          <a href="#">Articles About Technology Trends</a>
-          <a href="#">How-to Guides or Tutorials</a>
-          <a href="#">Company Updates</a>
-        </div>
-      </li>
-      <li class="has-dropdown">
-        <a href="#">Jobs</a>
-        <div class="dropdown">
-          <h2>Apply Job</h2>
-          <a href="features.html">Go to Jobs & Internships</a>
-        </div>
-      </li>
-      <li class="has-dropdown">
-        <a href="#">Contact</a>
-        <div class="dropdown">
-          <h2>Contact</h2>
-          <a href="contact_us.html">Tell Us Anything</a>
-        </div>
-      </li>
-      <li class="has-dropdown">
-        <a href="#">Working Calendar</a>
-        <div class="dropdown">
-          <h2>Calendar</h2>
-          <a href="amasahayakazi.html">Our Calendar Days</a>
-        </div>
-      </li>
-    </ul>
-  </div>
-
-  <!-- Overlay for sidebar -->
+ <div class="top-right-slider">
+  <div class="slider-text"><b>Ushaka ko tugufasha zimwe murizi services zikurikira
+    watwandikira kuri 0733253803 cg ukaduhamagara kur 0780019239!</b></div>
+</div>
+  <!-- Overlay for Sidebar -->
   <div class="overlay" id="overlay"></div>
 
-  <!-- ===== HAMBURGER MENU SIDEBAR ===== -->
+  <!-- SIDEBAR (DASHBOARD) -->
   <aside class="sidebar" id="hamburgerMenu" role="navigation" aria-label="Sidebar menu">
     <div class="sidebar-header">
-      <span><i class="fas fa-bars"></i> Hamburger Menu</span>
+      <span><i class="fas fa-tachometer-alt"></i> Dashboard</span>
       <i class="fas fa-times" id="close-sidebar" role="button" aria-label="Close sidebar menu"></i>
     </div>
-    
     <nav>
       <a href="index.html"><i class="fas fa-home"></i> Home</a>
       <a href="About.html"><i class="fas fa-info-circle"></i> About</a>
@@ -1017,8 +863,6 @@
       <a href="features.html"><i class="fas fa-laptop-code"></i> Jobs</a>
       <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
     </nav>
-    
-    <!-- Menu Widgets -->
     <div class="menu-widget">
       <h3>Quick Stats</h3>
       <p>Overview of your recent activity</p>
@@ -1037,7 +881,6 @@
         </div>
       </div>
     </div>
-    
     <div class="menu-widget">
       <h3>Recent Activity</h3>
       <p><i class="fas fa-check-circle"></i> New project started</p>
@@ -1046,11 +889,9 @@
     </div>
   </aside>
 
-  <!-- ===== MAIN CONTENT ===== -->
+  <!-- MAIN CONTENT -->
   <main class="main-content">
     <h1>Amahugurwa y'Ikoranabuhanga</h1>
-
-    <!-- Amafoto atambuka -->
     <div class="sliding-gallery" id="sliding-gallery">
       <div class="gallery-track">
         <img src="images/training1.jpg" alt="Amahugurwa 1" loading="lazy">
@@ -1058,7 +899,6 @@
         <img src="images/training3.jpg" alt="Amahugurwa 3" loading="lazy">
       </div>
     </div>
-    
     <div class="amahugurwa">
       <h1>TekiNova itanga amahugurwa arimo:</h1>
       <ul>
@@ -1067,8 +907,6 @@
         <li><b>UI/UX Design (Figma, Adobe XD)</b></li>
         <li><b>Data Analysis (Excel, Python, Power BI)</b></li>
       </ul>
-      
-      <!-- Training Registration Form -->
       <form id="trainingForm" class="training-form">
         <h2>Injira amahugurwa</h2>
         <div class="form-group">
@@ -1099,16 +937,14 @@
     </div>
   </main>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- FOOTER -->
   <footer>
     <div class="footer-columns">
       <div class="col">
         <h3>Contact</h3>
         <a href="./contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <strong>WhatsApp:</strong>
-        <a href="https://wa.me/+250733253803" target="_blank" class="toto">+250 733 253 803</a>
-        <strong>Email:</strong>
-        <a href="mailto:info@tekinova.com" class="toto">info@tekinova.com</a>
+        <p><strong>WhatsApp:</strong> <a href="https://wa.me/+250733253803" target="_blank">+250 733 253 803</a></p>
+        <p><strong>Email:</strong> <a href="mailto:info@tekinova.com">info@tekinova.com</a></p>
       </div>
       <div class="col">
         <h3>About TEKINOVA</h3>
@@ -1151,18 +987,16 @@
         <a href="features.html" style="text-decoration: underline;"><b>More Info</b></a>
       </div>
     </div>
-    
     <div class="copyright">
       <p>© 2025 TEKINOVA. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- Back to top button -->
+  <!-- Back to Top Button -->
   <div class="back-to-top" id="back-to-top" role="button" aria-label="Scroll to top">
     <i class="fas fa-arrow-up"></i>
   </div>
 
-  <!-- ===== JAVASCRIPT ===== -->
   <script>
     // Input sanitization function
     function sanitizeInput(input) {
@@ -1173,30 +1007,59 @@
       });
     }
 
+    // Scroll position storage
+    const scrollPositions = {};
+
+    // Save scroll position
+    function saveScrollPosition() {
+      scrollPositions[window.location.pathname] = window.scrollY || window.pageYOffset;
+    }
+
+    // Restore scroll position
+    function restoreScrollPosition() {
+      const scrollPosition = scrollPositions[window.location.pathname] || 0;
+      window.scrollTo({ top: scrollPosition, behavior: 'auto' });
+    }
+
+    // Toggle sidebar
+    function toggleHamburgerMenu() {
+      const sidebar = document.getElementById('hamburgerMenu');
+      const overlay = document.getElementById('overlay');
+      const body = document.body;
+
+      if (sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        body.classList.remove('no-scroll');
+        restoreScrollPosition();
+      } else {
+        saveScrollPosition();
+        sidebar.classList.add('active');
+        overlay.classList.add('active');
+        body.classList.add('no-scroll');
+        sidebar.scrollTop = 0;
+      }
+    }
+
     // Wait for DOM to be fully loaded
     document.addEventListener('DOMContentLoaded', function() {
       // Hide loader after page loads
-      try {
-        setTimeout(function() {
-          const loader = document.querySelector('.loader');
-          if (loader) loader.classList.add('hidden');
-        }, 500);
-      } catch (error) {
-        console.error('Error hiding loader:', error);
-      }
-      
+      setTimeout(function() {
+        const loader = document.querySelector('.loader');
+        if (loader) loader.classList.add('hidden');
+      }, 500);
+
       // Initialize scroll event for back-to-top button
       initScrollTop();
 
       // Add event listeners
       const hamburgerIcon = document.getElementById('hamburger-icon');
-      const menuToggle = document.getElementById('menu-toggle');
       const closeSidebar = document.getElementById('close-sidebar');
       const backToTop = document.getElementById('back-to-top');
       const trainingForm = document.getElementById('trainingForm');
-      const mobileMenuItems = document.querySelectorAll('.mobile-menu .has-dropdown');
-      const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
       const overlay = document.getElementById('overlay');
+      const sidebar = document.getElementById('hamburgerMenu');
+      const body = document.body;
 
       if (hamburgerIcon) {
         hamburgerIcon.addEventListener('click', toggleHamburgerMenu);
@@ -1204,24 +1067,30 @@
       if (closeSidebar) {
         closeSidebar.addEventListener('click', toggleHamburgerMenu);
       }
-      if (menuToggle) {
-        menuToggle.addEventListener('click', toggleMobileMenu);
-      }
       if (backToTop) {
         backToTop.addEventListener('click', scrollToTop);
       }
       if (overlay) {
         overlay.addEventListener('click', toggleHamburgerMenu);
       }
-      mobileMenuItems.forEach(item => {
-        item.addEventListener('click', () => toggleMobileDropdown(item));
-      });
-      dropdownToggles.forEach(button => {
-        button.addEventListener('click', () => toggleDropdown(button));
-      });
       if (trainingForm) {
         trainingForm.addEventListener('submit', submitTrainingForm);
       }
+
+      // Sidebar links
+      document.querySelectorAll('.sidebar a').forEach(link => {
+        link.addEventListener('click', () => {
+          saveScrollPosition();
+          sidebar.classList.remove('active');
+          overlay.classList.remove('active');
+          body.classList.remove('no-scroll');
+          if (link.href && !link.href.includes('#')) {
+            sidebar.addEventListener('transitionend', restoreScrollPosition, { once: true });
+          } else {
+            restoreScrollPosition();
+          }
+        });
+      });
 
       // Pause gallery animation when not in view
       const gallery = document.getElementById('sliding-gallery');
@@ -1237,338 +1106,125 @@
         observer.observe(gallery);
       }
 
-      // Store scroll position before navigating
-      let lastScrollPosition = 0;
-      document.querySelectorAll('.mobile-menu a, .sidebar a').forEach(link => {
-        link.addEventListener('click', function(e) {
-          try {
-            lastScrollPosition = window.pageYOffset;
-            if (!this.parentElement.classList.contains('has-dropdown')) {
-              const mobileMenu = document.getElementById('mobileMenu');
-              const hamburgerMenu = document.getElementById('hamburgerMenu');
-              const overlay = document.getElementById('overlay');
-              if (mobileMenu) {
-                mobileMenu.classList.remove('active');
-                document.querySelectorAll('.mobile-menu .dropdown').forEach(dropdown => {
-                  dropdown.style.display = 'none';
-                  dropdown.parentElement.classList.remove('active');
-                });
-              }
-              if (hamburgerMenu && overlay) {
-                hamburgerMenu.classList.remove('active');
-                overlay.classList.remove('active');
-              }
-              // Restore scroll position after navigation (simulated for single-page)
-              setTimeout(() => {
-                window.scrollTo({
-                  top: lastScrollPosition,
-                  behavior: 'smooth'
-                });
-              }, 100);
-            }
-          } catch (error) {
-            console.error('Error handling menu link click:', error);
-          }
-        });
+      // Close on Escape key
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && sidebar.classList.contains('active')) {
+          toggleHamburgerMenu();
+        }
       });
-    });
-    
-    // Toggle hamburger menu open/close
-    function toggleHamburgerMenu() {
-      try {
-        const hamburgerMenu = document.getElementById('hamburgerMenu');
-        const overlay = document.getElementById('overlay');
-        if (hamburgerMenu && overlay) {
-          hamburgerMenu.classList.toggle('active');
-          overlay.classList.toggle('active');
-          
-          // Close mobile menu when opening hamburger menu
-          if (hamburgerMenu.classList.contains('active')) {
-            const mobileMenu = document.getElementById('mobileMenu');
-            if (mobileMenu) {
-              mobileMenu.classList.remove('active');
-              document.querySelectorAll('.mobile-menu .dropdown').forEach(dropdown => {
-                dropdown.style.display = 'none';
-                dropdown.parentElement.classList.remove('active');
-              });
-              closeAllDropdowns();
-            }
-          }
-        }
-      } catch (error) {
-        console.error('Error toggling hamburger menu:', error);
-      }
-    }
-    
-    // Toggle mobile menu
-    function toggleMobileMenu() {
-      try {
-        const mobileMenu = document.getElementById('mobileMenu');
-        if (mobileMenu) {
-          mobileMenu.classList.toggle('active');
-          
-          // Close hamburger menu and dropdowns when opening mobile menu
-          if (mobileMenu.classList.contains('active')) {
-            const hamburgerMenu = document.getElementById('hamburgerMenu');
-            const overlay = document.getElementById('overlay');
-            if (hamburgerMenu && overlay) {
-              hamburgerMenu.classList.remove('active');
-              overlay.classList.remove('active');
-              closeAllDropdowns();
-            }
-          }
-        }
-      } catch (error) {
-        console.error('Error toggling mobile menu:', error);
-      }
-    }
-    
-    // Mobile dropdown toggle
-    function toggleMobileDropdown(element) {
-      try {
-        element.classList.toggle('active');
-        const dropdown = element.querySelector('.dropdown');
-        if (dropdown) {
-          dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-          
-          // Close other mobile dropdowns
-          document.querySelectorAll('.mobile-menu .dropdown').forEach(dd => {
-            if (dd !== dropdown) {
-              dd.style.display = 'none';
-              dd.parentElement.classList.remove('active');
-            }
-          });
-        }
-      } catch (error) {
-        console.error('Error toggling mobile dropdown:', error);
-      }
-    }
-    
-    // Desktop dropdown toggle
-    function toggleDropdown(button) {
-      try {
-        const dropdown = button.nextElementSibling;
-        if (dropdown) {
-          dropdown.classList.toggle('active');
-          
-          // Close other dropdowns
-          document.querySelectorAll('.dropdown').forEach(dd => {
-            if (dd !== dropdown) {
-              dd.classList.remove('active');
-            }
-          });
-        }
-      } catch (error) {
-        console.error('Error toggling dropdown:', error);
-      }
-    }
-    
-    // Close all dropdowns
-    function closeAllDropdowns() {
-      try {
-        document.querySelectorAll('.dropdown').forEach(dd => {
-          dd.classList.remove('active');
-        });
-      } catch (error) {
-        console.error('Error closing dropdowns:', error);
-      }
-    }
-    
-    // Close hamburger menu and mobile menu when clicking outside
-    document.addEventListener('click', function(event) {
-      try {
-        const hamburgerMenu = document.getElementById('hamburgerMenu');
-        const hamburgerIcon = document.querySelector('.hamburger-icon');
-        const overlay = document.getElementById('overlay');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const menuToggle = document.querySelector('.menu-toggle');
 
-        if (hamburgerMenu && hamburgerIcon && overlay &&
-            hamburgerMenu.classList.contains('active') &&
-            !hamburgerMenu.contains(event.target) &&
-            !hamburgerIcon.contains(event.target)) {
-          hamburgerMenu.classList.remove('active');
+      // Close on outside click
+      document.addEventListener('mousedown', (event) => {
+        if (sidebar.classList.contains('active') && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target)) {
+          toggleHamburgerMenu();
+        }
+      });
+
+      // Handle resize
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 992 && sidebar.classList.contains('active')) {
+          sidebar.classList.remove('active');
           overlay.classList.remove('active');
+          body.classList.remove('no-scroll');
+          restoreScrollPosition();
         }
-        
-        if (mobileMenu && menuToggle &&
-            mobileMenu.classList.contains('active') &&
-            !mobileMenu.contains(event.target) &&
-            !menuToggle.contains(event.target)) {
-          mobileMenu.classList.remove('active');
-          document.querySelectorAll('.mobile-menu .dropdown').forEach(dropdown => {
-            dropdown.style.display = 'none';
-            dropdown.parentElement.classList.remove('active');
-          });
-        }
-        
-        if (!event.target.closest('.navbar li')) {
-          closeAllDropdowns();
-        }
-      } catch (error) {
-        console.error('Error handling click outside:', error);
-      }
+      });
+
+      // Restore scroll on load
+      window.addEventListener('load', restoreScrollPosition);
+
+      // Save scroll before unload
+      window.addEventListener('beforeunload', saveScrollPosition);
     });
-    
-    // Close hamburger menu and mobile menu on Escape key
-    document.addEventListener('keydown', function(event) {
-      try {
-        const hamburgerMenu = document.getElementById('hamburgerMenu');
-        const overlay = document.getElementById('overlay');
-        const mobileMenu = document.getElementById('mobileMenu');
-        if (event.key === 'Escape') {
-          if (hamburgerMenu && hamburgerMenu.classList.contains('active')) {
-            hamburgerMenu.classList.remove('active');
-            if (overlay) overlay.classList.remove('active');
-          }
-          if (mobileMenu && mobileMenu.classList.contains('active')) {
-            mobileMenu.classList.remove('active');
-            document.querySelectorAll('.mobile-menu .dropdown').forEach(dropdown => {
-              dropdown.style.display = 'none';
-              dropdown.parentElement.classList.remove('active');
-            });
-          }
-          closeAllDropdowns();
-        }
-      } catch (error) {
-        console.error('Error handling escape key:', error);
-      }
-    });
-    
+
     // Back to top functionality
     function initScrollTop() {
-      try {
-        const backToTopButton = document.querySelector('.back-to-top');
-        if (backToTopButton) {
-          window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-              backToTopButton.classList.add('active');
-            } else {
-              backToTopButton.classList.remove('active');
-            }
-          });
-        }
-      } catch (error) {
-        console.error('Error initializing scroll top:', error);
-      }
-    }
-    
-    function scrollToTop() {
-      try {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
+      const backToTopButton = document.querySelector('.back-to-top');
+      if (backToTopButton) {
+        window.addEventListener('scroll', function() {
+          if (window.pageYOffset > 300) {
+            backToTopButton.classList.add('active');
+          } else {
+            backToTopButton.classList.remove('active');
+          }
         });
-      } catch (error) {
-        console.error('Error scrolling to top:', error);
       }
     }
-    
+
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
     // Form submission handler
     function submitTrainingForm(e) {
       e.preventDefault();
-      try {
-        const nameInput = document.getElementById('name');
-        const emailInput = document.getElementById('email');
-        const phoneInput = document.getElementById('phone');
-        const courseInput = document.getElementById('course');
-        const formMessage = document.getElementById('formMessage');
+      const nameInput = document.getElementById('name');
+      const emailInput = document.getElementById('email');
+      const phoneInput = document.getElementById('phone');
+      const courseInput = document.getElementById('course');
+      const formMessage = document.getElementById('formMessage');
 
-        if (!nameInput || !emailInput || !phoneInput || !courseInput || !formMessage) {
-          console.error('Form elements not found');
-          return;
-        }
-
-        const name = sanitizeInput(nameInput.value.trim());
-        const email = sanitizeInput(emailInput.value.trim());
-        const phone = sanitizeInput(phoneInput.value.trim());
-        const course = sanitizeInput(courseInput.value);
-
-        if (!name || !email || !phone || !course) {
-          formMessage.textContent = "Please fill in all fields.";
-          formMessage.style.color = "red";
-          return;
-        }
-
-        // Basic email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-          formMessage.textContent = "Please enter a valid email address.";
-          formMessage.style.color = "red";
-          return;
-        }
-
-        // Basic phone validation (allows various formats)
-        const phoneRegex = /^\+?[\d\s-]{8,}$/;
-        if (!phoneRegex.test(phone)) {
-          formMessage.textContent = "Please enter a valid phone number.";
-          formMessage.style.color = "red";
-          return;
-        }
-
-        formMessage.textContent = "Urasubiza inyandiko...";
-        formMessage.style.color = "#012f47";
-        
-        // Simulate API call
-        setTimeout(function() {
-          formMessage.textContent = "Amakuru yawe yatanzwe neza. Turabasubiza vuba!";
-          formMessage.style.color = "green";
-          document.getElementById('trainingForm').reset();
-        }, 1500);
-      } catch (error) {
-        const formMessage = document.getElementById('formMessage');
-        if (formMessage) {
-          formMessage.textContent = "An error occurred. Please try again.";
-          formMessage.style.color = "red";
-        }
-        console.error('Error submitting form:', error);
+      if (!nameInput || !emailInput || !phoneInput || !courseInput || !formMessage) {
+        console.error('Form elements not found');
+        return;
       }
+
+      const name = sanitizeInput(nameInput.value.trim());
+      const email = sanitizeInput(emailInput.value.trim());
+      const phone = sanitizeInput(phoneInput.value.trim());
+      const course = sanitizeInput(courseInput.value);
+
+      if (!name || !email || !phone || !course) {
+        formMessage.textContent = "Please fill in all fields.";
+        formMessage.style.color = "red";
+        return;
+      }
+
+      // Basic email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        formMessage.textContent = "Please enter a valid email address.";
+        formMessage.style.color = "red";
+        return;
+      }
+
+      // Basic phone validation
+      const phoneRegex = /^\+?[\d\s-]{8,}$/;
+      if (!phoneRegex.test(phone)) {
+        formMessage.textContent = "Please enter a valid phone number.";
+        formMessage.style.color = "red";
+        return;
+      }
+
+      formMessage.textContent = "Urasubiza inyandiko...";
+      formMessage.style.color = "#012f47";
+
+      // Simulate API call
+      setTimeout(function() {
+        formMessage.textContent = "Amakuru yawe yatanzwe neza. Turabasubiza vuba!";
+        formMessage.style.color = "green";
+        document.getElementById('trainingForm').reset();
+      }, 1500);
     }
-    
+
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
-        try {
-          e.preventDefault();
-          const targetId = this.getAttribute('href');
-          if (targetId === '#') return;
-          
-          const targetElement = document.querySelector(targetId);
-          if (targetElement) {
-            targetElement.scrollIntoView({
-              behavior: 'smooth'
-            });
-          }
-        } catch (error) {
-          console.error('Error handling anchor link:', error);
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
         }
       });
     });
-    
-    // Handle window resize
-    function handleResize() {
-      try {
-        const mobileMenu = document.getElementById('mobileMenu');
-        const hamburgerMenu = document.getElementById('hamburgerMenu');
-        const overlay = document.getElementById('overlay');
-        if (window.innerWidth > 768 && mobileMenu && hamburgerMenu && overlay) {
-          mobileMenu.classList.remove('active');
-          hamburgerMenu.classList.remove('active');
-          overlay.classList.remove('active');
-          document.querySelectorAll('.mobile-menu .dropdown').forEach(dropdown => {
-            dropdown.style.display = 'none';
-          });
-          document.querySelectorAll('.mobile-menu .has-dropdown').forEach(item => {
-            item.classList.remove('active');
-          });
-          closeAllDropdowns();
-        }
-      } catch (error) {
-        console.error('Error handling resize:', error);
-      }
-    }
-    
-    window.addEventListener('resize', handleResize);
   </script>
 </body>
 </html>

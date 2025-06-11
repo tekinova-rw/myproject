@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>TekiNova</title>
+  <title>TekiNova - Contact Us</title>
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     /* Reset and Global Styles */
     * {
@@ -16,1082 +18,485 @@
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
       line-height: 1.6;
       overflow-x: hidden;
-      width: 100%;
-      max-width: 100vw;
-      padding-top: 80px; /* Adjusted for sticky header */
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-color: #f4f4f4;
+      color: #333;
     }
 
     /* Header */
     header {
-      background-color: #012f47;
-      color: white;
-      padding: 10px 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: fixed;
+      position: sticky;
       top: 0;
       left: 0;
       width: 100%;
       z-index: 1000;
-      flex-wrap: wrap;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      min-width: 160px;
+      background-color: #012f47;
     }
 
     .logo img {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
       border: 2px solid gold;
-      margin-right: 8px;
     }
 
-    .logo h1 {
-      color: gold;
-      font-size: 18px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 10px;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: white;
-      font-weight: 600;
-      font-size: 13px;
-      padding: 6px 8px;
-      border-radius: 6px;
-      transition: all 0.3s;
-      white-space: nowrap;
-    }
-
-    nav a:hover {
-      background-color: #033d3d;
-      color: gold;
-    }
-
-    /* Sidebar Toggle */
-    .sidebar-toggle {
-      font-size: 18px;
-      cursor: pointer;
-      color: white;
-      transition: color 0.3s;
-      margin-left: 10px;
-      padding: 6px;
-    }
-
-    .sidebar-toggle:hover {
-      color: gold;
-    }
-
-    .nav-switch {
-      display: none;
-      font-size: 18px;
-      cursor: pointer;
-      color: white;
-      margin-left: 10px;
-      padding: 6px;
-    }
-
-    /* Sidebar Menu */
+    /* Sidebar */
     .sidebar {
       position: fixed;
       top: 0;
-      right: -260px;
-      width: 260px;
+      right: -100%;
       height: 100vh;
-      background-color: #002240;
-      color: white;
-      padding: 15px;
       transition: right 0.3s ease;
       z-index: 999;
-      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+      background-color: #002240;
       overflow-y: auto;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
     }
 
     .sidebar.active {
       right: 0;
     }
 
-    .sidebar-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 16px;
-      color: gold;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #555;
+    .sidebar::-webkit-scrollbar {
+      width: 8px;
     }
 
-    .sidebar-header i {
-      cursor: pointer;
-      transition: color 0.3s;
-      font-size: 18px;
+    .sidebar::-webkit-scrollbar-track {
+      background: #1a2a44;
     }
 
-    .sidebar-header i:hover {
-      color: #d4af37;
+    .sidebar::-webkit-scrollbar-thumb {
+      background: #d4af37;
+      border-radius: 4px;
     }
 
-    .sidebar a {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: white;
-      padding: 8px 0;
-      text-decoration: none;
-      transition: color 0.3s;
-      font-size: 13px;
-    }
-
-    .sidebar a:hover {
-      color: gold;
-    }
-
-    .sidebar i {
-      width: 18px;
-      text-align: center;
-      font-size: 15px;
-    }
-
-    /* Menu Widgets */
-    .menu-widget {
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      padding: 10px;
-      margin: 10px 0;
-    }
-
-    .menu-widget h3 {
-      color: gold;
-      margin-bottom: 8px;
-      font-size: 14px;
-    }
-
-    .menu-widget p {
-      font-size: 12px;
-      margin-bottom: 6px;
-    }
-
-    .menu-widget .widget-stats {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 6px;
-    }
-
-    .widget-stats div {
-      text-align: center;
+    /* Main Content */
+    main {
       flex: 1;
+      padding-top: 80px;
     }
 
-    .widget-stats span {
-      display: block;
-      font-size: 15px;
-      font-weight: bold;
-      color: gold;
-    }
-
-    .widget-stats small {
-      font-size: 10px;
-      opacity: 0.8;
-    }
-
-    /* Staff Cards */
-    .main-content {
-      width: 100%;
-      max-width: 1000px;
-      margin: 20px auto;
-      padding: 15px;
-      box-sizing: border-box;
-    }
-
-    .staff-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      width: 100%;
-    }
-
-    .staff-card {
-      background-color: white;
-      border-radius: 10px;
-      width: 160px;
-      padding: 10px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .staff-card img {
-      width: 100%;
-      height: 140px;
-      object-fit: cover;
-      border-radius: 8px;
+    /* Dialog */
+    #contactDialog {
+      z-index: 10001;
     }
 
     /* Footer */
     footer {
       background-color: #012f47;
-      color: white;
-      padding: 20px 10px;
     }
 
-    .footer-columns {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: space-between;
+    /* Prevent horizontal scroll */
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
     }
 
-    .footer-columns .col {
-      flex: 1;
-      min-width: 140px;
-      margin-bottom: 15px;
-    }
-
-    .footer-columns .col h3 {
-      color: gold;
-      margin-bottom: 8px;
-      font-size: 15px;
-    }
-
-    .footer-columns .col h2 {
-      color: gold;
-      margin: 10px 0 6px;
-      font-size: 14px;
-    }
-
-    .footer-columns .col a,
-    .footer-columns .col p {
-      display: block;
-      color: white;
-      text-decoration: none;
-      margin-bottom: 5px;
-      font-size: 12px;
-      transition: color 0.3s;
-    }
-
-    .footer-columns .col a:hover {
-      color: #d4af37;
-    }
-
-    /* Navigation Dropdowns */
-    .navbar ul {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    .navbar li {
-      position: relative;
-    }
-
-    .navbar a {
-      display: block;
-      padding: 8px 10px;
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-      font-size: 13px;
-    }
-
-    .navbar a:hover {
-      background-color: #033d3d;
-    }
-
-    .navbar a.active {
-      color: #eaedf1;
-    }
-
+    /* Dropdowns */
     .dropdown {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #002366;
-      min-width: 180px;
-      border-radius: 0 0 5px 5px;
-      border-top: none;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      z-index: 999;
-      padding: 8px;
-    }
-
-    .dropdown h2 {
-      color: gold;
-      font-size: 13px;
-      margin: 6px 0;
-    }
-
-    .dropdown a {
-      padding: 6px 10px;
-      display: block;
-      color: white;
-      text-decoration: none;
-      font-size: 12px;
-      border-radius: 4px;
       transition: all 0.3s;
     }
 
-    .dropdown a:hover {
-      background-color: #033d3d;
-      padding-left: 12px;
+    /* Custom form focus */
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #012f47;
+      box-shadow: 0 0 0 3px rgba(1, 47, 71, 0.2);
     }
 
-    .navbar li:hover .dropdown {
-      display: block;
-    }
-
-    /* CONTACT CSS */
-    main {
-      width: 100%;
-      max-width: 760px;
-      margin: 15px auto;
-      background: rgb(168, 185, 196);
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      box-sizing: border-box;
-    }
-
-    /* Form Styling */
-    form label {
-      display: block;
-      margin-top: 0.6rem;
-      font-weight: bold;
-      font-size: 13px;
-    }
-
-    form input,
-    form textarea {
-      width: 100%;
-      padding: 6px;
-      margin-top: 0.2rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      box-sizing: border-box;
-      font-size: 13px;
-    }
-
-    form button {
-      margin-top: 0.8rem;
-      padding: 6px 12px;
-      background-color: #013147;
-      color: yellow;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 13px;
-    }
-
-    form button:hover {
-      background-color: #02597e;
-    }
-
-    /* Messages */
-    .confirmation-notice,
-    .alert-notice {
-      margin-top: 0.8rem;
-      padding: 6px;
-      display: none;
-      border-radius: 5px;
-      font-weight: bold;
-      font-size: 13px;
-    }
-
-    .confirmation-notice {
-      background-color: #d4edda;
-      color: #155724;
-    }
-
-    .alert-notice {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-
-    /* Other Contact Info */
-    ul {
-      list-style: none;
-      padding-left: 0;
-      margin-top: 0.8rem;
-    }
-
-    ul li {
-      margin-bottom: 0.8rem;
-      font-size: 13px;
-    }
-
-    a.toto {
-      color: yellow;
-      font-weight: bold;
-      background-color: #013147;
-      padding: 2px 5px;
-      border-radius: 5px;
-      text-decoration: none;
-      font-size: 13px;
-      display: inline-block;
-      margin-top: 4px;
-    }
-
-    a.toto:hover {
-      background-color: #02597e;
-    }
-
-    /* Modal */
-    #contactDialog {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 9999;
-    }
-
-    #contactDialog .modal-content {
-      position: relative;
-      width: 90%;
-      max-width: 560px;
-      margin: 20px auto;
-      background: rgb(75, 104, 124);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-      box-sizing: border-box;
-    }
-
-    #contactDialog iframe {
-      width: 100%;
-      height: 360px;
-      border: none;
-    }
-
-    #contactDialog button {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: red;
-      color: white;
-      border: none;
-      padding: 5px 8px;
-      cursor: pointer;
-      border-radius: 4px;
-      font-size: 13px;
-    }
-
-    /* Responsive Media Queries */
-    @media (max-width: 1024px) {
-      .navbar ul {
-        gap: 8px;
-      }
-      
-      .staff-card {
-        width: 150px;
-      }
-      
-      main {
-        max-width: 700px;
-      }
-    }
-
+    /* Responsive adjustments */
     @media (max-width: 768px) {
-      body {
-        padding-top: 100px; /* Adjusted for fixed header */
+      main {
+        padding-top: 100px;
       }
-
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 8px 12px;
-      }
-      
-      .logo {
-        margin-bottom: 10px;
-      }
-      
       .navbar ul {
         display: none;
+        flex-direction: column;
         position: absolute;
         top: 70px;
         left: 0;
         width: 100%;
         background-color: #012f47;
-        flex-direction: column;
         padding: 8px 0;
         z-index: 998;
       }
-      
       .navbar ul.active {
         display: flex;
       }
-      
-      .navbar li {
-        width: 100%;
-      }
-      
-      .navbar a {
-        padding: 10px 15px;
-      }
-      
       .dropdown {
         position: static;
         width: 100%;
         box-shadow: none;
-        display: none;
+        background-color: #002240;
         padding: 0 15px;
       }
-      
-      .navbar li:hover .dropdown {
-        display: block;
-      }
-      
-      .nav-switch {
-        display: block;
-      }
-      
-      .sidebar-toggle {
-        display: none;
-      }
-      
       .sidebar {
-        width: 220px;
-      }
-      
-      .main-content {
-        margin: 15px auto;
-        padding: 8px;
-      }
-      
-      .staff-container {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .staff-card {
-        width: 90%;
-        max-width: 300px;
-        margin: 0 auto;
-      }
-      
-      .footer-columns {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .footer-columns .col {
         width: 100%;
-        text-align: center;
-        min-width: 110px;
-      }
-      
-      main {
-        padding: 12px;
-        margin: 10px;
-      }
-      
-      #contactDialog iframe {
-        height: 340px;
       }
     }
 
     @media (max-width: 576px) {
-      body {
+      main {
         padding-top: 90px;
       }
-
-      .logo h1 {
-        font-size: 15px;
-      }
-      
-      .logo img {
-        width: 32px;
-        height: 32px;
-      }
-      
       .navbar ul {
         top: 60px;
       }
-      
-      .staff-card {
-        width: 100%;
-        max-width: 280px;
-      }
-      
-      .footer-columns .col {
-        min-width: 100%;
-      }
-      
-      form input,
-      form textarea {
-        font-size: 14px;
-        padding: 8px;
-      }
-      
-      form button {
-        width: 100%;
-        padding: 10px;
-        font-size: 12px;
-      }
-      
-      #contactDialog iframe {
-        height: 320px;
-      }
-      
-      main {
-        padding: 10px;
-      }
-      
-      .dropdown {
-        min-width: 160px;
-      }
     }
+     /* muving image  */
+    .top-right-slider {
+  position: sticky;      /* sticky aho */
+  top: 60px;             /* itegereze hejuru ya header (height ya header) */
+  width: 100%;
+  background: #02635e;
+  color: white;
+  padding: 8px 0;
+  text-align: center;
+  overflow: hidden;
+  z-index: 9000;
+  
+}
 
-    @media (max-width: 480px) {
-      .logo {
-        min-width: 140px;
-      }
-      
-      .main-content {
-        margin: 10px auto;
-        padding: 6px;
-      }
-      
-      .staff-card {
-        width: 100%;
-        max-width: 160px;
-        padding: 8px;
-      }
-      
-      .staff-card img {
-        height: 130px;
-      }
-      
-      .sidebar {
-        width: 100%;
-        right: -100%;
-      }
-      
-      main {
-        padding: 8px;
-        margin: 8px;
-      }
-      
-      form label {
-        font-size: 12px;
-      }
-      
-      a.toto {
-        font-size: 12px;
-        padding: 2px 4px;
-      }
-    }
+/* animation ntiyahinduwe */
+.slider-text {
+  display: inline-block;
+  padding-left: 100%;
+  white-space: nowrap;
+  animation: slide-left 35s linear infinite;
+  font-size: 1rem;
+}
 
-    @media (max-width: 360px) {
-      .logo h1 {
-        font-size: 13px;
-      }
-      
-      .logo img {
-        width: 28px;
-        height: 28px;
-      }
-      
-      .staff-card {
-        width: 100%;
-        max-width: 260px;
-      }
-      
-      #contactDialog iframe {
-        height: 280px;
-      }
-      
-      #contactDialog .modal-content {
-        width: 95%;
-        margin: 15px auto;
-      }
-    }
+@keyframes slide-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* content isikororinga */
+.content {
+  margin-top: 20px;
+  padding: 20px;
+}
+.slider-text b{
+font-family: 'Times New Roman', Times, serif;
+  font-size: x-large;
+}
   </style>
 </head>
 <body>
-
   <!-- Header -->
-  <header>
-    <div class="logo">
-      <img src="tekilogo.jpg" alt="TEKINOVA Logo">
-      <h1>TekiNova</h1>
+  <header class="text-white p-4 flex justify-between items-center flex-wrap">
+    <div class="logo flex items-center">
+      <img src="tekilogo.jpg" alt="TEKINOVA Logo" class="w-9 h-9 rounded-full mr-2">
+      <h1 class="text-yellow-400 text-lg font-bold">TekiNova</h1>
     </div>
-    
-    <nav class="navbar">
-      <ul id="navMenu">
-        <li><a href="index.html">Home</a></li>
-        <li>
-          <a href="#">About</a>
-          <div class="dropdown">
-            <h2>About TEKINOVA</h2>
-            <a href="About.html">About Us</a>
-            <a href="#">Company Background & Vision</a>
-            <a href="#">Mission & Goals</a>
-            <a href="#">Contacts</a>
-            <h2>Administrative</h2>
-            <a href="#">Team or Founders</a>
-            <a href="#">Core Values</a>
-            <a href="#">Executive Organ</a>
-            <a href="#">Senior Management</a>
+
+    <nav class="navbar hidden md:flex">
+      <ul id="navMenu" class="flex flex-wrap gap-2">
+        <li><a href="index.html" class="px-2 py-1 text-sm font-semibold hover:bg-blue-800 hover:text-yellow-400 rounded transition">Home</a></li>
+        <li class="relative">
+          <a href="#" class="px-2 py-1 text-sm font-semibold hover:bg-blue-800 hover:text-yellow-400 rounded transition">About</a>
+          <div class="dropdown hidden absolute top-full left-0 bg-blue-900 min-w-[180px] rounded-b shadow-lg p-2">
+            <h2 class="text-yellow-400 text-sm mb-1">About TEKINOVA</h2>
+            <a href="About.html" class="block px-2 py-1 text-sm text-white hover:bg-blue-800 hover:pl-3 rounded">About Us</a>
+            <a href="#" class="block px-2 py-1 text-sm text-white hover:bg-blue-800 hover:pl-3 rounded">Company Background & Vision</a>
+            <a href="#" class="block px-2 py-1 text-sm text-white hover:bg-blue-800 hover:pl-3 rounded">Mission & Goals</a>
+            <a href="#" class="block px-2 py-1 text-sm text-white hover:bg-blue-800 hover:pl-3 rounded">Contacts</a>
+            <h2 class="text-yellow-400 text-sm mt-2 mb-1">Administrative</h2>
+            <a href="#" class="block px-2 py-1 text-sm text-white hover:bg-blue-800 hover:pl-3 rounded">Team or Founders</a>
+            <a href="#" class="block px-2 py-1 text-sm text-white hover:bg-blue-800 hover:pl-3 rounded">Core Values</a>
+            <a href="#" class="block px-2 py-1 text-sm text-white hover:bg-blue-800 hover:pl-3 rounded">Executive Organ</a>
+            <a href="#" class="block px-2 py-1 text-sm text-white hover:bg-blue-800 hover:pl-3 rounded">Senior Management</a>
           </div>
         </li>
-        <li>
-          <a href="#">Services</a>
-          <div class="dropdown">
-            <a href="services.html">Our Services</a>
-            <a href="#">Web Development</a>
-            <a href="#">App Development</a>
-            <a href="#">Tech Consultancy</a>
-            <a href="#">Custom Software</a>
-            <a href="#">AI/IoT/Automation Services</a>
-          </div>
-        </li>
-        <li>
-          <a href="#">Products</a>
-          <div class="dropdown">
-            <a href="Products.html">Products</a>
-            <a href="#">App Development</a>
-            <a href="#">Tech Consultancy</a>
-            <a href="#">Custom Software</a>
-            <a href="#">AI/IoT/Automation Services</a>
-          </div>
-        </li>
-        <li>
-          <a href="#">Tech News</a>
-          <div class="dropdown">
-            <h2>Blog</h2>
-            <a href="Blog_Tech_News.html">Blog Tech News</a>
-            <a href="#">Articles About Technology Trends</a>
-            <a href="#">How-to Guides or Tutorials</a>
-            <a href="#">Company Updates</a>
-          </div>
-        </li>
-        <li>
-          <a href="#">Careers</a>
-          <div class="dropdown">
-            <a href="Careers.html">Develop Your Careers</a>
-            <a href="#">Articles About Technology Trends</a>
-            <a href="#">How-to Guides or Tutorials</a>
-            <a href="#">Company Updates</a>
-          </div>
-        </li>
-        <li>
-          <a href="#">Jobs</a>
-          <div class="dropdown">
-            <h2>Apply Job</h2>
-            <a href="features.html">Go to Jobs & Internships</a>
-          </div>
-        </li>
-        <li>
-          <a href="#">Contact</a>
-          <div class="dropdown">
-            <a href="contact_us.html">Tell Us Anything</a>
-          </div>
-        </li>
-        <li>
-          <a href="#">Working Calendar</a>
-          <div class="dropdown">
-            <a href="amasahayakazi.html">Our Calendar Days</a>
-          </div>
-        </li>
+        <li><a href="services.html" class="px-2 py-1 text-sm font-semibold hover:bg-blue-800 hover:text-yellow-400 rounded transition">Services</a></li>
+        <li><a href="Products.html" class="px-2 py-1 text-sm font-semibold hover:bg-blue-800 hover:text-yellow-400 rounded transition">Products</a></li>
+        <li><a href="Blog_Tech_News.html" class="px-2 py-1 text-sm font-semibold hover:bg-blue-800 hover:text-yellow-400 rounded transition">Tech News</a></li>
+        <li><a href="Careers.html" class="px-2 py-1 text-sm font-semibold hover:bg-blue-800 hover:text-yellow-400 rounded transition">Careers</a></li>
+        <li><a href="features.html" class="px-2 py-1 text-sm font-semibold hover:bg-blue-800 hover:text-yellow-400 rounded transition">Jobs</a></li>
+        <li><a href="contact_us.html" class="px-2 py-1 text-sm font-semibold bg-blue-800 text-yellow-400 rounded">Contact</a></li>
+        <li><a href="amasahayakazi.html" class="px-2 py-1 text-sm font-semibold hover:bg-blue-800 hover:text-yellow-400 rounded transition">Working Calendar</a></li>
       </ul>
     </nav>
 
-    <!-- Sidebar Toggle (right side) -->
-    <div class="sidebar-toggle" onclick="switchSidebarNav()">
+    <div class="nav-switch md:hidden text-white text-lg cursor-pointer p-2 hover:text-yellow-400" onclick="toggleSidebar()">
       <i class="fas fa-bars"></i>
     </div>
-    
-    <!-- Mobile nav switch (hidden by default) -->
-    <div class="nav-switch" onclick="switchMobileNav()">
+    <div class="sidebar-toggle hidden md:block text-white text-lg cursor-pointer p-2 hover:text-yellow-400" onclick="toggleSidebar()">
       <i class="fas fa-bars"></i>
     </div>
   </header>
-
+ <div class="top-right-slider">
+  <div class="slider-text"><b>Ushaka ko tugufasha zimwe murizi services zikurikira
+    watwandikira kuri 0733253803 cg ukaduhamagara kur 0780019239!</b></div>
+</div>
   <!-- Sidebar Navigation -->
-  <aside class="sidebar" id="sidebarNav">
-    <div class="sidebar-header">
-      <span><i class="fas fa-bars"></i> Sidebar Navigation</span>
-      <i class="fas fa-times" onclick="switchSidebarNav()"></i>
+  <aside id="sidebarNav" class="sidebar w-full md:w-64 text-white p-4">
+    <div class="flex justify-between items-center mb-4 pb-2 border-b border-gray-600">
+      <span class="text-yellow-400 text-base"><i class="fas fa-bars mr-2"></i> Sidebar Navigation</span>
+      <i class="fas fa-times text-lg cursor-pointer hover:text-yellow-300" onclick="toggleSidebar()"></i>
     </div>
-    
-    <nav>
-      <a href="index.html"><i class="fas fa-home"></i> Home</a>
-      <a href="About.html"><i class="fas fa-info-circle"></i> About</a>
-      <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
-      <a href="Products.html"><i class="fas fa-box"></i> Products</a>
-      <a href="Blog_Tech_News.html"><i class="fas fa-blog"></i> Blog</a>
-      <a href="Careers.html"><i class="fas fa-briefcase"></i> Careers</a>
-      <a href="features.html"><i class="fas fa-laptop-code"></i> Jobs</a>
-      <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
+
+    <nav class="space-y-2">
+      <a href="index.html" class="flex items-center gap-2 text-sm text-white hover:text-yellow-400 py-2"><i class="fas fa-home"></i> Home</a>
+      <a href="About.html" class="flex items-center gap-2 text-sm text-white hover:text-yellow-400 py-2"><i class="fas fa-info-circle"></i> About</a>
+      <a href="services.html" class="flex items-center gap-2 text-sm text-white hover:text-yellow-400 py-2"><i class="fas fa-cogs"></i> Services</a>
+      <a href="Products.html" class="flex items-center gap-2 text-sm text-white hover:text-yellow-400 py-2"><i class="fas fa-box"></i> Products</a>
+      <a href="Blog_Tech_News.html" class="flex items-center gap-2 text-sm text-white hover:text-yellow-400 py-2"><i class="fas fa-blog"></i> Blog</a>
+      <a href="Careers.html" class="flex items-center gap-2 text-sm text-white hover:text-yellow-400 py-2"><i class="fas fa-briefcase"></i> Careers</a>
+      <a href="features.html" class="flex items-center gap-2 text-sm text-white hover:text-yellow-400 py-2"><i class="fas fa-laptop-code"></i> Jobs</a>
+      <a href="contact_us.html" class="flex items-center gap-2 text-sm text-white bg-blue-800 text-yellow-400 py-2 px-2 rounded"><i class="fas fa-envelope"></i> Contact</a>
     </nav>
-    
-    <!-- Menu Widgets -->
-    <div class="menu-widget">
-      <h3>Quick Stats</h3>
-      <p>Overview of your recent activity</p>
-      <div class="widget-stats">
+
+    <div class="menu-widget bg-white bg-opacity-10 rounded-lg p-3 my-3">
+      <h3 class="text-yellow-400 text-sm mb-2">Quick Stats</h3>
+      <p class="text-xs mb-2">Overview of your recent activity</p>
+      <div class="grid grid-cols-3 gap-2 text-center">
         <div>
-          <span>1,245</span>
-          <small>Visitors</small>
+          <span class="block text-yellow-400 font-bold text-base">1,245</span>
+          <small class="text-xs opacity-80">Visitors</small>
         </div>
         <div>
-          <span>24</span>
-          <small>Projects</small>
+          <span class="block text-yellow-400 font-bold text-base">24</span>
+          <small class="text-xs opacity-80">Projects</small>
         </div>
         <div>
-          <span>18</span>
-          <small>Team</small>
+          <span class="block text-yellow-400 font-bold text-base">18</span>
+          <small class="text-xs opacity-80">Team</small>
         </div>
       </div>
     </div>
-    
-    <div class="menu-widget">
-      <h3>Recent Activity</h3>
-      <p><i class="fas fa-check-circle"></i> New project started</p>
-      <p><i class="fas fa-user-plus"></i> 3 new team members</p>
-      <p><i class="fas fa-sync-alt"></i> Website updated</p>
+
+    <div class="menu-widget bg-white bg-opacity-10 rounded-lg p-3 my-3">
+      <h3 class="text-yellow-400 text-sm mb-2">Recent Activity</h3>
+      <p class="text-xs mb-2"><i class="fas fa-check-circle mr-1"></i> New project started</p>
+      <p class="text-xs mb-2"><i class="fas fa-user-plus mr-1"></i> 3 new team members</p>
+      <p class="text-xs"><i class="fas fa-sync-alt mr-1"></i> Website updated</p>
     </div>
   </aside>
 
   <!-- Main Content -->
-  <main>
-    <h1>Contact Us</h1>
-    <p>You are welcome! Please fill out the form below to get in touch.</p>
+  <main class="max-w-3xl mx-auto p-4 bg-gray-200 rounded-lg shadow-lg">
+    <h1 class="text-2xl font-bold mb-4">Contact Us</h1>
+    <p class="mb-4">You are welcome! Please fill out the form below to get in touch.</p>
 
-    <!-- Inquiry Form -->
-    <form id="inquiryForm">
-      <label for="name">Your Name</label>
-      <input type="text" id="name" name="name" placeholder="Enter your name" required>
-
-      <label for="email">Your Email</label>
-      <input type="email" id="email" name="email" placeholder="Enter your email" required>
-
-      <label for="message">Your Message</label>
-      <textarea id="message" name="message" rows="5" placeholder="Write your message here" required></textarea>
-
-      <button type="submit">Send Message</button>
+    <form id="inquiryForm" class="space-y-4">
+      <div>
+        <label for="name" class="block text-sm font-bold">Your Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required class="w-full p-2 border border-gray-300 rounded">
+      </div>
+      <div>
+        <label for="email" class="block text-sm font-bold">Your Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required class="w-full p-2 border border-gray-300 rounded">
+      </div>
+      <div>
+        <label for="message" class="block text-sm font-bold">Your Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Write your message here" required class="w-full p-2 border border-gray-300 rounded"></textarea>
+      </div>
+      <button type="submit" class="w-full md:w-auto px-4 py-2 bg-blue-900 text-yellow-400 rounded hover:bg-blue-800 font-bold transition">Send Message</button>
     </form>
 
-    <div class="confirmation-notice" id="confirmationNotice">
+    <div class="confirmation-notice hidden mt-4 p-2 bg-green-100 text-green-800 rounded font-bold" id="confirmationNotice">
       ✅ Thank you! Your message has been sent successfully.
     </div>
-
-    <div class="alert-notice" id="alertNotice">
+    <div class="alert-notice hidden mt-4 p-2 bg-red-100 text-red-800 rounded font-bold" id="alertNotice">
       ❌ Please fill in all fields correctly.
     </div>
 
-    <!-- Other Contact Info -->
-    <section style="margin-top: 1.5rem;">
-      <h2>Other Ways to Contact Us</h2>
-      <p>Get in touch with us through the following channels:</p>
-
-      <ul>
-        <li><strong>📱 WhatsApp:</strong>
-          <a href="https://wa.me/+250733253803" target="_blank" class="toto">
-            +250 733 253 803
-          </a>
-        </li>
+    <section class="mt-6">
+      <h2 class="text-lg font-bold mb-2">Other Ways to Contact Us</h2>
+      <p class="mb-2">Get in touch with us through the following channels:</p>
+      <ul class="space-y-2">
+        <li><strong>📱 WhatsApp:</strong> <a href="https://wa.me/+250733253803" target="_blank" class="toto inline-block px-2 py-1 bg-blue-900 text-yellow-400 rounded hover:bg-blue-800 text-sm transition">+250 733 253 803</a></li>
         <li><strong>📍 Location:</strong> Musanze, Kinigi, Rwanda</li>
-        <li><strong>📧 Email:</strong>
-          <a href="mailto:fiqueat@gmail.com" class="toto">
-            fiqueat@gmail.com
-          </a>
-        </li>
+        <li><strong>📧 Email:</strong> <a href="mailto:fiqueat@gmail.com" class="toto inline-block px-2 py-1 bg-blue-900 text-yellow-400 rounded hover:bg-blue-800 text-sm transition">fiqueat@gmail.com</a></li>
       </ul>
     </section>
   </main>
 
   <!-- Dialog Container -->
-  <div id="contactDialog">
-    <div class="modal-content">
-      <button onclick="hideContactDialog()">X</button>
-      <iframe src="contact_us.html"></iframe>
+  <div id="contactDialog" class="hidden fixed inset-0 bg-black bg-opacity-70">
+    <div class="modal-content relative w-11/12 max-w-xl mx-auto mt-5 bg-gray-600 rounded-lg shadow-xl">
+      <button onclick="hideContactDialog()" class="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 transition">X</button>
+      <iframe src="contact_us.html" class="w-full h-80 md:h-96"></iframe>
     </div>
   </div>
 
   <!-- Footer -->
-  <footer>
-    <div class="footer-columns">
+  <footer class="text-white p-5 mt-5">
+    <div class="footer-columns grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
       <div class="col">
-        <h3>Contact</h3>
-        <a href="contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <p>+250 733 214 677</p>
-        <p><a href="mailto:fiqueat@gmail.com" class="toto">fiqueat@gmail.com</a></p>
+        <h3 class="text-yellow-400 text-base mb-2">Contact</h3>
+        <a href="contact_us.html" class="block text-sm text-white hover:text-yellow-300 underline mb-2 transition"><b>More Info</b></a>
+        <p class="text-sm">+250 733 214 677</p>
+        <a href="mailto:fiqueat@gmail.com" class="toto inline-block px-2 py-1 text-sm bg-blue-900 text-yellow-400 rounded hover:bg-blue-800 transition">fiqueat@gmail.com</a>
       </div>
       <div class="col">
-        <h3>About TEKINOVA</h3>
-        <a href="About.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="#">Company Background & Vision</a>
-        <a href="#">Mission & Goals</a>
-        <a href="#">Contacts</a>
-        <h2>Administrative</h2>
-        <a href="#">Team or Founders</a>
-        <a href="#">Core Values</a>
-        <a href="#">Executive Organ</a>
-        <a href="#">Senior Management</a>
+        <h3 class="text-yellow-400 text-base mb-2">About TEKINOVA</h3>
+        <a href="About.html" class="block text-sm text-white hover:text-yellow-300 underline mb-2 transition"><b>More Info</b></a>
+        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Company Background & Vision</a>
+        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Mission & Goals</a>
+        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Contacts</a>
+        <h2 class="text-yellow-400 text-sm mt-2 mb-1">Administrative</h2>
+        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Team or Founders</a>
+        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Core Values</a>
+        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Executive Organ</a>
+        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Senior Management</a>
       </div>
       <div class="col">
-        <h3>Services</h3>
-        <a href="services.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="#">Web Development</a>
-        <a href="#">App Development</a>
-        <a href="#">Tech Consultancy</a>
-        <a href="#">Custom Software</a>
-        <a href="#">AI/IoT/Automation Services</a>
+        <h3 class="text-yellow-400 text-base mb-2">Services</h3>
+        <a href="services.html" class="block text-sm text-white hover:text-yellow-300 underline mb-2 transition"><b>More Info</b></a>
+        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Web Development</a>
+        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">App Development</a>
+        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Tech Consultancy</a>
+        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Custom Software</a>
+        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">AI/IoT/Automation Services</a>
       </div>
       <div class="col">
-        <h3>Products</h3>
-        <a href="Products.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="#">App Development</a>
-        <a href="#">Tech Consultancy</a>
-        <a href="#">Custom Software</a>
-        <a href="#">AI/IoT/Automation Services</a>
+        <h3 class="text-yellow-400 text-base mb-2">Products</h3>
+        <a href="Products.html" class="block text-sm text-white hover:text-yellow-300 underline mb-2 transition"><b>More Info</b></a>
+        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">App Development</a>
+        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Tech Consultancy</a>
+        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Custom Software</a>
+        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">AI/IoT/Automation Services</a>
       </div>
       <div class="col">
-        <h3>Careers</h3>
-        <a href="Careers.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="#">Articles About Technology Trends</a>
-        <a href="#">How-to Guides or Tutorials</a>
-        <a href="#">Company Updates</a>
+        <h3 class="text-yellow-400 text-base mb-2">Careers</h3>
+        <a href="Careers.html" class="block text-sm text-white hover:text-yellow-300 underline mb-2 transition"><b>More Info</b></a>
+        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Articles About Technology Trends</a>
+        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">How-to Guides or Tutorials</a>
+        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Company Updates</a>
       </div>
       <div class="col">
-        <h3>Jobs & Internships</h3>
-        <a href="features.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <h3 class="text-yellow-400 text-base mb-2">Jobs & Internships</h3>
+        <a href="features.html" class="block text-sm text-white hover:text-yellow-300 underline mb-2 transition"><b>More Info</b></a>
       </div>
     </div>
   </footer>
 
-  <!-- JavaScript -->
   <script>
-    // Toggle sidebar navigation open/close
-    function switchSidebarNav() {
+    // Toggle sidebar and mobile navigation
+    function toggleSidebar() {
       const sidebarNav = document.getElementById('sidebarNav');
-      sidebarNav.classList.toggle('active');
-      // Scroll to top when opening sidebar
-      if (sidebarNav.classList.contains('active')) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }
-
-    // Toggle mobile navigation
-    function switchMobileNav() {
       const navMenu = document.getElementById('navMenu');
-      navMenu.classList.toggle('active');
-      // Scroll to top when opening mobile nav
-      if (navMenu.classList.contains('active')) {
+      const isActive = sidebarNav.classList.toggle('active');
+      navMenu.classList.toggle('active', isActive && window.innerWidth <= 768);
+      document.body.style.overflow = isActive ? 'hidden' : 'auto';
+      if (isActive) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-      // Close dropdowns when closing menu
-      if (!navMenu.classList.contains('active')) {
-        document.querySelectorAll('.dropdown').forEach(dropdown => {
-          dropdown.style.display = 'none';
-        });
-      }
+      document.querySelectorAll('.dropdown').forEach(dropdown => {
+        dropdown.classList.add('hidden');
+      });
     }
 
-    // Close sidebar navigation when clicking outside
-    document.addEventListener('click', function (event) {
+    // Close sidebar on outside click
+    document.addEventListener('click', function(event) {
       const sidebarNav = document.getElementById('sidebarNav');
       const sidebarToggle = document.querySelector('.sidebar-toggle');
-
+      const navSwitch = document.querySelector('.nav-switch');
       if (sidebarNav.classList.contains('active') &&
           !sidebarNav.contains(event.target) &&
-          !sidebarToggle.contains(event.target)) {
-        sidebarNav.classList.remove('active');
+          !sidebarToggle.contains(event.target) &&
+          !navSwitch.contains(event.target)) {
+        toggleSidebar();
       }
     });
 
-    // Close sidebar navigation on Escape key
-    document.addEventListener('keydown', function (event) {
+    // Close sidebar on Escape key
+    document.addEventListener('keydown', function(event) {
       const sidebarNav = document.getElementById('sidebarNav');
       if (event.key === 'Escape' && sidebarNav.classList.contains('active')) {
-        sidebarNav.classList.remove('active');
+        toggleSidebar();
       }
     });
 
-    // Store scroll position before navigating
+    // Navigation and dropdown handling
     let scrollPosition = 0;
     document.querySelectorAll('.navbar li > a, .sidebar a').forEach(link => {
-      link.addEventListener('click', function (e) {
+      link.addEventListener('click', function(e) {
         const dropdown = this.nextElementSibling;
         if (window.innerWidth <= 768 && dropdown && dropdown.classList.contains('dropdown')) {
           e.preventDefault();
-          dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+          dropdown.classList.toggle('hidden');
           this.parentElement.classList.toggle('active');
         } else {
-          // Store scroll position before navigating
           scrollPosition = window.scrollY;
-          // Close menus before navigating
-          document.getElementById('navMenu').classList.remove('active');
-          document.getElementById('sidebarNav').classList.remove('active');
-          document.querySelectorAll('.dropdown').forEach(dropdown => {
-            dropdown.style.display = 'none';
-          });
+          toggleSidebar();
         }
       });
     });
 
-    // Restore scroll position after page load
+    // Page load handling
     document.addEventListener('DOMContentLoaded', () => {
       window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
 
+      // Remove duplicate elements
+      const mains = document.querySelectorAll('main');
+      if (mains.length > 1) {
+        mains.forEach((el, index) => index > 0 && el.remove());
+      }
+      const sidebars = document.querySelectorAll('.sidebar');
+      if (sidebars.length > 1) {
+        sidebars.forEach((el, index) => index > 0 && el.remove());
+      }
+
+      // Form handling
       const form = document.getElementById('inquiryForm');
       const confirmation = document.getElementById('confirmationNotice');
       const alert = document.getElementById('alertNotice');
 
       if (form) {
-        form.addEventListener('submit', function (e) {
+        form.addEventListener('submit', function(e) {
           e.preventDefault();
-
           const name = document.getElementById('name').value.trim();
           const email = document.getElementById('email').value.trim();
           const message = document.getElementById('message').value.trim();
 
           if (name && email && message) {
-            confirmation.style.display = 'block';
-            alert.style.display = 'none';
+            confirmation.classList.remove('hidden');
+            alert.classList.add('hidden');
             form.reset();
-            // Scroll to top after form submission
             window.scrollTo({ top: 0, behavior: 'smooth' });
           } else {
-            confirmation.style.display = 'none';
-            alert.style.display = 'block';
+            confirmation.classList.add('hidden');
+            alert.classList.remove('hidden');
           }
         });
       }
+
+      // Dropdown hover for desktop
+      document.querySelectorAll('.navbar li').forEach(item => {
+        item.addEventListener('mouseenter', () => {
+          if (window.innerWidth > 768) {
+            const dropdown = item.querySelector('.dropdown');
+            if (dropdown) dropdown.classList.remove('hidden');
+          }
+        });
+        item.addEventListener('mouseleave', () => {
+          if (window.innerWidth > 768) {
+            const dropdown = item.querySelector('.dropdown');
+            if (dropdown) dropdown.classList.add('hidden');
+          }
+        });
+      });
     });
 
     // Dialog functions
     function showContactDialog() {
-      document.getElementById('contactDialog').style.display = 'block';
+      document.getElementById('contactDialog').classList.remove('hidden');
+      scrollPosition = window.scrollY;
+      document.body.style.overflow = 'hidden';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function hideContactDialog() {
-      document.getElementById('contactDialog').style.display = 'none';
-      // Restore previous scroll position
+      document.getElementById('contactDialog').classList.add('hidden');
+      document.body.style.overflow = 'auto';
       window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
     }
   </script>

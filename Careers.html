@@ -6,6 +6,8 @@
   <title>TekiNova</title>
   <!-- Font Awesome Icons with Subresource Integrity -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Tailwind CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <!-- Fallback for Font Awesome -->
   <link rel="stylesheet" href="font-awesome.min.css" media="none" onload="if(media!='all')media='all'" />
   <style>
@@ -79,8 +81,8 @@
       color: gold;
     }
 
-    /* Hamburger Menu Icon */
-    .hamburger-icon {
+    /* Dashboard Icons */
+    .mobile-dashboard-icon, .desktop-dashboard-icon {
       font-size: 20px;
       cursor: pointer;
       color: white;
@@ -88,24 +90,16 @@
       padding: 6px;
     }
 
-    .hamburger-icon:hover {
+    .mobile-dashboard-icon:hover, .desktop-dashboard-icon:hover {
       color: gold;
     }
 
-    .menu-toggle {
-      display: none;
-      font-size: 20px;
-      cursor: pointer;
-      color: white;
-      padding: 6px;
-    }
-
-    /* Sidebar Menu */
+    /* Sidebar Menu (Mobile) */
     .sidebar {
       position: fixed;
       top: 0;
-      right: -260px;
-      width: 260px;
+      right: -100%;
+      width: 100%;
       height: 100vh;
       background-color: #002240;
       color: white;
@@ -168,6 +162,7 @@
       border-radius: 8px;
       padding: 12px;
       margin: 10px 0;
+      width: 100%;
     }
 
     .menu-widget h3 {
@@ -210,6 +205,9 @@
       margin: 20px auto;
       padding: 15px;
       box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
     .staff-container {
@@ -427,48 +425,54 @@
     }
 
     /* Responsive Styles */
-    @media (max-width: 1024px) {
-      .navbar ul {
-        gap: 8px;
+    @media (min-width: 769px) {
+      .mobile-dashboard-icon {
+        display: none;
       }
-      .navbar a {
-        padding: 8px 10px;
-        font-size: 13px;
+      .desktop-dashboard-icon {
+        display: block;
       }
-      .dropdown {
-        min-width: 200px;
+      .sidebar {
+        display: none;
       }
-      .imageSlider {
-        height: 300px;
+      .navbar {
+        display: flex;
       }
-      .careerContent {
-        margin: 15px auto;
-        padding: 12px;
-      }
-      .main-content {
-        padding: 12px;
+      .mobile-menu {
+        display: none;
       }
     }
 
     @media (max-width: 768px) {
+      .desktop-dashboard-icon {
+        display: none;
+      }
+      .mobile-dashboard-icon {
+        display: block;
+      }
       header {
         padding: 8px 12px;
       }
       .logo h1 {
         font-size: 18px;
       }
-      nav ul {
-        display: none;
-      }
-      .menu-toggle {
-        display: block;
-        color: white;
-      }
-      .hamburger-icon {
+      .navbar {
         display: none;
       }
       .sidebar {
-        width: 240px;
+        width: 100%;
+        right: -100%;
+      }
+      .sidebar.active {
+        display: block;
+        right: 0;
+      }
+      .mobile-menu {
+        top: 60px;
+        display: none;
+      }
+      .mobile-menu.active {
+        display: block;
       }
       .navbar ul {
         flex-direction: column;
@@ -513,8 +517,8 @@
       .staff-card {
         max-width: 200px;
       }
-      .mobile-menu {
-        top: 60px;
+      .main-content {
+        padding: 10px;
       }
     }
 
@@ -562,10 +566,6 @@
       .staff-card img {
         height: 160px;
       }
-      .sidebar {
-        width: 100%;
-        right: -100%;
-      }
       .imageSlider {
         height: 180px;
       }
@@ -595,7 +595,6 @@
 
     /* Mobile Menu */
     .mobile-menu {
-      display: none;
       width: 100%;
       background-color: #012f47;
       padding: 8px 0;
@@ -604,10 +603,6 @@
       left: 0;
       z-index: 998;
       box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-    }
-
-    .mobile-menu.active {
-      display: block;
     }
 
     .mobile-menu ul {
@@ -640,17 +635,58 @@
     .mobile-menu li.active .dropdown {
       display: block;
     }
+     /* muving image  */
+    .top-right-slider {
+  position: sticky;      /* sticky aho */
+  top: 60px;             /* itegereze hejuru ya header (height ya header) */
+  width: 100%;
+  background: #02635e;
+  color: white;
+  padding: 8px 0;
+  text-align: center;
+  overflow: hidden;
+  z-index: 9000;
+  
+}
+
+/* animation ntiyahinduwe */
+.slider-text {
+  display: inline-block;
+  padding-left: 100%;
+  white-space: nowrap;
+  animation: slide-left 35s linear infinite;
+  font-size: 1rem;
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* content isikororinga */
+.content {
+  margin-top: 20px;
+  padding: 20px;
+}
+.slider-text b{
+font-family: 'Times New Roman', Times, serif;
+  font-size: x-large;
+}
   </style>
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
 
   <!-- ===== HEADER ===== -->
-  <header>
+  <header class="w-full">
     <div class="logo">
       <img src="tekilogo.jpg" alt="TEKINOVA Logo">
       <h1>TekiNova</h1>
     </div>
-    <nav class="navbar">
+    <nav class="navbar hidden md:flex">
       <ul id="desktop-nav">
         <li><a href="index.html">Home</a></li>
         <li>
@@ -715,7 +751,7 @@
             <h2>Apply Job</h2>
             <a href="features.html">Go to Jobs & Internships</a>
           </div>
-        </'li>
+        </li>
         <li>
           <a href="#">Contact</a>
           <div class="dropdown">
@@ -731,19 +767,22 @@
       </ul>
     </nav>
 
-    <!-- Hamburger Menu Icon (right side) -->
-    <div class="hamburger-icon" id="hamburgerIcon" aria-controls="hamburgerMenu" aria-expanded="false" tabindex="0">
+    <!-- Mobile Dashboard Icon (visible on mobile, hidden on desktop) -->
+    <div class="mobile-dashboard-icon md:hidden" id="mobileDashboardIcon" aria-controls="hamburgerMenu" aria-expanded="false" tabindex="0">
       <i class="fas fa-bars"></i>
     </div>
-    
-    <!-- Mobile menu toggle (hidden by default) -->
-    <div class="menu-toggle" id="menuToggle" aria-controls="mobileMenu" aria-expanded="false" tabindex="0">
+
+    <!-- Desktop Dashboard Icon (visible on desktop, hidden on mobile) -->
+    <div class="desktop-dashboard-icon hidden md:block" id="desktopDashboardIcon" aria-controls="desktopNav" aria-expanded="false" tabindex="0">
       <i class="fas fa-bars"></i>
     </div>
   </header>
-
-  <!-- Mobile Menu -->
-  <div class="mobile-menu" id="mobileMenu">
+ <div class="top-right-slider">
+  <div class="slider-text"><b>Ushaka ko tugufasha zimwe murizi services zikurikira
+    watwandikira kuri 0733253803 cg ukaduhamagara kur 0780019239!</b></div>
+</div>
+  <!-- Mobile Menu (visible on mobile) -->
+  <div class="mobile-menu md:hidden" id="mobileMenu">
     <ul>
       <li><a href="index.html">Home</a></li>
       <li>
@@ -824,10 +863,10 @@
     </ul>
   </div>
 
-  <!-- ===== HAMBURGER MENU SIDEBAR ===== -->
-  <aside class="sidebar" id="hamburgerMenu" aria-hidden="true">
+  <!-- ===== HAMBURGER MENU SIDEBAR (Mobile) ===== -->
+  <aside class="sidebar md:hidden" id="hamburgerMenu" aria-hidden="true">
     <div class="sidebar-header">
-      <span><i class="fas fa-bars"></i> Hamburger Menu</span>
+      <span><i class="fas fa-bars"></i> Dashboard Menu</span>
       <i class="fas fa-times" id="closeSidebar" aria-label="Close menu" tabindex="0"></i>
     </div>
     
@@ -842,7 +881,6 @@
       <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
     </nav>
     
-    <!-- Menu Widgets -->
     <div class="menu-widget">
       <h3>Quick Stats</h3>
       <p>Overview of your recent activity</p>
@@ -871,9 +909,9 @@
   </aside>
 
   <!-- ===== MAIN CONTENT ===== -->
-  <div class="main-content">
-    <h2>Make Your Career</h2>
-    <div class="imageSlider">
+  <div class="main-content flex-grow">
+    <h2 class="text-center text-2xl md:text-3xl">Make Your Career</h2>
+    <div class="imageSlider mx-auto">
       <img src="./pexels-anntarazevich-6173660.jpg" alt="career image">
       <img src="./pexels-gabby-k-9490623.jpg" alt="career image">
       <img src="./pexels-towfiqu-barbhuiya-3440682-9843268.jpg" alt="career image">
@@ -881,21 +919,21 @@
     </div>
     <div class="careerContent">
       <main>
-        <h1>How to Develop Your Career</h1>
+        <h1 class="text-2xl md:text-3xl">How to Develop Your Career</h1>
         <p>Explore resources and opportunities to grow your skills and advance your career in technology.</p>
       </main>
-      <ul>
-        <li><a href="./MLM NOTES.pdf">Open Book</a></li>
-        <li><a href="https://www.freecodecamp.org/" target="_blank" rel="noopener noreferrer">FreeCodeCamp</a></li>
-        <li><a href="https://www.w3schools.com/" target="_blank" rel="noopener noreferrer">W3Schools</a></li>
-        <li><a href="https://www.sololearn.com/" target="_blank" rel="noopener noreferrer">SoloLearn</a></li>
-        <li><a href="https://www.coursera.org/" target="_blank" rel="noopener noreferrer">Coursera</a></li>
+      <ul class="mt-4 space-y-2">
+        <li><a href="./MLM NOTES.pdf" class="text-blue-600 hover:underline">Open Book</a></li>
+        <li><a href="https://www.freecodecamp.org/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">FreeCodeCamp</a></li>
+        <li><a href="https://www.w3schools.com/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">W3Schools</a></li>
+        <li><a href="https://www.sololearn.com/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">SoloLearn</a></li>
+        <li><a href="https://www.coursera.org/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Coursera</a></li>
       </ul>
     </div>
   </div>
 
   <!-- ===== FOOTER ===== -->
-  <footer>
+  <footer class="mt-auto">
     <div class="footer-columns">
       <div class="col">
         <h3>Contact</h3>
@@ -950,30 +988,25 @@
 
   <!-- ===== JS: Toggle Menus and Scroll Behavior ===== -->
   <script>
-    // Toggle hamburger menu open/close
-    function toggleHamburgerMenu() {
+    // Toggle mobile dashboard menu (sidebar)
+    function toggleMobileDashboardMenu() {
       const hamburgerMenu = document.getElementById('hamburgerMenu');
-      const hamburgerIcon = document.getElementById('hamburgerIcon');
-      if (hamburgerMenu && hamburgerIcon) {
+      const mobileDashboardIcon = document.getElementById('mobileDashboardIcon');
+      if (hamburgerMenu && mobileDashboardIcon) {
         const isActive = hamburgerMenu.classList.toggle('active');
-        hamburgerIcon.setAttribute('aria-expanded', isActive);
+        mobileDashboardIcon.setAttribute('aria-expanded', isActive);
         hamburgerMenu.setAttribute('aria-hidden', !isActive);
       }
     }
 
-    // Toggle mobile menu open/close
-    function toggleMobileMenu() {
-      const mobileMenu = document.getElementById('mobileMenu');
-      const menuToggle = document.getElementById('menuToggle');
-      if (mobileMenu && menuToggle) {
-        const isActive = mobileMenu.classList.toggle('active');
-        menuToggle.setAttribute('aria-expanded', isActive);
-        if (!isActive) {
-          document.querySelectorAll('.mobile-menu .dropdown').forEach(dropdown => {
-            dropdown.style.display = 'none';
-            dropdown.parentElement.classList.remove('active');
-          });
-        }
+    // Toggle desktop dashboard menu (navbar)
+    function toggleDesktopDashboardMenu() {
+      const desktopNav = document.getElementById('desktop-nav');
+      const desktopDashboardIcon = document.getElementById('desktopDashboardIcon');
+      if (desktopNav && desktopDashboardIcon) {
+        const isActive = desktopNav.classList.toggle('active');
+        desktopDashboardIcon.setAttribute('aria-expanded', isActive);
+        desktopNav.style.display = isActive ? 'flex' : 'none';
       }
     }
 
@@ -990,39 +1023,39 @@
 
     // Initialize event listeners
     document.addEventListener('DOMContentLoaded', () => {
-      const hamburgerIcon = document.getElementById('hamburgerIcon');
-      const menuToggle = document.getElementById('menuToggle');
+      const mobileDashboardIcon = document.getElementById('mobileDashboardIcon');
+      const desktopDashboardIcon = document.getElementById('desktopDashboardIcon');
       const closeSidebar = document.getElementById('closeSidebar');
       const mobileMenuItems = document.querySelectorAll('.mobile-menu li');
       const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
       const sidebarLinks = document.querySelectorAll('.sidebar a');
 
-      if (hamburgerIcon) {
-        hamburgerIcon.addEventListener('click', toggleHamburgerMenu);
-        hamburgerIcon.addEventListener('keydown', (event) => {
+      if (mobileDashboardIcon) {
+        mobileDashboardIcon.addEventListener('click', toggleMobileDashboardMenu);
+        mobileDashboardIcon.addEventListener('keydown', (event) => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
-            toggleHamburgerMenu();
+            toggleMobileDashboardMenu();
           }
         });
       }
 
-      if (menuToggle) {
-        menuToggle.addEventListener('click', toggleMobileMenu);
-        menuToggle.addEventListener('keydown', (event) => {
+      if (desktopDashboardIcon) {
+        desktopDashboardIcon.addEventListener('click', toggleDesktopDashboardMenu);
+        desktopDashboardIcon.addEventListener('keydown', (event) => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
-            toggleMobileMenu();
+            toggleDesktopDashboardMenu();
           }
         });
       }
 
       if (closeSidebar) {
-        closeSidebar.addEventListener('click', toggleHamburgerMenu);
+        closeSidebar.addEventListener('click', toggleMobileDashboardMenu);
         closeSidebar.addEventListener('keydown', (event) => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
-            toggleHamburgerMenu();
+            toggleMobileDashboardMenu();
           }
         });
       }
@@ -1043,10 +1076,6 @@
               dropdown.style.display = 'none';
               dropdown.parentElement.classList.remove('active');
             });
-            if (menuToggle) {
-              menuToggle.setAttribute('aria-expanded', 'false');
-            }
-            // Scroll to top or section
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (link.hash) {
               event.preventDefault();
@@ -1064,12 +1093,11 @@
       sidebarLinks.forEach(link => {
         link.addEventListener('click', (event) => {
           const hamburgerMenu = document.getElementById('hamburgerMenu');
-          const hamburgerIcon = document.getElementById('hamburgerIcon');
-          if (hamburgerMenu && hamburgerIcon) {
+          const mobileDashboardIcon = document.getElementById('mobileDashboardIcon');
+          if (hamburgerMenu && mobileDashboardIcon) {
             hamburgerMenu.classList.remove('active');
-            hamburgerIcon.setAttribute('aria-expanded', 'false');
+            mobileDashboardIcon.setAttribute('aria-expanded', 'false');
             hamburgerMenu.setAttribute('aria-hidden', 'true');
-            // Scroll to top or section
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (link.hash) {
               event.preventDefault();
@@ -1083,26 +1111,26 @@
         });
       });
 
-      // Close hamburger menu when clicking outside
+      // Close mobile dashboard menu when clicking outside
       document.addEventListener('click', (event) => {
         const hamburgerMenu = document.getElementById('hamburgerMenu');
-        if (hamburgerMenu && hamburgerIcon &&
+        if (hamburgerMenu && mobileDashboardIcon &&
             hamburgerMenu.classList.contains('active') &&
             !hamburgerMenu.contains(event.target) &&
-            !hamburgerIcon.contains(event.target)) {
+            !mobileDashboardIcon.contains(event.target)) {
           hamburgerMenu.classList.remove('active');
-          hamburgerIcon.setAttribute('aria-expanded', 'false');
+          mobileDashboardIcon.setAttribute('aria-expanded', 'false');
           hamburgerMenu.setAttribute('aria-hidden', 'true');
         }
       });
 
-      // Close hamburger menu on Escape key
+      // Close mobile dashboard menu on Escape key
       document.addEventListener('keydown', (event) => {
         const hamburgerMenu = document.getElementById('hamburgerMenu');
         if (hamburgerMenu && event.key === 'Escape' && hamburgerMenu.classList.contains('active')) {
           hamburgerMenu.classList.remove('active');
-          if (hamburgerIcon) {
-            hamburgerIcon.setAttribute('aria-expanded', 'false');
+          if (mobileDashboardIcon) {
+            mobileDashboardIcon.setAttribute('aria-expanded', 'false');
             hamburgerMenu.setAttribute('aria-hidden', 'true');
           }
         }

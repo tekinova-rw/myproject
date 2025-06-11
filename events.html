@@ -6,6 +6,8 @@
   <title>TekiNova</title>
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <!-- Tailwind CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
   <style>
     /* ===== CSS ===== */
     /* Reset and Global Styles */
@@ -21,7 +23,7 @@
       color: #333;
       line-height: 1.6;
       overflow-x: hidden;
-      padding-top: 60px; /* Adjusted for sticky header height */
+      padding-top: 60px;
     }
 
     /* Header */
@@ -32,7 +34,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: fixed; /* Make header sticky */
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
@@ -106,7 +108,7 @@
     .sidebar {
       position: fixed;
       top: 0;
-      right: -280px;
+      right: -100%;
       width: 260px;
       height: 100vh;
       background-color: #002240;
@@ -211,20 +213,24 @@
       max-width: 1000px;
       margin: 20px auto;
       padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
     /* Staff Cards */
     .staff-container {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 15px;
-      justify-content: center;
+      justify-items: center;
     }
 
     .staff-card {
       background-color: white;
       border-radius: 12px;
-      width: 180px;
+      width: 100%;
+      max-width: 180px;
       padding: 12px;
       text-align: center;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -245,10 +251,9 @@
     }
 
     .footer-columns {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 15px;
-      justify-content: space-between;
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -257,15 +262,10 @@
       flex: 1 1 180px;
     }
 
-    .footer-columns .col h3 {
-      color: gold;
-      margin-bottom: 10px;
-      font-size: 15px;
-    }
-
+    .footer-columns .col h3,
     .footer-columns .col h2 {
       color: gold;
-      margin: 12px 0 8px;
+      margin-bottom: 10px;
       font-size: 15px;
     }
 
@@ -438,11 +438,15 @@
       .sliding-gallery .gallery-track img {
         max-width: 240px;
       }
+
+      .staff-container {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      }
     }
 
     @media (max-width: 768px) {
       body {
-        padding-top: 52px; /* Adjusted for smaller header height */
+        padding-top: 52px;
       }
 
       header {
@@ -462,7 +466,13 @@
       }
       
       .sidebar {
-        width: 220px;
+        width: 100%;
+        display: none;
+      }
+      
+      .sidebar.active {
+        display: block;
+        right: 0;
       }
       
       .mobile-menu {
@@ -490,11 +500,20 @@
       }
       
       .staff-card {
-        width: 160px;
+        max-width: 160px;
       }
       
       .sliding-gallery .gallery-track img {
         max-width: 200px;
+      }
+
+      .menu-widget .widget-stats {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .menu-widget .widget-stats div {
+        flex: none;
       }
     }
 
@@ -509,11 +528,11 @@
       }
       
       .staff-card {
-        width: 140px;
+        max-width: 140px;
       }
       
-      .footer-columns .col {
-        flex: 1 1 100%;
+      .footer-columns {
+        grid-template-columns: 1fr;
       }
       
       .mobile-menu {
@@ -527,6 +546,10 @@
       .amahugurwa, .amahugurwa ul, .amahugurwa li {
         font-size: medium;
       }
+
+      .main-content {
+        padding: 10px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -536,7 +559,7 @@
       }
       
       .staff-card {
-        width: 130px;
+        max-width: 130px;
         padding: 10px;
       }
       
@@ -549,33 +572,73 @@
         right: -100%;
       }
     }
+     /* muving image  */
+    .top-right-slider {
+  position: sticky;      /* sticky aho */
+  top: 60px;             /* itegereze hejuru ya header (height ya header) */
+  width: 100%;
+  background: #02635e;
+  color: white;
+  padding: 8px 0;
+  text-align: center;
+  overflow: hidden;
+  z-index: 9000;
+  
+}
+
+/* animation ntiyahinduwe */
+.slider-text {
+  display: inline-block;
+  padding-left: 100%;
+  white-space: nowrap;
+  animation: slide-left 35s linear infinite;
+  font-size: 1rem;
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* content isikororinga */
+.content {
+  margin-top: 20px;
+  padding: 20px;
+}
+.slider-text b{
+font-family: 'Times New Roman', Times, serif;
+  font-size: x-large;
+}
   </style>
 </head>
-<body>
-  <!-- ===== HTML ===== -->
+<body class="antialiased">
   <!-- ===== HEADER ===== -->
-  <header id="main-header">
+  <header id="main-header" class="bg-[#012f47] shadow-md">
     <div class="logo">
       <img src="tekilogo.jpg" alt="TEKINOVA Logo">
       <h1>TekiNova</h1>
     </div>
     
-    <button class="mobile-menu-btn" aria-label="Toggle mobile menu" onclick="toggleMobileMenu()">
+    <button class="mobile-menu-btn md:hidden" aria-label="Toggle mobile menu" onclick="toggleMobileMenu()">
       <i class="fas fa-bars"></i>
     </button>
     
-    <nav class="navbar" id="navbar">
-      <ul>
-        <li><a href="index.html">Home</a></li>
+    <nav class="navbar hidden md:flex" id="navbar">
+      <ul class="flex flex-wrap gap-2">
+        <li><a href="index.html" class="hover:bg-[#033d3d] hover:text-gold">Home</a></li>
         <li>
-          <a href="#">About</a>
+          <a href="#" class="hover:bg-[#033d3d] hover:text-gold">About</a>
           <div class="dropdown">
-            <h2>About TEKINOVA</h2>
+            <h2 class="text-gold">About TEKINOVA</h2>
             <a href="About.html">About Us</a>
             <a href="#">Company Background & Vision</a>
             <a href="#">Mission & Goals</a>
             <a href="#">Contacts</a>
-            <h2>Management</h2>
+            <h2 class="text-gold">Management</h2>
             <a href="#">Team or Founders</a>
             <a href="#">Core Values</a>
             <a href="#">Leadership Structure</a>
@@ -583,7 +646,7 @@
           </div>
         </li>
         <li>
-          <a href="#">Services</a>
+          <a href="#" class="hover:bg-[#033d3d] hover:text-gold">Services</a>
           <div class="dropdown">
             <a href="services.html">Our Services</a>
             <a href="#">Web Development</a>
@@ -594,7 +657,7 @@
           </div>
         </li>
         <li>
-          <a href="#">Product</a>
+          <a href="#" class="hover:bg-[#033d3d] hover:text-gold">Product</a>
           <div class="dropdown">
             <a href="Products.html">Products</a>
             <a href="#">App Development</a>
@@ -604,9 +667,9 @@
           </div>
         </li>
         <li>
-          <a href="#">Tech News</a>
+          <a href="#" class="hover:bg-[#033d3d] hover:text-gold">Tech News</a>
           <div class="dropdown">
-            <h2>Blog</h2>
+            <h2 class="text-gold">Blog</h2>
             <a href="Blog_Tech_News.html">Blog Tech News</a>
             <a href="#">Articles About Technology Trends</a>
             <a href="#">How-to Guides or Tutorials</a>
@@ -614,7 +677,7 @@
           </div>
         </li>
         <li>
-          <a href="#">Careers</a>
+          <a href="#" class="hover:bg-[#033d3d] hover:text-gold">Careers</a>
           <div class="dropdown">
             <a href="Careers.html">Develop Your Careers</a>
             <a href="#">Articles About Technology Trends</a>
@@ -623,20 +686,20 @@
           </div>
         </li>
         <li>
-          <a href="#">Jobs</a>
+          <a href="#" class="hover:bg-[#033d3d] hover:text-gold">Jobs</a>
           <div class="dropdown">
-            <h2>Apply Job</h2>
+            <h2 class="text-gold">Apply Job</h2>
             <a href="features.html">Go to Jobs & Internships</a>
           </div>
         </li>
         <li>
-          <a href="#">Contact</a>
+          <a href="#" class="hover:bg-[#033d3d] hover:text-gold">Contact</a>
           <div class="dropdown">
             <a href="contact_us.html">Tell Us Anything</a>
           </div>
         </li>
         <li>
-          <a href="#">Working Calendar</a>
+          <a href="#" class="hover:bg-[#033d3d] hover:text-gold">Working Calendar</a>
           <div class="dropdown">
             <a href="amasahayakazi.html">Our Calendar Days</a>
           </div>
@@ -644,35 +707,38 @@
       </ul>
     </nav>
 
-    <!-- Hamburger Menu Icon (right side) -->
-    <div class="hamburger-menu" aria-label="Toggle sidebar menu" onclick="toggleHamburgerMenu()">
+    <!-- Hamburger Menu Icon -->
+    <div class="hamburger-menu md:flex" aria-label="Toggle sidebar menu" onclick="toggleHamburgerMenu()">
       <i class="fas fa-bars"></i>
     </div>
   </header>
-
+ <div class="top-right-slider">
+  <div class="slider-text"><b>Ushaka ko tugufasha zimwe murizi services zikurikira
+    watwandikira kuri 0733253803 cg ukaduhamagara kur 0780019239!</b></div>
+</div>
   <!-- ===== HAMBURGER MENU SIDEBAR ===== -->
   <aside class="sidebar" id="hamburgerMenu">
     <div class="sidebar-header">
-      <span><i class="fas fa-bars"></i> Hamburger Menu</span>
+      <span><i class="fas fa-bars"></i> Dashboard</span>
       <i class="fas fa-times" onclick="toggleHamburgerMenu()" aria-label="Close sidebar"></i>
     </div>
     
-    <nav>
-      <a href="index.html"><i class="fas fa-home"></i> Home</a>
-      <a href="About.html"><i class="fas fa-info-circle"></i> About</a>
-      <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
-      <a href="Products.html"><i class="fas fa-box"></i> Products</a>
-      <a href="Blog_Tech_News.html"><i class="fas fa-blog"></i> Blog</a>
-      <a href="Careers.html"><i class="fas fa-briefcase"></i> Careers</a>
-      <a href="features.html"><i class="fas fa-laptop-code"></i> Jobs</a>
-      <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
+    <nav class="flex flex-col gap-2">
+      <a href="index.html" class="hover:text-gold"><i class="fas fa-home"></i> Home</a>
+      <a href="About.html" class="hover:text-gold"><i class="fas fa-info-circle"></i> About</a>
+      <a href="services.html" class="hover:text-gold"><i class="fas fa-cogs"></i> Services</a>
+      <a href="Products.html" class="hover:text-gold"><i class="fas fa-box"></i> Products</a>
+      <a href="Blog_Tech_News.html" class="hover:text-gold"><i class="fas fa-blog"></i> Blog</a>
+      <a href="Careers.html" class="hover:text-gold"><i class="fas fa-briefcase"></i> Careers</a>
+      <a href="features.html" class="hover:text-gold"><i class="fas fa-laptop-code"></i> Jobs</a>
+      <a href="contact_us.html" class="hover:text-gold"><i class="fas fa-envelope"></i> Contact</a>
     </nav>
     
     <!-- Menu Widgets -->
     <div class="menu-widget">
       <h3>Quick Stats</h3>
       <p>Overview of your recent activity</p>
-      <div class="widget-stats">
+      <div class="widget-stats flex flex-col sm:flex-row">
         <div>
           <span>1,245</span>
           <small>Visitors</small>
@@ -698,7 +764,7 @@
 
   <!-- ===== MAIN CONTENT ===== -->
   <main class="main-content">
-    <h1 style="text-align: center; margin: 15px 0; font-size: 1.6rem;">Blog & Events</h1>
+    <h1 class="text-center text-2xl md:text-3xl my-4">Blog & Events</h1>
 
     <!-- Sliding Gallery -->
     <div class="sliding-gallery">
@@ -710,22 +776,22 @@
     </div>
     <div class="amahugurwa">
       <p>Turandika inkuru z'ubumenyi, tutorials, n'ama tips ya tech:</p>
-      <ul>
+      <ul class="list-disc list-inside">
         <li>Inyandiko zijyanye na coding, design na business</li>
         <li>Amakuru agezweho muri tech community</li>
         <li>Gutanga tutorials mu Kinyarwanda</li>
         <li>Gukoresha blog mu gutanga internships & jobs</li>
       </ul>
-      <a href="index.html">← Subira ku rubuga nyamukuru</a>
+      <a href="index.html" class="text-blue-600 hover:underline">← Subira ku rubuga nyamukuru</a>
     </div>
   </main>
 
   <!-- ===== FOOTER ===== -->
-  <footer>
+  <footer class="bg-[#012f47] text-white">
     <div class="footer-columns">
       <div class="col">
         <h3>Contact</h3>
-        <a href="./contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="./contact_us.html" class="underline"><b>More Info</b></a>
         <strong>WhatsApp:</strong>
         <a href="https://wa.me/+250733253803" target="_blank" class="toto"> +250 733 253 803</a>
         <strong>Email:</strong>
@@ -733,7 +799,7 @@
       </div>
       <div class="col">
         <h3>About TEKINOVA</h3>
-        <a href="About.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="About.html" class="underline"><b>More Info</b></a>
         <a href="#">Company Background & Vision</a>
         <a href="#">Mission & Goals</a>
         <a href="#">Contacts</a>
@@ -745,7 +811,7 @@
       </div>
       <div class="col">
         <h3>Services</h3>
-        <a href="services.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="services.html" class="underline"><b>More Info</b></a>
         <a href="#">Web Development</a>
         <a href="#">App Development</a>
         <a href="#">Tech Consultancy</a>
@@ -754,7 +820,7 @@
       </div>
       <div class="col">
         <h3>Products</h3>
-        <a href="Products.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="Products.html" class="underline"><b>More Info</b></a>
         <a href="#">App Development</a>
         <a href="#">Tech Consultancy</a>
         <a href="#">Custom Software</a>
@@ -762,33 +828,29 @@
       </div>
       <div class="col">
         <h3>Careers</h3>
-        <a href="Careers.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="Careers.html" class="underline"><b>More Info</b></a>
         <a href="#">Articles About Technology Trends</a>
         <a href="#">How-to Guides or Tutorials</a>
         <a href="#">Company Updates</a>
       </div>
       <div class="col">
         <h3>Jobs & Internships</h3>
-        <a href="features.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="features.html" class="underline"><b>More Info</b></a>
       </div>
     </div>
   </footer>
 
   <!-- ===== JavaScript ===== -->
   <script>
-    // Toggle hamburger menu open/close
     function toggleHamburgerMenu() {
       const menu = document.getElementById('hamburgerMenu');
       menu.classList.toggle('active');
-      // Prevent body scrolling when sidebar is open
       document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
     }
 
-    // Close menu when clicking outside
     document.addEventListener('click', function (event) {
       const menu = document.getElementById('hamburgerMenu');
       const menuIcon = document.querySelector('.hamburger-menu');
-
       if (menu.classList.contains('active') &&
           !menu.contains(event.target) &&
           !menuIcon.contains(event.target)) {
@@ -797,7 +859,6 @@
       }
     });
 
-    // Close menu on Escape key
     document.addEventListener('keydown', function (event) {
       const menu = document.getElementById('hamburgerMenu');
       if (event.key === 'Escape' && menu.classList.contains('active')) {
@@ -806,35 +867,25 @@
       }
     });
 
-    // Mobile menu toggle
     function toggleMobileMenu() {
       const navbar = document.getElementById('navbar');
       navbar.classList.toggle('active');
-      
-      // Close dropdowns and prevent body scrolling when mobile menu is open
-      if (navbar.classList.contains('active')) {
-        document.body.style.overflow = 'hidden';
-        const dropdowns = document.querySelectorAll('.dropdown');
-        dropdowns.forEach(dropdown => {
-          dropdown.style.display = 'none';
-        });
-      } else {
-        document.body.style.overflow = 'auto';
+      const mobileMenu = document.querySelector('.mobile-menu');
+      if (mobileMenu) {
+        mobileMenu.classList.toggle('active');
       }
+      document.body.style.overflow = navbar.classList.contains('active') ? 'hidden' : 'auto';
     }
 
-    // Store scroll position before navigation
     let scrollPosition = 0;
     function saveScrollPosition() {
       scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
     }
 
-    // Restore scroll position after navigation
     function restoreScrollPosition() {
       window.scrollTo(0, scrollPosition);
     }
 
-    // Toggle dropdowns on mobile and save/restore scroll position
     document.querySelectorAll('.navbar li > a').forEach(link => {
       link.addEventListener('click', function(e) {
         if (window.innerWidth <= 768) {
@@ -846,14 +897,12 @@
           } else {
             saveScrollPosition();
             window.location.href = this.href;
-            // Restore scroll position after page load (simulated with timeout)
             setTimeout(restoreScrollPosition, 100);
           }
         }
       });
     });
 
-    // Restore scroll position on page load
     window.addEventListener('load', restoreScrollPosition);
   </script>
 </body>

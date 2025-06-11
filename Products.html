@@ -2,18 +2,47 @@
 <html lang="rw">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="description" content="TekiNova - Our Products"/>
   <title>TekiNova</title>
-
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="strict-origin-when-cross-origin" />
   <style>
+    /* Fallback if Font Awesome fails */
+    .fa, .fas { font-family: sans-serif; }
+    .fa-home::before { content: "\2302"; }
+    .fa-info-circle::before { content: "\24D8"; }
+    .fa-cogs::before { content: "\2699"; }
+    .fa-box::before { content: "\2610"; }
+    .fa-blog::before { content: "\270D"; }
+    .fa-laptop-code::before { content: "\1F4BB"; }
+    .fa-briefcase::before { content: "\1F4BC"; }
+    .fa-envelope::before { content: "\2709"; }
+    .fa-bars::before { content: "\2630"; }
+    .fa-times::before { content: "\2715"; }
+    .fa-check-circle::before { content: "\2713"; }
+    .fa-user-plus::before { content: "\1F464"; }
+    .fa-sync-alt::before { content: "\21BB"; }
+    .fa-tachometer-alt::before { content: "\1F4B5"; }
+    .fa-paint-brush::before { content: "\1F3A8"; }
+    .fa-globe::before { content: "\1F310"; }
+    .fa-mobile-alt::before { content: "\1F4F1"; }
+    .fa-search::before { content: "\1F50D"; }
+    .fa-graduation-cap::before { content: "\1F393"; }
+    .fa-paper-plane::before { content: "\1F4E9"; }
+    .fa-terminal::before { content: "\1F4BB"; }
+    .fa-users::before { content: "\1F465"; }
+
     /* Reset and Global Styles */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
     }
 
     body {
@@ -23,83 +52,117 @@
       line-height: 1.6;
     }
 
+    body.no-scroll {
+      overflow: hidden;
+    }
+
     /* Header */
     header {
       background-color: #012f47;
       color: white;
-      padding: 10px 20px;
+      padding: 10px 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: sticky;
+      position: fixed;
       top: 0;
+      left: 0;
+      width: 100%;
       z-index: 1000;
+      flex-wrap: wrap;
     }
 
     .logo {
       display: flex;
       align-items: center;
+      cursor: pointer;
     }
 
     .logo img {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       border: 2px solid gold;
       margin-right: 8px;
+      transition: transform 0.3s ease;
+      will-change: transform;
+    }
+
+    .logo:hover img {
+      transform: rotate(15deg);
     }
 
     .logo h1 {
       color: gold;
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
+      white-space: nowrap;
     }
 
     nav ul {
       list-style: none;
       display: flex;
-      gap: 15px;
+      gap: 10px;
     }
 
-    nav a {
+    .navbar a {
       text-decoration: none;
       color: white;
       font-weight: 600;
-      font-size: 15px;
+      font-size: 14px;
       padding: 6px 10px;
       border-radius: 6px;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s ease;
+      position: relative;
     }
 
-    nav a:hover {
+    .navbar a:hover {
       background-color: #033d3d;
       color: gold;
     }
 
-    /* Hamburger Menu Icon */
+    .navbar a.active {
+      color: #eaedf1;
+    }
+
+    .navbar a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: gold;
+      transition: width 0.3s ease, transform 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .navbar a:hover::after {
+      width: 80%;
+    }
+
+    /* Sidebar Icon */
     .sidebar-icon {
-      font-size: 22px;
+      font-size: 20px;
       cursor: pointer;
       color: white;
-      transition: color 0.3s;
+      transition: color 0.3s ease, transform 0.3s ease;
+      padding: 5px;
+      will-change: transform, color;
     }
 
     .sidebar-icon:hover {
       color: gold;
+      transform: scale(1.1);
     }
 
-    .menu-toggle {
-      display: none;
-      font-size: 22px;
-      cursor: pointer;
-    }
-
-    /* Sidebar Hamburger Menu */
+    /* Sidebar */
     .sidebar {
       position: fixed;
       top: 0;
-      right: -300px;
+      right: -100%;
       width: 260px;
+      max-width: 80%;
       height: 100vh;
       background-color: #002240;
       color: white;
@@ -108,30 +171,51 @@
       z-index: 999;
       box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .sidebar.active {
       right: 0;
     }
 
+    .sidebar::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background: #555;
+      border-radius: 4px;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+      background: #002240;
+    }
+
     .sidebar-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 18px;
+      font-size: 16px;
       color: gold;
       margin-bottom: 15px;
-      padding-bottom: 10px;
+      padding-bottom: 8px;
       border-bottom: 1px solid #555;
     }
 
     .sidebar-header i {
       cursor: pointer;
-      transition: color 0.3s;
+      transition: color 0.3s ease, transform 0.3s ease;
+      font-size: 16px;
+      will-change: transform, color;
     }
 
     .sidebar-header i:hover {
       color: #d4af37;
+      transform: scale(1.2);
     }
 
     .sidebar a {
@@ -139,37 +223,79 @@
       align-items: center;
       gap: 8px;
       color: white;
-      padding: 10px 0;
+      padding: 10px 12px;
       text-decoration: none;
-      transition: color 0.3s;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 14px;
+      border-radius: 5px;
     }
 
     .sidebar a:hover {
+      background-color: #033d3d;
       color: gold;
     }
 
     .sidebar i {
       width: 18px;
       text-align: center;
+      font-size: 14px;
+    }
+
+    /* Sidebar Overlay */
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 998;
+    }
+
+    .sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Content Blur when Sidebar is Active */
+    body.sidebar-active .main-content,
+    body.sidebar-active footer {
+      filter: blur(2px);
+      transition: filter 0.3s ease;
+    }
+
+    body:not(.sidebar-active) .main-content,
+    body:not(.sidebar-active) footer {
+      filter: none;
     }
 
     /* Sidebar Widgets */
     .sidebar-widget {
       background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
+      border-radius: 6px;
       padding: 10px;
-      margin: 10px 0;
+      margin-bottom: 10px;
+      transition: transform 0.3s ease;
+      will-change: transform;
+    }
+
+    .sidebar-widget:hover {
+      transform: translateY(-3px);
     }
 
     .sidebar-widget h3 {
       color: gold;
-      margin-bottom: 8px;
-      font-size: 15px;
+      margin-bottom: 6px;
+      font-size: 14px;
     }
 
     .sidebar-widget p {
-      font-size: 13px;
-      margin-bottom: 6px;
+      font-size: 12px;
+      margin-bottom: 5px;
     }
 
     .sidebar-widget .widget-stats {
@@ -185,155 +311,64 @@
 
     .widget-stats span {
       display: block;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: bold;
       color: gold;
     }
 
     .widget-stats small {
-      font-size: 11px;
+      font-size: 10px;
       opacity: 0.8;
     }
 
-    /* Staff Cards */
+    /* Main Content */
     .main-content {
       max-width: 1200px;
-      margin: 30px auto;
+      margin: 80px auto 30px;
       padding: 15px;
     }
 
-    .staff-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-    }
-
-    .staff-card {
-      background-color: white;
-      border-radius: 12px;
-      width: 180px;
-      padding: 12px;
+    .main-content h2 {
+      color: #012f47;
+      margin-bottom: 20px;
       text-align: center;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      flex: 1 1 180px;
-      max-width: 200px;
+      font-size: 2rem;
+      border-bottom: 2px solid gold;
+      padding-bottom: 8px;
     }
 
-    .staff-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 10px;
+    /* Product Cards */
+    .tek-services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      padding: 0.8rem 0;
     }
 
-    /* Footer */
-    footer {
-      background-color: #012f47;
-      color: white;
-      padding: 30px 15px;
-    }
-
-    .footer-columns {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: space-between;
-    }
-
-    .footer-columns .col {
-      flex: 1 1 180px;
-      min-width: 160px;
-    }
-
-    .footer-columns .col h3 {
-      color: gold;
-      margin-bottom: 10px;
-    }
-
-    .footer-columns .col a {
-      display: block;
-      color: white;
-      text-decoration: none;
-      margin-bottom: 5px;
-      transition: color 0.3s;
-    }
-
-    .footer-columns .col a:hover {
-      color: #d4af37;
-    }
-
-    /* Navigation Dropdowns */
-    .navbar ul {
-      list-style: none;
-      display: flex;
-    }
-
-    .navbar li {
-      position: relative;
-    }
-
-    .navbar a {
-      display: block;
-      padding: 12px 16px;
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-    }
-
-    .navbar a:hover {
-      background-color: #033d3d;
-    }
-
-    .navbar a.active {
-      color: #eaecf1;
-    }
-
-    .dropdown {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #002366;
-      min-width: 220px;
-      border-radius: 0 0 5px 5px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      z-index: 999;
-    }
-
-    .dropdown a {
-      padding: 10px 14px;
-      display: block;
-      color: white;
-      text-decoration: none;
-    }
-
-    .dropdown a:hover {
-      background-color: #033d3d;
-    }
-
-    .navbar li:hover .dropdown {
-      display: block;
-    }
-
-    /* CSS OF PRODUCT */
     .tek-service-card {
       background: #f9f9f9;
       border-radius: 12px;
       padding: 1rem;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-      max-width: 320px;
-      margin: 0.8rem auto;
-      font-family: sans-serif;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       text-align: center;
       flex: 1 1 280px;
+      max-width: 320px;
+      margin: 0 auto;
     }
 
     .tek-service-card:hover {
       background-color: #ffffff;
       transform: translateY(-8px);
       box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .tek-service-card i {
+      width: 24px;
+      height: 24px;
+      color: #b30000;
+      font-size: 24px;
+      margin-bottom: 0.5rem;
     }
 
     .tek-service-title {
@@ -350,73 +385,168 @@
       margin-bottom: 1rem;
     }
 
-    .tek-service-cta {
-      display: inline-block;
-      background: #27ae60;
+    /* Footer */
+    footer {
+      background-color: #012f47;
       color: white;
-      padding: 0.5rem 0.8rem;
-      border-radius: 6px;
+      padding: 20px 15px;
+    }
+
+    .footer-columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-columns .col {
+      flex: 1 1 180px;
+      min-width: 160px;
+      margin-bottom: 15px;
+    }
+
+    .footer-columns .col h3 {
+      color: gold;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .footer-columns .col h2 {
+      color: gold;
+      margin: 10px 0 6px;
+      font-size: 14px;
+    }
+
+    .footer-columns .col a {
+      display: block;
+      color: white;
       text-decoration: none;
-      font-weight: 500;
-      transition: background 0.3s ease;
+      margin-bottom: 4px;
+      transition: color 0.3s ease, padding-left 0.3s ease;
+      font-size: 12px;
     }
 
-    .tek-service-cta:hover {
-      background: #219150;
+    .footer-columns .col a:hover {
+      color: #d4af37;
+      padding-left: 3px;
     }
 
-    .tek-services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-      padding: 0.8rem 0;
+    .copyright {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 15px;
     }
 
-    /* Responsive Toggle */
+    /* Navigation Dropdowns */
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .navbar li {
+      position: relative;
+    }
+
+    .navbar a {
+      display: block;
+      padding: 8px 12px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #002366;
+      min-width: 200px;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      z-index: 100;
+      padding: 8px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropdown h2 {
+      color: gold;
+      font-size: 14px;
+      padding: 8px 15px;
+      margin: 0;
+    }
+
+    .dropdown a {
+      padding: 8px 15px;
+      font-size: 12px;
+    }
+
+    .navbar li:hover .dropdown {
+      display: block;
+    }
+
+    /* Responsive Design */
     @media (max-width: 1024px) {
+      header {
+        padding: 8px 12px;
+      }
+
       .logo h1 {
-        font-size: 20px;
+        font-size: 18px;
       }
 
       .logo img {
-        width: 36px;
-        height: 36px;
+        width: 32px;
+        height: 32px;
       }
 
       .sidebar {
         width: 240px;
+        max-width: 80%;
       }
 
       .tek-service-card {
         max-width: 280px;
       }
 
-      .staff-card {
-        max-width: 180px;
+      .main-content h2 {
+        font-size: 1.8rem;
       }
     }
 
     @media (max-width: 768px) {
-      nav ul {
-        display: none;
+      header {
+        padding: 8px 12px;
       }
 
-      .menu-toggle {
-        display: block;
-        color: white;
+      .logo {
+        min-width: 100%;
+        justify-content: center;
+        margin-bottom: 6px;
+      }
+
+      .navbar ul {
+        display: none;
       }
 
       .sidebar-icon {
-        display: none;
+        margin-left: auto;
+        margin-right: 12px;
       }
 
-      .sidebar {
-        width: 240px;
-      }
-
-      .staff-card {
-        max-width: 160px;
-        flex: 1 1 160px;
+      .main-content {
+        margin-top: 64px;
       }
 
       .tek-services-grid {
@@ -428,46 +558,25 @@
         max-width: 260px;
       }
 
-      .footer-columns {
-        gap: 15px;
-      }
-
-      .footer-columns .col {
-        flex: 1 1 150px;
-      }
-
-      .navbar li:hover .dropdown {
-        display: none; /* Hide dropdowns on mobile */
+      .main-content h2 {
+        font-size: 1.6rem;
       }
     }
 
     @media (max-width: 480px) {
       header {
-        padding: 8px 12px;
-      }
-
-      .logo img {
-        width: 32px;
-        height: 32px;
-      }
-
-      .logo h1 {
-        font-size: 18px;
+        padding: 6px 10px;
       }
 
       .sidebar {
         width: 100%;
+        max-width: 100%;
         right: -100%;
       }
 
       .main-content {
+        margin-top: 56px;
         padding: 10px;
-        margin: 20px auto;
-      }
-
-      .staff-card {
-        max-width: 100%;
-        flex: 1 1 100%;
       }
 
       .tek-services-grid {
@@ -483,22 +592,79 @@
         flex-direction: column;
         gap: 12px;
       }
+
+      .sidebar-icon {
+        font-size: 18px;
+        margin-right: 8px;
+      }
+
+      .main-content h2 {
+        font-size: 1.4rem;
+      }
+
+      .tek-service-title {
+        font-size: 1.1rem;
+      }
+
+      .tek-service-description {
+        font-size: 0.9rem;
+      }
     }
+     /* muving image  */
+    .top-right-slider {
+  position: sticky;      /* sticky aho */
+  top: 60px;             /* itegereze hejuru ya header (height ya header) */
+  width: 100%;
+  background: #02635e;
+  color: white;
+  padding: 8px 0;
+  text-align: center;
+  overflow: hidden;
+  z-index: 9000;
+  
+}
+
+/* animation ntiyahinduwe */
+.slider-text {
+  display: inline-block;
+  padding-left: 100%;
+  white-space: nowrap;
+  animation: slide-left 35s linear infinite;
+  font-size: 1rem;
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* content isikororinga */
+.content {
+  margin-top: 20px;
+  padding: 20px;
+}
+.slider-text b{
+font-family: 'Times New Roman', Times, serif;
+  font-size: x-large;
+}
   </style>
 </head>
 <body>
-
-  <!-- ===== HEADER ===== -->
+  <!-- HEADER -->
   <header>
-    <div class="logo">
+    <div class="logo" id="logo">
       <img src="logo.jpeg" alt="TEKINOVA Logo">
       <h1>TekiNova</h1>
     </div>
     <nav class="navbar">
-      <ul>
+      <ul id="main-nav" role="navigation" aria-label="Main navigation">
         <li><a href="index.html">Home</a></li>
         <li>
-          <a href="#">About</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">About</a>
           <div class="dropdown">
             <h2>About TEKINOVA</h2>
             <a href="About.html">About Us</a>
@@ -507,13 +673,13 @@
             <a href="#">Contacts</a>
             <h2>Administrative</h2>
             <a href="#">Team or founders</a>
-            <a href="#">Core values (e.g. innovation, security, accessibility)</a>
+            <a href="#">Core values</a>
             <a href="#">Executive Organ</a>
             <a href="#">Senior Management</a>
           </div>
         </li>
         <li>
-          <a href="#">Services</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Services</a>
           <div class="dropdown">
             <a href="services.html">Got Services</a>
             <a href="#">Web development</a>
@@ -524,7 +690,7 @@
           </div>
         </li>
         <li>
-          <a href="#">Product</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Product</a>
           <div class="dropdown">
             <a href="Products.html">Product</a>
             <a href="#">App development</a>
@@ -534,7 +700,7 @@
           </div>
         </li>
         <li>
-          <a href="#">Tech News</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Tech News</a>
           <div class="dropdown">
             <h2>Blog</h2>
             <a href="Blog_Tech_News.html">Blog Tech News</a>
@@ -544,7 +710,7 @@
           </div>
         </li>
         <li>
-          <a href="#">Careers</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Careers</a>
           <div class="dropdown">
             <a href="Careers.html">Develop Your Career</a>
             <a href="#">Articles about technology trends</a>
@@ -553,63 +719,59 @@
           </div>
         </li>
         <li>
-          <a href="#">Jobs</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Jobs</a>
           <div class="dropdown">
             <h2>Apply Job</h2>
             <a href="features.html">Go to Jobs & Internships</a>
           </div>
         </li>
         <li>
-          <a href="#">Contact</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Contact</a>
           <div class="dropdown">
             <a href="contact_us.html">Tell Us Anything</a>
           </div>
         </li>
         <li>
-          <a href="#">Working Calendar</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Working Calendar</a>
           <div class="dropdown">
             <a href="amasahayakazi.html">Our Calendar Days</a>
           </div>
         </li>
       </ul>
     </nav>
-
-    <!-- Hamburger Menu Icon (right side) -->
-    <div class="sidebar-icon">
-      <i class="fas fa-bars"></i>
-    </div>
-    
-    <!-- Mobile menu toggle (hidden by default) -->
-    <div class="menu-toggle">
+    <div class="sidebar-icon" id="sidebar-icon" role="button" aria-label="Toggle sidebar menu" tabindex="0">
       <i class="fas fa-bars"></i>
     </div>
   </header>
+ <div class="top-right-slider">
+  <div class="slider-text"><b>Ushaka ko tugufasha zimwe murizi services zikurikira
+    watwandikira kuri 0733253803 cg ukaduhamagara kur 0780019239!</b></div>
+</div>
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-  <!-- ===== HAMBURGER MENU SIDEBAR ===== -->
-  <aside class="sidebar" id="sidebar">
+  <!-- SIDEBAR (DASHBOARD) -->
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Sidebar menu">
     <div class="sidebar-header">
-      <span><i class="fas fa-bars"></i> Menu</span>
-      <i class="fas fa-times"></i>
+      <span><i class="fas fa-tachometer-alt"></i> Dashboard</span>
+      <i class="fas fa-times" id="close-sidebar" role="button" aria-label="Close sidebar menu" tabindex="0"></i>
     </div>
-    
     <nav>
       <a href="index.html"><i class="fas fa-home"></i> Home</a>
       <a href="About.html"><i class="fas fa-info-circle"></i> About</a>
-      <a href="Services.html"><i class="fas fa-cogs"></i> Services</a>
+      <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
       <a href="Products.html"><i class="fas fa-box"></i> Products</a>
       <a href="Blog_Tech_News.html"><i class="fas fa-blog"></i> Blog</a>
       <a href="Careers.html"><i class="fas fa-briefcase"></i> Careers</a>
       <a href="features.html"><i class="fas fa-laptop-code"></i> Jobs</a>
       <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
     </nav>
-    
-    <!-- Sidebar Widgets -->
     <div class="sidebar-widget">
       <h3>Quick Stats</h3>
       <p>Overview of your recent activity</p>
       <div class="widget-stats">
         <div>
-          <span>1,245</span>
+          <span id="visitors-count">1,245</span>
           <small>Visitors</small>
         </div>
         <div>
@@ -622,7 +784,6 @@
         </div>
       </div>
     </div>
-    
     <div class="sidebar-widget">
       <h3>Recent Activity</h3>
       <p><i class="fas fa-check-circle"></i> New project started</p>
@@ -631,77 +792,66 @@
     </div>
   </aside>
 
-  <!-- ===== MAIN CONTENT ===== -->
+  <!-- MAIN CONTENT -->
   <div class="services-list-container main-content">
-    <h2>Our Products:</h2>
-
+    <h2>Our Products</h2>
     <div class="tek-services-grid">
       <div class="tek-service-card">
-        <i class="fas fa-paint-brush" style="width: 24px; height: 24px; color: #b30000;"></i>
+        <i class="fas fa-paint-brush"></i>
         <h3 class="tek-service-title">Graphic Design</h3>
         <p class="tek-service-description">We design logos, posters, social media banners, UI designs, and more. Our creativity gives your brand a strong visual identity.</p>
       </div>
-
       <div class="tek-service-card">
-        <i class="fas fa-globe" style="width: 24px; height: 24px; color: #b30000;"></i>
+        <i class="fas fa-globe"></i>
         <h3 class="tek-service-title">Website Development</h3>
         <p class="tek-service-description">We build responsive websites for businesses, portfolios, blogs, and e-commerce. Fast, secure, and modern.</p>
       </div>
-
       <div class="tek-service-card">
-        <i class="fas fa-mobile-alt" style="width: 24px; height: 24px; color: #b30000;"></i>
+        <i class="fas fa-mobile-alt"></i>
         <h3 class="tek-service-title">Mobile App Development</h3>
         <p class="tek-service-description">We develop Android and iOS apps that connect your users to your products or services efficiently on mobile.</p>
       </div>
-
       <div class="tek-service-card">
-        <i class="fas fa-cogs" style="width: 24px; height: 24px; color: #b30000;"></i>
+        <i class="fas fa-cogs"></i>
         <h3 class="tek-service-title">Software & Systems Maintenance</h3>
         <p class="tek-service-description">We provide ongoing maintenance and support for your digital systems — keeping them updated, fast, and secure.</p>
       </div>
-
       <div class="tek-service-card">
-        <i class="fas fa-search" style="width: 24px; height: 24px; color: #b30000;"></i>
+        <i class="fas fa-search"></i>
         <h3 class="tek-service-title">Job Opportunity Guidance</h3>
-        <p class="tek-service-description">We help job seekers find employment, internships, gigs, and remote jobs through verified links and partner companies.</p>
+        <p class="tek-service-description">We help job seekers find employment, internships, gigs, and remote jobs through verified links and partner organizations.</p>
       </div>
-
       <div class="tek-service-card">
-        <i class="fas fa-graduation-cap" style="width: 24px; height: 24px; color: #b30000;"></i>
+        <i class="fas fa-graduation-cap"></i>
         <h3 class="tek-service-title">Scholarships & Internships</h3>
         <p class="tek-service-description">We guide students to apply for scholarships and internships locally and abroad, with support in preparing their profiles.</p>
       </div>
-
       <div class="tek-service-card">
-        <i class="fas fa-paper-plane" style="width: 24px; height: 24px; color: #b30000;"></i>
+        <i class="fas fa-paper-plane"></i>
         <h3 class="tek-service-title">Application Support</h3>
-        <p class="tek-service-description">Need help applying for jobs, internships, or grants? We help you write CVs, cover letters, and fill forms professionally.</p>
+        <p class="tek-service-description">Need help applying for jobs, internships, or grants? We help you craft CVs, cover letters, and complete forms professionally.</p>
       </div>
-
       <div class="tek-service-card">
-        <i class="fas fa-terminal" style="width: 24px; height: 24px; color: #b30000;"></i>
+        <i class="fas fa-terminal"></i>
         <h3 class="tek-service-title">Custom Software & Automation</h3>
         <p class="tek-service-description">We develop custom desktop tools, automation scripts, and software to help businesses save time and boost productivity.</p>
       </div>
-
       <div class="tek-service-card">
-        <i class="fas fa-users" style="width: 24px; height: 24px; color: #b30000;"></i>
+        <i class="fas fa-users"></i>
         <h3 class="tek-service-title">Tech Career Coaching</h3>
         <p class="tek-service-description">We mentor students and young professionals on how to start and grow careers in tech — coding, design, and freelancing.</p>
       </div>
     </div>
   </div>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- FOOTER -->
   <footer>
     <div class="footer-columns">
       <div class="col">
         <h3>Contact</h3>
         <a href="./contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <strong>WhatsApp:</strong>
-          <a href="https://wa.me/+250733253803" target="_blank" rel="noopener noreferrer" class="toto">+250 733 253 803</a>
-        <strong>Email:</strong>
-          <a href="mailto:fiqueat@gmail.com" rel="noopener noreferrer" class="toto">fiqueat@gmail.com</a>
+        <p><strong>WhatsApp:</strong> <a href="https://wa.me/+250733253803" target="_blank" rel="noopener noreferrer">+250 733 253 803</a></p>
+        <p><strong>Email:</strong> <a href="mailto:info@tekinova.com" rel="noopener noreferrer">info@tekinova.com</a></p>
       </div>
       <div class="col">
         <h3>About TekiNova</h3>
@@ -711,7 +861,7 @@
         <a href="#">Contacts</a>
         <h2>Administrative</h2>
         <a href="#">Team or founders</a>
-        <a href="#">Core values (e.g. innovation, security, accessibility)</a>
+        <a href="#">Core values</a>
         <a href="#">Executive Organ</a>
         <a href="#">Senior Management</a>
       </div>
@@ -744,73 +894,191 @@
         <a href="features.html" style="text-decoration: underline;"><b>More Info</b></a>
       </div>
     </div>
+    <div class="copyright">
+      <p>© 2025 TekiNova. All rights reserved.</p>
+    </div>
   </footer>
 
-  <!-- ===== JS: Toggle Sidebar Menu ===== -->
   <script>
-    // Store scroll position before navigation
-    let scrollPosition = 0;
+    // DOM Elements
+    const sidebar = document.getElementById('sidebar');
+    const sidebarIcon = document.getElementById('sidebar-icon');
+    const closeSidebar = document.getElementById('close-sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const logo = document.getElementById('logo');
 
-    // Toggle sidebar menu open/close
+    // Scroll position storage
+    const scrollPositions = {};
+
+    // Save scroll position
+    function saveScrollPosition() {
+      scrollPositions[window.location.pathname] = window.scrollY || window.pageYOffset;
+    }
+
+    // Restore scroll position
+    function restoreScrollPosition() {
+      const scrollPosition = scrollPositions[window.location.pathname] || 0;
+      window.scrollTo({ top: scrollPosition, behavior: 'auto' });
+    }
+
+    // Toggle sidebar
     function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      sidebar.classList.toggle('active');
+      const isActive = sidebar.classList.toggle('active');
+      sidebarOverlay.classList.toggle('active', isActive);
+      document.body.classList.toggle('sidebar-active', isActive);
+      document.body.classList.toggle('no-scroll', isActive);
+      if (isActive) {
+        saveScrollPosition();
+        sidebar.scrollTop = 0;
+      } else {
+        restoreScrollPosition();
+      }
     }
 
-    // Close sidebar menu when clicking outside
-    document.addEventListener('click', function (event) {
-      const sidebar = document.getElementById('sidebar');
-      const sidebarIcon = document.querySelector('.sidebar-icon');
-      const menuToggle = document.querySelector('.menu-toggle');
+    // Swipe to close sidebar
+    let touchStartX = 0;
+    let touchEndX = 0;
 
-      if (sidebar.classList.contains('active') &&
-          !sidebar.contains(event.target) &&
-          !sidebarIcon.contains(event.target) &&
-          !menuToggle.contains(event.target)) {
-        sidebar.classList.remove('active');
+    sidebar.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    sidebar.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50 && sidebar.classList.contains('active')) {
+        toggleSidebar();
       }
-    });
+    }, { passive: true });
 
-    // Close sidebar menu on Escape key
-    document.addEventListener('keydown', function (event) {
-      const sidebar = document.getElementById('sidebar');
-      if (event.key === 'Escape' && sidebar.classList.contains('active')) {
-        sidebar.classList.remove('active');
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // Update visitor count
+      try {
+        const visitorCount = document.getElementById('visitors-count');
+        const baseCount = 1245;
+        const randomIncrement = Math.floor(Math.random() * 10);
+        if (visitorCount) {
+          visitorCount.textContent = (baseCount + randomIncrement).toLocaleString();
+        }
+      } catch (error) {
+        console.error('Error updating visitor count:', error);
       }
-    });
 
-    // Handle sidebar navigation clicks
-    function handleSidebarNavigation() {
-      const sidebarLinks = document.querySelectorAll('.sidebar a');
-      sidebarLinks.forEach(link => {
-        link.addEventListener('click', function () {
-          const sidebar = document.getElementById('sidebar');
-          sidebar.classList.remove('active'); // Close sidebar
-          scrollPosition = window.scrollY; // Store current scroll position
-          setTimeout(() => {
-            window.scrollTo({ top: scrollPosition, behavior: 'smooth' }); // Restore scroll position
-          }, 100);
+      // Highlight current page
+      try {
+        const currentPage = location.pathname.split('/').pop();
+        document.querySelectorAll('.sidebar a').forEach(link => {
+          if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+          }
         });
-      });
-    }
+      } catch (error) {
+        console.error('Error setting active navigation link:', error);
+      }
 
-    // Attach event listeners
-    document.addEventListener('DOMContentLoaded', function () {
-      const sidebarIcon = document.querySelector('.sidebar-icon');
-      const menuToggle = document.querySelector('.menu-toggle');
-      const closeIcon = document.querySelector('.sidebar-header .fa-times');
-
+      // Event Listeners
       if (sidebarIcon) {
         sidebarIcon.addEventListener('click', toggleSidebar);
-      }
-      if (menuToggle) {
-        menuToggle.addEventListener('click', toggleSidebar);
-      }
-      if (closeIcon) {
-        closeIcon.addEventListener('click', toggleSidebar);
+        sidebarIcon.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleSidebar();
+          }
+        });
       }
 
-      handleSidebarNavigation();
+      if (closeSidebar) {
+        closeSidebar.addEventListener('click', toggleSidebar);
+        closeSidebar.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleSidebar();
+          }
+        });
+      }
+
+      if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', toggleSidebar);
+      }
+
+      if (logo) {
+        logo.addEventListener('click', () => {
+          window.location.href = 'index.html';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      // Sidebar links
+      document.querySelectorAll('.sidebar a').forEach(link => {
+        link.addEventListener('click', () => {
+          saveScrollPosition();
+          sidebar.classList.remove('active');
+          sidebarOverlay.classList.remove('active');
+          document.body.classList.remove('sidebar-active');
+          document.body.classList.remove('no-scroll');
+          if (link.href && !link.href.includes('#')) {
+            sidebar.addEventListener('transitionend', restoreScrollPosition, { once: true });
+          } else {
+            restoreScrollPosition();
+          }
+        });
+      });
+
+      // Close sidebar on outside click
+      document.addEventListener('mousedown', (event) => {
+        if (sidebar.classList.contains('active') && !sidebar.contains(event.target) && !sidebarIcon.contains(event.target)) {
+          toggleSidebar();
+        }
+      });
+
+      // Close sidebar on Escape key
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && sidebar.classList.contains('active')) {
+          toggleSidebar();
+        }
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = anchor.getAttribute('href');
+          if (targetId === '#') return;
+          const target = document.querySelector(targetId);
+          if (target) {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // Handle resize
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && sidebar.classList.contains('active')) {
+          sidebar.classList.remove('active');
+          sidebarOverlay.classList.remove('active');
+          document.body.classList.remove('sidebar-active');
+          document.body.classList.remove('no-scroll');
+          restoreScrollPosition();
+        }
+      });
+
+      // Restore scroll on load
+      window.addEventListener('load', restoreScrollPosition);
+
+      // Save scroll before unload
+      window.addEventListener('beforeunload', saveScrollPosition);
+    });
+
+    // Prevent default navigation for placeholder links
+    document.querySelectorAll('a[href="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+      });
     });
   </script>
 </body>

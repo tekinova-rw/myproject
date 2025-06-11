@@ -5,12 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="description" content="TekiNova - Ubujyanama mu Ikoranabuhanga"/>
   <title>TekiNova</title>
-
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="strict-origin-when-cross-origin"/>
   <style>
+    /* Fallback if Font Awesome fails */
+    .fa, .fas { font-family: sans-serif; }
+    .fa-home::before { content: "\2302"; }
+    .fa-info-circle::before { content: "\24D8"; }
+    .fa-cogs::before { content: "\2699"; }
+    .fa-box::before { content: "\2610"; }
+    .fa-blog::before { content: "\270D"; }
+    .fa-briefcase::before { content: "\1F4BC"; }
+    .fa-envelope::before { content: "\2709"; }
+    .fa-laptop-code::before { content: "\1F4BB"; }
+    .fa-chart-line::before { content: "\1F4C8"; }
+    .fa-bars::before { content: "\2630"; }
+    .fa-times::before { content: "\2715"; }
+    .fa-check-circle::before { content: "\2713"; }
+    .fa-user-plus::before { content: "\1F464"; }
+    .fa-sync-alt::before { content: "\21BB"; }
+
     /* Reset and Global Styles */
     * {
       box-sizing: border-box;
@@ -20,11 +35,19 @@
 
     html, body {
       height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f4f4f4;
       color: #333;
       line-height: 1.6;
-      overflow-x: hidden;
+    }
+
+    body.no-scroll {
+      overflow: hidden;
     }
 
     /* Header */
@@ -38,14 +61,16 @@
       position: fixed;
       top: 0;
       left: 0;
-      right: 0;
-      z-index: 1000;
       width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      flex-wrap: wrap;
     }
 
     .logo {
       display: flex;
       align-items: center;
+      cursor: pointer;
     }
 
     .logo img {
@@ -54,12 +79,19 @@
       border-radius: 50%;
       border: 2px solid gold;
       margin-right: 12px;
+      transition: transform 0.3s ease;
+      will-change: transform;
+    }
+
+    .logo:hover img {
+      transform: rotate(15deg);
     }
 
     .logo h1 {
       color: gold;
       font-size: clamp(18px, 5vw, 22px);
       font-weight: 700;
+      white-space: nowrap;
     }
 
     nav ul {
@@ -68,18 +100,40 @@
       gap: 15px;
     }
 
-    nav a {
+    .navbar a {
       text-decoration: none;
       color: white;
       font-weight: 600;
       font-size: 16px;
       padding: 8px 12px;
       border-radius: 6px;
+      transition: background-color 0.3s ease;
+      position: relative;
     }
 
-    nav a:hover {
+    .navbar a:hover {
       background-color: #033d3d;
       color: gold;
+    }
+
+    .navbar a.active {
+      color: #eaedf1;
+    }
+
+    .navbar a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: gold;
+      transition: width 0.3s ease, transform 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .navbar a:hover::after {
+      width: 80%;
     }
 
     /* Dashboard Icon */
@@ -87,14 +141,17 @@
       font-size: 24px;
       cursor: pointer;
       color: white;
-      transition: color 0.3s;
+      transition: color 0.3s ease, transform 0.3s ease;
+      padding: 5px;
+      will-change: transform, color;
     }
 
     .dashboard-icon:hover {
       color: gold;
+      transform: scale(1.1);
     }
 
-    /* Sidebar Dashboard */
+    /* Sidebar */
     .sidebar {
       position: fixed;
       top: 0;
@@ -109,10 +166,28 @@
       z-index: 999;
       box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .sidebar.active {
       right: 0;
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background: #555;
+      border-radius: 4px;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+      background: #002240;
     }
 
     .sidebar-header {
@@ -128,11 +203,14 @@
 
     .sidebar-header i {
       cursor: pointer;
-      transition: color 0.3s;
+      transition: color 0.3s ease, transform 0.3s ease;
+      font-size: 18px;
+      will-change: transform, color;
     }
 
     .sidebar-header i:hover {
       color: #d4af37;
+      transform: scale(1.2);
     }
 
     .sidebar a {
@@ -140,18 +218,54 @@
       align-items: center;
       gap: 10px;
       color: white;
-      padding: 12px 0;
+      padding: 12px 15px;
       text-decoration: none;
-      transition: color 0.3s;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 15px;
+      border-radius: 5px;
     }
 
     .sidebar a:hover {
+      background-color: #033d3d;
       color: gold;
     }
 
     .sidebar i {
       width: 20px;
       text-align: center;
+      font-size: 15px;
+    }
+
+    /* Sidebar Overlay */
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 998;
+    }
+
+    .sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Content Blur when Sidebar is Active */
+    body.sidebar-active .main-content,
+    body.sidebar-active footer {
+      filter: blur(1px);
+      transition: filter 0.3s ease;
+    }
+
+    body:not(.sidebar-active) .main-content,
+    body:not(.sidebar-active) footer {
+      filter: none;
     }
 
     /* Dashboard Widgets */
@@ -159,7 +273,13 @@
       background-color: rgba(255, 255, 255, 0.1);
       border-radius: 8px;
       padding: 15px;
-      margin: 15px 0;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+      will-change: transform;
+    }
+
+    .dashboard-widget:hover {
+      transform: translateY(-3px);
     }
 
     .dashboard-widget h3 {
@@ -206,28 +326,77 @@
       padding: 20px;
     }
 
-    .staff-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-
-    .staff-card {
-      background-color: white;
-      border-radius: 12px;
-      width: 200px;
-      padding: 16px;
+    .main-content h1 {
       text-align: center;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      flex: 0 0 auto;
+      font-size: clamp(1.8rem, 5vw, 2.2rem);
+      color: #002744;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid gold;
+      padding-bottom: 8px;
     }
 
-    .staff-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
+    /* Sliding Gallery */
+    .sliding-gallery {
+      max-width: 100%;
+      overflow: hidden;
       border-radius: 10px;
+      margin: 1px auto;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .gallery-track {
+      display: flex;
+      width: max-content;
+      animation: slideGallery 8s linear infinite;
+    }
+
+    .gallery-track img {
+      width: 100%;
+      max-width: 480px;
+      flex-shrink: 0;
+      object-fit: cover;
+      margin-right: 8px;
+      border-radius: 10px;
+    }
+
+    @keyframes slideGallery {
+      0% { transform: translateX(0); }
+      33% { transform: translateX(-100%); }
+      66% { transform: translateX(-200%); }
+      100% { transform: translateX(0); }
+    }
+
+    /* Amahugurwa */
+    .amahugurwa {
+      font-family: 'Times New Roman', Times, serif;
+      text-align: center;
+    }
+
+    .amahugurwa p {
+      margin-bottom: 0.5rem;
+    }
+
+    .amahugurwa ul {
+      margin-bottom: 15px;
+      padding-left: 40px;
+      list-style-position: outside;
+    }
+
+    .amahugurwa li {
+      margin-bottom: 0.5rem;
+    }
+
+    .amahugurwa a {
+      color: #0055aa;
+      text-decoration: none;
+      margin-top: 10px;
+      display: inline-block;
+      transition: #003f88 0.3s ease;
+    }
+
+    .amahugurwa a:hover {
+      color: #003f88;
+      text-decoration: underline;
     }
 
     /* Footer */
@@ -250,11 +419,19 @@
     .footer-columns .col {
       flex: 1;
       min-width: 200px;
+      margin-bottom: 15px;
     }
 
     .footer-columns .col h3 {
       color: gold;
       margin-bottom: 12px;
+      font-size: 16px;
+    }
+
+    .footer-columns .col h2 {
+      color: gold;
+      margin: 12px 0 8px;
+      font-size: 15px;
     }
 
     .footer-columns .col a {
@@ -262,17 +439,20 @@
       color: white;
       text-decoration: none;
       margin-bottom: 6px;
-      transition: color 0.3s;
+      transition: color 0.3s ease, padding-left 0.3s ease;
+      font-size: 14px;
     }
 
     .footer-columns .col a:hover {
       color: #d4af37;
+      padding-left: 5px;
     }
 
     /* Navigation Dropdowns */
     .navbar ul {
       list-style: none;
       display: flex;
+      flex-wrap: wrap;
     }
 
     .navbar li {
@@ -285,14 +465,7 @@
       text-decoration: none;
       color: white;
       font-weight: bold;
-    }
-
-    .navbar a:hover {
-      background-color: #033d3d;
-    }
-
-    .navbar a.active {
-      color: #eaedf1;
+      font-size: 16px;
     }
 
     .dropdown {
@@ -303,94 +476,53 @@
       background-color: #002366;
       min-width: 240px;
       border-radius: 0 0 5px 5px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      z-index: 999;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 100;
+      padding: 10px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropdown h2 {
+      color: gold;
+      font-size: 15px;
+      padding: 10px 16px;
+      margin: 0;
     }
 
     .dropdown a {
       padding: 12px 16px;
-      display: block;
-      color: white;
-      text-decoration: none;
-    }
-
-    .dropdown a:hover {
-      background-color: #033d3d;
+      font-size: 14px;
     }
 
     .navbar li:hover .dropdown {
       display: block;
     }
 
-    /* Sliding Gallery */
-    .sliding-gallery {
-      max-width: 100%;
-      overflow: hidden;
-      border-radius: 10px;
-      margin: 1.5rem 0;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .gallery-track {
-      display: flex;
-      width: max-content;
-      animation: slideGallery 15s linear infinite;
-    }
-
-    .gallery-track img {
-      width: 100%;
-      max-width: 500px;
-      flex-shrink: 0;
-      object-fit: cover;
-      margin-right: 8px;
-      border-radius: 10px;
-    }
-
-    @keyframes slideGallery {
-      0% { transform: translateX(0); }
-      33% { transform: translateX(-100%); }
-      66% { transform: translateX(-200%); }
-      100% { transform: translateX(0); }
-    }
-
-    .amahugurwa, ul, li {
-      font-family: 'Times New Roman', Times, serif;
-      text-align: center;
-      font-size: larger;
-    }
-
-    .amahugurwa p {
-      margin-bottom: 0.8rem;
-    }
-
-    .amahugurwa ul {
-      margin-bottom: 0.8rem;
-      padding-left: 20px;
-    }
-
-    .amahugurwa a {
-      display: inline-block;
-      margin-top: 0.5rem;
-      color: #0055aa;
-      text-decoration: none;
-    }
-
-    .amahugurwa a:hover {
-      text-decoration: underline;
-    }
-
-    /* Enhanced Responsive Design */
+    /* Responsive Design */
     @media (max-width: 768px) {
       header {
         padding: 10px 15px;
       }
 
-      nav.navbar {
+      .logo {
+        min-width: 100%;
+        justify-content: center;
+        margin-bottom: 8px;
+      }
+
+      .navbar {
         display: none;
       }
 
       .dashboard-icon {
-        display: block;
+        display: block !important;
+        margin-left: auto;
+        margin-right: 15px;
       }
 
       .sidebar {
@@ -399,18 +531,16 @@
       }
 
       .main-content {
-        padding: 15px;
         margin: 70px auto 20px;
+        padding: 15px;
       }
 
-      .staff-container {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .staff-card {
-        width: 100%;
+      .sliding-gallery .gallery-track img {
         max-width: 300px;
+      }
+
+      .amahugurwa, .amahugurwa ul, .amahugurwa li {
+        font-size: medium;
       }
 
       .footer-columns {
@@ -421,17 +551,13 @@
       .footer-columns .col {
         min-width: 100%;
       }
-
-      .sliding-gallery .gallery-track img {
-        max-width: 300px;
-      }
-
-      .amahugurwa ul, .amahugurwa li {
-        font-size: medium;
-      }
     }
 
     @media (max-width: 480px) {
+      header {
+        padding: 8px 10px;
+      }
+
       .logo img {
         width: 36px;
         height: 36px;
@@ -443,10 +569,12 @@
 
       .dashboard-icon {
         font-size: 20px;
+        margin-right: 10px;
       }
 
       .sidebar {
         width: 90vw;
+        max-width: 100%;
       }
 
       .dashboard-widget .widget-stats {
@@ -457,37 +585,81 @@
       .sliding-gallery .gallery-track img {
         max-width: 200px;
       }
+
+      .main-content h1 {
+        font-size: 1.8rem;
+      }
     }
+     /* muving image  */
+    .top-right-slider {
+  position: sticky;      /* sticky aho */
+  top: 60px;             /* itegereze hejuru ya header (height ya header) */
+  width: 100%;
+  background: #02635e;
+  color: white;
+  padding: 8px 0;
+  text-align: center;
+  overflow: hidden;
+  z-index: 9000;
+  
+}
+
+/* animation ntiyahinduwe */
+.slider-text {
+  display: inline-block;
+  padding-left: 100%;
+  white-space: nowrap;
+  animation: slide-left 35s linear infinite;
+  font-size: 1rem;
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* content isikororinga */
+.content {
+  margin-top: 20px;
+  padding: 20px;
+}
+.slider-text b{
+font-family: 'Times New Roman', Times, serif;
+  font-size: x-large;
+}
   </style>
 </head>
 <body>
-
-  <!-- ===== HEADER ===== -->
+  <!-- Header -->
   <header>
-    <div class="logo">
+    <div class="logo" id="logo">
       <img src="logo.jpeg" alt="TEKINOVA Logo">
       <h1>TekiNova</h1>
     </div>
     <nav class="navbar">
-      <ul>
+      <ul id="main-nav" role="navigation" aria-label="Main navigation">
         <li><a href="index.html">Home</a></li>
         <li>
-          <a href="#">About</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">About</a>
           <div class="dropdown">
             <h2>About TEKINOVA</h2>
-            <a href="About.html">About US</a>
+            <a href="About.html">About Us</a>
             <a href="#">Company background & vision</a>
             <a href="#">Mission & goals</a>
             <a href="#">Contacts</a>
             <h2>Administrative</h2>
             <a href="#">Team or founders</a>
-            <a href="#">Core values (e.g. innovation, security, accessibility)</a>
+            <a href="#">Core values</a>
             <a href="#">Executive Organ</a>
             <a href="#">Senior Management</a>
           </div>
         </li>
         <li>
-          <a href="#">Services</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Services</a>
           <div class="dropdown">
             <a href="services.html">Got Services</a>
             <a href="#">Web development</a>
@@ -498,9 +670,9 @@
           </div>
         </li>
         <li>
-          <a href="#">Product</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Product</a>
           <div class="dropdown">
-            <a href="Products.html">Web development</a>
+            <a href="Products.html">Product</a>
             <a href="#">App development</a>
             <a href="#">Tech consultancy</a>
             <a href="#">Custom software</a>
@@ -508,7 +680,7 @@
           </div>
         </li>
         <li>
-          <a href="#">Tech News</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Tech News</a>
           <div class="dropdown">
             <h2>Blog</h2>
             <a href="Blog_Tech_News.html">Blog Tech News</a>
@@ -518,7 +690,7 @@
           </div>
         </li>
         <li>
-          <a href="#">Careers</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Careers</a>
           <div class="dropdown">
             <a href="Careers.html">Develop Your Career</a>
             <a href="#">Articles about technology trends</a>
@@ -527,52 +699,53 @@
           </div>
         </li>
         <li>
-          <a href="#">Jobs</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Jobs</a>
           <div class="dropdown">
             <h2>Apply for Jobs</h2>
             <a href="features.html">Go to Jobs & Internships</a>
           </div>
         </li>
         <li>
-          <a href="#">Working Calendar</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Working Calendar</a>
           <div class="dropdown">
             <a href="amasahayakazi.html">Our Calendar Days</a>
           </div>
         </li>
       </ul>
     </nav>
-
-    <!-- Dashboard Icon (hamburger menu) -->
-    <div class="dashboard-icon" onclick="toggleDashboard()">
+    <div class="dashboard-icon" id="dashboard-icon" role="button" aria-label="Toggle dashboard menu" tabindex="0">
       <i class="fas fa-bars"></i>
     </div>
   </header>
+ <div class="top-right-slider">
+  <div class="slider-text"><b>Ushaka ko tugufasha zimwe murizi services zikurikira
+    watwandikira kuri 0733253803 cg ukaduhamagara kur 0780019239!</b></div>
+</div>
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-  <!-- ===== DASHBOARD SIDEBAR ===== -->
-  <aside class="sidebar" id="dashboard">
+  <!-- Sidebar (Dashboard) -->
+  <aside class="sidebar" id="dashboard" role="navigation" aria-label="Dashboard menu">
     <div class="sidebar-header">
       <span><i class="fas fa-chart-line"></i> Dashboard</span>
-      <i class="fas fa-times" onclick="toggleDashboard()"></i>
+      <i class="fas fa-times" id="close-dashboard" role="button" aria-label="Close dashboard menu" tabindex="0"></i>
     </div>
-    
     <nav>
-      <a href="index.html" onclick="handleSidebarClick('index.html')"><i class="fas fa-home"></i> Home</a>
-      <a href="About.html" onclick="handleSidebarClick('About.html')"><i class="fas fa-info-circle"></i> About</a>
-      <a href="services.html" onclick="handleSidebarClick('services.html')"><i class="fas fa-cogs"></i> Services</a>
-      <a href="Products.html" onclick="handleSidebarClick('Products.html')"><i class="fas fa-box"></i> Products</a>
-      <a href="Blog_Tech_News.html" onclick="handleSidebarClick('Blog_Tech_News.html')"><i class="fas fa-blog"></i> Blog</a>
-      <a href="Careers.html" onclick="handleSidebarClick('Careers.html')"><i class="fas fa-briefcase"></i> Careers</a>
-      <a href="features.html" onclick="handleSidebarClick('features.html')"><i class="fas fa-laptop-code"></i> Jobs</a>
-      <a href="contact_us.html" onclick="handleSidebarClick('contact_us.html')"><i class="fas fa-envelope"></i> Contact</a>
+      <a href="index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="About.html"><i class="fas fa-info-circle"></i> About</a>
+      <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
+      <a href="Products.html"><i class="fas fa-box"></i> Products</a>
+      <a href="Blog_Tech_News.html"><i class="fas fa-blog"></i> Blog</a>
+      <a href="Careers.html"><i class="fas fa-briefcase"></i> Careers</a>
+      <a href="features.html"><i class="fas fa-laptop-code"></i> Jobs</a>
+      <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
     </nav>
-    
-    <!-- Dashboard Widgets -->
     <div class="dashboard-widget">
       <h3>Quick Stats</h3>
       <p>Overview of your recent activity</p>
       <div class="widget-stats">
         <div>
-          <span>1,245</span>
+          <span id="visitors-count">1,245</span>
           <small>Visitors</small>
         </div>
         <div>
@@ -585,7 +758,6 @@
         </div>
       </div>
     </div>
-    
     <div class="dashboard-widget">
       <h3>Recent Activity</h3>
       <p><i class="fas fa-check-circle"></i> New project started</p>
@@ -594,11 +766,9 @@
     </div>
   </aside>
 
-  <!-- ===== MAIN CONTENT ===== -->
+  <!-- Main Content -->
   <main class="main-content">
-    <h1 style="text-align: center;">Ubujyanama mu Ikoranabuhanga</h1>
-
-    <!-- Sliding gallery -->
+    <h1>Ubujyanama mu Ikoranabuhanga</h1>
     <div class="sliding-gallery">
       <div class="gallery-track">
         <img src="inama5.png" alt="Tech advice">
@@ -607,7 +777,7 @@
       </div>
     </div>
     <div class="amahugurwa">
-      <p><h1>Tutanga inama ku buryo bwo gutegura imishinga ya tech:</h1></p>
+      <p>Tutanga inama ku buryo bwo gutegura imishinga ya tech:</p>
       <ul>
         <li>Gufasha guhitamo technologies zikwiriye</li>
         <li>Product planning & MVP definition</li>
@@ -618,16 +788,14 @@
     </div>
   </main>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- Footer -->
   <footer>
     <div class="footer-columns">
       <div class="col">
         <h3>Contact</h3>
-        <a href="./contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <strong>WhatsApp:</strong>
-        <a href="https://wa.me/+250733253803" target="_blank" class="toto">+250 733 253 803</a>
-        <strong>Email:</strong>
-        <a href="mailto:fiqueat@gmail.com" class="toto">fiqueat@gmail.com</a>
+        <a href="contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <p><strong>WhatsApp:</strong> <a href="https://wa.me/+250733253803" target="_blank" rel="noopener noreferrer">+250 733 253 803</a></p>
+        <p><strong>Email:</strong> <a href="mailto:info@tekinova.com" rel="noopener noreferrer">info@tekinova.com</a></p>
       </div>
       <div class="col">
         <h3>About TekiNova</h3>
@@ -637,7 +805,7 @@
         <a href="#">Contacts</a>
         <h2>Administrative</h2>
         <a href="#">Team or founders</a>
-        <a href="#">Core values (e.g. innovation, security, accessibility)</a>
+        <a href="#">Core values</a>
         <a href="#">Executive Organ</a>
         <a href="#">Senior Management</a>
       </div>
@@ -651,7 +819,7 @@
       </div>
       <div class="col">
         <h3>Product</h3>
-        <a href="Products.html">Web development</a>
+        <a href="Products.html">Product</a>
         <a href="#">App development</a>
         <a href="#">Tech consultancy</a>
         <a href="#">Custom software</a>
@@ -671,71 +839,194 @@
     </div>
   </footer>
 
-  <!-- ===== JS: Toggle Dashboard ===== -->
   <script>
-    // Store scroll position
-    let scrollPositions = {};
+    // DOM Elements
+    const dashboard = document.getElementById('dashboard');
+    const dashboardIcon = document.getElementById('dashboard-icon');
+    const closeDashboard = document.getElementById('close-dashboard');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const logo = document.getElementById('logo');
 
-    // Toggle dashboard open/close
-    function toggleDashboard() {
-      const dashboard = document.getElementById('dashboard');
-      const body = document.body;
+    // Scroll position storage
+    const scrollPositions = {};
 
-      if (dashboard.classList.contains('active')) {
-        // Restore scroll position when closing
-        dashboard.classList.remove('active');
-        body.style.overflow = '';
-        window.scrollTo({ top: scrollPositions['main'] || 0, behavior: 'smooth' });
+    // Save scroll position
+    function saveScrollPosition() {
+      scrollPositions[window.location.pathname] = window.scrollY || window.pageYOffset;
+    }
+
+    // Restore scroll position
+    function restoreScrollPosition() {
+      const scrollPosition = scrollPositions[window.location.pathname] || 0;
+      window.scrollTo({ top: scrollPosition, behavior: 'auto' });
+    }
+
+    // Toggle sidebar
+    function toggleSidebar() {
+      const isActive = dashboard.classList.toggle('active');
+      sidebarOverlay.classList.toggle('active', isActive);
+      document.body.classList.toggle('sidebar-active', isActive);
+      document.body.classList.toggle('no-scroll', isActive);
+      if (isActive) {
+        saveScrollPosition();
+        dashboard.scrollTop = 0;
       } else {
-        // Save scroll position and open sidebar
-        scrollPositions['main'] = window.scrollY;
-        dashboard.classList.add('active');
-        body.style.overflow = 'hidden'; // Prevent background scrolling
+        restoreScrollPosition();
       }
     }
 
-    // Handle sidebar menu clicks
-    function handleSidebarClick(page) {
-      const dashboard = document.getElementById('dashboard');
-      const body = document.body;
+    // Swipe to close sidebar
+    let touchStartX = 0;
+    let touchEndX = 0;
 
-      // Close sidebar and restore scroll
-      dashboard.classList.remove('active');
-      body.style.overflow = '';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    dashboard.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
 
-    // Close dashboard when clicking outside
-    document.addEventListener('click', function (event) {
-      const dashboard = document.getElementById('dashboard');
-      const dashboardIcon = document.querySelector('.dashboard-icon');
-
-      if (dashboard.classList.contains('active') &&
-          !dashboard.contains(event.target) &&
-          !dashboardIcon.contains(event.target)) {
-        dashboard.classList.remove('active');
-        document.body.style.overflow = '';
-        window.scrollTo({ top: scrollPositions['main'] || 0, behavior: 'smooth' });
+    dashboard.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50 && dashboard.classList.contains('active')) {
+        toggleSidebar();
       }
+    }, { passive: true });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // Update visitor count
+      try {
+        const visitorCount = document.getElementById('visitors-count');
+        const baseCount = 1245;
+        const randomIncrement = Math.floor(Math.random() * 10);
+        if (visitorCount) {
+          visitorCount.textContent = (baseCount + randomIncrement).toLocaleString();
+        }
+      } catch (error) {
+        console.error('Error updating visitor count:', error);
+      }
+
+      // Highlight current page
+      try {
+        const currentPage = location.pathname.split('/').pop();
+        document.querySelectorAll('.sidebar a').forEach(link => {
+          if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+          }
+        });
+      } catch (error) {
+        console.error('Error setting active navigation link:', error);
+      }
+
+      // Event Listeners
+      if (dashboardIcon) {
+        dashboardIcon.addEventListener('click', toggleSidebar);
+        dashboardIcon.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleSidebar();
+          }
+        });
+      }
+
+      if (closeDashboard) {
+        closeDashboard.addEventListener('click', toggleSidebar);
+        closeDashboard.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleSidebar();
+          }
+        });
+      }
+
+      if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', toggleSidebar);
+      }
+
+      if (logo) {
+        logo.addEventListener('click', () => {
+          window.location.href = 'index.html';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      // Sidebar links
+      document.querySelectorAll('.sidebar a').forEach(link => {
+        link.addEventListener('click', () => {
+          saveScrollPosition();
+          dashboard.classList.remove('active');
+          sidebarOverlay.classList.remove('active');
+          document.body.classList.remove('sidebar-active');
+          document.body.classList.remove('no-scroll');
+          if (link.href && !link.href.includes('#')) {
+            dashboard.addEventListener('transitionend', restoreScrollPosition, { once: true });
+          } else {
+            restoreScrollPosition();
+          }
+        });
+      });
+
+      // Close sidebar on outside click
+      document.addEventListener('mousedown', (event) => {
+        if (dashboard.classList.contains('active') && !dashboard.contains(event.target) && !dashboardIcon.contains(event.target)) {
+          toggleSidebar();
+        }
+      });
+
+      // Close sidebar on Escape key
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && dashboard.classList.contains('active')) {
+          toggleSidebar();
+        }
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = anchor.getAttribute('href');
+          if (targetId === '#') return;
+          const target = document.querySelector(targetId);
+          if (target) {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // Handle resize
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && dashboard.classList.contains('active')) {
+          dashboard.classList.remove('active');
+          sidebarOverlay.classList.remove('active');
+          document.body.classList.remove('sidebar-active');
+          document.body.classList.remove('no-scroll');
+          restoreScrollPosition();
+        }
+      });
+
+      // Restore scroll on load
+      window.addEventListener('load', restoreScrollPosition);
+
+      // Save scroll before unload
+      window.addEventListener('beforeunload', saveScrollPosition);
+
+      // Prevent default touch scrolling when sidebar is open
+      document.addEventListener('touchmove', (event) => {
+        if (dashboard.classList.contains('active') && !dashboard.contains(event.target)) {
+          event.preventDefault();
+        }
+      }, { passive: false });
     });
 
-    // Close dashboard on Escape key
-    document.addEventListener('keydown', function (event) {
-      const dashboard = document.getElementById('dashboard');
-      if (event.key === 'Escape' && dashboard.classList.contains('active')) {
-        dashboard.classList.remove('active');
-        document.body.style.overflow = '';
-        window.scrollTo({ top: scrollPositions['main'] || 0, behavior: 'smooth' });
-      }
+    // Prevent default navigation for placeholder links
+    document.querySelectorAll('a[href="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+      });
     });
-
-    // Prevent default touch scrolling when sidebar is open
-    document.addEventListener('touchmove', function (event) {
-      const dashboard = document.getElementById('dashboard');
-      if (dashboard.classList.contains('active') && !dashboard.contains(event.target)) {
-        event.preventDefault();
-      }
-    }, { passive: false });
   </script>
 </body>
 </html>

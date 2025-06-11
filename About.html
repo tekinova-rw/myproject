@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <meta name="description" content="TekiNova - Your digital career and services hub">
   <title>TekiNova</title>
-
-  <!-- Font Awesome Icons with Subresource Integrity and Fallback -->
+  <!-- Font Awesome Icons with Subresource Integrity -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="strict-origin-when-cross-origin" />
   <style>
     /* Fallback if Font Awesome fails */
@@ -24,6 +23,7 @@
     .fa-check-circle::before { content: "\2713"; }
     .fa-user-plus::before { content: "\1F464"; }
     .fa-sync-alt::before { content: "\21BB"; }
+    .fa-tachometer-alt::before { content: "\1F4B5"; }
 
     /* Reset and Global Styles */
     * {
@@ -45,11 +45,15 @@
       line-height: 1.6;
     }
 
+    body.no-scroll {
+      overflow: hidden;
+    }
+
     /* Header */
     header {
       background-color: #012f47;
       color: white;
-      padding: 12px 20px;
+      padding: 10px 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -58,6 +62,7 @@
       left: 0;
       width: 100%;
       z-index: 1000;
+      flex-wrap: wrap;
     }
 
     .logo {
@@ -67,11 +72,11 @@
     }
 
     .logo img {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       border: 2px solid gold;
-      margin-right: 10px;
+      margin-right: 8px;
       transition: transform 0.3s;
       will-change: transform;
     }
@@ -82,33 +87,38 @@
 
     .logo h1 {
       color: gold;
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
+      white-space: nowrap;
     }
 
     nav ul {
       list-style: none;
       display: flex;
-      gap: 12px;
+      gap: 10px;
     }
 
-    nav a {
+    .navbar a {
       text-decoration: none;
       color: white;
       font-weight: 600;
-      font-size: 15px;
+      font-size: 14px;
       padding: 6px 10px;
       border-radius: 6px;
-      transition: all 0.3s;
+      transition: background-color 0.3s ease;
       position: relative;
     }
 
-    nav a:hover {
+    .navbar a:hover {
       background-color: #033d3d;
       color: gold;
     }
 
-    nav a::after {
+    .navbar a.active {
+      color: #eaedf1;
+    }
+
+    .navbar a::after {
       content: '';
       position: absolute;
       bottom: 0;
@@ -116,20 +126,20 @@
       width: 0;
       height: 2px;
       background: gold;
-      transition: all 0.3s;
+      transition: width 0.3s ease, transform 0.3s ease;
       transform: translateX(-50%);
     }
 
-    nav a:hover::after {
+    .navbar a:hover::after {
       width: 80%;
     }
 
     /* Hamburger Menu Icon */
     .hamburger-icon {
-      font-size: 22px;
+      font-size: 20px;
       cursor: pointer;
       color: white;
-      transition: all 0.3s;
+      transition: color 0.3s ease, transform 0.3s ease;
       padding: 5px;
       will-change: transform, color;
     }
@@ -137,19 +147,6 @@
     .hamburger-icon:hover {
       color: gold;
       transform: scale(1.1);
-    }
-
-    .menu-toggle {
-      display: none;
-      font-size: 22px;
-      cursor: pointer;
-      transition: transform 0.3s;
-      padding: 5px;
-      will-change: transform;
-    }
-
-    .menu-toggle.active {
-      transform: rotate(90deg);
     }
 
     /* Sidebar Hamburger Menu */
@@ -167,8 +164,11 @@
       z-index: 999;
       box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
       overflow-y: auto;
-      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-      touch-action: pan-y; /* Allow vertical scrolling */
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .sidebar.active {
@@ -192,16 +192,17 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 18px;
+      font-size: 16px;
       color: gold;
       margin-bottom: 15px;
-      padding-bottom: 10px;
+      padding-bottom: 8px;
       border-bottom: 1px solid #555;
     }
 
     .sidebar-header i {
       cursor: pointer;
-      transition: color 0.3s;
+      transition: color 0.3s ease, transform 0.3s ease;
+      font-size: 16px;
       will-change: transform, color;
     }
 
@@ -215,20 +216,23 @@
       align-items: center;
       gap: 8px;
       color: white;
-      padding: 10px 0;
+      padding: 10px 12px;
       text-decoration: none;
-      transition: all 0.3s;
+      transition: background-color 0.3s ease, color 0.3s ease;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 14px;
+      border-radius: 5px;
     }
 
     .sidebar a:hover {
+      background-color: #033d3d;
       color: gold;
-      padding-left: 8px;
     }
 
     .sidebar i {
       width: 18px;
       text-align: center;
+      font-size: 14px;
     }
 
     /* Sidebar Overlay */
@@ -268,9 +272,9 @@
     .menu-widget {
       background-color: rgba(255, 255, 255, 0.1);
       border-radius: 6px;
-      padding: 12px;
-      margin: 12px 0;
-      transition: transform 0.3s;
+      padding: 10px;
+      margin-bottom: 10px;
+      transition: transform 0.3s ease;
       will-change: transform;
     }
 
@@ -280,13 +284,13 @@
 
     .menu-widget h3 {
       color: gold;
-      margin-bottom: 8px;
-      font-size: 15px;
+      margin-bottom: 6px;
+      font-size: 14px;
     }
 
     .menu-widget p {
-      font-size: 13px;
-      margin-bottom: 6px;
+      font-size: 12px;
+      margin-bottom: 5px;
     }
 
     .menu-widget .widget-stats {
@@ -302,266 +306,24 @@
 
     .widget-stats span {
       display: block;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: bold;
       color: gold;
     }
 
     .widget-stats small {
-      font-size: 11px;
+      font-size: 10px;
       opacity: 0.8;
     }
 
-    /* Staff Cards */
-    .main-content {
-      max-width: 1200px;
-      margin: 80px auto 30px;
-      padding: 15px;
-    }
-
-    .staff-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-    }
-
-    .staff-card {
-      background-color: white;
-      border-radius: 10px;
-      width: 180px;
-      min-width: 160px;
-      padding: 12px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s;
-      cursor: pointer;
-      will-change: transform, box-shadow;
-    }
-
-    .staff-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-    }
-
-    .staff-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 8px;
-    }
-
-    /* Footer */
-    footer {
-      background-color: #012f47;
-      color: white;
-      padding: 30px 15px;
-    }
-
-    .footer-columns {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: space-between;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .footer-columns .col {
-      flex: 1;
-      min-width: 160px;
-    }
-
-    .footer-columns .col h3 {
-      color: gold;
-      margin-bottom: 10px;
-      font-size: 16px;
-    }
-
-    .footer-columns .col a {
-      display: block;
-      color: white;
-      text-decoration: none;
-      margin-bottom: 6px;
-      transition: all 0.3s;
-    }
-
-    .footer-columns .col a:hover {
-      color: #d4af37;
-      padding-left: 3px;
-    }
-
-    /* Navigation Dropdowns */
-    .navbar ul {
-      list-style: none;
-      display: flex;
-    }
-
-    .navbar li {
-      position: relative;
-    }
-
-    .navbar a {
-      display: block;
-      padding: 12px 15px;
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-    }
-
-    .navbar a:hover {
-      background-color: #033d3d;
-    }
-
-    .navbar a.active {
-      color: #eaedf1;
-    }
-
-    .dropdown {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #002366;
-      min-width: 200px;
-      border-radius: 0 0 5px 5px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      z-index: 999;
-      animation: fadeIn 0.3s;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .dropdown a {
-      padding: 10px 12px;
-      display: block;
-      color: white;
-      text-decoration: none;
-    }
-
-    .dropdown a:hover {
-      background-color: #033d3d;
-    }
-
-    .navbar li:hover .dropdown {
-      display: block;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 992px) {
-      nav ul {
-        gap: 8px;
-      }
-      
-      .navbar a {
-        padding: 10px 8px;
-        font-size: 13px;
-      }
-
-      .main-content {
-        margin: 70px auto 20px;
-        padding: 10px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      nav ul {
-        display: none;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        background-color: #012f47;
-        flex-direction: column;
-        padding: 15px;
-        box-shadow: 0 8px 12px rgba(0,0,0,0.1);
-        z-index: 998;
-      }
-      
-      nav ul.active {
-        display: flex;
-      }
-
-      .menu-toggle {
-        display: block;
-        color: white;
-      }
-
-      .hamburger-icon {
-        display: block;
-      }
-      
-      .sidebar {
-        width: 80%;
-      }
-      
-      .dropdown {
-        position: static;
-        width: 100%;
-        box-shadow: none;
-        animation: none;
-        background-color: #002240;
-      }
-
-      .dropdown a {
-        padding-left: 20px;
-      }
-
-      .staff-card {
-        width: 45%;
-        min-width: 140px;
-      }
-
-      .abb {
-        margin: 70px 10px 20px;
-        padding: 15px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      header {
-        padding: 8px 10px;
-      }
-      
-      .logo h1 {
-        font-size: 18px;
-      }
-      
-      .staff-card {
-        width: 100%;
-        max-width: 300px;
-      }
-      
-      .footer-columns .col {
-        min-width: 100%;
-      }
-
-      .abb {
-        margin: 60px 5px 10px;
-        padding: 10px;
-      }
-
-      .abb h1 {
-        font-size: 1.5rem;
-      }
-
-      .abb h2 {
-        font-size: 1.2rem;
-      }
-    }
-
-    /* About CSS */
+    /* Main Content */
     .abb {
       max-width: 1200px;
       margin: 80px auto 30px;
-      padding: 20px;
+      padding: 15px;
       background: #fff;
       border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
       overflow: hidden;
     }
 
@@ -574,14 +336,16 @@
 
     .abb h2 {
       color: #012f47;
-      margin: 20px 0 12px;
+      margin: 20px 0 10px;
       border-bottom: 2px solid gold;
       padding-bottom: 4px;
+      font-size: 1.5rem;
     }
 
     .abb p {
       margin-bottom: 12px;
       line-height: 1.6;
+      font-size: 1rem;
     }
 
     .abb ul {
@@ -593,6 +357,7 @@
       margin-bottom: 6px;
       position: relative;
       padding-left: 12px;
+      font-size: 1rem;
     }
 
     .abb li::before {
@@ -618,7 +383,7 @@
       text-decoration: none;
       font-weight: bold;
       margin-top: 12px;
-      transition: all 0.3s;
+      transition: background-color 0.3s ease, transform 0.3s ease;
       will-change: transform, background-color;
     }
 
@@ -626,75 +391,114 @@
       background-color: gold;
       color: #012f47;
       transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
-    /* Loading animation */
-    .loading {
-      display: none;
-      text-align: center;
-      margin: 15px 0;
+    /* Footer */
+    footer {
+      background-color: #012f47;
+      color: white;
+      padding: 20px 15px;
     }
 
-    .spinner {
-      width: 35px;
-      height: 35px;
-      border: 3px solid rgba(0,0,0,0.1);
-      border-radius: 50%;
-      border-top-color: #012f47;
-      animation: spin 1s linear infinite;
+    .footer-columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: space-between;
+      max-width: 1200px;
       margin: 0 auto;
-      will-change: transform;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* Form styles */
-    .form-group {
+    .footer-columns .col {
+      flex: 1;
+      min-width: 160px;
       margin-bottom: 15px;
     }
 
-    .form-group label {
+    .footer-columns .col h3 {
+      color: gold;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .footer-columns .col h2 {
+      color: gold;
+      margin: 10px 0 6px;
+      font-size: 14px;
+    }
+
+    .footer-columns .col a {
       display: block;
-      margin-bottom: 4px;
-      font-weight: bold;
-    }
-
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #ddd;
-      border-radius: 3px;
-      font-family: inherit;
-    }
-
-    .form-group textarea {
-      min-height: 80px;
-      resize: vertical;
-    }
-
-    .btn {
-      background-color: #012f47;
       color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 3px;
-      cursor: pointer;
+      text-decoration: none;
+      margin-bottom: 4px;
+      transition: color 0.3s ease, padding-left 0.3s ease;
+      font-size: 12px;
+    }
+
+    .footer-columns .col a:hover {
+      color: #d4af37;
+      padding-left: 3px;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 15px;
+    }
+
+    /* Navigation Dropdowns */
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .navbar li {
+      position: relative;
+    }
+
+    .navbar a {
+      display: block;
+      padding: 8px 12px;
+      text-decoration: none;
+      color: white;
       font-weight: bold;
-      transition: all 0.3s;
-      will-change: background-color;
+      font-size: 14px;
     }
 
-    .btn:hover {
-      background-color: gold;
-      color: #012f47;
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #002366;
+      min-width: 200px;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      z-index: 100;
+      padding: 8px;
+      animation: fadeIn 0.3s ease;
     }
 
-    /* Toast notification */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropdown a {
+      padding: 8px 15px;
+      font-size: 12px;
+    }
+
+    .navbar li:hover .dropdown {
+      display: block;
+    }
+
+    /* Toast Notification */
     .toast {
       position: fixed;
       bottom: 15px;
@@ -703,10 +507,10 @@
       color: white;
       padding: 12px 20px;
       border-radius: 4px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       transform: translateY(100px);
       opacity: 0;
-      transition: all 0.3s;
+      transition: transform 0.3s ease, opacity 0.3s ease;
       z-index: 1001;
       will-change: transform, opacity;
     }
@@ -723,10 +527,194 @@
     .toast.error {
       background-color: #F44336;
     }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    .form-group textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .btn {
+      background-color: #012f47;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+      will-change: background-color;
+    }
+
+    .btn:hover {
+      background-color: gold;
+      color: #012f47;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      header {
+        padding: 8px 12px;
+      }
+
+      .navbar ul {
+        display: none;
+      }
+
+      .hamburger-icon {
+        margin-left: auto;
+        margin-right: 12px;
+      }
+
+      .sidebar {
+        width: 260px;
+        max-width: 80%;
+      }
+
+      .abb {
+        margin-top: 64px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 8px 12px;
+      }
+
+      .logo {
+        min-width: 100%;
+        justify-content: center;
+        margin-bottom: 6px;
+      }
+
+      .logo h1 {
+        font-size: 18px;
+      }
+
+      .logo img {
+        width: 32px;
+        height: 32px;
+      }
+
+      .abb {
+        margin-top: 60px;
+        padding: 10px;
+      }
+
+      .abb h1 {
+        font-size: 1.8rem;
+      }
+
+      .abb h2 {
+        font-size: 1.4rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 6px 10px;
+      }
+
+      .sidebar {
+        width: 100%;
+        max-width: 100%;
+        right: -100%;
+      }
+
+      .abb {
+        margin-top: 56px;
+        padding: 8px;
+      }
+
+      .abb h1 {
+        font-size: 1.6rem;
+      }
+
+      .abb h2 {
+        font-size: 1.3rem;
+      }
+
+      .abb p, .abb li {
+        font-size: 0.95rem;
+      }
+
+      .footer-columns .col {
+        min-width: 100%;
+      }
+
+      .hamburger-icon {
+        font-size: 18px;
+        margin-right: 8px;
+      }
+    }
+     /* muving image  */
+    .top-right-slider {
+  position: sticky;      /* sticky aho */
+  top: 60px;             /* itegereze hejuru ya header (height ya header) */
+  width: 100%;
+  background: #02635e;
+  color: white;
+  padding: 8px 0;
+  text-align: center;
+  overflow: hidden;
+  z-index: 9000;
+  
+}
+
+/* animation ntiyahinduwe */
+.slider-text {
+  display: inline-block;
+  padding-left: 100%;
+  white-space: nowrap;
+  animation: slide-left 35s linear infinite;
+  font-size: 1rem;
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* content isikororinga */
+.content {
+  margin-top: 20px;
+  padding: 20px;
+}
+.slider-text b{
+font-family: 'Times New Roman', Times, serif;
+  font-size: x-large;
+}
   </style>
 </head>
 <body>
-  <!-- ===== HEADER ===== -->
+  <!-- HEADER -->
   <header>
     <div class="logo" id="logo">
       <img src="tekilogo.jpg" alt="TEKINOVA Logo">
@@ -810,37 +798,33 @@
         </li>
       </ul>
     </nav>
-
-    <!-- Hamburger Menu Icon (right side) -->
     <div class="hamburger-icon" id="hamburger-icon" role="button" aria-label="Toggle sidebar menu" tabindex="0">
       <i class="fas fa-bars"></i>
     </div>
-    
-    <!-- Mobile menu toggle (hidden by default) -->
-    <div class="menu-toggle" id="menu-toggle" role="button" aria-label="Toggle mobile menu" aria-expanded="false">
-      <i class="fas fa-bars"></i>
-    </div>
   </header>
+ <div class="top-right-slider">
+  <div class="slider-text"><b>Ushaka ko tugufasha zimwe murizi services zikurikira
+    watwandikira kuri 0733253803 cg ukaduhamagara kur 0780019239!</b></div>
+</div>
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-  <!-- ===== HAMBURGER MENU SIDEBAR ===== -->
+  <!-- SIDEBAR (DASHBOARD) -->
   <aside class="sidebar" id="hamburgerMenu" role="navigation" aria-label="Sidebar menu">
     <div class="sidebar-header">
-      <span><i class="fas fa-bars"></i> Menu</span>
+      <span><i class="fas fa-tachometer-alt"></i> Dashboard</span>
       <i class="fas fa-times" id="close-sidebar" role="button" aria-label="Close sidebar menu" tabindex="0"></i>
     </div>
-    
     <nav>
       <a href="index.html"><i class="fas fa-home"></i> Home</a>
       <a href="About.html"><i class="fas fa-info-circle"></i> About</a>
-      <a href="Services.html"><i class="fas fa-cogs"></i> Services</a>
+      <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
       <a href="Products.html"><i class="fas fa-box"></i> Products</a>
       <a href="Blog_Tech_News.html"><i class="fas fa-blog"></i> Blog</a>
-      <a href="features.html"><i class="fas fa-laptop-code"></i> Jobs</a>
       <a href="Careers.html"><i class="fas fa-briefcase"></i> Careers</a>
+      <a href="features.html"><i class="fas fa-laptop-code"></i> Jobs</a>
       <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
     </nav>
-    
-    <!-- Menu Widgets -->
     <div class="menu-widget">
       <h3>Quick Stats</h3>
       <p>Overview of your recent activity</p>
@@ -859,7 +843,6 @@
         </div>
       </div>
     </div>
-    
     <div class="menu-widget">
       <h3>Recent Activity</h3>
       <p><i class="fas fa-check-circle"></i> New project started</p>
@@ -868,23 +851,18 @@
     </div>
   </aside>
 
-  <!-- Sidebar Overlay -->
-  <div class="sidebar-overlay" id="sidebar-overlay"></div>
-
   <!-- Toast Notification -->
   <div id="toast" class="toast" role="alert" aria-live="assertive"></div>
 
-  <!-- ===== MAIN CONTENT ===== -->
+  <!-- MAIN CONTENT -->
   <div class="abb">
     <h1>Welcome to TekiNova</h1>
     <p>Your one-stop hub for digital careers and services</p>
-
     <main>
       <section>
         <h2>Who We Are</h2>
         <p><strong>TekiNova</strong> is a modern online platform offering digital services for individuals and businesses. From job seekers to tech startups, we empower our community with tools and opportunities to thrive in the digital world.</p>
       </section>
-
       <section>
         <h2>What We Offer</h2>
         <ul>
@@ -898,29 +876,22 @@
           <li>Startup & Tech Consulting</li>
         </ul>
       </section>
-
       <section>
         <h2>Our Vision</h2>
         <p class="highlight">To become a leading global platform that bridges the gap between talent and opportunity, helping people unlock their full potential and businesses thrive through technology.</p>
       </section>
-
       <section>
         <h2>Our Mission</h2>
         <p>To empower individuals and organizations by providing accessible digital tools, career-building services, and professional development opportunities in a rapidly evolving tech landscape.</p>
       </section>
-
       <section>
         <h2>Founded</h2>
         <p>TekiNova was proudly founded on <strong>May 22, 2025</strong> by <strong>Jane Doe</strong> with a vision to build a platform that supports growth, innovation, and career success in technology.</p>
       </section>
-
       <section>
         <h2>Location</h2>
-        <p>TekiNova HQ
-          <br>123 Innovation Street
-          <br>Tech City, Rwanda</p>
+        <p>TekiNova HQ<br>123 Innovation Street<br>Tech City, Rwanda</p>
       </section>
-
       <section>
         <h2>Operating Hours</h2>
         <ul>
@@ -929,7 +900,6 @@
           <li><strong>Sunday:</strong> Closed</li>
         </ul>
       </section>
-
       <section>
         <h2>Who We Serve</h2>
         <ul>
@@ -939,7 +909,6 @@
           <li>Anyone passionate about tech and growth</li>
         </ul>
       </section>
-
       <section style="text-align: center;">
         <h2>Join the TekiNova Community</h2>
         <p>Explore opportunities, grow your skills, and connect with a future in tech.</p>
@@ -948,16 +917,14 @@
     </main>
   </div>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- FOOTER -->
   <footer>
     <div class="footer-columns">
       <div class="col">
         <h3>Contact</h3>
         <a href="./contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <strong>WhatsApp:</strong>
-        <a href="https://wa.me/+250733253803" target="_blank" class="toto" rel="noopener noreferrer">+250 733 253 803</a>
-        <strong>Email:</strong>
-        <a href="mailto:info@tekinova.com" class="toto" rel="noopener noreferrer">info@tekinova.com</a>
+        <p><strong>WhatsApp:</strong> <a href="https://wa.me/+250733253803" target="_blank" rel="noopener noreferrer">+250 733 253 803</a></p>
+        <p><strong>Email:</strong> <a href="mailto:info@tekinova.com" rel="noopener noreferrer">info@tekinova.com</a></p>
       </div>
       <div class="col">
         <h3>About TekiNova</h3>
@@ -1000,30 +967,37 @@
         <a href="features.html" style="text-decoration: underline;"><b>More Info</b></a>
       </div>
     </div>
-    
-    <div style="text-align: center; margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+    <div class="copyright">
       <p>© 2025 TekiNova. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- ===== JS: Enhanced Functionality ===== -->
   <script>
     // DOM Elements
     const hamburgerMenu = document.getElementById('hamburgerMenu');
     const hamburgerIcon = document.getElementById('hamburger-icon');
-    const menuToggle = document.getElementById('menu-toggle');
-    const mainNav = document.getElementById('main-nav');
+    const closeSidebar = document.getElementById('close-sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
     const joinBtn = document.getElementById('join-btn');
     const toast = document.getElementById('toast');
     const visitorCount = document.getElementById('visitors-count');
     const logo = document.getElementById('logo');
-    const closeSidebar = document.getElementById('close-sidebar');
-    const sidebarOverlay = document.getElementById('sidebar-overlay');
 
-    // Store scroll position
-    let scrollPosition = 0;
+    // Scroll position storage
+    const scrollPositions = {};
 
-    // Debounce utility to prevent rapid successive clicks
+    // Save scroll position
+    function saveScrollPosition() {
+      scrollPositions[window.location.pathname] = window.scrollY || window.pageYOffset;
+    }
+
+    // Restore scroll position
+    function restoreScrollPosition() {
+      const scrollPosition = scrollPositions[window.location.pathname] || 0;
+      window.scrollTo({ top: scrollPosition, behavior: 'auto' });
+    }
+
+    // Debounce utility
     function debounce(func, wait) {
       let timeout;
       return function executedFunction(...args) {
@@ -1036,32 +1010,21 @@
       };
     }
 
-    // Toggle hamburger menu open/close
+    // Toggle hamburger menu
     function toggleHamburgerMenu() {
       const isActive = hamburgerMenu.classList.toggle('active');
       sidebarOverlay.classList.toggle('active', isActive);
       document.body.classList.toggle('sidebar-active', isActive);
-      document.body.style.overflow = isActive ? 'hidden' : '';
+      document.body.classList.toggle('no-scroll', isActive);
       if (isActive) {
-        scrollPosition = window.scrollY;
+        saveScrollPosition();
+        hamburgerMenu.scrollTop = 0;
       } else {
-        window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
+        restoreScrollPosition();
       }
     }
 
-    // Toggle mobile menu
-    function toggleMobileMenu() {
-      const isActive = menuToggle.classList.toggle('active');
-      mainNav.classList.toggle('active');
-      menuToggle.setAttribute('aria-expanded', isActive);
-      if (isActive) {
-        scrollPosition = window.scrollY;
-      } else {
-        window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
-      }
-    }
-
-    // Swipe to close sidebar on mobile
+    // Swipe to close sidebar
     let touchStartX = 0;
     let touchEndX = 0;
 
@@ -1076,95 +1039,7 @@
       }
     }, { passive: true });
 
-    // Prevent default navigation for placeholder links
-    document.querySelectorAll('a[href="#"]').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-      });
-    });
-
-    // Toggle dropdown accessibility
-    document.querySelectorAll('.navbar a[aria-haspopup="true"]').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const isExpanded = link.getAttribute('aria-expanded') === 'true';
-        link.setAttribute('aria-expanded', !isExpanded);
-      });
-    });
-
-    // Event Listeners
-    if (hamburgerIcon) {
-      hamburgerIcon.addEventListener('click', toggleHamburgerMenu);
-      hamburgerIcon.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          toggleHamburgerMenu();
-        }
-      });
-    }
-
-    if (closeSidebar) {
-      closeSidebar.addEventListener('click', toggleHamburgerMenu);
-      closeSidebar.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          toggleHamburgerMenu();
-        }
-      });
-    }
-
-    if (menuToggle) {
-      menuToggle.addEventListener('click', toggleMobileMenu);
-    }
-
-    if (sidebarOverlay) {
-      sidebarOverlay.addEventListener('click', toggleHamburgerMenu);
-    }
-
-    if (logo) {
-      logo.addEventListener('click', () => {
-        window.location.href = 'home.html';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
-
-    // Close hamburger menu when clicking outside
-    document.addEventListener('click', function(event) {
-      if (hamburgerMenu.classList.contains('active') &&
-          !hamburgerMenu.contains(event.target) &&
-          !hamburgerIcon.contains(event.target) &&
-          !sidebarOverlay.contains(event.target)) {
-        toggleHamburgerMenu();
-      }
-    });
-
-    // Close hamburger menu on Escape key
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape' && hamburgerMenu.classList.contains('active')) {
-        toggleHamburgerMenu();
-      }
-    });
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        if (targetId !== '#') {
-          const target = document.querySelector(targetId);
-          if (target) {
-            const headerHeight = document.querySelector('header').offsetHeight;
-            const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
-            window.scrollTo({
-              top: targetPosition,
-              behavior: 'smooth'
-            });
-          }
-        }
-      });
-    });
-
-    // Show toast notification (use textContent to prevent XSS)
+    // Show toast notification
     function showToast(message, type = '') {
       if (toast && typeof message === 'string') {
         toast.textContent = message;
@@ -1175,26 +1050,9 @@
       }
     }
 
-    // Join button click handler with debouncing
-    if (joinBtn) {
-      const debouncedJoin = debounce(function(e) {
-        e.preventDefault();
-        if (!joinBtn.disabled) {
-          showToast('Thank you for your interest! We will contact you soon.', 'success');
-          joinBtn.disabled = true;
-          setTimeout(() => {
-            console.log('Join request submitted');
-            joinBtn.disabled = false;
-          }, 1000);
-        } else {
-          showToast('Please wait before submitting again.', 'error');
-        }
-      }, 1000);
-      joinBtn.addEventListener('click', debouncedJoin);
-    }
-
-    // Update visitor count (run once on load)
-    function updateVisitorCount() {
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      // Update visitor count
       try {
         const baseCount = 1245;
         const randomIncrement = Math.floor(Math.random() * 10);
@@ -1204,16 +1062,11 @@
       } catch (error) {
         console.error('Error updating visitor count:', error);
       }
-    }
 
-    // Initialize
-    document.addEventListener('DOMContentLoaded', function() {
-      updateVisitorCount();
-      
-      // Highlight current page in navigation
+      // Highlight current page
       try {
         const currentPage = location.pathname.split('/').pop();
-        document.querySelectorAll('nav a').forEach(link => {
+        document.querySelectorAll('.sidebar a').forEach(link => {
           if (link.getAttribute('href') === currentPage) {
             link.classList.add('active');
           }
@@ -1221,22 +1074,129 @@
       } catch (error) {
         console.error('Error setting active navigation link:', error);
       }
+
+      // Event Listeners
+      if (hamburgerIcon) {
+        hamburgerIcon.addEventListener('click', toggleHamburgerMenu);
+        hamburgerIcon.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleHamburgerMenu();
+          }
+        });
+      }
+
+      if (closeSidebar) {
+        closeSidebar.addEventListener('click', toggleHamburgerMenu);
+        closeSidebar.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleHamburgerMenu();
+          }
+        });
+      }
+
+      if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', toggleHamburgerMenu);
+      }
+
+      if (logo) {
+        logo.addEventListener('click', () => {
+          window.location.href = 'index.html';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      // Sidebar links
+      document.querySelectorAll('.sidebar a').forEach(link => {
+        link.addEventListener('click', () => {
+          saveScrollPosition();
+          hamburgerMenu.classList.remove('active');
+          sidebarOverlay.classList.remove('active');
+          document.body.classList.remove('sidebar-active');
+          document.body.classList.remove('no-scroll');
+          if (link.href && !link.href.includes('#')) {
+            hamburgerMenu.addEventListener('transitionend', restoreScrollPosition, { once: true });
+          } else {
+            restoreScrollPosition();
+          }
+        });
+      });
+
+      // Join button
+      if (joinBtn) {
+        const debouncedJoin = debounce(function(e) {
+          e.preventDefault();
+          if (!joinBtn.disabled) {
+            showToast('Thank you for your interest! We will contact you soon.', 'success');
+            joinBtn.disabled = true;
+            setTimeout(() => {
+              console.log('Join request submitted');
+              joinBtn.disabled = false;
+            }, 1000);
+          } else {
+            showToast('Please wait before submitting again.', 'error');
+          }
+        }, 1000);
+        joinBtn.addEventListener('click', debouncedJoin);
+      }
+
+      // Close on outside click
+      document.addEventListener('mousedown', (event) => {
+        if (hamburgerMenu.classList.contains('active') && !hamburgerMenu.contains(event.target) && !hamburgerIcon.contains(event.target)) {
+          toggleHamburgerMenu();
+        }
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && hamburgerMenu.classList.contains('active')) {
+          toggleHamburgerMenu();
+        }
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          const target = document.querySelector(targetId);
+          if (target) {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // Handle resize
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 992 && hamburgerMenu.classList.contains('active')) {
+          hamburgerMenu.classList.remove('active');
+          sidebarOverlay.classList.remove('active');
+          document.body.classList.remove('sidebar-active');
+          document.body.classList.remove('no-scroll');
+          restoreScrollPosition();
+        }
+      });
+
+      // Restore scroll on load
+      window.addEventListener('load', restoreScrollPosition);
+
+      // Save scroll before unload
+      window.addEventListener('beforeunload', saveScrollPosition);
     });
 
-    // Backend simulation (for demo purposes)
-    const backend = {
-      async getStaffMembers() {
-        try {
-          return [
-            { name: 'John Doe', position: 'CEO', image: 'staff1.jpg' },
-            { name: 'Jane Smith', position: 'CTO', image: 'staff2.jpg' }
-          ];
-        } catch (error) {
-          console.error('Error fetching staff members:', error);
-          return [];
-        }
-      }
-    };
+    // Prevent default navigation for placeholder links
+    document.querySelectorAll('a[href="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+      });
+    });
   </script>
 </body>
 </html>

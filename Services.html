@@ -2,10 +2,32 @@
 <html lang="rw">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="description" content="TekiNova - Serivisi za TekiNova"/>
   <title>TekiNova</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="strict-origin-when-cross-origin" />
   <style>
+    /* Fallback if Font Awesome fails */
+    .fa, .fas { font-family: sans-serif; }
+    .fa-home::before { content: "\2302"; }
+    .fa-info-circle::before { content: "\24D8"; }
+    .fa-cogs::before { content: "\2699"; }
+    .fa-box::before { content: "\2610"; }
+    .fa-blog::before { content: "\270D"; }
+    .fa-briefcase::before { content: "\1F4BC"; }
+    .fa-envelope::before { content: "\2709"; }
+    .fa-bars::before { content: "\2630"; }
+    .fa-times::before { content: "\2715"; }
+    .fa-check-circle::before { content: "\2713"; }
+    .fa-user-plus::before { content: "\1F464"; }
+    .fa-sync-alt::before { content: "\21BB"; }
+    .fa-tachometer-alt::before { content: "\1F4B5"; }
+    .fa-laptop-code::before { content: "\1F4BB"; }
+    .fa-globe::before { content: "\1F310"; }
+    .fa-comments::before { content: "\1F4AC"; }
+    .fa-tools::before { content: "\1F527"; }
+    .fa-user-graduate::before { content: "\1F393"; }
+
     /* Reset and Global Styles */
     * {
       box-sizing: border-box;
@@ -13,33 +35,44 @@
       padding: 0;
     }
 
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f4f4f4;
       color: #333;
       line-height: 1.6;
-      padding-top: 60px; /* Space for sticky header */
+    }
+
+    body.no-scroll {
+      overflow: hidden;
     }
 
     /* Header */
     header {
       background-color: #012f47;
       color: white;
-      padding: 10px 20px;
+      padding: 10px 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: fixed;
       top: 0;
       left: 0;
-      right: 0;
+      width: 100%;
       z-index: 1000;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      flex-wrap: wrap;
     }
 
     .logo {
       display: flex;
       align-items: center;
+      cursor: pointer;
     }
 
     .logo img {
@@ -48,12 +81,19 @@
       border-radius: 50%;
       border: 2px solid gold;
       margin-right: 8px;
+      transition: transform 0.3s ease;
+      will-change: transform;
+    }
+
+    .logo:hover img {
+      transform: rotate(15deg);
     }
 
     .logo h1 {
       color: gold;
       font-size: 22px;
       font-weight: 700;
+      white-space: nowrap;
     }
 
     nav ul {
@@ -62,47 +102,64 @@
       gap: 15px;
     }
 
-    nav a {
+    .navbar a {
       text-decoration: none;
       color: white;
       font-weight: 600;
       font-size: 15px;
       padding: 6px 10px;
       border-radius: 6px;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s ease;
+      position: relative;
     }
 
-    nav a:hover {
+    .navbar a:hover {
       background-color: #033d3d;
       color: gold;
     }
 
+    .navbar a.active {
+      color: #eaedf1;
+    }
+
+    .navbar a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: gold;
+      transition: width 0.3s ease, transform 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .navbar a:hover::after {
+      width: 80%;
+    }
+
+    /* Dashboard Icon */
     .dashboard-icon {
       font-size: 22px;
       cursor: pointer;
       color: white;
-      transition: color 0.3s;
-      order: 2; /* Ensure icon stays on the right */
+      transition: color 0.3s ease, transform 0.3s ease;
+      padding: 5px;
+      will-change: transform, color;
     }
 
     .dashboard-icon:hover {
       color: gold;
-    }
-
-    .menu-toggle {
-      display: none;
-      font-size: 22px;
-      cursor: pointer;
-      color: white;
-      order: 3; /* Ensure mobile toggle is on the right */
+      transform: scale(1.1);
     }
 
     /* Sidebar */
     .sidebar {
       position: fixed;
       top: 0;
-      right: -300px;
+      right: -100%;
       width: 260px;
+      max-width: 80%;
       height: 100vh;
       background-color: #002240;
       color: white;
@@ -111,10 +168,28 @@
       z-index: 999;
       box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .sidebar.active {
       right: 0;
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background: #555;
+      border-radius: 4px;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+      background: #002240;
     }
 
     .sidebar-header {
@@ -130,11 +205,14 @@
 
     .sidebar-header i {
       cursor: pointer;
-      transition: color 0.3s;
+      transition: color 0.3s ease, transform 0.3s ease;
+      font-size: 16px;
+      will-change: transform, color;
     }
 
     .sidebar-header i:hover {
       color: #d4af37;
+      transform: scale(1.2);
     }
 
     .sidebar a {
@@ -142,18 +220,54 @@
       align-items: center;
       gap: 8px;
       color: white;
-      padding: 10px 0;
+      padding: 10px 12px;
       text-decoration: none;
-      transition: color 0.3s;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 14px;
+      border-radius: 5px;
     }
 
     .sidebar a:hover {
+      background-color: #033d3d;
       color: gold;
     }
 
     .sidebar i {
       width: 18px;
       text-align: center;
+      font-size: 14px;
+    }
+
+    /* Sidebar Overlay */
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 998;
+    }
+
+    .sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Content Blur when Sidebar is Active */
+    body.sidebar-active .services-section,
+    body.sidebar-active footer {
+      filter: blur(1px);
+      transition: filter 0.3s ease;
+    }
+
+    body:not(.sidebar-active) .services-section,
+    body:not(.sidebar-active) footer {
+      filter: none;
     }
 
     /* Dashboard Widgets */
@@ -161,21 +275,27 @@
       background-color: rgba(255, 255, 255, 0.1);
       border-radius: 8px;
       padding: 10px;
-      margin: 10px 0;
+      margin-bottom: 10px;
+      transition: transform 0.3s ease;
+      will-change: transform px;
+    }
+
+    .dashboard-widget:hover {
+      transform: translateY(-3px);
     }
 
     .dashboard-widget h3 {
       color: gold;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       font-size: 15px;
     }
 
     .dashboard-widget p {
       font-size: 13px;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
 
-    .widget-stats {
+    .dashboard-widget .widget-stats {
       display: flex;
       justify-content: space-between;
       margin-top: 8px;
@@ -199,139 +319,19 @@
     }
 
     /* Main Content */
-    .main-content {
-      max-width: 1200px;
-      margin: 30px auto;
-      padding: 15px;
-    }
-
-    .staff-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-    }
-
-    .staff-card {
-      background-color: white;
-      border-radius: 12px;
-      width: 180px;
-      padding: 12px;
-      text-align: center;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      flex: 1 1 180px;
-      max-width: 200px;
-    }
-
-    .staff-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-
-    /* Footer */
-    footer {
-      background-color: #012f47;
-      color: white;
-      padding: 30px 15px;
-    }
-
-    .footer-columns {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: space-between;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .footer-columns .col {
-      flex: 1 1 180px;
-      min-width: 160px;
-    }
-
-    .footer-columns .col h3 {
-      color: gold;
-      margin-bottom: 10px;
-    }
-
-    .footer-columns .col a {
-      display: block;
-      color: white;
-      text-decoration: none;
-      margin-bottom: 5px;
-      transition: color 0.3s;
-    }
-
-    .footer-columns .col a:hover {
-      color: #d4af37;
-    }
-
-    /* Navigation Dropdowns */
-    .navbar ul {
-      list-style: none;
-      display: flex;
-    }
-
-    .navbar li {
-      position: relative;
-    }
-
-    .navbar a {
-      display: block;
-      padding: 12px 16px;
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-    }
-
-    .navbar a:hover {
-      background-color: #033d3d;
-    }
-
-    .navbar a.active {
-      color: #eaedf1;
-    }
-
-    .dropdown {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #002366;
-      min-width: 220px;
-      border-radius: 0 0 5px 5px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      z-index: 999;
-    }
-
-    .dropdown a {
-      padding: 10px 14px;
-      display: block;
-      color: white;
-      text-decoration: none;
-    }
-
-    .dropdown a:hover {
-      background-color: #033d3d;
-    }
-
-    .navbar li:hover .dropdown {
-      display: block;
-    }
-
-    /* Services Section */
     .services-section {
       padding: 2rem 0.8rem;
       background-color: #f4f8fb;
+      margin-top: 80px;
     }
 
     .section-title {
       text-align: center;
       font-size: 2rem;
-      color: #002244;
+      color: #002744;
       margin-bottom: 1.5rem;
+      border-bottom: 2px solid gold;
+      padding-bottom: 8px;
     }
 
     .services-grid {
@@ -351,6 +351,7 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       flex: 1 1 240px;
       max-width: 300px;
+      margin: 0 auto;
     }
 
     .service-card:hover {
@@ -392,8 +393,115 @@
       background-color: #003f88;
     }
 
+    /* Footer */
+    footer {
+      background-color: #012f47;
+      color: white;
+      padding: 30px 15px;
+    }
+
+    .footer-columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-columns .col {
+      flex: 1 1 180px;
+      min-width: 160px;
+      margin-bottom: 15px;
+    }
+
+    .footer-columns .col h3 {
+      color: gold;
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+
+    .footer-columns .col h2 {
+      color: gold;
+      margin: 10px 0 6px;
+      font-size: 14px;
+    }
+
+    .footer-columns .col a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 5px;
+      transition: color 0.3s ease, padding-left 0.3s ease;
+      font-size: 12px;
+    }
+
+    .footer-columns .col a:hover {
+      color: #d4af37;
+      padding-left: 3px;
+    }
+
+    /* Navigation Dropdowns */
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .navbar li {
+      position: relative;
+    }
+
+    .navbar a {
+      display: block;
+      padding: 12px 16px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #002366;
+      min-width: 220px;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 100;
+      padding: 8px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropdown h2 {
+      color: gold;
+      font-size: 14px;
+      padding: 8px 15px;
+      margin: 0;
+    }
+
+    .dropdown a {
+      padding: 10px 14px;
+      font-size: 12px;
+    }
+
+    .navbar li:hover .dropdown {
+      display: block;
+    }
+
     /* Responsive Design */
     @media (max-width: 1024px) {
+      header {
+        padding: 8px 12px;
+      }
+
       .logo h1 {
         font-size: 20px;
       }
@@ -405,37 +513,40 @@
 
       .sidebar {
         width: 240px;
+        max-width: 80%;
       }
 
       .service-card {
         max-width: 280px;
       }
 
-      .staff-card {
-        max-width: 180px;
+      .section-title {
+        font-size: 1.8rem;
       }
     }
 
     @media (max-width: 768px) {
-      nav.navbar {
+      header {
+        padding: 8px 12px;
+      }
+
+      .logo {
+        min-width: 100%;
+        justify-content: center;
+        margin-bottom: 6px;
+      }
+
+      .navbar ul {
         display: none;
       }
 
-      .menu-toggle {
-        display: block;
-      }
-
       .dashboard-icon {
-        display: block;
+        margin-left: auto;
+        margin-right: 12px;
       }
 
-      .sidebar {
-        width: 240px;
-      }
-
-      .staff-card {
-        max-width: 160px;
-        flex: 1 1 160px;
+      .services-section {
+        margin-top: 64px;
       }
 
       .services-grid {
@@ -454,35 +565,26 @@
       .footer-columns .col {
         flex: 1 1 150px;
       }
+
+      .section-title {
+        font-size: 1.6rem;
+      }
     }
 
     @media (max-width: 480px) {
       header {
-        padding: 8px 12px;
-      }
-
-      .logo img {
-        width: 32px;
-        height: 32px;
-      }
-
-      .logo h1 {
-        font-size: 18px;
+        padding: 6px 10px;
       }
 
       .sidebar {
         width: 100%;
+        max-width: 100%;
         right: -100%;
       }
 
-      .main-content {
-        padding: 10px;
-        margin: 20px auto;
-      }
-
-      .staff-card {
-        max-width: 100%;
-        flex: 1 1 100%;
+      .services-section {
+        margin-top: 56px;
+        padding: 1.5rem 0.6rem;
       }
 
       .services-grid {
@@ -498,24 +600,82 @@
         flex-direction: column;
         gap: 12px;
       }
+
+      .dashboard-icon {
+        font-size: 20px;
+        margin-right: 8px;
+      }
+
+      .section-title {
+        font-size: 1.4rem;
+      }
+
+      .service-card h3 {
+        font-size: 1.1rem;
+      }
+
+      .service-card p {
+        font-size: 0.85rem;
+      }
     }
+     /* muving image  */
+    .top-right-slider {
+  position: sticky;      /* sticky aho */
+  top: 60px;             /* itegereze hejuru ya header (height ya header) */
+  width: 100%;
+  background: #02635e;
+  color: white;
+  padding: 8px 0;
+  text-align: center;
+  overflow: hidden;
+  z-index: 9000;
+  
+}
+
+/* animation ntiyahinduwe */
+.slider-text {
+  display: inline-block;
+  padding-left: 100%;
+  white-space: nowrap;
+  animation: slide-left 35s linear infinite;
+  font-size: 1rem;
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* content isikororinga */
+.content {
+  margin-top: 20px;
+  padding: 20px;
+}
+.slider-text b{
+font-family: 'Times New Roman', Times, serif;
+  font-size: x-large;
+}
   </style>
 </head>
 <body>
   <!-- Header -->
   <header>
-    <div class="logo">
+    <div class="logo" id="logo">
       <img src="logo.jpeg" alt="TEKINOVA Logo">
       <h1>TekiNova</h1>
     </div>
     <nav class="navbar">
-      <ul>
+      <ul id="main-nav" role="navigation" aria-label="Main navigation">
         <li><a href="home.html">Home</a></li>
         <li>
-          <a href="#">About</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">About</a>
           <div class="dropdown">
             <h2>About TEKINOVA</h2>
-            <a href="About.html">About US</a>
+            <a href="About.html">About Us</a>
             <a href="#">Company background & vision</a>
             <a href="#">Mission & goals</a>
             <a href="#">Contacts</a>
@@ -527,84 +687,87 @@
           </div>
         </li>
         <li>
-          <a href="#">Services</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Services</a>
           <div class="dropdown">
             <a href="services.html">Got Services</a>
-            <a href="">Web development</a>
-            <a href="">App development</a>
-            <a href="">Tech consultancy</a>
-            <a href="">Custom software</a>
-            <a href="">AI/IoT/Automation services</a>
+            <a href="#">Web development</a>
+            <a href="#">App development</a>
+            <a href="#">Tech consultancy</a>
+            <a href="#">Custom software</a>
+            <a href="#">AI/IoT/Automation services</a>
           </div>
         </li>
         <li>
-          <a href="#">Product</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Product</a>
           <div class="dropdown">
-            <a href="Products.html">Web development</a>
-            <a href="">App development</a>
-            <a href="">Tech consultancy</a>
-            <a href="">Custom software</a>
-            <a href="">AI/IoT/Automation services</a>
+            <a href="Products.html">Product</a>
+            <a href="#">App development</a>
+            <a href="#">Tech consultancy</a>
+            <a href="#">Custom software</a>
+            <a href="#">AI/IoT/Automation services</a>
           </div>
         </li>
         <li>
-          <a href="#">Tch News</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Tech News</a>
           <div class="dropdown">
-            <h2>blog</h2>
-            <a href="Blog_Tech_News.html">Blog_Tech_New</a>
-            <a href="">Articles about technology trends</a>
-            <a href="">How-to guides or tutorials</a>
-            <a href="">Company updates</a>
+            <h2>Blog</h2>
+            <a href="Blog_Tech_News.html">Blog Tech News</a>
+            <a href="#">Articles about technology trends</a>
+            <a href="#">How-to guides or tutorials</a>
+            <a href="#">Company updates</a>
           </div>
         </li>
         <li>
-          <a href="#">Careers</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Careers</a>
           <div class="dropdown">
             <a href="Careers.html">Develop Your Career</a>
-            <a href="">Articles about technology trends</a>
-            <a href="">How-to guides or tutorials</a>
-            <a href="">Company updates</a>
+            <a href="#">Articles about technology trends</a>
+            <a href="#">How-to guides or tutorials</a>
+            <a href="#">Company updates</a>
           </div>
         </li>
         <li>
-          <a href="">Jobs</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Jobs</a>
           <div class="dropdown">
-            <h2>apply job</h2>
-            <a href="features.html">go to Jobs & Internships</a>
+            <h2>Apply Job</h2>
+            <a href="features.html">Go to Jobs & Internships</a>
           </div>
         </li>
         <li>
-          <a href="#">Contact</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Contact</a>
           <div class="dropdown">
-            <a href="contact_us.html">tell us anything</a>
+            <a href="contact_us.html">Tell Us Anything</a>
           </div>
         </li>
         <li>
-          <a href="#">Working Calendar</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Working Calendar</a>
           <div class="dropdown">
-            <a href="amasahayakazi.html"> ▼ Our Calendar Days</a>
+            <a href="amasahayakazi.html">Our Calendar Days</a>
           </div>
         </li>
       </ul>
     </nav>
-    <div class="dashboard-icon">
-      <i class="fas fa-bars"></i>
-    </div>
-    <div class="menu-toggle">
+    <div class="dashboard-icon" id="dashboard-icon" role="button" aria-label="Toggle dashboard menu" tabindex="0">
       <i class="fas fa-bars"></i>
     </div>
   </header>
+ <div class="top-right-slider">
+  <div class="slider-text"><b>Ushaka ko tugufasha zimwe murizi services zikurikira
+    watwandikira kuri 0733253803 cg ukaduhamagara kur 0780019239!</b></div>
+</div>
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-  <!-- Sidebar -->
-  <aside class="sidebar" id="dashboard">
+  <!-- Sidebar (Dashboard) -->
+  <aside class="sidebar" id="dashboard" role="navigation" aria-label="Dashboard menu">
     <div class="sidebar-header">
-      <span><i class="fas fa-bars"></i> Hamburger Menu</span>
-      <i class="fas fa-times"></i>
+      <span><i class="fas fa-tachometer-alt"></i> Dashboard</span>
+      <i class="fas fa-times" id="close-dashboard" role="button" aria-label="Close dashboard menu" tabindex="0"></i>
     </div>
     <nav>
-      <a href="index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="home.html"><i class="fas fa-home"></i> Home</a>
       <a href="About.html"><i class="fas fa-info-circle"></i> About</a>
-      <a href="Services.html"><i class="fas fa-cogs"></i> Services</a>
+      <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
       <a href="Products.html"><i class="fas fa-box"></i> Products</a>
       <a href="Blog_Tech_News.html"><i class="fas fa-blog"></i> Blog</a>
       <a href="Careers.html"><i class="fas fa-briefcase"></i> Careers</a>
@@ -616,7 +779,7 @@
       <p>Overview of your recent activity</p>
       <div class="widget-stats">
         <div>
-          <span>1,245</span>
+          <span id="visitors-count">1,245</span>
           <small>Visitors</small>
         </div>
         <div>
@@ -644,7 +807,7 @@
       <div class="service-card">
         <i class="fas fa-laptop-code icon"></i>
         <h3>Amahugurwa y’Ikoranabuhanga</h3>
-        <p>Web development, UI/UX, data analysis, n'ibindi.</p>
+        <p>Web development, UI/UX, data analysis, n’ibindi.</p>
         <a href="amahugurwa-section.html" class="btn">Soma byinshi</a>
       </div>
       <div class="service-card">
@@ -686,10 +849,8 @@
       <div class="col">
         <h3>Contact</h3>
         <a href="./contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <strong>WhatsApp:</strong>
-        <a href="https://wa.me/+250733253803" target="_blank" class="toto">+250 733 253 803</a>
-        <strong>Email:</strong>
-        <a href="mailto:fiqueat@gmail.com" class="toto">fiqueat@gmail.com</a>
+        <p><strong>WhatsApp:</strong> <a href="https://wa.me/+250733253803" target="_blank" rel="noopener noreferrer">+250 733 253 803</a></p>
+        <p><strong>Email:</strong> <a href="mailto:info@tekinova.com" rel="noopener noreferrer">info@tekinova.com</a></p>
       </div>
       <div class="col">
         <h3>About TekiNova</h3>
@@ -706,26 +867,26 @@
       <div class="col">
         <h3>Services</h3>
         <a href="services.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="">Web development</a>
-        <a href="">App development</a>
-        <a href="">Tech consultancy</a>
-        <a href="">Custom software</a>
-        <a href="">AI/IoT/Automation services</a>
+        <a href="#">Web development</a>
+        <a href="#">App development</a>
+        <a href="#">Tech consultancy</a>
+        <a href="#">Custom software</a>
+        <a href="#">AI/IoT/Automation services</a>
       </div>
       <div class="col">
         <h3>Product</h3>
         <a href="Products.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="">App development</a>
-        <a href="">Tech consultancy</a>
-        <a href="">Custom software</a>
-        <a href="">AI/IoT/Automation services</a>
+        <a href="#">App development</a>
+        <a href="#">Tech consultancy</a>
+        <a href="#">Custom software</a>
+        <a href="#">AI/IoT/Automation services</a>
       </div>
       <div class="col">
         <h3>Careers</h3>
         <a href="Careers.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="">Articles about technology trends</a>
-        <a href="">How-to guides or tutorials</a>
-        <a href="">Company updates</a>
+        <a href="#">Articles about technology trends</a>
+        <a href="#">How-to guides or tutorials</a>
+        <a href="#">Company updates</a>
       </div>
       <div class="col">
         <h3>Jobs & Internships</h3>
@@ -734,69 +895,187 @@
     </div>
   </footer>
 
-  <!-- JavaScript -->
   <script>
-    // Get DOM elements
+    // DOM Elements
     const dashboard = document.getElementById('dashboard');
-    const dashboardIcon = document.querySelector('.dashboard-icon');
-    const menuToggle = document.querySelector('.menu-toggle');
-    const closeButton = document.querySelector('.sidebar-header .fa-times');
-    const sidebarLinks = document.querySelectorAll('.sidebar a');
+    const dashboardIcon = document.getElementById('dashboard-icon');
+    const closeDashboard = document.getElementById('close-dashboard');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const logo = document.getElementById('logo');
+
+    // Scroll position storage
+    const scrollPositions = {};
+
+    // Save scroll position
+    function saveScrollPosition() {
+      scrollPositions[window.location.pathname] = window.scrollY || window.pageYOffset;
+    }
+
+    // Restore scroll position
+    function restoreScrollPosition() {
+      const scrollPosition = scrollPositions[window.location.pathname] || 0;
+      window.scrollTo({ top: scrollPosition, behavior: 'auto' });
+    }
 
     // Toggle sidebar
     function toggleSidebar() {
-      dashboard.classList.toggle('active');
-      if (dashboard.classList.contains('active')) {
-        dashboard.scrollTop = 0; // Scroll to top when opening
-      }
-    }
-
-    // Store scroll position before clicking a link
-    function saveScrollPosition() {
-      sessionStorage.setItem('scrollPosition', window.scrollY);
-    }
-
-    // Restore scroll position after page load
-    function restoreScrollPosition() {
-      const scrollPosition = sessionStorage.getItem('scrollPosition');
-      if (scrollPosition) {
-        window.scrollTo(0, parseInt(scrollPosition));
-        sessionStorage.removeItem('scrollPosition');
-      }
-    }
-
-    // Event listeners
-    dashboardIcon.addEventListener('click', toggleSidebar);
-    menuToggle.addEventListener('click', toggleSidebar);
-    closeButton.addEventListener('click', toggleSidebar);
-
-    // Save scroll position when clicking sidebar links
-    sidebarLinks.forEach(link => {
-      link.addEventListener('click', () => {
+      const isActive = dashboard.classList.toggle('active');
+      sidebarOverlay.classList.toggle('active', isActive);
+      document.body.classList.toggle('sidebar-active', isActive);
+      document.body.classList.toggle('no-scroll', isActive);
+      if (isActive) {
         saveScrollPosition();
+        dashboard.scrollTop = 0;
+      } else {
+        restoreScrollPosition();
+      }
+    }
+
+    // Swipe to close sidebar
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    dashboard.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    dashboard.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50 && dashboard.classList.contains('active')) {
         toggleSidebar();
+      }
+    }, { passive: true });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // Update visitor count
+      try {
+        const visitorCount = document.getElementById('visitors-count');
+        const baseCount = 1245;
+        const randomIncrement = Math.floor(Math.random() * 10);
+        if (visitorCount) {
+          visitorCount.textContent = (baseCount + randomIncrement).toLocaleString();
+        }
+      } catch (error) {
+        console.error('Error updating visitor count:', error);
+      }
+
+      // Highlight current page
+      try {
+        const currentPage = location.pathname.split('/').pop();
+        document.querySelectorAll('.sidebar a').forEach(link => {
+          if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+          }
+        });
+      } catch (error) {
+        console.error('Error setting active navigation link:', error);
+      }
+
+      // Event Listeners
+      if (dashboardIcon) {
+        dashboardIcon.addEventListener('click', toggleSidebar);
+        dashboardIcon.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleSidebar();
+          }
+        });
+      }
+
+      if (closeDashboard) {
+        closeDashboard.addEventListener('click', toggleSidebar);
+        closeDashboard.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleSidebar();
+          }
+        });
+      }
+
+      if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', toggleSidebar);
+      }
+
+      if (logo) {
+        logo.addEventListener('click', () => {
+          window.location.href = 'home.html';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      // Sidebar links
+      document.querySelectorAll('.sidebar a').forEach(link => {
+        link.addEventListener('click', () => {
+          saveScrollPosition();
+          dashboard.classList.remove('active');
+          sidebarOverlay.classList.remove('active');
+          document.body.classList.remove('sidebar-active');
+          document.body.classList.remove('no-scroll');
+          if (link.href && !link.href.includes('#')) {
+            dashboard.addEventListener('transitionend', restoreScrollPosition, { once: true });
+          } else {
+            restoreScrollPosition();
+          }
+        });
+      });
+
+      // Close sidebar on outside click
+      document.addEventListener('mousedown', (event) => {
+        if (dashboard.classList.contains('active') && !dashboard.contains(event.target) && !dashboardIcon.contains(event.target)) {
+          toggleSidebar();
+        }
+      });
+
+      // Close sidebar on Escape key
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && dashboard.classList.contains('active')) {
+          toggleSidebar();
+        }
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = anchor.getAttribute('href');
+          if (targetId === '#') return;
+          const target = document.querySelector(targetId);
+          if (target) {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // Handle resize
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && dashboard.classList.contains('active')) {
+          dashboard.classList.remove('active');
+          sidebarOverlay.classList.remove('active');
+          document.body.classList.remove('sidebar-active');
+          document.body.classList.remove('no-scroll');
+          restoreScrollPosition();
+        }
+      });
+
+      // Restore scroll on load
+      window.addEventListener('load', restoreScrollPosition);
+
+      // Save scroll before unload
+      window.addEventListener('beforeunload', saveScrollPosition);
+    });
+
+    // Prevent default navigation for placeholder links
+    document.querySelectorAll('a[href="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
       });
     });
-
-    // Close sidebar when clicking outside
-    document.addEventListener('click', function (event) {
-      if (dashboard.classList.contains('active') &&
-          !dashboard.contains(event.target) &&
-          !dashboardIcon.contains(event.target) &&
-          !menuToggle.contains(event.target)) {
-        dashboard.classList.remove('active');
-      }
-    });
-
-    // Close sidebar on Escape key
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape' && dashboard.classList.contains('active')) {
-        dashboard.classList.remove('active');
-      }
-    });
-
-    // Restore scroll position on page load
-    window.addEventListener('load', restoreScrollPosition);
   </script>
 </body>
 </html>
