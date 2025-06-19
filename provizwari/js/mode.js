@@ -1,2 +1,2 @@
 // js/mode.js
-export const SYSTEM_MODE = "free"; // 'free' or 'paid'
+window.SYSTEM_MODE = "free"; // cyangwa "paid"

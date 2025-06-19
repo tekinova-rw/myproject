@@ -1,30 +1,24 @@
-// timer.js
-let totalTime = 20 * 60; // 20 minutes in seconds
+let timerInterval;
 
-function startTimer() {
-  const timerDisplay = document.getElementById("timer");
+function startTimer(duration) {
+  let timer = duration, minutes, seconds;
+  const timerElement = document.getElementById('timer');
 
-  const timer = setInterval(() => {
-    let minutes = Math.floor(totalTime / 60);
-    let seconds = totalTime % 60;
+  clearInterval(timerInterval);
 
-    // Format time
-    const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    timerDisplay.textContent = `Time Left: ${formattedTime}`;
+  timerInterval = setInterval(() => {
+    minutes = Math.floor(timer / 60);
+    seconds = timer % 60;
 
-    if (totalTime <= 0) {
-      clearInterval(timer);
-      alert("Time is up!");
-      submitExam(); // Automatically submit
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    timerElement.textContent = `Time Left: ${minutes}:${seconds}`;
+
+    if (--timer < 0) {
+      clearInterval(timerInterval);
+      alert("Time is up! Exam will be submitted automatically.");
+      submitExam();
     }
-
-    totalTime--;
   }, 1000);
 }
-
-window.onload = function () {
-  if (typeof buildExam === "function") {
-    buildExam(); // optional wrapper for exam structure
-  }
-  startTimer(); // start countdown
-};

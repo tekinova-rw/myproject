@@ -1,63 +1,57 @@
 let currentQuestionIndex = 0;
-let selectedAnswers = [];
-let examQuestions = [];
+let userAnswers = [];
+let questionsToUse = [];
 
-window.onload = function () {
-  // Check mode before starting
-  if (typeof SYSTEM_MODE !== "undefined" && SYSTEM_MODE === "paid") {
-    alert("Please pay first before taking the exam.");
-    window.location.href = "pay.html";
-    return;
-  }
+const questionContainer = document.getElementById("questionContainer");
+const backBtn = document.getElementById("backBtn");
+const nextBtn = document.getElementById("nextBtn");
+const submitBtn = document.getElementById("submitBtn");
 
-  // Shuffle & pick 20 questions
-  examQuestions = questions.sort(() => 0.5 - Math.random()).slice(0, 20);
-  sessionStorage.setItem("currentQuestions", JSON.stringify(examQuestions));
-  displayQuestion();
-
-  startTimer(); // from timer.js
-};
-
-function displayQuestion() {
-  const q = examQuestions[currentQuestionIndex];
-  const container = document.getElementById("questionContainer");
-  container.innerHTML = "";
-
-  const div = document.createElement("div");
-  div.classList.add("question");
-
-  let html = `<p><b>Question ${currentQuestionIndex + 1} of ${examQuestions.length}</b></p>`;
-  html += `<p>${q.question}</p>`;
-  if (q.image) {
-    html += `<img src="${q.image}" width="200"><br>`;
-  }
-
-  q.options.forEach((opt) => {
-    const checked = selectedAnswers[currentQuestionIndex] === opt ? "checked" : "";
-    html += `
-      <label>
-        <input type="radio" name="option" value="${opt}" ${checked} onchange="saveAnswer('${opt}')"> ${opt}
-      </label><br>`;
-  });
-
-  div.innerHTML = html;
-  container.appendChild(div);
+function getRandomQuestions(allQuestions, num) {
+  const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, num);
 }
 
-function saveAnswer(answer) {
-  selectedAnswers[currentQuestionIndex] = answer;
+function displayQuestion() {
+  const q = questionsToUse[currentQuestionIndex];
+  if (!q) return;
+
+  let html = `<h3>Question ${currentQuestionIndex + 1} of ${questionsToUse.length}</h3>`;
+  html += `<p>${q.question}</p>`;
+
+  if (q.image) {
+    html += `<img src="${q.image}" alt="Question Image" />`;
+  }
+
+  q.options.forEach(option => {
+    const checked = userAnswers[currentQuestionIndex] === option ? "checked" : "";
+    html += `<label><input type="radio" name="answer" value="${option}" ${checked}> ${option}</label>`;
+  });
+
+  questionContainer.innerHTML = html;
+
+  backBtn.disabled = currentQuestionIndex === 0;
+  nextBtn.style.display = currentQuestionIndex === questionsToUse.length - 1 ? "none" : "inline-block";
+  submitBtn.style.display = currentQuestionIndex === questionsToUse.length - 1 ? "inline-block" : "none";
+}
+
+function saveAnswer() {
+  const selectedOption = document.querySelector('input[name="answer"]:checked');
+  if (selectedOption) {
+    userAnswers[currentQuestionIndex] = selectedOption.value;
+  }
 }
 
 function nextQuestion() {
-  if (currentQuestionIndex < examQuestions.length - 1) {
+  saveAnswer();
+  if (currentQuestionIndex < questionsToUse.length - 1) {
     currentQuestionIndex++;
     displayQuestion();
-  } else {
-    submitExam(); // If on last question, submit
   }
 }
 
 function prevQuestion() {
+  saveAnswer();
   if (currentQuestionIndex > 0) {
     currentQuestionIndex--;
     displayQuestion();
@@ -65,6 +59,37 @@ function prevQuestion() {
 }
 
 function submitExam() {
-  sessionStorage.setItem("userAnswers", JSON.stringify(selectedAnswers));
+  saveAnswer();
+
+  let score = 0;
+  questionsToUse.forEach((q, i) => {
+    if (userAnswers[i] === q.answer) score++;
+  });
+
+  alert(`You scored ${score} out of ${questionsToUse.length}`);
+
+  // Ushobora gushyiramo redirect cyangwa kubika amanota muri localStorage/sessionStorage
+  // window.location.href = "result.html";
+}
+
+window.onload = () => {
+  questionsToUse = getRandomQuestions(questions, 20);
+  userAnswers = new Array(questionsToUse.length).fill(null);
+  displayQuestion();
+  startTimer(20 * 60);
+};
+function submitExam() {
+  saveAnswer();
+
+  let score = 0;
+  questionsToUse.forEach((q, i) => {
+    if (userAnswers[i] === q.answer) score++;
+  });
+
+  // Bika amanota muri localStorage
+  localStorage.setItem('provizwari_score', score);
+  localStorage.setItem('provizwari_total', questionsToUse.length);
+
+  // Redirect ujye kuri result page
   window.location.href = "result.html";
 }

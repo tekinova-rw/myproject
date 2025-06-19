@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Welcome - Provizwari Exam</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" />
   <style>
     body {
       font-family: 'Roboto', sans-serif;
@@ -44,23 +44,21 @@
     <p id="status">Please wait...</p>
   </div>
 
-  <script type="module">
-    import { SYSTEM_MODE } from './js/mode.js';
-
+  <script src="./js/mode.js"></script>
+  <script>
     const status = document.getElementById('status');
 
-    // Simulate slight delay (for UX)
     setTimeout(() => {
-      if (SYSTEM_MODE === 'free') {
+      if (window.SYSTEM_MODE === 'free') {
         status.textContent = "System is in FREE mode. Redirecting to exam...";
         window.location.href = "exam.html";
-      } else if (SYSTEM_MODE === 'paid') {
+      } else if (window.SYSTEM_MODE === 'paid') {
         status.textContent = "System is in PAID mode. Redirecting to payment...";
         window.location.href = "pay.html";
       } else {
         status.textContent = "Error: Unknown mode.";
       }
-    }, 1000); // delay just for appearance
+    }, 1000);
   </script>
 </body>
 </html>

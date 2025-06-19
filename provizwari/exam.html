@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Provizwari Exam</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -30,7 +30,7 @@
       color: #e74c3c;
       margin-bottom: 20px;
     }
-    .question {
+    #questionContainer {
       margin-bottom: 20px;
     }
     img {
@@ -43,6 +43,8 @@
     label {
       display: block;
       margin-left: 20px;
+      margin-bottom: 8px;
+      cursor: pointer;
     }
     button {
       background-color: #27ae60;
@@ -52,33 +54,36 @@
       border-radius: 5px;
       font-size: 16px;
       cursor: pointer;
-      display: block;
-      margin: 30px auto 0;
+      margin: 0 10px;
     }
-    button:hover {
-      background-color: #219150;
+    button:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+    .navigation {
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <form id="examForm">
-  <div id="questionContainer"></div>
-  <div style="text-align: center; margin-top: 20px;">
-    <button type="button" onclick="prevQuestion()">Back</button>
-    <button type="button" onclick="nextQuestion()">Next</button>
-  </div>
-</form>
-
   <div class="container">
     <h1>Provizwari Online Exam</h1>
     <div id="timer">Time Left: 20:00</div>
-    <form id="examForm"></form>
-    <button type="button" onclick="submitExam()">Submit Exam</button>
+
+    <form id="examForm" onsubmit="return false;">
+      <div id="questionContainer"></div>
+
+      <div class="navigation">
+        <button id="backBtn" type="button" onclick="prevQuestion()">Back</button>
+        <button id="nextBtn" type="button" onclick="nextQuestion()">Next</button>
+        <button id="submitBtn" type="button" onclick="submitExam()" style="display:none;">Submit Exam</button>
+      </div>
+    </form>
   </div>
 
-  <!-- Scripts -->
-  <script src="../js/questions.js"></script>
-  <script src="../js/script.js"></script>
-  <script src="../js/timer.js"></script>
+  <script src="./js/mode.js"></script>
+  <script src="./js/questions.js"></script>
+  <script src="./js/script.js"></script>
+  <script src="./js/timer.js"></script>
 </body>
 </html>

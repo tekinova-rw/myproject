@@ -1,108 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Exam Results</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Exam Result</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background: #f4f7f9;
-      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
     }
     .container {
-      max-width: 800px;
-      margin: auto;
       background: white;
-      padding: 30px;
+      padding: 40px;
       border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    h1 {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      max-width: 400px;
       text-align: center;
-      color: #2c3e50;
     }
-    .score {
-      font-size: 24px;
-      font-weight: bold;
+    h2 {
       color: #27ae60;
-      text-align: center;
-      margin-bottom: 30px;
     }
-    .question-block {
-      border-bottom: 1px solid #ccc;
-      padding: 15px 0;
-    }
-    .correct {
-      color: green;
-    }
-    .wrong {
-      color: red;
-    }
-    img {
-      max-width: 100%;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      margin-top: 10px;
-      margin-bottom: 10px;
+    p {
+      font-size: 18px;
     }
     button {
       background-color: #3498db;
       color: white;
-      padding: 10px 20px;
-      font-size: 16px;
+      padding: 12px 30px;
       border: none;
-      border-radius: 6px;
+      border-radius: 5px;
+      font-size: 16px;
       cursor: pointer;
-      margin: 20px auto 0;
-      display: block;
+      margin-top: 20px;
     }
     button:hover {
-      background-color: #2980b9;
+      background-color: #217dbb;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Exam Results</h1>
-    <div id="result"></div>
-    <button onclick="retryExam()">Retry Exam</button>
+    <h2>Exam Completed</h2>
+    <p id="scoreText">Calculating your score...</p>
+    <button onclick="goToHome()">Go to Home</button>
   </div>
 
-  <script src="../js/questions.js"></script>
   <script>
-    function retryExam() {
-      sessionStorage.clear();
-      window.location.href = "exam.html";
+    function goToHome() {
+      window.location.href = "index.html";
     }
 
-    window.onload = function () {
-      const userAnswers = JSON.parse(sessionStorage.getItem("userAnswers"));
-      const usedQuestions = JSON.parse(sessionStorage.getItem("currentQuestions"));
-
-      if (!userAnswers || !usedQuestions) {
-        document.getElementById("result").innerHTML = "<p style='color:red;'>No data found. Please take the exam first.</p>";
-        return;
+    // Amanota azabikwa muri localStorage na script.js igihe user asubmit
+    window.onload = () => {
+      const score = localStorage.getItem('provizwari_score');
+      const total = localStorage.getItem('provizwari_total');
+      if (score !== null && total !== null) {
+        document.getElementById('scoreText').textContent = `You scored ${score} out of ${total}`;
+      } else {
+        document.getElementById('scoreText').textContent = "No score data found.";
       }
-
-      let correct = 0;
-      let html = "";
-
-      usedQuestions.forEach((q, i) => {
-        const userAnswer = userAnswers[i] || "No answer";
-        const isCorrect = userAnswer === q.answer;
-        if (isCorrect) correct++;
-
-        html += `<div class="question-block">
-          <p><b>${i + 1}. ${q.question}</b></p>
-          ${q.image ? `<img src="${q.image}" alt="Sign Image">` : ""}
-          <p>Your Answer: <span class="${isCorrect ? 'correct' : 'wrong'}">${userAnswer}</span></p>
-          ${!isCorrect ? `<p>Correct Answer: <span class="correct">${q.answer}</span></p>` : ""}
-        </div>`;
-      });
-
-      const scoreHTML = `<div class="score">Your Score: ${correct} / ${usedQuestions.length}</div>`;
-      document.getElementById("result").innerHTML = scoreHTML + html;
     };
   </script>
 </body>
