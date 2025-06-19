@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome - Provizwari Exam</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .loader {
+      margin-top: 20px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Checking Exam Mode...</h2>
+    <div class="loader"></div>
+    <p id="status">Please wait...</p>
+  </div>
+
+  <script type="module">
+    import { SYSTEM_MODE } from './js/mode.js';
+
+    const status = document.getElementById('status');
+
+    // Simulate slight delay (for UX)
+    setTimeout(() => {
+      if (SYSTEM_MODE === 'free') {
+        status.textContent = "System is in FREE mode. Redirecting to exam...";
+        window.location.href = "exam.html";
+      } else if (SYSTEM_MODE === 'paid') {
+        status.textContent = "System is in PAID mode. Redirecting to payment...";
+        window.location.href = "pay.html";
+      } else {
+        status.textContent = "Error: Unknown mode.";
+      }
+    }, 1000); // delay just for appearance
+  </script>
+</body>
+</html>

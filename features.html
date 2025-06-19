@@ -22,6 +22,9 @@
       color: #333;
       line-height: 1.6;
       overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     /* Header */
@@ -263,6 +266,7 @@
       max-width: 100%;
       margin: 15px auto;
       padding: 10px;
+      flex: 1;
     }
 
     /* Features Section */
@@ -571,6 +575,11 @@
         grid-template-columns: 1fr;
         gap: 12px;
       }
+
+      .main-content, .features-container {
+        padding: 8px;
+        margin: 8px auto;
+      }
     }
 
     @media (max-width: 576px) {
@@ -625,47 +634,48 @@
       max-width: 100%;
       overflow-x: hidden;
     }
-     /* muving image  */
+
+    /* Moving image */
     .top-right-slider {
-  position: sticky;      /* sticky aho */
-  top: 60px;             /* itegereze hejuru ya header (height ya header) */
-  width: 100%;
-  background: #02635e;
-  color: white;
-  padding: 8px 0;
-  text-align: center;
-  overflow: hidden;
-  z-index: 9000;
-  
-}
+      position: sticky;
+      top: 60px;
+      width: 100%;
+      background: #02635e;
+      color: white;
+      padding: 8px 0;
+      text-align: center;
+      overflow: hidden;
+      z-index: 900;
+    }
 
-/* animation ntiyahinduwe */
-.slider-text {
-  display: inline-block;
-  padding-left: 100%;
-  white-space: nowrap;
-  animation: slide-left 35s linear infinite;
-  font-size: 1rem;
-}
+    /* Animation */
+    .slider-text {
+      display: inline-block;
+      padding-left: 100%;
+      white-space: nowrap;
+      animation: slide-left 35s linear infinite;
+      font-size: 1rem;
+    }
 
-@keyframes slide-left {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
+    @keyframes slide-left {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
 
-/* content isikororinga */
-.content {
-  margin-top: 20px;
-  padding: 20px;
-}
-.slider-text b{
-font-family: 'Times New Roman', Times, serif;
-  font-size: x-large;
-}
+    /* Content */
+    .content {
+      margin-top: 20px;
+      padding: 20px;
+    }
+
+    .slider-text b {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: x-large;
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -841,10 +851,12 @@ font-family: 'Times New Roman', Times, serif;
       <i class="fas fa-bars"></i>
     </div>
   </header>
- <div class="top-right-slider">
-  <div class="slider-text"><b>Ushaka ko tugufasha zimwe murizi services zikurikira
-    watwandikira kuri 0733253803 cg ukaduhamagara kur 0780019239!</b></div>
-</div>
+
+  <div class="top-right-slider">
+    <div class="slider-text"><b>Ushaka ko tugufasha zimwe murizi services zikurikira
+      watwandikira kuri 0733253803 cg ukaduhamagara kur 0780019239!</b></div>
+  </div>
+
   <!-- ===== HAMBURGER MENU SIDEBAR ===== -->
   <aside class="sidebar" id="hamburgerMenu">
     <div class="sidebar-header">
@@ -954,30 +966,28 @@ font-family: 'Times New Roman', Times, serif;
   </footer>
 
   <script>
-    // === Hamburger Menu Toggle Logic ===
+    // === Menu Toggle Logic ===
     function toggleHamburgerMenu() {
       const hamburgerMenu = document.getElementById('hamburgerMenu');
       hamburgerMenu.classList.toggle('active');
       if (hamburgerMenu.classList.contains('active')) {
         hamburgerMenu.scrollTop = 0;
+        document.getElementById('mobileNav').classList.remove('active');
       }
     }
 
-    // === Mobile Navigation Toggle ===
     function toggleMobileNav() {
       const mobileNav = document.getElementById('mobileNav');
       mobileNav.classList.toggle('active');
       if (mobileNav.classList.contains('active')) {
         mobileNav.scrollTop = 0;
-      }
-      if (!mobileNav.classList.contains('active')) {
+        document.getElementById('hamburgerMenu').classList.remove('active');
         document.querySelectorAll('.mobile-dropdown').forEach(dd => {
           dd.style.display = 'none';
         });
       }
     }
 
-    // === Mobile Dropdown Toggle ===
     function toggleMobileDropdown(event, dropdownId) {
       event.preventDefault();
       const dropdown = document.getElementById(dropdownId);
@@ -986,18 +996,15 @@ font-family: 'Times New Roman', Times, serif;
         dd.style.display = 'none';
       });
       dropdown.style.display = isOpen ? 'none' : 'block';
-      const mobileNav = document.getElementById('mobileNav');
-      if (mobileNav.classList.contains('active')) {
-        mobileNav.scrollTop = 0;
-      }
       event.stopPropagation();
     }
 
     // === Event Listeners ===
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', () => {
       const hamburgerIcon = document.getElementById('hamburgerIcon');
       const closeHamburger = document.getElementById('closeHamburger');
-      const menuToggle = document.getElementById('mobileNav');
+      const menuToggle = document.getElementById('menuToggle');
+
       hamburgerIcon.addEventListener('click', toggleHamburgerMenu);
       closeHamburger.addEventListener('click', toggleHamburgerMenu);
       menuToggle.addEventListener('click', toggleMobileNav);
@@ -1009,16 +1016,16 @@ font-family: 'Times New Roman', Times, serif;
         });
       });
 
-      document.addEventListener('click', function (event) {
+      document.addEventListener('click', (event) => {
         const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const mobileNav = document.getElementById('mobileNav');
         if (hamburgerMenu.classList.contains('active') &&
             !hamburgerMenu.contains(event.target) &&
             !hamburgerIcon.contains(event.target)) {
           hamburgerMenu.classList.remove('active');
         }
-        const mobileNav = document.getElementById('mobileNav');
-        if (mobileNav.classList.contains('active') && 
-            !mobileNav.contains(event.target) && 
+        if (mobileNav.classList.contains('active') &&
+            !mobileNav.contains(event.target) &&
             !menuToggle.contains(event.target)) {
           mobileNav.classList.remove('active');
           document.querySelectorAll('.mobile-dropdown').forEach(dd => {
@@ -1027,14 +1034,19 @@ font-family: 'Times New Roman', Times, serif;
         }
       });
 
-      document.addEventListener('keydown', function (event) {
+      document.addEventListener('keydown', (event) => {
         const hamburgerMenu = document.getElementById('hamburgerMenu');
-        if (event.key === 'Escape' && hamburgerMenu.classList.contains('active')) {
+        const mobileNav = document.getElementById('mobileNav');
+        if (event.key === 'Escape') {
           hamburgerMenu.classList.remove('active');
+          mobileNav.classList.remove('active');
+          document.querySelectorAll('.mobile-dropdown').forEach(dd => {
+            dd.style.display = 'none';
+          });
         }
       });
 
-      // === Features Jobs, Internships, Scholarships, and Other Opportunities ===
+      // === Features Data ===
       const jobsData = [
         {
           id: 1,
@@ -1205,8 +1217,8 @@ font-family: 'Times New Roman', Times, serif;
           id: 86,
           title: "STEM Scholarship for Women",
           description: "Funding for women pursuing STEM degrees.",
-          image: "images/stem-scholarship.jpg",
-          link: "https://www.womeninstem.org/",
+          image: "images/university_rd.jpg",
+          link: "https://ur.ac.rw/?Call-for-Applications-for-Admissions-into-Undergraduate-Academic-Programs",
           type: "scholarship",
           location: "Global",
           posted: "2025-05-01",
@@ -1222,7 +1234,7 @@ font-family: 'Times New Roman', Times, serif;
       renderFilters();
       updateLastUpdated();
 
-      filterControls.addEventListener('click', function (e) {
+      filterControls.addEventListener('click', (e) => {
         if (e.target.classList.contains('filter-btn')) {
           document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
           e.target.classList.add('active');
