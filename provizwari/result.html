@@ -1,69 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Exam Result</title>
+  <meta charset="UTF-8">
+  <title>Exam Results</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f7f9;
+      background: #e6f2ff;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
     }
-    .container {
+    .results-box {
       background: white;
       padding: 40px;
       border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      max-width: 400px;
       text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
-    h2 {
-      color: #27ae60;
+    .score {
+      font-size: 32px;
+      font-weight: bold;
+      color: #2c3e50;
     }
-    p {
+    .message {
+      margin-top: 10px;
       font-size: 18px;
-    }
-    button {
-      background-color: #3498db;
-      color: white;
-      padding: 12px 30px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-    button:hover {
-      background-color: #217dbb;
+      color: #27ae60;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Exam Completed</h2>
-    <p id="scoreText">Calculating your score...</p>
-    <button onclick="goToHome()">Go to Home</button>
+  <div class="results-box">
+    <h2>Your Exam Result</h2>
+    <div class="score" id="score">Loading...</div>
+    <div class="message" id="message"></div>
+    <br>
+    <button onclick="location.href='index.html'">Back to Home</button>
   </div>
 
   <script>
-    function goToHome() {
-      window.location.href = "index.html";
-    }
+    const score = localStorage.getItem("examScore");
+    document.getElementById("score").textContent = `Score: ${score}/20`;
 
-    // Amanota azabikwa muri localStorage na script.js igihe user asubmit
-    window.onload = () => {
-      const score = localStorage.getItem('provizwari_score');
-      const total = localStorage.getItem('provizwari_total');
-      if (score !== null && total !== null) {
-        document.getElementById('scoreText').textContent = `You scored ${score} out of ${total}`;
-      } else {
-        document.getElementById('scoreText').textContent = "No score data found.";
-      }
-    };
+    document.getElementById("message").textContent = 
+      score >= 16 ? "Excellent! You Passed." : 
+      score >= 10 ? "Good effort! Try again if needed." : 
+      "You need more practice.";
   </script>
 </body>
 </html>
