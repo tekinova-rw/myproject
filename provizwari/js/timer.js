@@ -1,24 +1,28 @@
+let timeLeft = 20 * 60;
 let timerInterval;
 
-function startTimer(duration) {
-  let timer = duration, minutes, seconds;
-  const timerElement = document.getElementById('timer');
-
-  clearInterval(timerInterval);
-
+function startTimer(onFinish) {
+  const timerEl = document.getElementById('timer');
+  if (!timerEl) {
+    console.error('Timer element not found');
+    return;
+  }
+  if (timerInterval) clearInterval(timerInterval);
   timerInterval = setInterval(() => {
-    minutes = Math.floor(timer / 60);
-    seconds = timer % 60;
-
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-
-    timerElement.textContent = `Time Left: ${minutes}:${seconds}`;
-
-    if (--timer < 0) {
+    if (timeLeft <= 0) {
       clearInterval(timerInterval);
-      alert("Time is up! Exam will be submitted automatically.");
-      submitExam();
+      if (onFinish) onFinish();
+    } else {
+      const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+      const seconds = String(timeLeft % 60).padStart(2, '0');
+      timerEl.textContent = `Iminota: ${minutes}:${seconds}`;
+      timeLeft--;
     }
   }, 1000);
 }
+
+function stopTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+}
+
+window.timer = { startTimer, stopTimer };

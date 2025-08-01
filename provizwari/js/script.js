@@ -1,95 +1,91 @@
 let currentQuestionIndex = 0;
-let userAnswers = [];
-let questionsToUse = [];
+let selectedQuestions = [];
+let userAnswers = new Array(20).fill(null);
 
-const questionContainer = document.getElementById("questionContainer");
-const backBtn = document.getElementById("backBtn");
-const nextBtn = document.getElementById("nextBtn");
-const submitBtn = document.getElementById("submitBtn");
-
-function getRandomQuestions(allQuestions, num) {
-  const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, num);
+function pickRandomQuestions() {
+  if (!window.questions || !Array.isArray(window.questions)) {
+    console.error('Questions not loaded from questions.js');
+    return [];
+  }
+  const shuffled = [...window.questions].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, 20);
 }
 
-function displayQuestion() {
-  const q = questionsToUse[currentQuestionIndex];
-  if (!q) return;
-
-  let html = `<h3>Question ${currentQuestionIndex + 1} of ${questionsToUse.length}</h3>`;
-  html += `<p>${q.question}</p>`;
-
-  if (q.image) {
-    html += `<img src="${q.image}" alt="Question Image" />`;
+function loadQuestion(index) {
+  if (!selectedQuestions[index]) return;
+  const question = selectedQuestions[index];
+  document.getElementById('questionNumber').textContent = `Ikibazo ${index + 1} cya 20`;
+  document.getElementById('questionText').textContent = question.question;
+  const img = document.getElementById('questionImage');
+  img.style.display = question.image ? 'block' : 'none';
+  if (question.image) {
+    img.src = question.image;
+    img.alt = 'Icyapa cyo mu kibazo';
   }
-
-  q.options.forEach(option => {
-    const checked = userAnswers[currentQuestionIndex] === option ? "checked" : "";
-    html += `<label><input type="radio" name="answer" value="${option}" ${checked}> ${option}</label>`;
+  const form = document.getElementById('answersForm');
+  form.querySelectorAll('label').forEach((label, i) => {
+    const option = ['a', 'b', 'c', 'd'][i];
+    label.classList.toggle('selected', userAnswers[index] === option);
+    label.querySelector('input').checked = userAnswers[index] === option;
+    label.querySelector('span').textContent = `${option.toUpperCase()}. ${question[option] || 'No option'}`;
   });
-
-  questionContainer.innerHTML = html;
-
-  backBtn.disabled = currentQuestionIndex === 0;
-  nextBtn.style.display = currentQuestionIndex === questionsToUse.length - 1 ? "none" : "inline-block";
-  submitBtn.style.display = currentQuestionIndex === questionsToUse.length - 1 ? "inline-block" : "none";
+  document.getElementById('backBtn').disabled = index === 0;
+  document.getElementById('nextBtn').disabled = !userAnswers[index];
+  document.getElementById('submitBtn').style.display = index === 19 && userAnswers[index] ? 'inline-block' : 'none';
+  document.getElementById('reviewBtn').style.display = 'none';
+  document.getElementById('homeBtn').style.display = 'none';
 }
 
-function saveAnswer() {
-  const selectedOption = document.querySelector('input[name="answer"]:checked');
-  if (selectedOption) {
-    userAnswers[currentQuestionIndex] = selectedOption.value;
+function finishExam() {
+  window.timer.stopTimer();
+  const score = userAnswers.reduce((acc, answer, i) => acc + (answer === selectedQuestions[i].answer ? 1 : 0), 0);
+  localStorage.setItem('lastSelectedQuestions', JSON.stringify(selectedQuestions));
+  localStorage.setItem('lastUserAnswers', JSON.stringify(userAnswers));
+  window.location.href = `results.html?score=${score}&total=20`;
+}
+
+function initExam() {
+  if (window.mode.hasBonusAccess() || window.mode.getAccessMode() === 'free') {
+    selectedQuestions = pickRandomQuestions();
+    if (selectedQuestions.length === 0) {
+      alert('No questions available. Please check questions.js.');
+      return;
+    }
+    window.timer.startTimer(finishExam);
+    loadQuestion(0);
+  } else {
+    window.mode.requireBonusAccess('pay.html');
   }
 }
 
-function nextQuestion() {
-  saveAnswer();
-  if (currentQuestionIndex < questionsToUse.length - 1) {
-    currentQuestionIndex++;
-    displayQuestion();
-  }
-}
+document.getElementById('answersForm').addEventListener('change', (e) => {
+  const form = document.getElementById('answersForm');
+  userAnswers[currentQuestionIndex] = e.target.value;
+  form.querySelectorAll('label').forEach(label => {
+    label.classList.toggle('selected', label.querySelector('input').value === e.target.value);
+  });
+  loadQuestion(currentQuestionIndex);
+});
 
-function prevQuestion() {
-  saveAnswer();
+document.getElementById('backBtn').addEventListener('click', () => {
   if (currentQuestionIndex > 0) {
     currentQuestionIndex--;
-    displayQuestion();
+    loadQuestion(currentQuestionIndex);
   }
-}
+});
 
-function submitExam() {
-  saveAnswer();
+document.getElementById('nextBtn').addEventListener('click', () => {
+  if (currentQuestionIndex < 19 && userAnswers[currentQuestionIndex]) {
+    currentQuestionIndex++;
+    loadQuestion(currentQuestionIndex);
+  }
+});
 
-  let score = 0;
-  questionsToUse.forEach((q, i) => {
-    if (userAnswers[i] === q.answer) score++;
-  });
+document.getElementById('submitBtn').addEventListener('click', finishExam);
 
-  alert(`You scored ${score} out of ${questionsToUse.length}`);
+document.getElementById('homeBtn').addEventListener('click', () => {
+  window.timer.stopTimer();
+  window.location.href = 'index.html';
+});
 
-  // Ushobora gushyiramo redirect cyangwa kubika amanota muri localStorage/sessionStorage
-  // window.location.href = "result.html";
-}
-
-window.onload = () => {
-  questionsToUse = getRandomQuestions(questions, 20);
-  userAnswers = new Array(questionsToUse.length).fill(null);
-  displayQuestion();
-  startTimer(20 * 60);
-};
-function submitExam() {
-  saveAnswer();
-
-  let score = 0;
-  questionsToUse.forEach((q, i) => {
-    if (userAnswers[i] === q.answer) score++;
-  });
-
-  // Bika amanota muri localStorage
-  localStorage.setItem('provizwari_score', score);
-  localStorage.setItem('provizwari_total', questionsToUse.length);
-
-  // Redirect ujye kuri result page
-  window.location.href = "result.html";
-}
+window.onload = initExam;

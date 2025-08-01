@@ -2,88 +2,168 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Provizwari Exam</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Provizwari Exam - Answer 20 Random Driving Test Questions." />
+  <meta name="keywords" content="driving exam, provizwari, test system, questions" />
+  <meta name="author" content="Fique" />
+  <title>Provizwari | Take Exam</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f7f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #003973, #E5E5BE);
+      color: #000;
+      min-height: 100vh;
+    }
+    header {
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      text-align: center;
       padding: 20px;
     }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    h1 {
-      text-align: center;
-      color: #2c3e50;
-    }
-    #timer {
-      text-align: right;
-      font-size: 18px;
+    .timer {
+      font-size: 20px;
       font-weight: bold;
-      color: #e74c3c;
-      margin-bottom: 20px;
+      margin-top: 10px;
     }
-    #questionContainer {
-      margin-bottom: 20px;
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
-    img {
-      margin: 10px 0;
-      max-width: 100%;
-      height: auto;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+    .question h3 {
+      margin-bottom: 10px;
+      color: #333;
     }
     label {
       display: block;
-      margin-left: 20px;
       margin-bottom: 8px;
       cursor: pointer;
     }
     button {
-      background-color: #27ae60;
+      padding: 12px 25px;
+      background-color: #0077cc;
       color: white;
-      padding: 10px 25px;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       font-size: 16px;
       cursor: pointer;
-      margin: 0 10px;
+      margin-top: 20px;
     }
-    button:disabled {
-      background-color: #aaa;
-      cursor: not-allowed;
+    button:hover {
+      background-color: #005fa3;
     }
-    .navigation {
-      text-align: center;
+    @media (max-width: 600px) {
+      .container {
+        margin: 10px;
+        padding: 20px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Provizwari Online Exam</h1>
-    <div id="timer">Time Left: 20:00</div>
+  <header>
+    <h1>📝 Provizwari Exam</h1>
+    <div class="timer" id="timer">20:00</div>
+  </header>
 
-    <form id="examForm" onsubmit="return false;">
-      <div id="questionContainer"></div>
-
-      <div class="navigation">
-        <button id="backBtn" type="button" onclick="prevQuestion()">Back</button>
-        <button id="nextBtn" type="button" onclick="nextQuestion()">Next</button>
-        <button id="submitBtn" type="button" onclick="submitExam()" style="display:none;">Submit Exam</button>
-      </div>
-    </form>
+  <div class="container" id="examContainer">
+    <!-- One question at a time will be injected here -->
   </div>
 
-  <script src="./js/mode.js"></script>
-  <script src="./js/questions.js"></script>
-  <script src="./js/script.js"></script>
-  <script src="./js/timer.js"></script>
+  <!-- Load Questions -->
+  <script src="js/questions.js"></script>
+
+  <script>
+    const TOTAL_QUESTIONS = 20;
+    let selectedQuestions = [];
+    let currentQuestionIndex = 0;
+    let userAnswers = [];
+
+    // Shuffle helper
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    // Start
+    function startExam() {
+      shuffleArray(questions); // from questions.js
+      selectedQuestions = questions.slice(0, TOTAL_QUESTIONS);
+      showQuestion(currentQuestionIndex);
+    }
+
+    // Display one question
+    function showQuestion(index) {
+      const container = document.getElementById('examContainer');
+      const q = selectedQuestions[index];
+
+      container.innerHTML = `
+        <div class="question">
+          <h3>Q${index + 1}. ${q.q}</h3>
+          ${q.a.map((opt, i) => `
+            <label>
+              <input type="radio" name="answer" value="${i}" ${userAnswers[index] == i ? 'checked' : ''}/> ${opt}
+            </label>
+          `).join('')}
+          <button onclick="nextQuestion()">Next</button>
+        </div>
+      `;
+    }
+
+    // Next button logic
+    function nextQuestion() {
+      const selected = document.querySelector('input[name="answer"]:checked');
+      if (selected) {
+        userAnswers[currentQuestionIndex] = parseInt(selected.value);
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex < TOTAL_QUESTIONS) {
+          showQuestion(currentQuestionIndex);
+        } else {
+          submitExam();
+        }
+      } else {
+        alert("Hitamo igisubizo mbere yo gukomeza.");
+      }
+    }
+
+    // Submit exam
+    function submitExam() {
+      let score = 0;
+      for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+        if (userAnswers[i] === selectedQuestions[i].correct) {
+          score++;
+        }
+      }
+      localStorage.setItem('provizwari_score', score);
+      localStorage.setItem('provizwari_answers', JSON.stringify(userAnswers));
+      localStorage.setItem('provizwari_questions', JSON.stringify(selectedQuestions));
+      window.location.href = "results.html";
+    }
+
+    // Timer
+    let time = 20 * 60;
+    const timerEl = document.getElementById("timer");
+    const countdown = setInterval(() => {
+      const minutes = Math.floor(time / 60);
+      const seconds = time % 60;
+      timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      if (time <= 0) {
+        clearInterval(countdown);
+        submitExam();
+      }
+      time--;
+    }, 1000);
+
+    // Start the exam after page load
+    window.onload = startExam;
+  </script>
 </body>
 </html>

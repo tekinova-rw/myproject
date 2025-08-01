@@ -1,53 +1,175 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="rw">
 <head>
-  <meta charset="UTF-8">
-  <title>Exam Results</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Amanota ya Provizwari</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #e6f2ff;
+      background-color: #f4f4f4;
+      margin: 0; padding: 0;
+      color: #333;
       display: flex;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 20px;
     }
-    .results-box {
-      background: white;
-      padding: 40px;
-      border-radius: 10px;
+    .container {
+      background: #fff;
+      max-width: 700px;
+      width: 100%;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+    }
+    header {
       text-align: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin-bottom: 15px;
     }
-    .score {
-      font-size: 32px;
-      font-weight: bold;
-      color: #2c3e50;
+    #resultText {
+      font-size: 1.15rem;
+      text-align: center;
+      margin-bottom: 15px;
     }
-    .message {
-      margin-top: 10px;
-      font-size: 18px;
-      color: #27ae60;
+    .navigation-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #3498db;
+      color: white;
+      transition: background-color 0.3s;
+      min-width: 100px;
+    }
+    button:hover:not(:disabled) {
+      background-color: #2980b9;
+    }
+    button:disabled {
+      background-color: #bdc3c7;
+      cursor: not-allowed;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px 20px;
+      }
+      button {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+      }
+      #resultText {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="results-box">
-    <h2>Your Exam Result</h2>
-    <div class="score" id="score">Loading...</div>
-    <div class="message" id="message"></div>
-    <br>
-    <button onclick="location.href='index.html'">Back to Home</button>
+  <div class="container" role="main">
+    <header>
+      <h1>Amanota yawe</h1>
+    </header>
+    <div id="resultText" aria-live="assertive">Utegereze gato, turimo kubara amanota...</div>
+    <div class="navigation-buttons">
+      <button onclick="window.location.href='review.html'">Sura Ibisubizo</button>
+      <button onclick="window.location.href='index.html'">Garuka ku Itangiriro</button>
+    </div>
   </div>
-
-  <script>
-    const score = localStorage.getItem("examScore");
-    document.getElementById("score").textContent = `Score: ${score}/20`;
-
-    document.getElementById("message").textContent = 
-      score >= 16 ? "Excellent! You Passed." : 
-      score >= 10 ? "Good effort! Try again if needed." : 
-      "You need more practice.";
-  </script>
+  <script src="../js/results.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="rw">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Amanota ya Provizwari</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0; padding: 0;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      background: #fff;
+      max-width: 700px;
+      width: 100%;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+    }
+    header {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    #resultText {
+      font-size: 1.15rem;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .navigation-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #3498db;
+      color: white;
+      transition: background-color 0.3s;
+      min-width: 100px;
+    }
+    button:hover:not(:disabled) {
+      background-color: #2980b9;
+    }
+    button:disabled {
+      background-color: #bdc3c7;
+      cursor: not-allowed;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px 20px;
+      }
+      button {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+      }
+      #resultText {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <header>
+      <h1>Amanota yawe</h1>
+    </header>
+    <div id="resultText" aria-live="assertive">Utegereze gato, turimo kubara amanota...</div>
+    <div class="navigation-buttons">
+      <button onclick="window.location.href='review.html'">Sura Ibisubizo</button>
+      <button onclick="window.location.href='index.html'">Garuka ku Itangiriro</button>
+    </div>
+  </div>
+  <script src="../js/results.js"></script>
 </body>
 </html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sura Ibisubizo by'Provizwari</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0; padding: 0;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      background: #fff;
+      max-width: 700px;
+      width: 100%;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+    }
+    header {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    #reviewContent {
+      font-size: 1.15rem;
+    }
+    #reviewContent p {
+      margin-bottom: 10px;
+    }
+    #reviewContent img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .correct {
+      color: #27ae60;
+      font-weight: bold;
+    }
+    .incorrect {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #3498db;
+      color: white;
+      transition: background-color 0.3s;
+      min-width: 100px;
+    }
+    button:hover:not(:disabled) {
+      background-color: #2980b9;
+    }
+    button:disabled {
+      background-color: #bdc3c7;
+      cursor: not-allowed;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px 20px;
+      }
+      #reviewContent {
+        font-size: 1rem;
+      }
+      button {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <header>
+      <h1>Sura Ibisubizo by'Ikizamini</h1>
+    </header>
+    <div id="reviewContent">Loading questions...</div>
+    <button onclick="window.location.href='index.html'">Garuka ku Itangiriro</button>
+  </div>
+  <script src="../js/review.js"></script>
+</body>
+</html>
