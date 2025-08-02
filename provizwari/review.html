@@ -3,92 +3,171 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sura Ibisubizo by'Provizwari</title>
+  <title>Ibisubizo By'Ikizamini</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0; padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
       color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      padding: 20px;
+      padding: 30px;
     }
+
     .container {
-      background: #fff;
-      max-width: 700px;
-      width: 100%;
-      padding: 20px 30px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+      max-width: 900px;
+      margin: auto;
     }
-    header {
-      text-align: center;
-      margin-bottom: 15px;
+
+    .question {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
     }
-    #reviewContent {
-      font-size: 1.15rem;
-    }
-    #reviewContent p {
-      margin-bottom: 10px;
-    }
-    #reviewContent img {
-      max-width: 100%;
-      height: auto;
-      margin-bottom: 10px;
+
+    .option {
+      padding: 10px;
       border-radius: 5px;
-      border: 1px solid #ccc;
+      margin: 5px 0;
     }
+
     .correct {
-      color: #27ae60;
+      background-color: #d4edda;
+      border-left: 4px solid #28a745;
+    }
+
+    .wrong {
+      background-color: #f8d7da;
+      border-left: 4px solid #dc3545;
+    }
+
+    .neutral {
+      background-color: #f1f1f1;
+    }
+
+    img {
+      max-width: 100%;
+      margin-top: 10px;
+      border-radius: 6px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .summary {
+      background-color: #fff;
+      padding: 20px;
+      border-left: 6px solid #0077cc;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .summary .score {
+      font-size: 24px;
       font-weight: bold;
     }
-    .incorrect {
-      color: #e74c3c;
-      font-weight: bold;
+
+    .pass { color: #28a745; }
+    .fail { color: #dc3545; }
+
+    .back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 30px;
     }
-    button {
-      padding: 10px 20px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      background-color: #3498db;
-      color: white;
-      transition: background-color 0.3s;
-      min-width: 100px;
+
+    .back-btn a {
+      display: inline-block;
+      background-color: #0077cc;
+      color: #fff;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 18px;
     }
-    button:hover:not(:disabled) {
-      background-color: #2980b9;
-    }
-    button:disabled {
-      background-color: #bdc3c7;
-      cursor: not-allowed;
-    }
-    @media (max-width: 600px) {
-      .container {
-        padding: 15px 20px;
-      }
-      #reviewContent {
-        font-size: 1rem;
-      }
-      button {
-        font-size: 0.9rem;
-        padding: 8px 15px;
-      }
+
+    .back-btn a:hover {
+      background-color: #005fa3;
     }
   </style>
 </head>
 <body>
-  <div class="container" role="main">
-    <header>
-      <h1>Sura Ibisubizo by'Ikizamini</h1>
-    </header>
-    <div id="reviewContent">Loading questions...</div>
-    <button onclick="window.location.href='index.html'">Garuka ku Itangiriro</button>
+  <div class="container">
+    <h2>🧐 Reba Ibisubizo Nyakuri</h2>
+
+    <div class="summary" id="summaryBox"></div>
+    <div id="reviewContainer"></div>
+
+    <div class="back-btn">
+      <a href="index.html">🏠 Subira ku Rubuga Nyamukuru</a>
+    </div>
   </div>
-  <script src="../js/review.js"></script>
+
+  <script>
+    // Soma amakuru abikwa mu localStorage
+    const questions = JSON.parse(localStorage.getItem('provizwari_questions')) || [];
+    const userAnswers = JSON.parse(localStorage.getItem('provizwari_answers')) || [];
+    const score = parseInt(localStorage.getItem('provizwari_score')) || 0;
+    const TOTAL = 20;
+    const optionKeys = ['a', 'b', 'c', 'd'];
+
+    const summaryBox = document.getElementById('summaryBox');
+    const reviewContainer = document.getElementById('reviewContainer');
+
+    // Subiza score hejuru
+    summaryBox.innerHTML = `
+      <div class="score">
+        Amanota: <span class="${score >= 12 ? 'pass' : 'fail'}">${score} / ${TOTAL}</span>
+      </div>
+      <div>
+        ${score >= 12 ? '🎉 <strong>Waratsinze!</strong>' : '❌ <strong>Ntiwatsinze</strong>'}
+      </div>
+    `;
+
+    // Fungura review y'ibibazo byose
+    for (let i = 0; i < questions.length; i++) {
+      const q = questions[i];
+      const userAnswer = userAnswers[i];
+      const correctIndex = optionKeys.indexOf(q.answer);
+
+      const optionsHtml = optionKeys.map((key, idx) => {
+        let className = "neutral";
+        let icon = "";
+
+        // ✔️ = igisubizo nyacyo
+        if (idx === correctIndex && idx === userAnswer) {
+          className = "correct"; icon = "🔵"; // wacuze neza
+        } else if (idx === correctIndex) {
+          className = "correct"; icon = "✔️";
+        } else if (idx === userAnswer) {
+          className = "wrong"; icon = "❌";
+        }
+
+        return `
+          <div class="option ${className}">
+            <strong>${icon ? icon + " " : ""}${key.toUpperCase()}.</strong> ${q[key]}
+          </div>
+        `;
+      }).join("");
+
+      // Shyiramo ikibazo kimwe kimwe
+      reviewContainer.innerHTML += `
+        <div class="question">
+          <h3>Q${i + 1}. ${q.question}</h3>
+          ${q.image ? `<img src="${q.image}" alt="Ifoto">` : ""}
+          ${optionsHtml}
+        </div>
+      `;
+    }
+
+    // Ushaka gusiba localStorage nyuma ya review?
+    // localStorage.removeItem('provizwari_questions');
+    // localStorage.removeItem('provizwari_answers');
+    // localStorage.removeItem('provizwari_score');
+  </script>
 </body>
 </html>

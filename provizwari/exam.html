@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Provizwari Exam - Answer 20 Random Driving Test Questions." />
   <meta name="keywords" content="driving exam, provizwari, test system, questions" />
   <meta name="author" content="Fique" />
@@ -21,6 +21,9 @@
       color: #fff;
       text-align: center;
       padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
     .timer {
       font-size: 20px;
@@ -39,10 +42,63 @@
       margin-bottom: 10px;
       color: #333;
     }
-    label {
-      display: block;
-      margin-bottom: 8px;
+    .progress {
+      font-size: 16px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    input[type="radio"] {
+      position: absolute;
+      opacity: 0;
       cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-size: 18px;
+      user-select: none;
+      transition: background-color 0.2s ease;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      gap: 15px;
+      position: relative;
+      padding-left: 0;
+    }
+    label:hover {
+      background-color: #f0f8ff;
+    }
+    label::before {
+      content: attr(data-letter);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      border: 2px solid #0077cc;
+      color: #0077cc;
+      font-weight: bold;
+      font-family: monospace, monospace;
+      user-select: none;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+      position: relative;
+      flex-shrink: 0;
+    }
+    input[type="radio"]:checked + label::before {
+      background-color: #0077cc;
+      color: white;
+      border-color: #0077cc;
+    }
+    .buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
     }
     button {
       padding: 12px 25px;
@@ -50,17 +106,36 @@
       color: white;
       border: none;
       border-radius: 6px;
-      font-size: 16px;
+      font-size: 18px;
       cursor: pointer;
-      margin-top: 20px;
+      transition: background-color 0.3s ease;
+      min-width: 120px;
     }
-    button:hover {
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    button:hover:not(:disabled) {
       background-color: #005fa3;
+    }
+    img {
+      max-width: 100%;
+      margin: 15px 0;
+      border-radius: 8px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.2);
     }
     @media (max-width: 600px) {
       .container {
         margin: 10px;
         padding: 20px;
+      }
+      .buttons {
+        flex-direction: column;
+        gap: 10px;
+      }
+      button {
+        width: 100%;
+        min-width: unset;
       }
     }
   </style>
@@ -72,19 +147,24 @@
   </header>
 
   <div class="container" id="examContainer">
-    <!-- One question at a time will be injected here -->
+    <!-- Question and options will be injected here -->
   </div>
 
-  <!-- Load Questions -->
-  <script src="js/questions.js"></script>
+  <script src="js/questions.js"></script> <!-- Make sure this file defines the array "questions" -->
 
   <script>
     const TOTAL_QUESTIONS = 20;
     let selectedQuestions = [];
     let currentQuestionIndex = 0;
-    let userAnswers = [];
+    const optionKeys = ["a", "b", "c", "d"];
+    const timerEl = document.getElementById('timer');
 
-    // Shuffle helper
+    // Load saved answers or initialize fresh
+    let userAnswers = JSON.parse(localStorage.getItem('provizwari_answers')) || new Array(TOTAL_QUESTIONS).fill(null);
+    // Load saved timer or default to 20 minutes in seconds
+    let timeLeft = parseInt(localStorage.getItem('provizwari_time_left')) || 20 * 60;
+    let timerInterval;
+
     function shuffleArray(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -92,78 +172,148 @@
       }
     }
 
-    // Start
     function startExam() {
-      shuffleArray(questions); // from questions.js
-      selectedQuestions = questions.slice(0, TOTAL_QUESTIONS);
+      if (!Array.isArray(questions) || questions.length < TOTAL_QUESTIONS) {
+        alert("Questions not loaded or not enough questions.");
+        return;
+      }
+
+      // If no saved questions, shuffle and save selection
+      if (!localStorage.getItem('provizwari_questions')) {
+        shuffleArray(questions);
+        selectedQuestions = questions.slice(0, TOTAL_QUESTIONS);
+        localStorage.setItem('provizwari_questions', JSON.stringify(selectedQuestions));
+      } else {
+        selectedQuestions = JSON.parse(localStorage.getItem('provizwari_questions'));
+      }
+
+      // Reset answers and time only if fresh start (no saved answers)
+      if (!localStorage.getItem('provizwari_answers')) {
+        userAnswers = new Array(TOTAL_QUESTIONS).fill(null);
+        timeLeft = 20 * 60;
+      } else {
+        userAnswers = JSON.parse(localStorage.getItem('provizwari_answers'));
+        timeLeft = parseInt(localStorage.getItem('provizwari_time_left')) || 20 * 60;
+      }
+
+      currentQuestionIndex = 0;
       showQuestion(currentQuestionIndex);
+      startTimer();
     }
 
-    // Display one question
     function showQuestion(index) {
       const container = document.getElementById('examContainer');
       const q = selectedQuestions[index];
 
+      let optionsHtml = optionKeys.map((key, i) => `
+        <input id="option${i}" type="radio" name="answer" value="${i}" ${userAnswers[index] === i ? "checked" : ""} aria-label="Option ${key.toUpperCase()}: ${q[key]}">
+        <label for="option${i}" data-letter="${key.toUpperCase()}">${q[key]}</label>
+      `).join("");
+
+      let imageHtml = q.image ? `<img src="${q.image}" alt="Ikimenyetso cya ${q.question}">` : "";
+
       container.innerHTML = `
+        <div class="progress">Question ${index + 1} of ${TOTAL_QUESTIONS}</div>
         <div class="question">
-          <h3>Q${index + 1}. ${q.q}</h3>
-          ${q.a.map((opt, i) => `
-            <label>
-              <input type="radio" name="answer" value="${i}" ${userAnswers[index] == i ? 'checked' : ''}/> ${opt}
-            </label>
-          `).join('')}
-          <button onclick="nextQuestion()">Next</button>
+          <h3>Q${index + 1}. ${q.question}</h3>
+          ${imageHtml}
+          ${optionsHtml}
+          <div class="buttons">
+            <button id="backBtn" ${index === 0 ? "disabled" : ""} aria-label="Previous question">Garuka</button>
+            <button id="nextBtn">${index === TOTAL_QUESTIONS - 1 ? 'Ohereza Ikizamini' : 'Ibindi'}</button>
+          </div>
         </div>
       `;
-    }
 
-    // Next button logic
-    function nextQuestion() {
-      const selected = document.querySelector('input[name="answer"]:checked');
-      if (selected) {
-        userAnswers[currentQuestionIndex] = parseInt(selected.value);
-        currentQuestionIndex++;
+      document.getElementById('backBtn').onclick = () => {
+        saveAnswer();
+        if (currentQuestionIndex > 0) {
+          currentQuestionIndex--;
+          showQuestion(currentQuestionIndex);
+        }
+      };
 
-        if (currentQuestionIndex < TOTAL_QUESTIONS) {
+      document.getElementById('nextBtn').onclick = () => {
+        // Save answer before moving forward
+        saveAnswer();
+
+        if (currentQuestionIndex < TOTAL_QUESTIONS - 1) {
+          currentQuestionIndex++;
           showQuestion(currentQuestionIndex);
         } else {
+          // Last question, submit exam
           submitExam();
         }
-      } else {
-        alert("Hitamo igisubizo mbere yo gukomeza.");
-      }
+      };
     }
 
-    // Submit exam
+    function saveAnswer() {
+      const selectedOption = document.querySelector('input[name="answer"]:checked');
+      if (!selectedOption) return;
+
+      // Update answers array and save to localStorage
+      userAnswers[currentQuestionIndex] = Number(selectedOption.value);
+      localStorage.setItem('provizwari_answers', JSON.stringify(userAnswers));
+    }
+
     function submitExam() {
+      clearInterval(timerInterval);
+
       let score = 0;
       for (let i = 0; i < TOTAL_QUESTIONS; i++) {
-        if (userAnswers[i] === selectedQuestions[i].correct) {
+        // Correct answer stored as letter like 'a', 'b', etc.
+        if (userAnswers[i] === optionKeys.indexOf(selectedQuestions[i].answer)) {
           score++;
         }
       }
+
       localStorage.setItem('provizwari_score', score);
-      localStorage.setItem('provizwari_answers', JSON.stringify(userAnswers));
-      localStorage.setItem('provizwari_questions', JSON.stringify(selectedQuestions));
+
+      // Clear saved exam data after submission
+      localStorage.removeItem('provizwari_questions');
+      localStorage.removeItem('provizwari_answers');
+      localStorage.removeItem('provizwari_time_left');
+
+      // Redirect to results page
       window.location.href = "results.html";
     }
 
-    // Timer
-    let time = 20 * 60;
-    const timerEl = document.getElementById("timer");
-    const countdown = setInterval(() => {
-      const minutes = Math.floor(time / 60);
-      const seconds = time % 60;
-      timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-      if (time <= 0) {
-        clearInterval(countdown);
-        submitExam();
-      }
-      time--;
-    }, 1000);
+    function startTimer() {
+      updateTimerDisplay();
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        if (timeLeft < 0) {
+          clearInterval(timerInterval);
+          alert("Igihe cyawe kirarangiye! Ikizamini kiratangwa.");
+          submitExam();
+          return;
+        }
+        localStorage.setItem('provizwari_time_left', timeLeft);
+        updateTimerDisplay();
+      }, 1000);
+    }
 
-    // Start the exam after page load
-    window.onload = startExam;
+    function updateTimerDisplay() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    window.onload = () => {
+      startExam();
+    };
+    function submitExam() {
+  clearInterval(timerInterval);
+  let score = 0;
+  for (let i=0; i < TOTAL_QUESTIONS; i++) {
+    if (userAnswers[i] === optionKeys.indexOf(selectedQuestions[i].answer)) score++;
+  }
+  localStorage.setItem('provizwari_score', score);
+  // NTUGASIBE QUESTIONS cyangwa ANSWERS
+  // ...
+  window.location.href = "results.html";
+}
+
   </script>
 </body>
 </html>

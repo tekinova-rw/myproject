@@ -751,6 +751,61 @@
 font-family: 'Times New Roman', Times, serif;
   font-size: x-large;
 }
+/* provizwari -------------------------------------------*/
+.floating-car-btn {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  background-color: #970202;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  z-index: 9999;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.floating-car-btn:hover {
+  transform: translateY(-50%) scale(1.1);
+  background-color: #500236;
+}
+
+.floating-car-btn i {
+  pointer-events: none;
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+/* Wave animation pointing right */
+@keyframes wave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(20deg); }
+  50% { transform: rotate(-10deg); }
+  75% { transform: rotate(20deg); }
+}
+
+/* Animate ikiganza */
+.wave-hand {
+  animation: wave 1.5s ease-in-out 3;
+  transform-origin: 70% 70%; /* pivot from left-bottom corner */
+}
+
+.btn-text {
+  font-size: 14px;
+  font-weight: bold;
+  user-select: none;
+}
+
+
+
+
   </style>
 </head>
 <body>
@@ -994,6 +1049,11 @@ font-family: 'Times New Roman', Times, serif;
   
   <!-- Talk to Us -->
   <div class="floating-whatsapp-buttons left-side">
+    <!-- provivizwari button -->
+   <a href="https://whatsapp.com/channel/0029VbBUVsPDTkKD9z89s20H" class="float-btn group" target="_blank" rel="noopener noreferrer">
+      <span class="icon"></span>
+      <span class="label">follow channel</span>
+    </a>
     <a href="https://wa.me/250733253803" class="float-btn chat" target="_blank" rel="noopener noreferrer">
       <span class="icon"></span>
       <span class="label">Chat</span>
@@ -1025,6 +1085,16 @@ font-family: 'Times New Roman', Times, serif;
       </div>
     </div>
   </main>
+<!-- provizari ------------------------ -->
+ <button class="floating-car-btn" title="Kanda hano" onclick="document.getElementById('provizwari-link').click()">
+  <div class="icons">
+    <i id="hand-icon" class="fas fa-hand-pointer"></i>
+    <i class="fas fa-car"></i>
+  </div>
+  <span class="btn-text">provizwari</span>
+</button>
+
+<a href="provizwari/index.html" style="display:none;" id="provizwari-link">Provizwari Page</a>
 
   <!-- ===== FOOTER ===== -->
   <footer>
@@ -1200,6 +1270,23 @@ font-family: 'Times New Roman', Times, serif;
         document.getElementById('menuToggle').style.display = 'block';
       }
     });
+    // provizwari
+    const handIcon = document.getElementById('hand-icon');
+
+function waveHand() {
+  handIcon.classList.add('wave-hand');
+  // Remove the class after animation completes (1.5s * 3 waves = 4.5s)
+  setTimeout(() => {
+    handIcon.classList.remove('wave-hand');
+  }, 4500);
+}
+
+// Trigger the wave every 2 minutes (120000 ms)
+setInterval(waveHand, 120000);
+
+// Optional: trigger once on page load
+waveHand();
+
   </script>
 </body>
 </html>
