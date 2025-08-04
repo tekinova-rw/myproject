@@ -402,83 +402,6 @@
       background: #d0d0d0;
     }
 
-    /* Upload Section */
-    .upload-section {
-      max-width: 1200px;
-      margin: 20px auto;
-      padding: 15px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    .upload-section h1 {
-      color: #012f47;
-      font-size: 1.6rem;
-      margin-bottom: 15px;
-      text-align: center;
-    }
-
-    .upload-section p {
-      color: #555;
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 10px;
-    }
-
-    .upload-section ol {
-      list-style-type: decimal;
-      margin-left: 20px;
-      margin-bottom: 15px;
-    }
-
-    .upload-section li {
-      color: #333;
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
-
-    .upload-section a {
-      color: #012f47;
-      text-decoration: underline;
-      font-weight: 600;
-    }
-
-    .upload-section a:hover {
-      color: #034d6d;
-    }
-
-    /* Job Details */
-    .job-details {
-      margin-top: 10px;
-    }
-
-    .job-details h3 {
-      color: #012f47;
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .job-details ul {
-      list-style-type: disc;
-      margin-left: 20px;
-      margin-bottom: 10px;
-    }
-
-    .job-details li {
-      color: #555;
-      font-size: 12px;
-      margin-bottom: 4px;
-    }
-
-    .countdown {
-      color: #d9534f;
-      font-size: 0.75rem;
-      font-weight: 600;
-      margin-top: 8px;
-    }
-
     /* Footer */
     footer {
       background-color: #012f47;
@@ -955,44 +878,30 @@
     <!-- Hamburger Menu Widgets -->
     <div class="hamburger-widget">
       <h3 class="text-yellow-400">Quick Stats</h3>
-      <p>Overview of available opportunities</p>
+      <p>Overview of your recent activity</p>
       <div class="widget-stats">
         <div>
-          <span>200</span>
-          <small>Jobs</small>
+          <span>1,245</span>
+          <small>Visitors</small>
         </div>
         <div>
-          <span>100</span>
-          <small>Scholarships</small>
+          <span>24</span>
+          <small>Projects</small>
         </div>
         <div>
-          <span>50</span>
-          <small>Internships</small>
+          <span>18</span>
+          <small>Team</small>
         </div>
       </div>
     </div>
     
     <div class="hamburger-widget">
       <h3 class="text-yellow-400">Recent Activity</h3>
-      <p><i class="fas fa-check-circle mr-2"></i> New job postings added</p>
-      <p><i class="fas fa-user-plus mr-2"></i> New scholarships available</p>
-      <p><i class="fas fa-sync-alt mr-2"></i> Platform updated</p>
+      <p><i class="fas fa-check-circle mr-2"></i> New project started</p>
+      <p><i class="fas fa-user-plus mr-2"></i> 3 new team members</p>
+      <p><i class="fas fa-sync-alt mr-2"></i> Website updated</p>
     </div>
   </aside>
-
-  <!-- ===== UPLOAD SECTION ===== -->
-  <section class="upload-section">
-    <h1>How Companies Can Post Opportunities</h1>
-    <p>At TekiNova, we make it easy for companies to share their job openings, scholarships, and other opportunities with our global audience. Follow these simple steps to post your opportunities:</p>
-    <ol>
-      <li><strong>Register an Account:</strong> Create a company account on our <a href="register.html">Employer Portal</a>.</li>
-      <li><strong>Complete Your Profile:</strong> Provide details about your organization, including logo, description, and contact information.</li>
-      <li><strong>Submit Opportunity Details:</strong> Fill out our user-friendly form with details such as title, description, location, type (job, scholarship, internship, or other), application link, detailed description, requirements, deadline, and an optional image.</li>
-      <li><strong>Review and Publish:</strong> Our team reviews submissions for quality and relevance. Once approved, your opportunity will be live on our platform, reaching thousands of candidates.</li>
-      <li><strong>Manage Applications:</strong> Track applications and manage your postings through your employer dashboard.</li>
-    </ol>
-    <p>Have questions? Contact us at <a href="mailto:employers@tekinova.com">employers@tekinova.com</a> or via WhatsApp at <a href="https://wa.me/+250733253803">+250 733 253 803</a>.</p>
-  </section>
 
   <!-- ===== MAIN CONTENT ===== -->
   <main class="features-container flex-1">
@@ -1090,33 +999,6 @@
       event.stopPropagation();
     }
 
-    // === Countdown Timer ===
-    function startCountdown(deadline, elementId) {
-      const countdownEl = document.getElementById(elementId);
-      if (!countdownEl) return;
-
-      function updateCountdown() {
-        const now = new Date();
-        const deadlineDate = new Date(deadline);
-        const timeLeft = deadlineDate - now;
-
-        if (timeLeft <= 0) {
-          countdownEl.textContent = 'Application Closed';
-          return;
-        }
-
-        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-        countdownEl.textContent = `Closes in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-      }
-
-      updateCountdown();
-      setInterval(updateCountdown, 1000);
-    }
-
     // === Event Listeners ===
     document.addEventListener('DOMContentLoaded', () => {
       const hamburgerIcon = document.getElementById('hamburgerIcon');
@@ -1170,228 +1052,178 @@
           id: 1,
           title: "Google Software Engineer",
           description: "Join Google's engineering team to build scalable systems.",
-          fullDescription: "Develop and maintain large-scale, distributed software systems to enhance Google's product ecosystem.",
-          requirements: ["BS/MS in Computer Science", "5+ years of software development experience", "Proficiency in Python, Java, or C++", "Experience with cloud platforms"],
           image: "images/google-job.jpg",
           link: "https://careers.google.com/",
           type: "job",
           location: "Mountain View, CA",
           posted: "2025-06-01",
-          deadline: "2025-08-15",
           featured: true
         },
         {
           id: 2,
           title: "United Nations Programme Officer",
           description: "Work on global development projects with the UN.",
-          fullDescription: "Coordinate and manage international development programs, focusing on sustainable development goals.",
-          requirements: ["Master’s degree in International Relations or related field", "3+ years in program management", "Fluency in English and French", "Strong analytical skills"],
           image: "images/un-job.jpg",
           link: "https://careers.un.org",
           type: "job",
           location: "New York, NY",
           posted: "2025-05-20",
-          deadline: "2025-08-10",
           featured: true
         },
         {
           id: 3,
           title: "Remote UI/UX Designer",
           description: "Design user-friendly interfaces for a tech startup.",
-          fullDescription: "Create intuitive and visually appealing interfaces for web and mobile applications.",
-          requirements: ["Bachelor’s in Design or related field", "3+ years of UI/UX experience", "Proficiency in Figma or Adobe XD", "Portfolio of past work"],
           image: "images/uiux-job.jpg",
           link: "https://remoteok.com/",
           type: "job",
           location: "Remote",
           posted: "2025-05-15",
-          deadline: "2025-08-20",
           featured: true
         },
         {
           id: 4,
           title: "AWS Cloud Architect",
           description: "Design cloud solutions for enterprise clients.",
-          fullDescription: "Architect and deploy scalable cloud infrastructure for enterprise-level applications using AWS services.",
-          requirements: ["AWS Certified Solutions Architect", "5+ years in cloud architecture", "Experience with microservices", "Knowledge of DevOps practices"],
           image: "images/aws-job.jpg",
           link: "https://aws.amazon.com/careers/",
           type: "job",
           location: "Seattle, WA",
           posted: "2025-06-02",
-          deadline: "2025-08-25",
           featured: false
         },
         {
           id: 5,
           title: "Data Scientist at Microsoft",
           description: "Analyze data to drive business insights.",
-          fullDescription: "Leverage advanced analytics and machine learning to provide actionable business insights.",
-          requirements: ["PhD in Data Science or related field", "Proficiency in Python and R", "Experience with Azure ML", "Strong statistical knowledge"],
           image: "images/microsoft-job.jpg",
           link: "https://careers.microsoft.com/",
           type: "job",
           location: "Redmond, WA",
           posted: "2025-05-25",
-          deadline: "2025-08-12",
           featured: false
         },
         {
-          id: 6,
+          id: 30,
           title: "Cybersecurity Analyst",
           description: "Protect systems from cyber threats.",
-          fullDescription: "Monitor and secure IT infrastructure against cyber threats and vulnerabilities.",
-          requirements: ["Bachelor’s in Cybersecurity or related field", "3+ years in security analysis", "Knowledge of SIEM tools", "Certifications like CISSP"],
           image: "images/cybersecurity-job.jpg",
           link: "https://jobs.cisco.com/",
           type: "job",
           location: "San Francisco, CA",
           posted: "2025-05-10",
-          deadline: "2025-08-18",
           featured: false
         },
         {
-          id: 7,
+          id: 31,
           title: "Google Software Engineering Internship",
           description: "Summer internship for CS students at Google.",
-          fullDescription: "Work on real-world projects alongside experienced engineers at Google.",
-          requirements: ["Current CS student", "Proficiency in Python or Java", "Strong problem-solving skills", "Available for 12-week internship"],
           image: "images/internship-google.jpg",
           link: "https://careers.google.com/students/",
           type: "internship",
           location: "Global",
           posted: "2025-05-15",
-          deadline: "2025-08-30",
           featured: true
         },
         {
-          id: 8,
+          id: 32,
           title: "Facebook Data Science Intern",
           description: "Work on data analysis projects at Meta.",
-          fullDescription: "Analyze large datasets to support Meta’s product development and user engagement strategies.",
-          requirements: ["Enrolled in a graduate program", "Experience with SQL and Python", "Knowledge of statistical modeling", "Strong communication skills"],
           image: "images/facebook-intern.jpg",
           link: "https://www.metacareers.com/",
           type: "internship",
           location: "Menlo Park, CA",
           posted: "2025-05-12",
-          deadline: "2025-08-22",
           featured: true
         },
         {
-          id: 9,
+          id: 33,
           title: "Amazon Web Services Intern",
           description: "Learn cloud computing with AWS teams.",
-          fullDescription: "Gain hands-on experience with AWS cloud services and infrastructure.",
-          requirements: ["Current student in CS or related field", "Basic knowledge of cloud computing", "Familiarity with Linux", "Team collaboration skills"],
           image: "images/aws-intern.jpg",
           link: "https://aws.amazon.com/careers/",
           type: "internship",
           location: "Seattle, WA",
           posted: "2025-05-10",
-          deadline: "2025-08-15",
           featured: false
         },
         {
-          id: 10,
+          id: 34,
           title: "Microsoft AI Intern",
           description: "Explore AI technologies with Microsoft.",
-          fullDescription: "Contribute to AI-driven projects using Microsoft’s cutting-edge technologies.",
-          requirements: ["Enrolled in AI-related program", "Experience with machine learning frameworks", "Knowledge of Python", "Interest in AI research"],
           image: "images/microsoft-intern.jpg",
           link: "https://careers.microsoft.com/",
           type: "internship",
           location: "Redmond, WA",
           posted: "2025-05-08",
-          deadline: "2025-08-20",
           featured: false
         },
         {
-          id: 11,
+          id: 35,
           title: "Tesla Engineering Intern",
           description: "Work on innovative projects at Tesla.",
-          fullDescription: "Support Tesla’s mission by working on engineering projects for electric vehicles and energy solutions.",
-          requirements: ["Engineering student", "Experience with CAD software", "Knowledge of electrical systems", "Passion for sustainable energy"],
           image: "images/tesla-intern.jpg",
           link: "https://www.tesla.com/careers",
           type: "internship",
           location: "Fremont, CA",
           posted: "2025-05-05",
-          deadline: "2025-08-25",
           featured: false
         },
         {
-          id: 12,
+          id: 36,
           title: "IBM Research Intern",
           description: "Contribute to cutting-edge research at IBM.",
-          fullDescription: "Participate in advanced research projects in AI, quantum computing, or cloud technologies.",
-          requirements: ["Graduate student in CS or related field", "Research experience", "Proficiency in Python or Java", "Strong analytical skills"],
           image: "images/ibm-intern.jpg",
           link: "https://www.ibm.com/careers",
           type: "internship",
           location: "Yorktown Heights, NY",
           posted: "2025-05-03",
-          deadline: "2025-08-10",
           featured: false
         },
         {
-          id: 13,
+          id: 37,
           title: "Gates Millennium Scholarship",
           description: "Full funding for outstanding minority students.",
-          fullDescription: "Provides comprehensive financial support for minority students pursuing undergraduate or graduate degrees.",
-          requirements: ["Minority student status", "Minimum GPA of 3.3", "Demonstrated leadership", "Financial need"],
           image: "images/gates-scholarship.jpg",
           link: "https://www.gmsp.org/",
           type: "scholarship",
           location: "Global",
           posted: "2025-06-01",
-          deadline: "2025-09-01",
           featured: true
         },
         {
-          id: 14,
+          id: 38,
           title: "Horatio Alger Scholarship",
           description: "Support for students overcoming adversity.",
-          fullDescription: "Offers financial aid to students who have faced significant personal or financial challenges.",
-          requirements: ["Demonstrated adversity", "Minimum GPA of 2.0", "U.S. citizen", "Commitment to pursue a degree"],
           image: "images/horatio-scholarship.jpg",
           link: "https://www.horatioalger.org/",
           type: "scholarship",
           location: "USA",
           posted: "2025-05-20",
-          deadline: "2025-08-15",
           featured: true
         },
         {
-          id: 15,
+          id: 39,
           title: "Chevening Scholarship",
           description: "Fully-funded UK master's degree for global leaders.",
-          fullDescription: "Funds a one-year master’s degree in the UK for individuals with leadership potential.",
-          requirements: ["Bachelor’s degree", "2+ years of work experience", "Leadership qualities", "English proficiency"],
           image: "images/chevening-scholarship.jpg",
           link: "https://www.chevening.org/",
           type: "scholarship",
           location: "UK",
           posted: "2025-05-15",
-          deadline: "2025-08-30",
           featured: true
         },
         {
-          id: 16,
+          id: 86,
           title: "STEM Scholarship for Women",
           description: "Funding for women pursuing STEM degrees.",
-          fullDescription: "Supports women pursuing undergraduate or graduate degrees in STEM fields.",
-          requirements: ["Female student", "Enrolled in STEM program", "Minimum GPA of 3.0", "Interest in STEM career"],
           image: "images/university_rd.jpg",
           link: "https://ur.ac.rw/?Call-for-Applications-for-Admissions-into-Undergraduate-Academic-Programs",
           type: "scholarship",
           location: "Global",
           posted: "2025-05-01",
-          deadline: "2025-08-20",
           featured: false
         }
-        // Additional entries to reach 200 jobs and 100 scholarships would be added here.
-        // For brevity, I'm not listing all 284 additional entries, but the structure would follow the same pattern with unique IDs, titles, descriptions, requirements, deadlines, etc.
       ];
 
       const featuresGrid = document.querySelector('.features-grid');
@@ -1424,24 +1256,14 @@
             <div class="feature-content">
               <h2 class="text-teal-900 text-lg">${job.title}</h2>
               <p class="text-gray-600">${job.description}</p>
-              <div class="job-details">
-                <h3>Full Description</h3>
-                <p class="text-gray-600">${job.fullDescription}</p>
-                <h3>Requirements</h3>
-                <ul>
-                  ${job.requirements.map(req => `<li>${req}</li>`).join('')}
-                </ul>
-                <div class="countdown" id="countdown-${job.id}"></div>
-              </div>
               <div class="job-meta flex justify-between flex-wrap text-xs text-gray-500">
                 <span>📍 ${job.location}</span>
-                <span>📅 Posted: ${formatDate(job.posted)}</span>
+                <span>📅 ${formatDate(job.posted)}</span>
               </div>
               <a class="apply-btn" href="${job.link}" target="_blank">Apply Now</a>
             </div>
           `;
           featuresGrid.appendChild(jobEl);
-          startCountdown(job.deadline, `countdown-${job.id}`);
         });
       }
 
