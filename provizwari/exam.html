@@ -150,7 +150,7 @@
     <!-- Question and options will be injected here -->
   </div>
 
-  <script src="js/questions.js"></script> <!-- Make sure this file defines the array "questions" -->
+  <script src="js/questions.js"></script> <!-- This must define a 'questions' array -->
 
   <script>
     const TOTAL_QUESTIONS = 20;
@@ -159,10 +159,8 @@
     const optionKeys = ["a", "b", "c", "d"];
     const timerEl = document.getElementById('timer');
 
-    // Load saved answers or initialize fresh
-    let userAnswers = JSON.parse(localStorage.getItem('provizwari_answers')) || new Array(TOTAL_QUESTIONS).fill(null);
-    // Load saved timer or default to 20 minutes in seconds
-    let timeLeft = parseInt(localStorage.getItem('provizwari_time_left')) || 20 * 60;
+    let userAnswers = new Array(TOTAL_QUESTIONS).fill(null);
+    let timeLeft = 20 * 60;
     let timerInterval;
 
     function shuffleArray(array) {
@@ -173,29 +171,32 @@
     }
 
     function startExam() {
+      localStorage.removeItem('provizwari_answers');
+      localStorage.removeItem('provizwari_time_left');
+
       if (!Array.isArray(questions) || questions.length < TOTAL_QUESTIONS) {
         alert("Questions not loaded or not enough questions.");
         return;
       }
 
-      // If no saved questions, shuffle and save selection
-      if (!localStorage.getItem('provizwari_questions')) {
-        shuffleArray(questions);
+      shuffleArray(questions);
+      const seenIds = new Set();
+      selectedQuestions = [];
+
+      for (const q of questions) {
+        if (!seenIds.has(q.id)) {
+          selectedQuestions.push(q);
+          seenIds.add(q.id);
+        }
+        if (selectedQuestions.length === TOTAL_QUESTIONS) break;
+      }
+
+      if (selectedQuestions.length < TOTAL_QUESTIONS) {
         selectedQuestions = questions.slice(0, TOTAL_QUESTIONS);
-        localStorage.setItem('provizwari_questions', JSON.stringify(selectedQuestions));
-      } else {
-        selectedQuestions = JSON.parse(localStorage.getItem('provizwari_questions'));
       }
 
-      // Reset answers and time only if fresh start (no saved answers)
-      if (!localStorage.getItem('provizwari_answers')) {
-        userAnswers = new Array(TOTAL_QUESTIONS).fill(null);
-        timeLeft = 20 * 60;
-      } else {
-        userAnswers = JSON.parse(localStorage.getItem('provizwari_answers'));
-        timeLeft = parseInt(localStorage.getItem('provizwari_time_left')) || 20 * 60;
-      }
-
+      userAnswers = new Array(TOTAL_QUESTIONS).fill(null);
+      timeLeft = 20 * 60;
       currentQuestionIndex = 0;
       showQuestion(currentQuestionIndex);
       startTimer();
@@ -210,16 +211,16 @@
         <label for="option${i}" data-letter="${key.toUpperCase()}">${q[key]}</label>
       `).join("");
 
-      let imageHtml = q.image ? `<img src="${q.image}" alt="Ikimenyetso cya ${q.question}">` : "";
+      let imageHtml = q.image ? `<img src="${q.image}" alt="Ifoto ijyanye na: ${q.question}">` : "";
 
       container.innerHTML = `
-        <div class="progress">Question ${index + 1} of ${TOTAL_QUESTIONS}</div>
+        <div class="progress">Ikibazo ${index + 1} / ${TOTAL_QUESTIONS}</div>
         <div class="question">
           <h3>Q${index + 1}. ${q.question}</h3>
           ${imageHtml}
           ${optionsHtml}
           <div class="buttons">
-            <button id="backBtn" ${index === 0 ? "disabled" : ""} aria-label="Previous question">Garuka</button>
+            <button id="backBtn" ${index === 0 ? "disabled" : ""}>Garuka</button>
             <button id="nextBtn">${index === TOTAL_QUESTIONS - 1 ? 'Ohereza Ikizamini' : 'Ibindi'}</button>
           </div>
         </div>
@@ -234,14 +235,11 @@
       };
 
       document.getElementById('nextBtn').onclick = () => {
-        // Save answer before moving forward
         saveAnswer();
-
         if (currentQuestionIndex < TOTAL_QUESTIONS - 1) {
           currentQuestionIndex++;
           showQuestion(currentQuestionIndex);
         } else {
-          // Last question, submit exam
           submitExam();
         }
       };
@@ -250,18 +248,14 @@
     function saveAnswer() {
       const selectedOption = document.querySelector('input[name="answer"]:checked');
       if (!selectedOption) return;
-
-      // Update answers array and save to localStorage
       userAnswers[currentQuestionIndex] = Number(selectedOption.value);
       localStorage.setItem('provizwari_answers', JSON.stringify(userAnswers));
     }
 
     function submitExam() {
       clearInterval(timerInterval);
-
       let score = 0;
       for (let i = 0; i < TOTAL_QUESTIONS; i++) {
-        // Correct answer stored as letter like 'a', 'b', etc.
         if (userAnswers[i] === optionKeys.indexOf(selectedQuestions[i].answer)) {
           score++;
         }
@@ -269,12 +263,9 @@
 
       localStorage.setItem('provizwari_score', score);
 
-      // Clear saved exam data after submission
-      localStorage.removeItem('provizwari_questions');
       localStorage.removeItem('provizwari_answers');
       localStorage.removeItem('provizwari_time_left');
 
-      // Redirect to results page
       window.location.href = "results.html";
     }
 
@@ -284,7 +275,7 @@
         timeLeft--;
         if (timeLeft < 0) {
           clearInterval(timerInterval);
-          alert("Igihe cyawe kirarangiye! Ikizamini kiratangwa.");
+          alert("Igihe kirarangiye! Ikizamini kiratanzwe.");
           submitExam();
           return;
         }
@@ -302,18 +293,6 @@
     window.onload = () => {
       startExam();
     };
-    function submitExam() {
-  clearInterval(timerInterval);
-  let score = 0;
-  for (let i=0; i < TOTAL_QUESTIONS; i++) {
-    if (userAnswers[i] === optionKeys.indexOf(selectedQuestions[i].answer)) score++;
-  }
-  localStorage.setItem('provizwari_score', score);
-  // NTUGASIBE QUESTIONS cyangwa ANSWERS
-  // ...
-  window.location.href = "results.html";
-}
-
   </script>
 </body>
 </html>
