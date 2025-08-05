@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="rw">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
@@ -8,23 +8,22 @@
   <meta name="author" content="TekiNova" />
   <meta name="robots" content="index, follow" />
   <title>TekiNova - Global Job Opportunities</title>
-  <!-- Open Graph Meta Tags for Social Media -->
+  <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="TekiNova - Jobs, Internships, and Scholarships" />
   <meta property="og:description" content="Explore a wide range of job opportunities, internships, and scholarships worldwide with TekiNova." />
-  <meta property="og:image" content="tekilogo.jpg" />
+  <meta property="og:image" content="assets/images/tekilogo.jpg" />
   <meta property="og:url" content="https://www.tekinova.com/" />
   <meta property="og:type" content="website" />
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="TekiNova - Global Job Opportunities" />
   <meta name="twitter:description" content="Find your next career move with TekiNova's job, internship, and scholarship listings." />
-  <meta name="twitter:image" content="tekilogo.jpg" />
+  <meta name="twitter:image" content="assets/images/tekilogo.jpg" />
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <!-- Tailwind CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
   <style>
-    /* Reset and Global Styles */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -42,7 +41,6 @@
       flex-direction: column;
     }
 
-    /* Header */
     header {
       background-color: #012f47;
       color: white;
@@ -66,18 +64,17 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      border: 2px solid gold;
+      border: 2px solid #f1c40f;
       margin-right: 8px;
     }
 
     .logo h1 {
-      color: gold;
+      color: #f1c40f;
       font-size: 18px;
       font-weight: 700;
       white-space: nowrap;
     }
 
-    /* Navigation */
     .navbar {
       display: flex;
       align-items: center;
@@ -102,11 +99,10 @@
 
     .navbar a:hover {
       background-color: #033d3d;
-      color: gold;
+      color: #f1c40f;
     }
 
-    /* Hamburger Menu Icon */
-    .hamburger-icon {
+    .hamburger-icon, .menu-toggle {
       font-size: 18px;
       cursor: pointer;
       color: white;
@@ -114,20 +110,15 @@
       padding: 6px;
     }
 
-    .hamburger-icon:hover {
-      color: gold;
+    .hamburger-icon:hover, .menu-toggle:hover {
+      color: #f1c40f;
     }
 
     .menu-toggle {
       display: none;
-      font-size: 20px;
-      cursor: pointer;
-      padding: 6px;
-      color: white;
       z-index: 1001;
     }
 
-    /* Dropdown Navigation */
     .dropdown {
       display: none;
       position: absolute;
@@ -142,7 +133,7 @@
     }
 
     .dropdown h2 {
-      color: gold;
+      color: #f1c40f;
       font-size: 13px;
       margin: 8px 0 4px;
       padding-left: 4px;
@@ -171,7 +162,6 @@
       display: block;
     }
 
-    /* Sidebar */
     .sidebar {
       position: fixed;
       top: 0;
@@ -197,7 +187,7 @@
       justify-content: space-between;
       align-items: center;
       font-size: 16px;
-      color: gold;
+      color: #f1c40f;
       margin-bottom: 15px;
       padding-bottom: 10px;
       border-bottom: 1px solid #555;
@@ -225,7 +215,7 @@
     }
 
     .sidebar a:hover {
-      color: gold;
+      color: #f1c40f;
     }
 
     .sidebar i {
@@ -234,7 +224,6 @@
       font-size: 15px;
     }
 
-    /* Hamburger Menu Widgets */
     .hamburger-widget {
       background-color: rgba(255, 255, 255, 0.1);
       border-radius: 8px;
@@ -243,7 +232,7 @@
     }
 
     .hamburger-widget h3 {
-      color: gold;
+      color: #f1c40f;
       margin-bottom: 8px;
       font-size: 15px;
     }
@@ -268,7 +257,7 @@
       display: block;
       font-size: 15px;
       font-weight: bold;
-      color: gold;
+      color: #f1c40f;
     }
 
     .widget-stats small {
@@ -276,7 +265,6 @@
       opacity: 0.8;
     }
 
-    /* Main Content */
     .main-content {
       max-width: 100%;
       margin: 15px auto;
@@ -284,7 +272,6 @@
       flex: 1;
     }
 
-    /* Features Section */
     .features-container {
       max-width: 1200px;
       margin: 15px auto;
@@ -323,7 +310,9 @@
       width: 100%;
       height: 160px;
       object-fit: cover;
+      object-position: center;
       border-bottom: 3px solid #012f47;
+      display: block;
     }
 
     .feature-content {
@@ -362,20 +351,11 @@
       background-color: #034d6d;
     }
 
-    .job-meta {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 12px;
-      font-size: 0.75rem;
-      color: #777;
-      flex-wrap: wrap;
-    }
-
     .job-type {
       position: absolute;
       top: 12px;
       right: 12px;
-      background-color: gold;
+      background-color: #f1c40f;
       color: #012f47;
       padding: 4px 8px;
       border-radius: 20px;
@@ -418,7 +398,6 @@
       background: #d0d0d0;
     }
 
-    /* Upload Section */
     .upload-section {
       max-width: 1200px;
       margin: 20px auto;
@@ -464,7 +443,6 @@
       color: #034d6d;
     }
 
-    /* Job Details */
     .job-details {
       margin-top: 10px;
       display: none;
@@ -505,7 +483,6 @@
       border: 1px solid #f5c6cb;
     }
 
-    /* Footer */
     footer {
       background-color: #012f47;
       color: white;
@@ -521,7 +498,7 @@
     }
 
     .footer-columns .col h3, .footer-columns .col h2 {
-      color: gold;
+      color: #f1c40f;
       margin-bottom: 10px;
       font-size: 15px;
     }
@@ -536,10 +513,9 @@
     }
 
     .footer-columns .col a:hover {
-      color: #d4af37;
+      color: #f1c40f;
     }
 
-    /* Mobile Navigation */
     .mobile-nav {
       display: none;
       width: 100%;
@@ -578,12 +554,15 @@
       background-color: #033d3d;
     }
 
-    /* Mobile Dropdown */
     .mobile-dropdown {
       display: none;
       padding-left: 12px;
       margin-top: 4px;
-      border-left: 2px solid gold;
+      border-left: 2px solid #f1c40f;
+    }
+
+    .mobile-dropdown.active {
+      display: block;
     }
 
     .mobile-dropdown a {
@@ -592,156 +571,35 @@
     }
 
     .mobile-dropdown h3 {
-      color: gold;
+      color: #f1c40f;
       font-size: 12px;
       margin: 8px 0 4px;
       padding-left: 4px;
     }
 
-    /* Responsive Adjustments */
-    @media (max-width: 1024px) {
-      .navbar ul {
-        gap: 4px;
-      }
-
-      .navbar a {
-        font-size: 12px;
-        padding: 5px 7px;
-      }
-
-      .dropdown {
-        min-width: 200px;
-      }
-
-      .features-grid {
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      }
-
-      .hamburger-widget .widget-stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    .search-container {
+      max-width: 600px;
+      margin: 15px auto;
+      padding: 10px;
     }
 
-    @media (max-width: 768px) {
-      header {
-        padding: 8px 12px;
-      }
-
-      .logo h1 {
-        font-size: 16px;
-      }
-
-      .navbar {
-        display: none;
-      }
-
-      .menu-toggle {
-        display: block;
-      }
-
-      .hamburger-icon {
-        display: none;
-      }
-
-      .sidebar {
-        width: 100%;
-        max-width: 100%;
-      }
-
-      .features-container h1 {
-        font-size: 1.4rem;
-        margin-bottom: 12px;
-      }
-
-      .feature-box h2 {
-        font-size: 1rem;
-      }
-
-      .filter-btn {
-        padding: 5px 10px;
-        font-size: 12px;
-      }
-
-      .dropdown {
-        position: static;
-        display: none;
-        width: 100%;
-        box-shadow: none;
-        border-radius: 0;
-      }
-
-      .navbar li:hover .dropdown {
-        display: none;
-      }
-
-      .hamburger-widget .widget-stats {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-
-      .main-content, .features-container {
-        padding: 8px;
-        margin: 8px auto;
-      }
+    .search-container input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s;
     }
 
-    @media (max-width: 576px) {
-      .logo img {
-        width: 32px;
-        height: 32px;
-      }
-
-      .logo h1 {
-        font-size: 14px;
-      }
-
-      .menu-toggle {
-        font-size: 18px;
-      }
-
-      .features-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .filter-controls {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .footer-columns {
-        grid-template-columns: 1fr;
-      }
-
-      .feature-box img {
-        height: 140px;
-      }
-
-      .mobile-nav {
-        top: 52px;
-      }
+    .search-container input:focus {
+      border-color: #012f47;
     }
 
-    @media (max-width: 480px) {
-      .main-content, .features-container {
-        padding: 8px;
-        margin: 10px auto;
-      }
-
-      .features-container h1 {
-        font-size: 1.2rem;
-      }
-    }
-
-    /* Prevent horizontal scrolling */
-    html, body {
-      max-width: 100%;
-      overflow-x: hidden;
-    }
-
-    /* Moving image */
     .top-right-slider {
       position: sticky;
-      top: 60px;
+      top: 64px;
       width: 100%;
       background: #02635e;
       color: white;
@@ -751,7 +609,6 @@
       z-index: 900;
     }
 
-    /* Animation */
     .slider-text {
       display: inline-block;
       padding-left: 100%;
@@ -761,23 +618,54 @@
     }
 
     @keyframes slide-left {
-      0% {
-        transform: translateX(0%);
-      }
-      100% {
-        transform: translateX(-100%);
-      }
-    }
-
-    /* Content */
-    .content {
-      margin-top: 20px;
-      padding: 20px;
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-100%); }
     }
 
     .slider-text b {
       font-family: 'Times New Roman', Times, serif;
       font-size: x-large;
+    }
+
+    @media (max-width: 1024px) {
+      .navbar ul { gap: 4px; }
+      .navbar a { font-size: 12px; padding: 5px 7px; }
+      .dropdown { min-width: 200px; }
+      .features-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+      .hamburger-widget .widget-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 8px 12px; }
+      .logo h1 { font-size: 16px; }
+      .navbar { display: none; }
+      .menu-toggle { display: block; }
+      .hamburger-icon { display: none; }
+      .sidebar { width: 100%; max-width: 100%; }
+      .features-container h1 { font-size: 1.4rem; margin-bottom: 12px; }
+      .feature-box h2 { font-size: 1rem; }
+      .feature-box img { height: 140px; }
+      .filter-btn { padding: 5px 10px; font-size: 12px; }
+      .dropdown { position: static; display: none; width: 100%; box-shadow: none; border-radius: 0; }
+      .navbar li:hover .dropdown { display: none; }
+      .hamburger-widget .widget-stats { grid-template-columns: 1fr; gap: 12px; }
+      .main-content, .features-container { padding: 8px; margin: 8px auto; }
+    }
+
+    @media (max-width: 576px) {
+      .logo img { width: 32px; height: 32px; }
+      .logo h1 { font-size: 14px; }
+      .menu-toggle { font-size: 18px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .filter-controls { flex-direction: column; align-items: center; }
+      .footer-columns { grid-template-columns: 1fr; }
+      .feature-box img { height: 120px; }
+      .mobile-nav { top: 52px; }
+    }
+
+    @media (max-width: 480px) {
+      .main-content, .features-container { padding: 8px; margin: 10px auto; }
+      .features-container h1 { font-size: 1.2rem; }
     }
   </style>
 </head>
@@ -785,88 +673,88 @@
   <!-- ===== HEADER ===== -->
   <header class="flex justify-between items-center">
     <div class="logo flex items-center">
-      <img src="tekilogo.jpg" alt="TEKINOVA Logo" class="w-9 h-9 rounded-full border-2 border-yellow-400 mr-2">
+      <img src="./jo.jpeg" alt="TekiNova Company Logo" class="w-9 h-9 rounded-full border-2 border-yellow-400 mr-2">
       <h1 class="text-yellow-400 text-lg font-bold">TekiNova</h1>
     </div>
     
-    <div class="menu-toggle md:hidden" id="menuToggle">
+    <div class="menu-toggle md:hidden" id="menuToggle" aria-label="Toggle mobile navigation">
       <i class="fas fa-bars"></i>
     </div>
     
     <!-- Mobile Navigation -->
-    <nav class="mobile-nav hidden md:hidden" id="mobileNav">
+    <nav class="mobile-nav" id="mobileNav">
       <ul class="flex flex-col">
         <li><a href="index.html" class="hover:bg-teal-900">Home</a></li>
         <li>
-          <a href="#" data-dropdown="aboutDropdown" class="hover:bg-teal-900">About <i class="fas fa-chevron-down"></i></a>
+          <a href="#" data-toggle="aboutDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle About dropdown">About <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="aboutDropdown">
             <h3 class="text-yellow-400">About TEKINOVA</h3>
             <a href="About.html">About Us</a>
-            <a href="#">Company Background & Vision</a>
-            <a href="#">Mission & Goals</a>
-            <a href="#">Contacts</a>
+            <a href="index.html">Company Background & Vision</a>
+            <a href="index.html">Mission & Goals</a>
+            <a href="index.html">Contacts</a>
             <h3 class="text-yellow-400">Administrative</h3>
-            <a href="#">Team or Founders</a>
-            <a href="#">Core Values</a>
-            <a href="#">Executive Organ</a>
-            <a href="#">Senior Management</a>
+            <a href="index.html">Team or Founders</a>
+            <a href="index.html">Core Values</a>
+            <a href="index.html">Executive Organ</a>
+            <a href="index.html">Senior Management</a>
           </div>
         </li>
         <li>
-          <a href="#" data-dropdown="servicesDropdown" class="hover:bg-teal-900">Services <i class="fas fa-chevron-down"></i></a>
+          <a href="#" data-toggle="servicesDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Services dropdown">Services <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="servicesDropdown">
             <a href="services.html">Got Services</a>
-            <a href="#">Web Development</a>
-            <a href="#">App Development</a>
-            <a href="#">Tech Consultancy</a>
-            <a href="#">Custom Software</a>
-            <a href="#">AI/IoT/Automation Services</a>
+            <a href="index.html">Web Development</a>
+            <a href="index.html">App Development</a>
+            <a href="index.html">Tech Consultancy</a>
+            <a href="index.html">Custom Software</a>
+            <a href="index.html">AI/IoT/Automation Services</a>
           </div>
         </li>
         <li>
-          <a href="#" data-dropdown="productsDropdown" class="hover:bg-teal-900">Product <i class="fas fa-chevron-down"></i></a>
+          <a href="#" data-toggle="productsDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Products dropdown">Product <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="productsDropdown">
             <a href="Products.html">Products</a>
-            <a href="#">App Development</a>
-            <a href="#">Tech Consultancy</a>
-            <a href="#">Custom Software</a>
-            <a href="#">AI/IoT/Automation Services</a>
+            <a href="index.html">App Development</a>
+            <a href="index.html">Tech Consultancy</a>
+            <a href="index.html">Custom Software</a>
+            <a href="index.html">AI/IoT/Automation Services</a>
           </div>
         </li>
         <li>
-          <a href="#" data-dropdown="newsDropdown" class="hover:bg-teal-900">Tech News <i class="fas fa-chevron-down"></i></a>
+          <a href="#" data-toggle="newsDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Tech News dropdown">Tech News <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="newsDropdown">
             <h3 class="text-yellow-400">Blog</h3>
             <a href="Blog_Tech_News.html">Blog Tech News</a>
-            <a href="#">Articles About Technology Trends</a>
-            <a href="#">How-to Guides or Tutorials</a>
-            <a href="#">Company Updates</a>
+            <a href="index.html">Articles About Technology Trends</a>
+            <a href="index.html">How-to Guides or Tutorials</a>
+            <a href="index.html">Company Updates</a>
           </div>
         </li>
         <li>
-          <a href="#" data-dropdown="careersDropdown" class="hover:bg-teal-900">Careers <i class="fas fa-chevron-down"></i></a>
+          <a href="#" data-toggle="careersDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Careers dropdown">Careers <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="careersDropdown">
             <a href="Careers.html">Develop Your Careers</a>
-            <a href="#">Articles About Technology Trends</a>
-            <a href="#">How-to Guides or Tutorials</a>
-            <a href="#">Company Updates</a>
+            <a href="index.html">Articles About Technology Trends</a>
+            <a href="index.html">How-to Guides or Tutorials</a>
+            <a href="index.html">Company Updates</a>
           </div>
         </li>
         <li>
-          <a href="#" data-dropdown="jobsDropdown" class="hover:bg-teal-900">Jobs <i class="fas fa-chevron-down"></i></a>
+          <a href="#" data-toggle="jobsDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Jobs dropdown">Jobs <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="jobsDropdown">
             <h3 class="text-yellow-400">Apply Job</h3>
             <a href="features.html">Go to Jobs & Internships</a>
           </div>
         </li>
         <li>
-          <a href="#" data-dropdown="contactDropdown" class="hover:bg-teal-900">Contact <i class="fas fa-chevron-down"></i></a>
+          <a href="#" data-toggle="contactDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Contact dropdown">Contact <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="contactDropdown">
             <a href="contact_us.html">Tell Us Anything</a>
           </div>
         </li>
         <li>
-          <a href="#" data-dropdown="calendarDropdown" class="hover:bg-teal-900">Working Calendar <i class="fas fa-chevron-down"></i></a>
+          <a href="#" data-toggle="calendarDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Working Calendar dropdown">Working Calendar <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="calendarDropdown">
             <a href="amasahayakazi.html">Our Calendar Days</a>
           </div>
@@ -879,69 +767,69 @@
       <ul class="flex gap-2">
         <li><a href="index.html" class="hover:bg-teal-900">Home</a></li>
         <li>
-          <a href="#">About</a>
+          <a href="#" aria-expanded="false" aria-label="Toggle About dropdown">About</a>
           <div class="dropdown">
             <h2 class="text-yellow-400">About TEKINOVA</h2>
             <a href="About.html">About Us</a>
-            <a href="#">Company Background & Vision</a>
-            <a href="#">Mission & Goals</a>
-            <a href="#">Contacts</a>
+            <a href="index.html">Company Background & Vision</a>
+            <a href="index.html">Mission & Goals</a>
+            <a href="index.html">Contacts</a>
             <h2 class="text-yellow-400">Administrative</h2>
-            <a href="#">Team or Founders</a>
-            <a href="#">Core Values</a>
-            <a href="#">Executive Organ</a>
-            <a href="#">Senior Management</a>
+            <a href="index.html">Team or Founders</a>
+            <a href="index.html">Core Values</a>
+            <a href="index.html">Executive Organ</a>
+            <a href="index.html">Senior Management</a>
           </div>
         </li>
         <li>
-          <a href="#">Services</a>
+          <a href="#" aria-expanded="false" aria-label="Toggle Services dropdown">Services</a>
           <div class="dropdown">
             <a href="services.html">Our Services</a>
-            <a href="#">Web Development</a>
-            <a href="#">App Development</a>
-            <a href="#">Tech Consultancy</a>
-            <a href="#">Custom Software</a>
-            <a href="#">AI/IoT/Automation Services</a>
+            <a href="index.html">Web Development</a>
+            <a href="index.html">App Development</a>
+            <a href="index.html">Tech Consultancy</a>
+            <a href="index.html">Custom Software</a>
+            <a href="index.html">AI/IoT/Automation Services</a>
           </div>
         </li>
         <li>
-          <a href="#">Products</a>
+          <a href="#" aria-expanded="false" aria-label="Toggle Products dropdown">Products</a>
           <div class="dropdown">
             <a href="Products.html">Products</a>
-            <a href="#">App Development</a>
-            <a href="#">Tech Consultancy</a>
-            <a href="#">Custom Software</a>
-            <a href="#">AI/IoT Services</a>
+            <a href="index.html">App Development</a>
+            <a href="index.html">Tech Consultancy</a>
+            <a href="index.html">Custom Software</a>
+            <a href="index.html">AI/IoT Services</a>
           </div>
         </li>
         <li>
-          <a href="#">Tech News</a>
+          <a href="#" aria-expanded="false" aria-label="Toggle Tech News dropdown">Tech News</a>
           <div class="dropdown">
             <h2 class="text-yellow-400">Blog</h2>
             <a href="Events.html">Events</a>
-            <a href="#">Upcoming Events</a>
-            <a href="#">Past Events</a>
-            <a href="#">Company Updates</a>
+            <a href="index.html">Upcoming Events</a>
+            <a href="index.html">Past Events</a>
+            <a href="index.html">Company Updates</a>
           </div>
         </li>
         <li>
-          <a href="#">Careers</a>
+          <a href="#" aria-expanded="false" aria-label="Toggle Careers dropdown">Careers</a>
           <div class="dropdown">
             <a href="Careers.html">Careers</a>
-            <a href="#">Career Paths</a>
-            <a href="#">Benefits</a>
-            <a href="#">Career Updates</a>
+            <a href="index.html">Career Paths</a>
+            <a href="index.html">Benefits</a>
+            <a href="index.html">Career Updates</a>
           </div>
         </li>
         <li>
-          <a href="#">Jobs</a>
+          <a href="#" aria-expanded="false" aria-label="Toggle Jobs dropdown">Jobs</a>
           <div class="dropdown">
             <h2 class="text-yellow-400">Apply Now</h2>
             <a href="features.html">View Jobs & Internships</a>
           </div>
         </li>
         <li>
-          <a href="#">Contact</a>
+          <a href="#" aria-expanded="false" aria-label="Toggle Contact dropdown">Contact</a>
           <div class="dropdown">
             <a href="contact_us.html">Contact Us</a>
           </div>
@@ -949,24 +837,21 @@
       </ul>
     </nav>
 
-    <!-- Hamburger Menu Icon (right side, desktop only) -->
-    <div class="hamburger-icon hidden md:block" id="hamburgerIcon">
+    <div class="hamburger-icon hidden md:block" id="hamburgerIcon" aria-label="Toggle sidebar menu">
       <i class="fas fa-bars"></i>
     </div>
   </header>
 
   <div class="top-right-slider">
-    <div class="slider-text"><b>Ushaka ko tugufasha zimwe murizi services zikurikira
-      watwandikira kuri 0733253803 cg ukaduhamagara kur 0780019239!</b></div>
+    <div class="slider-text"><b>Contact us for assistance with our services at +250733253803 or call +250780019239!</b></div>
   </div>
 
   <!-- ===== HAMBURGER MENU SIDEBAR ===== -->
-  <aside class="sidebar" id="hamburgerMenu">
+  <aside class="sidebar" id="hamburgerMenu" aria-hidden="true">
     <div class="sidebar-header">
       <span><i class="fas fa-bars"></i> Hamburger Menu</span>
-      <i class="fas fa-times" id="closeHamburger"></i>
+      <i class="fas fa-times" id="closeHamburger" aria-label="Close sidebar"></i>
     </div>
-    
     <nav class="flex flex-col gap-2">
       <a href="index.html" class="hover:text-yellow-400"><i class="fas fa-home w-5"></i> Home</a>
       <a href="About.html" class="hover:text-yellow-400"><i class="fas fa-info-circle w-5"></i> About</a>
@@ -977,27 +862,15 @@
       <a href="features.html" class="hover:text-yellow-400"><i class="fas fa-laptop-code w-5"></i> Jobs</a>
       <a href="contact_us.html" class="hover:text-yellow-400"><i class="fas fa-envelope w-5"></i> Contact</a>
     </nav>
-    
-    <!-- Hamburger Menu Widgets -->
     <div class="hamburger-widget">
       <h3 class="text-yellow-400">Quick Stats</h3>
       <p>Overview of available opportunities</p>
       <div class="widget-stats">
-        <div>
-          <span>200</span>
-          <small>Jobs</small>
-        </div>
-        <div>
-          <span>100</span>
-          <small>Scholarships</small>
-        </div>
-        <div>
-          <span>50</span>
-          <small>Internships</small>
-        </div>
+        <div><span>200</span><small>Jobs</small></div>
+        <div><span>100</span><small>Scholarships</small></div>
+        <div><span>50</span><small>Internships</small></div>
       </div>
     </div>
-    
     <div class="hamburger-widget">
       <h3 class="text-yellow-400">Recent Activity</h3>
       <p><i class="fas fa-check-circle mr-2"></i> New job postings added</p>
@@ -1006,6 +879,11 @@
     </div>
   </aside>
 
+  <!-- ===== SEARCH BAR ===== -->
+  <section class="search-container">
+    <input type="text" id="jobSearch" placeholder="Search jobs, internships, or scholarships..." aria-label="Search opportunities">
+  </section>
+
   <!-- ===== UPLOAD SECTION ===== -->
   <section class="upload-section">
     <h1>How Companies Can Post Opportunities</h1>
@@ -1013,7 +891,7 @@
     <ol>
       <li><strong>Register an Account:</strong> Create a company account on our <a href="register.html">Employer Portal</a>.</li>
       <li><strong>Complete Your Profile:</strong> Provide details about your organization, including logo, description, and contact information.</li>
-      <li><strong>Submit Opportunity Details:</strong> Fill out our user-friendly form with details such as title, description, location, type (job, scholarship, internship, or other), application link, detailed description, requirements, deadline, and an optional image.</li>
+      <li><strong>Submit Opportunity Details:</strong> Fill out our user-friendly form with details such as title, description, location, type (job, scholarship, internship, or other), application link, detailed description, requirements, responsibilities, deadline, and an optional image.</li>
       <li><strong>Review and Publish:</strong> Our team reviews submissions for quality and relevance. Once approved, your opportunity will be live on our platform, reaching thousands of candidates.</li>
       <li><strong>Manage Applications:</strong> Track applications and manage your postings through your employer dashboard.</li>
     </ol>
@@ -1042,38 +920,38 @@
       <div class="col">
         <h2 class="text-yellow-400">About TEKINOVA</h2>
         <a href="About.html" class="underline font-bold">More Info</a>
-        <a href="#">Company Background & Vision</a>
-        <a href="#">Mission & Goals</a>
-        <a href="#">Contacts</a>
+        <a href="index.html">Company Background & Vision</a>
+        <a href="index.html">Mission & Goals</a>
+        <a href="index.html">Contacts</a>
         <h2 class="text-yellow-400">Administrative</h2>
-        <a href="#">Team or Founders</a>
-        <a href="#">Core Values</a>
-        <a href="#">Executive Organ</a>
-        <a href="#">Senior Management</a>
+        <a href="index.html">Team or Founders</a>
+        <a href="index.html">Core Values</a>
+        <a href="index.html">Executive Organ</a>
+        <a href="index.html">Senior Management</a>
       </div>
       <div class="col">
         <h3 class="text-yellow-400">Services</h3>
         <a href="services.html" class="underline font-bold">More Info</a>
-        <a href="#">Web Development</a>
-        <a href="#">App Development</a>
-        <a href="#">Tech Consultancy</a>
-        <a href="#">Custom Software</a>
-        <a href="#">AI/IoT/Automation Services</a>
+        <a href="index.html">Web Development</a>
+        <a href="index.html">App Development</a>
+        <a href="index.html">Tech Consultancy</a>
+        <a href="index.html">Custom Software</a>
+        <a href="index.html">AI/IoT/Automation Services</a>
       </div>
       <div class="col">
         <h3 class="text-yellow-400">Products</h3>
         <a href="Products.html" class="underline font-bold">More Info</a>
-        <a href="#">App Development</a>
-        <a href="#">Tech Consultancy</a>
-        <a href="#">Custom Software</a>
-        <a href="#">AI/IoT/Automation Services</a>
+        <a href="index.html">App Development</a>
+        <a href="index.html">Tech Consultancy</a>
+        <a href="index.html">Custom Software</a>
+        <a href="index.html">AI/IoT/Automation Services</a>
       </div>
       <div class="col">
         <h3 class="text-yellow-400">Careers</h3>
         <a href="Careers.html" class="underline font-bold">More Info</a>
-        <a href="#">Articles About Technology Trends</a>
-        <a href="#">How-to Guides or Tutorials</a>
-        <a href="#">Company Updates</a>
+        <a href="index.html">Articles About Technology Trends</a>
+        <a href="index.html">How-to Guides or Tutorials</a>
+        <a href="index.html">Company Updates</a>
       </div>
       <div class="col">
         <h3 class="text-yellow-400">Jobs & Internships</h3>
@@ -1102,7 +980,7 @@
       "@type": "Organization",
       "name": "TekiNova",
       "url": "https://www.tekinova.com",
-      "logo": "https://www.tekinova.com/tekilogo.jpg",
+      "logo": "https://www.tekinova.com/assets/images/tekilogo.jpg",
       "contactPoint": [
         {
           "@type": "ContactPoint",
@@ -1122,106 +1000,127 @@
       ]
     }
   </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "JobPosting",
+          "title": "Google Software Engineer",
+          "description": "Develop and maintain large-scale, distributed software systems to enhance Google's product ecosystem.",
+          "hiringOrganization": {
+            "@type": "Organization",
+            "name": "Google",
+            "sameAs": "https://careers.google.com/"
+          },
+          "jobLocation": {
+            "@type": "Place",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Mountain View",
+              "addressRegion": "CA",
+              "addressCountry": "US"
+            }
+          },
+          "datePosted": "2025-06-01",
+          "validThrough": "2025-08-15",
+          "responsibilities": [
+            "Design and implement scalable software solutions",
+            "Collaborate with cross-functional teams",
+            "Optimize system performance",
+            "Conduct code reviews and testing"
+          ]
+        }
+      ]
+    }
+  </script>
 
   <script>
-    // === Menu Toggle Logic ===
-    function toggleHamburgerMenu() {
-      const hamburgerMenu = document.getElementById('hamburgerMenu');
-      hamburgerMenu.classList.toggle('active');
-      if (hamburgerMenu.classList.contains('active')) {
-        hamburgerMenu.scrollTop = 0;
-        document.getElementById('mobileNav').classList.remove('active');
-      }
-    }
-
-    function toggleMobileNav() {
-      const mobileNav = document.getElementById('mobileNav');
-      mobileNav.classList.toggle('active');
-      if (mobileNav.classList.contains('active')) {
-        mobileNav.scrollTop = 0;
-        document.getElementById('hamburgerMenu').classList.remove('active');
-        document.querySelectorAll('.mobile-dropdown').forEach(dd => {
-          dd.style.display = 'none';
-        });
-      }
-    }
-
-    function toggleMobileDropdown(event, dropdownId) {
-      event.preventDefault();
-      const dropdown = document.getElementById(dropdownId);
-      const isOpen = dropdown.style.display === 'block';
-      document.querySelectorAll('.mobile-dropdown').forEach(dd => {
-        dd.style.display = 'none';
-      });
-      dropdown.style.display = isOpen ? 'none' : 'block';
-      event.stopPropagation();
-    }
-
-    // === Countdown Timer ===
-    function startCountdown(deadline, elementId) {
-      const countdownEl = document.getElementById(elementId);
-      if (!countdownEl) return;
-
-      function updateCountdown() {
-        const now = new Date();
-        const deadlineDate = new Date(deadline);
-        const timeLeft = deadlineDate - now;
-
-        if (timeLeft <= 0) {
-          countdownEl.textContent = 'Application Closed';
-          countdownEl.style.backgroundColor = '#f8d7da';
-          countdownEl.style.color = '#721c24';
-          return;
-        }
-
-        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-        countdownEl.innerHTML = `
-          <span>Closes in: ${days}d ${hours}h ${minutes}m ${seconds}s</span>
-          <div style="margin-top: 4px; font-size: 0.7rem; color: #555;">
-            Deadline: ${deadlineDate.toLocaleDateString()}
-          </div>
-        `;
-      }
-
-      updateCountdown();
-      setInterval(updateCountdown, 1000);
-    }
-
-    // === Event Listeners ===
     document.addEventListener('DOMContentLoaded', () => {
+      // Handle image errors globally
+      document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('error', () => {
+          img.src = 'assets/images/placeholder.jpg';
+          img.alt = img.alt || 'Placeholder image';
+        });
+      });
+
+      // Menu Toggle Logic
       const hamburgerIcon = document.getElementById('hamburgerIcon');
       const closeHamburger = document.getElementById('closeHamburger');
       const menuToggle = document.getElementById('menuToggle');
 
-      hamburgerIcon.addEventListener('click', toggleHamburgerMenu);
-      closeHamburger.addEventListener('click', toggleHamburgerMenu);
-      menuToggle.addEventListener('click', toggleMobileNav);
+      // Remove existing listeners to prevent duplicates
+      hamburgerIcon.replaceWith(hamburgerIcon.cloneNode(true));
+      closeHamburger.replaceWith(closeHamburger.cloneNode(true));
+      menuToggle.replaceWith(menuToggle.cloneNode(true));
 
-      document.querySelectorAll('.mobile-nav a[data-dropdown]').forEach(link => {
+      // Reassign elements after cloning
+      const newHamburgerIcon = document.getElementById('hamburgerIcon');
+      const newCloseHamburger = document.getElementById('closeHamburger');
+      const newMenuToggle = document.getElementById('menuToggle');
+
+      newHamburgerIcon.addEventListener('click', toggleHamburgerMenu);
+      newCloseHamburger.addEventListener('click', toggleHamburgerMenu);
+      newMenuToggle.addEventListener('click', toggleMobileNav);
+
+      document.querySelectorAll('.mobile-nav a[data-toggle]').forEach(link => {
         link.addEventListener('click', (event) => {
-          const dropdownId = link.getAttribute('data-dropdown');
+          const dropdownId = link.getAttribute('data-toggle');
           toggleMobileDropdown(event, dropdownId);
         });
       });
+
+      function toggleHamburgerMenu() {
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        hamburgerMenu.classList.toggle('active');
+        hamburgerMenu.setAttribute('aria-hidden', !hamburgerMenu.classList.contains('active'));
+        if (hamburgerMenu.classList.contains('active')) {
+          hamburgerMenu.scrollTop = 0;
+          document.getElementById('mobileNav').classList.remove('active');
+        }
+      }
+
+      function toggleMobileNav() {
+        const mobileNav = document.getElementById('mobileNav');
+        mobileNav.classList.toggle('active');
+        if (mobileNav.classList.contains('active')) {
+          mobileNav.scrollTop = 0;
+          document.getElementById('hamburgerMenu').classList.remove('active');
+          document.querySelectorAll('.mobile-dropdown').forEach(dd => {
+            dd.classList.remove('active');
+          });
+        }
+      }
+
+      function toggleMobileDropdown(event, dropdownId) {
+        event.preventDefault();
+        const dropdown = document.getElementById(dropdownId);
+        const isOpen = dropdown.classList.contains('active');
+        document.querySelectorAll('.mobile-dropdown').forEach(dd => {
+          dd.classList.remove('active');
+        });
+        if (!isOpen) dropdown.classList.add('active');
+        event.target.setAttribute('aria-expanded', !isOpen);
+        event.stopPropagation();
+      }
 
       document.addEventListener('click', (event) => {
         const hamburgerMenu = document.getElementById('hamburgerMenu');
         const mobileNav = document.getElementById('mobileNav');
         if (hamburgerMenu.classList.contains('active') &&
             !hamburgerMenu.contains(event.target) &&
-            !hamburgerIcon.contains(event.target)) {
+            !newHamburgerIcon.contains(event.target)) {
           hamburgerMenu.classList.remove('active');
+          hamburgerMenu.setAttribute('aria-hidden', 'true');
         }
         if (mobileNav.classList.contains('active') &&
             !mobileNav.contains(event.target) &&
-            !menuToggle.contains(event.target)) {
+            !newMenuToggle.contains(event.target)) {
           mobileNav.classList.remove('active');
           document.querySelectorAll('.mobile-dropdown').forEach(dd => {
-            dd.style.display = 'none';
+            dd.classList.remove('active');
           });
         }
       });
@@ -1231,14 +1130,55 @@
         const mobileNav = document.getElementById('mobileNav');
         if (event.key === 'Escape') {
           hamburgerMenu.classList.remove('active');
+          hamburgerMenu.setAttribute('aria-hidden', 'true');
           mobileNav.classList.remove('active');
           document.querySelectorAll('.mobile-dropdown').forEach(dd => {
-            dd.style.display = 'none';
+            dd.classList.remove('active');
           });
         }
       });
 
-      // === Features Data ===
+      // Countdown Timer
+      function startCountdown(deadline, elementId) {
+        const countdownEl = document.getElementById(elementId);
+        if (!countdownEl) return;
+
+        function updateCountdown() {
+          const now = new Date();
+          const deadlineDate = new Date(deadline);
+          if (isNaN(deadlineDate)) {
+            countdownEl.textContent = 'Invalid Deadline';
+            countdownEl.style.backgroundColor = '#f8d7da';
+            countdownEl.style.color = '#721c24';
+            return;
+          }
+
+          const timeLeft = deadlineDate - now;
+          if (timeLeft <= 0) {
+            countdownEl.textContent = 'Application Closed';
+            countdownEl.style.backgroundColor = '#f8d7da';
+            countdownEl.style.color = '#721c24';
+            return;
+          }
+
+          const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+          countdownEl.innerHTML = `
+            <span>Closes in: ${days}d ${hours}h ${minutes}m ${seconds}s</span>
+            <div style="margin-top: 4px; font-size: 0.7rem; color: #555;">
+              Deadline: ${deadlineDate.toLocaleDateString()}
+            </div>
+          `;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+      }
+
+      // Features Data
       const jobsData = [
         {
           id: 1,
@@ -1246,7 +1186,8 @@
           description: "Join Google's engineering team to build scalable systems.",
           fullDescription: "Develop and maintain large-scale, distributed software systems to enhance Google's product ecosystem.",
           requirements: ["BS/MS in Computer Science", "5+ years of software development experience", "Proficiency in Python, Java, or C++", "Experience with cloud platforms"],
-          image: "images/google-job.jpg",
+          responsibilities: ["Design and implement scalable software solutions", "Collaborate with cross-functional teams", "Optimize system performance", "Conduct code reviews and testing"],
+          image: "assets/images/google-job.jpg",
           link: "https://careers.google.com/",
           type: "job",
           location: "Mountain View, CA",
@@ -1260,7 +1201,8 @@
           description: "Work on global development projects with the UN.",
           fullDescription: "Coordinate and manage international development programs, focusing on sustainable development goals.",
           requirements: ["Master’s degree in International Relations or related field", "3+ years in program management", "Fluency in English and French", "Strong analytical skills"],
-          image: "images/un-job.jpg",
+          responsibilities: ["Coordinate international programs", "Manage project budgets", "Liaise with stakeholders", "Report on program outcomes"],
+          image: "assets/images/un-job.jpg",
           link: "https://careers.un.org",
           type: "job",
           location: "New York, NY",
@@ -1274,7 +1216,8 @@
           description: "Design user-friendly interfaces for a tech startup.",
           fullDescription: "Create intuitive and visually appealing interfaces for web and mobile applications.",
           requirements: ["Bachelor’s in Design or related field", "3+ years of UI/UX experience", "Proficiency in Figma or Adobe XD", "Portfolio of past work"],
-          image: "images/uiux-job.jpg",
+          responsibilities: ["Design user interfaces", "Conduct user research", "Create wireframes and prototypes", "Collaborate with developers"],
+          image: "assets/images/uiux-job.jpg",
           link: "https://remoteok.com/",
           type: "job",
           location: "Remote",
@@ -1288,7 +1231,8 @@
           description: "Design cloud solutions for enterprise clients.",
           fullDescription: "Architect and deploy scalable cloud infrastructure for enterprise-level applications using AWS services.",
           requirements: ["AWS Certified Solutions Architect", "5+ years in cloud architecture", "Experience with microservices", "Knowledge of DevOps practices"],
-          image: "images/aws-job.jpg",
+          responsibilities: ["Architect cloud solutions", "Deploy infrastructure", "Optimize cloud performance", "Ensure security compliance"],
+          image: "assets/images/aws-job.jpg",
           link: "https://aws.amazon.com/careers/",
           type: "job",
           location: "Seattle, WA",
@@ -1302,7 +1246,8 @@
           description: "Analyze data to drive business insights.",
           fullDescription: "Leverage advanced analytics and machine learning to provide actionable business insights.",
           requirements: ["PhD in Data Science or related field", "Proficiency in Python and R", "Experience with Azure ML", "Strong statistical knowledge"],
-          image: "images/microsoft-job.jpg",
+          responsibilities: ["Analyze large datasets", "Develop ML models", "Present insights to stakeholders", "Optimize data pipelines"],
+          image: "assets/images/microsoft-job.jpg",
           link: "https://careers.microsoft.com/",
           type: "job",
           location: "Redmond, WA",
@@ -1316,7 +1261,8 @@
           description: "Protect systems from cyber threats.",
           fullDescription: "Monitor and secure IT infrastructure against cyber threats and vulnerabilities.",
           requirements: ["Bachelor’s in Cybersecurity or related field", "3+ years in security analysis", "Knowledge of SIEM tools", "Certifications like CISSP"],
-          image: "images/cybersecurity-job.jpg",
+          responsibilities: ["Monitor security threats", "Respond to incidents", "Implement security measures", "Conduct vulnerability assessments"],
+          image: "assets/images/cybersecurity-job.jpg",
           link: "https://jobs.cisco.com/",
           type: "job",
           location: "San Francisco, CA",
@@ -1330,7 +1276,8 @@
           description: "Summer internship for CS students at Google.",
           fullDescription: "Work on real-world projects alongside experienced engineers at Google.",
           requirements: ["Current CS student", "Proficiency in Python or Java", "Strong problem-solving skills", "Available for 12-week internship"],
-          image: "images/internship-google.jpg",
+          responsibilities: ["Develop software components", "Assist in testing", "Participate in code reviews", "Collaborate with mentors"],
+          image: "assets/images/internship-google.jpg",
           link: "https://careers.google.com/students/",
           type: "internship",
           location: "Global",
@@ -1344,7 +1291,8 @@
           description: "Work on data analysis projects at Meta.",
           fullDescription: "Analyze large datasets to support Meta’s product development and user engagement strategies.",
           requirements: ["Enrolled in a graduate program", "Experience with SQL and Python", "Knowledge of statistical modeling", "Strong communication skills"],
-          image: "images/facebook-intern.jpg",
+          responsibilities: ["Analyze datasets", "Develop statistical models", "Support product teams", "Present findings"],
+          image: "assets/images/facebook-intern.jpg",
           link: "https://www.metacareers.com/",
           type: "internship",
           location: "Menlo Park, CA",
@@ -1358,7 +1306,8 @@
           description: "Learn cloud computing with AWS teams.",
           fullDescription: "Gain hands-on experience with AWS cloud services and infrastructure.",
           requirements: ["Current student in CS or related field", "Basic knowledge of cloud computing", "Familiarity with Linux", "Team collaboration skills"],
-          image: "images/aws-intern.jpg",
+          responsibilities: ["Assist in cloud deployments", "Learn AWS services", "Support infrastructure tasks", "Collaborate with engineers"],
+          image: "assets/images/aws-intern.jpg",
           link: "https://aws.amazon.com/careers/",
           type: "internship",
           location: "Seattle, WA",
@@ -1372,7 +1321,8 @@
           description: "Explore AI technologies with Microsoft.",
           fullDescription: "Contribute to AI-driven projects using Microsoft’s cutting-edge technologies.",
           requirements: ["Enrolled in AI-related program", "Experience with machine learning frameworks", "Knowledge of Python", "Interest in AI research"],
-          image: "images/microsoft-intern.jpg",
+          responsibilities: ["Develop AI prototypes", "Test ML models", "Assist in research projects", "Collaborate with AI teams"],
+          image: "assets/images/microsoft-intern.jpg",
           link: "https://careers.microsoft.com/",
           type: "internship",
           location: "Redmond, WA",
@@ -1386,7 +1336,8 @@
           description: "Work on innovative projects at Tesla.",
           fullDescription: "Support Tesla’s mission by working on engineering projects for electric vehicles and energy solutions.",
           requirements: ["Engineering student", "Experience with CAD software", "Knowledge of electrical systems", "Passion for sustainable energy"],
-          image: "images/tesla-intern.jpg",
+          responsibilities: ["Assist in vehicle design", "Support testing processes", "Work on energy solutions", "Collaborate with engineering teams"],
+          image: "assets/images/tesla-intern.jpg",
           link: "https://www.tesla.com/careers",
           type: "internship",
           location: "Fremont, CA",
@@ -1400,7 +1351,8 @@
           description: "Contribute to cutting-edge research at IBM.",
           fullDescription: "Participate in advanced research projects in AI, quantum computing, or cloud technologies.",
           requirements: ["Graduate student in CS or related field", "Research experience", "Proficiency in Python or Java", "Strong analytical skills"],
-          image: "images/ibm-intern.jpg",
+          responsibilities: ["Conduct research experiments", "Develop prototypes", "Analyze research data", "Collaborate with researchers"],
+          image: "assets/images/ibm-intern.jpg",
           link: "https://www.ibm.com/careers",
           type: "internship",
           location: "Yorktown Heights, NY",
@@ -1414,7 +1366,8 @@
           description: "Full funding for outstanding minority students.",
           fullDescription: "Provides comprehensive financial support for minority students pursuing undergraduate or graduate degrees.",
           requirements: ["Minority student status", "Minimum GPA of 3.3", "Demonstrated leadership", "Financial need"],
-          image: "images/gates-scholarship.jpg",
+          responsibilities: [],
+          image: "assets/images/gates-scholarship.jpg",
           link: "https://www.gmsp.org/",
           type: "scholarship",
           location: "Global",
@@ -1428,7 +1381,8 @@
           description: "Support for students overcoming adversity.",
           fullDescription: "Offers financial aid to students who have faced significant personal or financial challenges.",
           requirements: ["Demonstrated adversity", "Minimum GPA of 2.0", "U.S. citizen", "Commitment to pursue a degree"],
-          image: "images/horatio-scholarship.jpg",
+          responsibilities: [],
+          image: "assets/images/horatio-scholarship.jpg",
           link: "https://www.horatioalger.org/",
           type: "scholarship",
           location: "USA",
@@ -1442,7 +1396,8 @@
           description: "Fully-funded UK master's degree for global leaders.",
           fullDescription: "Funds a one-year master’s degree in the UK for individuals with leadership potential.",
           requirements: ["Bachelor’s degree", "2+ years of work experience", "Leadership qualities", "English proficiency"],
-          image: "images/chevening-scholarship.jpg",
+          responsibilities: [],
+          image: "assets/images/chevening-scholarship.jpg",
           link: "https://www.chevening.org/",
           type: "scholarship",
           location: "UK",
@@ -1456,12 +1411,28 @@
           description: "Funding for women pursuing STEM degrees.",
           fullDescription: "Supports women pursuing undergraduate or graduate degrees in STEM fields.",
           requirements: ["Female student", "Enrolled in STEM program", "Minimum GPA of 3.0", "Interest in STEM career"],
-          image: "images/university_rd.jpg",
+          responsibilities: [],
+          image: "assets/images/stem-scholarship.jpg",
           link: "https://ur.ac.rw/?Call-for-Applications-for-Admissions-into-Undergraduate-Academic-Programs",
           type: "scholarship",
           location: "Global",
           posted: "2025-05-01",
           deadline: "2025-08-20",
+          featured: false
+        },
+        {
+          id: 17,
+          title: "Community Volunteer Program",
+          description: "Join our community outreach initiative.",
+          fullDescription: "Participate in community-driven projects to support local development and engagement.",
+          requirements: ["Interest in community service", "Available for 6 months", "Strong communication skills"],
+          responsibilities: ["Organize community events", "Engage with local stakeholders", "Support outreach initiatives", "Report on program impact"],
+          image: "assets/images/community-program.jpg",
+          link: "index.html",
+          type: "other",
+          location: "Global",
+          posted: "2025-07-01",
+          deadline: "2025-09-15",
           featured: false
         }
       ];
@@ -1469,10 +1440,36 @@
       const featuresGrid = document.querySelector('.features-grid');
       const filterControls = document.querySelector('.filter-controls');
       const lastUpdatedEl = document.querySelector('.last-updated');
+      const jobSearch = document.getElementById('jobSearch');
+
+      // Validate jobsData (warnings removed as all entries are valid)
+      jobsData.forEach(job => {
+        if (!['job', 'internship', 'scholarship', 'other'].includes(job.type)) {
+          job.type = 'other';
+        }
+        if (!job.image) {
+          job.image = 'assets/images/placeholder.jpg';
+        }
+        if (!job.deadline || isNaN(new Date(job.deadline))) {
+          job.deadline = '2030-12-31';
+        }
+      });
 
       renderJobs(jobsData);
       renderFilters();
       updateLastUpdated();
+
+      // Search functionality
+      jobSearch.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.replace(/[<>]/g, '').toLowerCase();
+        const filteredJobs = jobsData.filter(job =>
+          job.title.toLowerCase().includes(searchTerm) ||
+          job.description.toLowerCase().includes(searchTerm) ||
+          job.fullDescription.toLowerCase().includes(searchTerm) ||
+          job.location.toLowerCase().includes(searchTerm)
+        );
+        renderJobs(filteredJobs);
+      });
 
       filterControls.addEventListener('click', (e) => {
         if (e.target.classList.contains('filter-btn')) {
@@ -1490,13 +1487,14 @@
         jobs.forEach(job => {
           const jobEl = document.createElement('div');
           jobEl.className = 'feature-box';
+          const applyLink = job.type === 'other' ? 'index.html' : job.link;
           jobEl.innerHTML = `
-            <img src="${job.image}" alt="${job.title}" class="w-full h-40 object-cover border-b-4 border-teal-900">
-            <div class="job-type">${job.type === 'internship' ? 'Internship' : job.type === 'job' ? 'Job' : job.type === 'scholarship' ? 'Scholarship' : 'Other'}</div>
+            <img src="${job.image}" alt="${job.title} image" class="w-full h-40 object-cover object-center border-b-4 border-teal-900" loading="lazy">
+            <div class="job-type">${job.type.charAt(0).toUpperCase() + job.type.slice(1)}</div>
             <div class="feature-content">
               <h2 class="text-teal-900 text-lg">${job.title}</h2>
               <p class="text-gray-600">${job.description}</p>
-              <button class="view-details-btn" data-job-id="${job.id}">View Details</button>
+              <button class="view-details-btn" data-job-id="${job.id}" aria-label="Toggle details for ${job.title}" aria-expanded="false">View Details</button>
               <div class="job-details" id="details-${job.id}">
                 <h3>Full Description</h3>
                 <p class="text-gray-600">${job.fullDescription}</p>
@@ -1504,8 +1502,12 @@
                 <ul>
                   ${job.requirements.map(req => `<li>${req}</li>`).join('')}
                 </ul>
+                <h3>Responsibilities</h3>
+                <ul>
+                  ${job.responsibilities.length > 0 ? job.responsibilities.map(res => `<li>${res}</li>`).join('') : '<li>No specific responsibilities listed</li>'}
+                </ul>
                 <div class="countdown" id="countdown-${job.id}"></div>
-                <a class="apply-btn" href="${job.link}" target="_blank" style="display: none;">Apply Now</a>
+                <a class="apply-btn" href="${applyLink}" ${job.type === 'other' ? '' : 'target="_blank"'} style="display: none;" aria-label="Apply for ${job.title}">Apply Now</a>
               </div>
               <div class="job-meta flex justify-between flex-wrap text-xs text-gray-500">
                 <span>📍 ${job.location}</span>
@@ -1517,7 +1519,6 @@
           startCountdown(job.deadline, `countdown-${job.id}`);
         });
 
-        // Add event listeners for view details buttons
         document.querySelectorAll('.view-details-btn').forEach(button => {
           button.addEventListener('click', () => {
             const jobId = button.dataset.jobId;
@@ -1525,9 +1526,9 @@
             const applyBtn = details.querySelector('.apply-btn');
             details.classList.toggle('active');
             button.textContent = details.classList.contains('active') ? 'Hide Details' : 'View Details';
+            button.setAttribute('aria-expanded', details.classList.contains('active'));
             if (details.classList.contains('active')) {
               applyBtn.style.display = 'inline-block';
-              // Scroll to ensure apply button is visible
               setTimeout(() => {
                 applyBtn.scrollIntoView({ behavior: 'smooth', block: 'end' });
               }, 100);
@@ -1552,6 +1553,7 @@
           btn.className = `filter-btn ${filter.value === 'all' ? 'active' : ''} px-3 py-1 bg-gray-200 rounded-full text-sm hover:bg-gray-300`;
           btn.textContent = filter.name;
           btn.dataset.filter = filter.value;
+          btn.setAttribute('aria-label', `Filter by ${filter.name}`);
           filterControls.appendChild(btn);
         });
       }
