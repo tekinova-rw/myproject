@@ -3,7 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>TekiNova</title>
+  <meta name="description" content="Discover global job opportunities, internships, and scholarships at TekiNova. Apply now to advance your career!" />
+  <meta name="keywords" content="jobs, internships, scholarships, career opportunities, TekiNova, tech jobs, global opportunities" />
+  <meta name="author" content="TekiNova" />
+  <meta name="robots" content="index, follow" />
+  <title>TekiNova - Global Job Opportunities</title>
+  <!-- Open Graph Meta Tags for Social Media -->
+  <meta property="og:title" content="TekiNova - Jobs, Internships, and Scholarships" />
+  <meta property="og:description" content="Explore a wide range of job opportunities, internships, and scholarships worldwide with TekiNova." />
+  <meta property="og:image" content="tekilogo.jpg" />
+  <meta property="og:url" content="https://www.tekinova.com/" />
+  <meta property="og:type" content="website" />
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TekiNova - Global Job Opportunities" />
+  <meta name="twitter:description" content="Find your next career move with TekiNova's job, internship, and scholarship listings." />
+  <meta name="twitter:image" content="tekilogo.jpg" />
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <!-- Tailwind CSS CDN -->
@@ -328,7 +343,7 @@
       font-size: 13px;
     }
 
-    .apply-btn {
+    .view-details-btn, .apply-btn {
       display: inline-block;
       background-color: #012f47;
       color: white;
@@ -340,9 +355,10 @@
       font-size: 13px;
       text-align: center;
       min-width: 100px;
+      cursor: pointer;
     }
 
-    .apply-btn:hover {
+    .view-details-btn:hover, .apply-btn:hover {
       background-color: #034d6d;
     }
 
@@ -451,6 +467,11 @@
     /* Job Details */
     .job-details {
       margin-top: 10px;
+      display: none;
+    }
+
+    .job-details.active {
+      display: block;
     }
 
     .job-details h3 {
@@ -473,10 +494,15 @@
     }
 
     .countdown {
+      background: #fef2f2;
       color: #d9534f;
-      font-size: 0.75rem;
+      font-size: 0.85rem;
       font-weight: 600;
       margin-top: 8px;
+      padding: 8px;
+      border-radius: 6px;
+      text-align: center;
+      border: 1px solid #f5c6cb;
     }
 
     /* Footer */
@@ -1056,6 +1082,47 @@
     </div>
   </footer>
 
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "TekiNova",
+      "url": "https://www.tekinova.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.tekinova.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "TekiNova",
+      "url": "https://www.tekinova.com",
+      "logo": "https://www.tekinova.com/tekilogo.jpg",
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+250733253803",
+          "contactType": "customer service",
+          "contactOption": "WhatsApp",
+          "areaServed": "RW",
+          "availableLanguage": ["English", "Kinyarwanda"]
+        },
+        {
+          "@type": "ContactPoint",
+          "email": "info@tekinova.com",
+          "contactType": "customer service",
+          "areaServed": "RW",
+          "availableLanguage": ["English", "Kinyarwanda"]
+        }
+      ]
+    }
+  </script>
+
   <script>
     // === Menu Toggle Logic ===
     function toggleHamburgerMenu() {
@@ -1102,6 +1169,8 @@
 
         if (timeLeft <= 0) {
           countdownEl.textContent = 'Application Closed';
+          countdownEl.style.backgroundColor = '#f8d7da';
+          countdownEl.style.color = '#721c24';
           return;
         }
 
@@ -1110,7 +1179,12 @@
         const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-        countdownEl.textContent = `Closes in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+        countdownEl.innerHTML = `
+          <span>Closes in: ${days}d ${hours}h ${minutes}m ${seconds}s</span>
+          <div style="margin-top: 4px; font-size: 0.7rem; color: #555;">
+            Deadline: ${deadlineDate.toLocaleDateString()}
+          </div>
+        `;
       }
 
       updateCountdown();
@@ -1390,8 +1464,6 @@
           deadline: "2025-08-20",
           featured: false
         }
-        // Additional entries to reach 200 jobs and 100 scholarships would be added here.
-        // For brevity, I'm not listing all 284 additional entries, but the structure would follow the same pattern with unique IDs, titles, descriptions, requirements, deadlines, etc.
       ];
 
       const featuresGrid = document.querySelector('.features-grid');
@@ -1424,7 +1496,8 @@
             <div class="feature-content">
               <h2 class="text-teal-900 text-lg">${job.title}</h2>
               <p class="text-gray-600">${job.description}</p>
-              <div class="job-details">
+              <button class="view-details-btn" data-job-id="${job.id}">View Details</button>
+              <div class="job-details" id="details-${job.id}">
                 <h3>Full Description</h3>
                 <p class="text-gray-600">${job.fullDescription}</p>
                 <h3>Requirements</h3>
@@ -1432,16 +1505,36 @@
                   ${job.requirements.map(req => `<li>${req}</li>`).join('')}
                 </ul>
                 <div class="countdown" id="countdown-${job.id}"></div>
+                <a class="apply-btn" href="${job.link}" target="_blank" style="display: none;">Apply Now</a>
               </div>
               <div class="job-meta flex justify-between flex-wrap text-xs text-gray-500">
                 <span>📍 ${job.location}</span>
                 <span>📅 Posted: ${formatDate(job.posted)}</span>
               </div>
-              <a class="apply-btn" href="${job.link}" target="_blank">Apply Now</a>
             </div>
           `;
           featuresGrid.appendChild(jobEl);
           startCountdown(job.deadline, `countdown-${job.id}`);
+        });
+
+        // Add event listeners for view details buttons
+        document.querySelectorAll('.view-details-btn').forEach(button => {
+          button.addEventListener('click', () => {
+            const jobId = button.dataset.jobId;
+            const details = document.getElementById(`details-${jobId}`);
+            const applyBtn = details.querySelector('.apply-btn');
+            details.classList.toggle('active');
+            button.textContent = details.classList.contains('active') ? 'Hide Details' : 'View Details';
+            if (details.classList.contains('active')) {
+              applyBtn.style.display = 'inline-block';
+              // Scroll to ensure apply button is visible
+              setTimeout(() => {
+                applyBtn.scrollIntoView({ behavior: 'smooth', block: 'end' });
+              }, 100);
+            } else {
+              applyBtn.style.display = 'none';
+            }
+          });
         });
       }
 
