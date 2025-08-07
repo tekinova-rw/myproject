@@ -67,9 +67,74 @@
         padding: 30px 20px;
       }
     }
+    /* pay button */
+    .container-kwishyura {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 0;
+}
+
+.pay-button {
+  padding: 14px 22px;
+  background-color: #28a745;
+  color: white;
+  font-size: 16px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+  transition: background-color 0.3s;
+}
+
+.pay-button:hover {
+  background-color: #218838;
+}
+
+.ussd-code {
+  display: none;
+  font-size: 16px;
+  background: #f1f1f1;
+  padding: 12px;
+  border-radius: 8px;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+@media (max-width: 600px) {
+  .container-kwishyura {
+    justify-content: center;
+  }
+
+  .pay-button {
+    font-size: 15px;
+    padding: 12px 18px;
+  }
+
+  .ussd-code {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
   </style>
 </head>
 <body>
+  
+    <!-- KWISHYURA BUTTON -->
+<div class="container-kwishyura">
+  <button class="pay-button" onclick="handlePayment()">💰 Kanda Hano Uishyure</button>
+</div>
+
+<!-- IGARAGAZA CODE KURI MUDASOBWA -->
+<div id="codeDisplay" class="ussd-code">
+  <strong>Code yishyuriraho:</strong> *182*8*1*814370#<br>
+  <small>Kopera iyi code uyishyire muri telefoni yawe.</small>
+</div>
+
   <div class="container">
     <h1>🔐 Enter Exam Access Password</h1>
     <p>This exam is restricted. Please enter the password provided by the administrator.</p>
@@ -89,6 +154,21 @@
         document.getElementById("errorMsg").style.display = "block";
       }
     }
+    // paybutton
+    function isMobile() {
+  return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+function handlePayment() {
+  if (isMobile()) {
+    // Telefoni: jya muri dialer
+    window.location.href = "tel:*182*8*1*814370#";
+  } else {
+    // Mudasobwa: erekana code
+    document.getElementById("codeDisplay").style.display = "block";
+  }
+}
+
   </script>
 </body>
 </html>
