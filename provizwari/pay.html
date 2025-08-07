@@ -68,73 +68,57 @@
       }
     }
     /* pay button */
-    .container-kwishyura {
-  display: flex;
-  justify-content: flex-end;
-  margin: 20px 0;
-}
-
-.pay-button {
-  padding: 14px 22px;
-  background-color: #28a745;
+    #pay-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 99999;
+  background-color: #2c0101;
   color: white;
-  font-size: 16px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: bold;
   border: none;
+  border-radius: 40px;
+  padding: 15px 25px;
+  font-size: 20px;
+  font-weight: bold;
   cursor: pointer;
-  box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
-  transition: background-color 0.3s;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.3s ease;
 }
 
-.pay-button:hover {
-  background-color: #218838;
+#pay-btn:hover {
+  background-color: #014428;
 }
 
-.ussd-code {
-  display: none;
-  font-size: 16px;
-  background: #f1f1f1;
-  padding: 12px;
-  border-radius: 8px;
-  max-width: 300px;
-  margin-left: auto;
-  margin-right: 20px;
+.finger-emoji {
+  display: inline-block;
+  animation: fingerWave 2s infinite;
+  transform-origin: 70% 70%;
 }
 
+@keyframes fingerWave {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(20deg);
+  }
+}
+
+/* Responsive */
 @media (max-width: 600px) {
-  .container-kwishyura {
-    justify-content: center;
-  }
-
-  .pay-button {
-    font-size: 15px;
-    padding: 12px 18px;
-  }
-
-  .ussd-code {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
+  #pay-btn {
+    padding: 12px 20px;
+    font-size: 18px;
   }
 }
 
   </style>
 </head>
 <body>
-  
-    <!-- KWISHYURA BUTTON -->
-<div class="container-kwishyura">
-  <button class="pay-button" onclick="handlePayment()">💰 Kanda Hano Uishyure</button>
-</div>
-
-<!-- IGARAGAZA CODE KURI MUDASOBWA -->
-<div id="codeDisplay" class="ussd-code">
-  <strong>Code yishyuriraho:</strong> *182*8*1*814370#<br>
-  <small>Kopera iyi code uyishyire muri telefoni yawe.</small>
-</div>
-
   <div class="container">
     <h1>🔐 Enter Exam Access Password</h1>
     <p>This exam is restricted. Please enter the password provided by the administrator.</p>
@@ -142,6 +126,11 @@
     <button onclick="checkPassword()">Access Exam</button>
     <div class="error" id="errorMsg">Incorrect password. Try again.</div>
   </div>
+  <!-- pay buton -->
+   <button id="pay-btn" aria-label="Kanda hano kwishyura" title="Kanda hano kwishyura">
+  Kwishyura <span class="finger-emoji">👉</span>
+</button>
+
 
   <script>
     const correctPassword = "provizwari2025"; // You can edit this value in mode.js later
@@ -155,19 +144,28 @@
       }
     }
     // paybutton
-    function isMobile() {
-  return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-}
-
-function handlePayment() {
-  if (isMobile()) {
-    // Telefoni: jya muri dialer
-    window.location.href = "tel:*182*8*1*814370#";
+    function handlePayment() {
+  if (/Mobi|Android/i.test(navigator.userAgent)) {
+    // Telefoni – yohereza kuri app yo kwishyura
+    window.location.href = "tel:*182*8*1*0780000000*1000#"; // urugero: MTN MoMo
   } else {
-    // Mudasobwa: erekana code
-    document.getElementById("codeDisplay").style.display = "block";
+    // Mudasobwa – yerekana code yo kwishyura
+    alert("Code yo kwishyura: *182*8*1*0780000000*1000#");
   }
 }
+// buto pay
+document.getElementById('pay-btn').addEventListener('click', function() {
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const paymentCode = "*182*8*1*0780000000#";  // Shyiramo code yawe nyayo
+
+  if (isMobile) {
+    // Kuri telephone, yohereza muri dialer USSD code
+    window.location.href = `tel:${paymentCode}`;
+  } else {
+    // Kuri mudasobwa, garagaza code yo kwishyura
+    alert(`Code yo kwishyura: ${paymentCode}`);
+  }
+});
 
   </script>
 </body>

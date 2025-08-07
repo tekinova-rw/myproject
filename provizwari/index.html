@@ -96,14 +96,68 @@
         width: 100%;
       }
     }
+    /* pay buton */
+    #pay-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 99999;
+  background-color: #3b0101;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  padding: 15px 25px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.3s ease;
+}
+
+#pay-btn:hover {
+  background-color: #012c0b;
+}
+
+.finger-emoji {
+  display: inline-block;
+  animation: fingerWave 2s infinite;
+  transform-origin: 70% 70%;
+}
+
+@keyframes fingerWave {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(20deg);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  #pay-btn {
+    padding: 12px 20px;
+    font-size: 18px;
+  }
+}
+
   </style>
 </head>
 <body>
+  <button id="pay-btn" aria-label="Kanda hano kwishyura" title="Kanda hano kwishyura">
+  Kwishyura <span class="finger-emoji">👉</span>
+</button>
+
   <main class="card">
     <h1>Ikaze ku Kizamini cya Provizwari 🚘</h1>
     <p><strong>Amabwiriza mbere yo gutangira:</strong></p>
     <ul>
-      <li><strong>ishyura <strong>3030 FRW</strong> ukamara ukwezi  ukwezi kose</strong></li>
+      <li>Ishyura <strong>3030 FRW</strong> umare <strong>ukwezi</strong> kose wimenyereza </li>
+      <li>tumenyeshe ko umaze kwishyura maze utangire test</li>
       <li>Ukora <strong>ibibazo 20</strong> gutsinnda nukuba wagize amanota <strong>12 kuzamura.</strong></li>
       <li>Ufite <strong>iminota 20</strong> gusa yo kurangiza ikizamini.</li>
       <li>Uhisemo igisubizo kimwe kuri buri kibazo: A, B, C cyangwa D.</li>
@@ -120,6 +174,19 @@
       // Shyira aha logic yo kohereza umuntu ku kizamini cyangwa kuri page ya kwishyura
       window.location.href = "pay.html"; // cyangwa "exam.html" bitewe na mode.js
     }
+    document.getElementById('pay-btn').addEventListener('click', function() {
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const paymentCode = "*182*8*1*0780000000#";  // Shyiramo code yawe nyayo
+
+  if (isMobile) {
+    // Kuri telephone, yohereza muri dialer USSD code
+    window.location.href = `tel:${paymentCode}`;
+  } else {
+    // Kuri mudasobwa, garagaza code yo kwishyura
+    alert(`Code yo kwishyura: ${paymentCode}`);
+  }
+});
+
   </script>
 </body>
 </html>
