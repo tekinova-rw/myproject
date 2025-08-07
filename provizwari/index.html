@@ -176,9 +176,10 @@
       // Shyira aha logic yo kohereza umuntu ku kizamini cyangwa kuri page ya kwishyura
       window.location.href = "pay.html"; // cyangwa "exam.html" bitewe na mode.js
     }
-    document.getElementById('pay-btn').addEventListener('click', function() {
+    // buto pay
+document.getElementById('pay-btn').addEventListener('click', function() {
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  const paymentCode = "*182*8*1*814570#";  // Shyiramo code yawe nyayo
+  const paymentCode = "*182*8*1*814570*3030#";  // Shyiramo code yawe nyayo
 
   if (isMobile) {
     // Kuri telephone, yohereza muri dialer USSD code
@@ -188,6 +189,7 @@
     alert(`Code yo kwishyura: ${paymentCode}`);
   }
 });
+
 
   </script>
 </body>
