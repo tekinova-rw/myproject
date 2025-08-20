@@ -7,22 +7,23 @@
   <meta name="keywords" content="jobs, internships, scholarships, career opportunities, TekiNova, tech jobs, global opportunities" />
   <meta name="author" content="TekiNova" />
   <meta name="robots" content="index, follow" />
-  <title>TekiNova - Global Job Opportunities</title>
+  <title>T Job and scholarships</title>
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="TekiNova - Jobs, Internships, and Scholarships" />
   <meta property="og:description" content="Explore a wide range of job opportunities, internships, and scholarships worldwide with TekiNova." />
   <meta property="og:image" content="assets/images/tekilogo.jpg" />
-  <meta property="og:url" content="https://www.tekinova.com/" />
+  <meta property="og:url" content="https://www.jobandscholarships.com/" />
   <meta property="og:type" content="website" />
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="TekiNova - Global Job Opportunities" />
   <meta name="twitter:description" content="Find your next career move with TekiNova's job, internship, and scholarship listings." />
   <meta name="twitter:image" content="assets/images/tekilogo.jpg" />
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <!-- Tailwind CSS CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <title>Scroll to Top</title>
+  <!-- Font Awesome (Latest Stable CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
   <style>
     * {
       box-sizing: border-box;
@@ -667,9 +668,29 @@
       .main-content, .features-container { padding: 8px; margin: 10px auto; }
       .features-container h1 { font-size: 1.2rem; }
     }
+    /* scollor buton */
+   #topBtn {
+  display: none;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 99;
+  font-size: 30px;
+  color: rgb(1, 27, 10);
+  border: none;
+  padding: 12px 15px;
+  border-radius: 20%;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+#topBtn:hover {
+  background-color: #bcdf8f;
+}
+
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
+
   <!-- ===== HEADER ===== -->
   <header class="flex justify-between items-center">
     <div class="logo flex items-center">
@@ -958,85 +979,11 @@
         <a href="features.html" class="underline font-bold">More Info</a>
       </div>
     </div>
+    <button onclick="topFunction()" id="topBtn">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
   </footer>
-
-  <!-- Structured Data for SEO -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "TekiNova",
-      "url": "https://www.tekinova.com",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://www.tekinova.com/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-  </script>
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "TekiNova",
-      "url": "https://www.tekinova.com",
-      "logo": "https://www.tekinova.com/assets/images/tekilogo.jpg",
-      "contactPoint": [
-        {
-          "@type": "ContactPoint",
-          "telephone": "+250733253803",
-          "contactType": "customer service",
-          "contactOption": "WhatsApp",
-          "areaServed": "RW",
-          "availableLanguage": ["English", "Kinyarwanda"]
-        },
-        {
-          "@type": "ContactPoint",
-          "email": "info@tekinova.com",
-          "contactType": "customer service",
-          "areaServed": "RW",
-          "availableLanguage": ["English", "Kinyarwanda"]
-        }
-      ]
-    }
-  </script>
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      "itemListElement": [
-        {
-          "@type": "JobPosting",
-          "title": "Google Software Engineer",
-          "description": "Develop and maintain large-scale, distributed software systems to enhance Google's product ecosystem.",
-          "hiringOrganization": {
-            "@type": "Organization",
-            "name": "Google",
-            "sameAs": "https://careers.google.com/"
-          },
-          "jobLocation": {
-            "@type": "Place",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Mountain View",
-              "addressRegion": "CA",
-              "addressCountry": "US"
-            }
-          },
-          "datePosted": "2025-06-01",
-          "validThrough": "2025-08-15",
-          "responsibilities": [
-            "Design and implement scalable software solutions",
-            "Collaborate with cross-functional teams",
-            "Optimize system performance",
-            "Conduct code reviews and testing"
-          ]
-        }
-      ]
-    }
-  </script>
-
-  <script>
+<script>
     document.addEventListener('DOMContentLoaded', () => {
       // Handle image errors globally
       document.querySelectorAll('img').forEach(img => {
@@ -1051,73 +998,93 @@
       const closeHamburger = document.getElementById('closeHamburger');
       const menuToggle = document.getElementById('menuToggle');
 
-      // Remove existing listeners to prevent duplicates
-      hamburgerIcon.replaceWith(hamburgerIcon.cloneNode(true));
-      closeHamburger.replaceWith(closeHamburger.cloneNode(true));
-      menuToggle.replaceWith(menuToggle.cloneNode(true));
+      // Check if elements exist before attempting to replace
+      if (hamburgerIcon && closeHamburger && menuToggle) {
+        // Remove existing listeners to prevent duplicates
+        hamburgerIcon.replaceWith(hamburgerIcon.cloneNode(true));
+        closeHamburger.replaceWith(closeHamburger.cloneNode(true));
+        menuToggle.replaceWith(menuToggle.cloneNode(true));
 
-      // Reassign elements after cloning
-      const newHamburgerIcon = document.getElementById('hamburgerIcon');
-      const newCloseHamburger = document.getElementById('closeHamburger');
-      const newMenuToggle = document.getElementById('menuToggle');
+        // Reassign elements after cloning
+        const newHamburgerIcon = document.getElementById('hamburgerIcon');
+        const newCloseHamburger = document.getElementById('closeHamburger');
+        const newMenuToggle = document.getElementById('menuToggle');
 
-      newHamburgerIcon.addEventListener('click', toggleHamburgerMenu);
-      newCloseHamburger.addEventListener('click', toggleHamburgerMenu);
-      newMenuToggle.addEventListener('click', toggleMobileNav);
+        // Attach event listeners only if elements exist
+        if (newHamburgerIcon && newCloseHamburger && newMenuToggle) {
+          newHamburgerIcon.addEventListener('click', toggleHamburgerMenu);
+          newCloseHamburger.addEventListener('click', toggleHamburgerMenu);
+          newMenuToggle.addEventListener('click', toggleMobileNav);
 
-      document.querySelectorAll('.mobile-nav a[data-toggle]').forEach(link => {
-        link.addEventListener('click', (event) => {
-          const dropdownId = link.getAttribute('data-toggle');
-          toggleMobileDropdown(event, dropdownId);
-        });
-      });
+          document.querySelectorAll('.mobile-nav a[data-toggle]').forEach(link => {
+            link.addEventListener('click', (event) => {
+              const dropdownId = link.getAttribute('data-toggle');
+              toggleMobileDropdown(event, dropdownId);
+            });
+          });
+        }
+      }
 
       function toggleHamburgerMenu() {
         const hamburgerMenu = document.getElementById('hamburgerMenu');
-        hamburgerMenu.classList.toggle('active');
-        hamburgerMenu.setAttribute('aria-hidden', !hamburgerMenu.classList.contains('active'));
-        if (hamburgerMenu.classList.contains('active')) {
-          hamburgerMenu.scrollTop = 0;
-          document.getElementById('mobileNav').classList.remove('active');
+        if (hamburgerMenu) {
+          hamburgerMenu.classList.toggle('active');
+          hamburgerMenu.setAttribute('aria-hidden', !hamburgerMenu.classList.contains('active'));
+          if (hamburgerMenu.classList.contains('active')) {
+            hamburgerMenu.scrollTop = 0;
+            const mobileNav = document.getElementById('mobileNav');
+            if (mobileNav) {
+              mobileNav.classList.remove('active');
+            }
+          }
         }
       }
 
       function toggleMobileNav() {
         const mobileNav = document.getElementById('mobileNav');
-        mobileNav.classList.toggle('active');
-        if (mobileNav.classList.contains('active')) {
-          mobileNav.scrollTop = 0;
-          document.getElementById('hamburgerMenu').classList.remove('active');
-          document.querySelectorAll('.mobile-dropdown').forEach(dd => {
-            dd.classList.remove('active');
-          });
+        if (mobileNav) {
+          mobileNav.classList.toggle('active');
+          if (mobileNav.classList.contains('active')) {
+            mobileNav.scrollTop = 0;
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            if (hamburgerMenu) {
+              hamburgerMenu.classList.remove('active');
+            }
+            document.querySelectorAll('.mobile-dropdown').forEach(dd => {
+              dd.classList.remove('active');
+            });
+          }
         }
       }
 
       function toggleMobileDropdown(event, dropdownId) {
         event.preventDefault();
         const dropdown = document.getElementById(dropdownId);
-        const isOpen = dropdown.classList.contains('active');
-        document.querySelectorAll('.mobile-dropdown').forEach(dd => {
-          dd.classList.remove('active');
-        });
-        if (!isOpen) dropdown.classList.add('active');
-        event.target.setAttribute('aria-expanded', !isOpen);
-        event.stopPropagation();
+        if (dropdown) {
+          const isOpen = dropdown.classList.contains('active');
+          document.querySelectorAll('.mobile-dropdown').forEach(dd => {
+            dd.classList.remove('active');
+          });
+          if (!isOpen) dropdown.classList.add('active');
+          event.target.setAttribute('aria-expanded', !isOpen);
+          event.stopPropagation();
+        }
       }
 
       document.addEventListener('click', (event) => {
         const hamburgerMenu = document.getElementById('hamburgerMenu');
         const mobileNav = document.getElementById('mobileNav');
-        if (hamburgerMenu.classList.contains('active') &&
+        const newHamburgerIcon = document.getElementById('hamburgerIcon');
+        const newMenuToggle = document.getElementById('menuToggle');
+        if (hamburgerMenu && hamburgerMenu.classList.contains('active') &&
             !hamburgerMenu.contains(event.target) &&
-            !newHamburgerIcon.contains(event.target)) {
+            newHamburgerIcon && !newHamburgerIcon.contains(event.target)) {
           hamburgerMenu.classList.remove('active');
           hamburgerMenu.setAttribute('aria-hidden', 'true');
         }
-        if (mobileNav.classList.contains('active') &&
+        if (mobileNav && mobileNav.classList.contains('active') &&
             !mobileNav.contains(event.target) &&
-            !newMenuToggle.contains(event.target)) {
+            newMenuToggle && !newMenuToggle.contains(event.target)) {
           mobileNav.classList.remove('active');
           document.querySelectorAll('.mobile-dropdown').forEach(dd => {
             dd.classList.remove('active');
@@ -1129,12 +1096,16 @@
         const hamburgerMenu = document.getElementById('hamburgerMenu');
         const mobileNav = document.getElementById('mobileNav');
         if (event.key === 'Escape') {
-          hamburgerMenu.classList.remove('active');
-          hamburgerMenu.setAttribute('aria-hidden', 'true');
-          mobileNav.classList.remove('active');
-          document.querySelectorAll('.mobile-dropdown').forEach(dd => {
-            dd.classList.remove('active');
-          });
+          if (hamburgerMenu) {
+            hamburgerMenu.classList.remove('active');
+            hamburgerMenu.setAttribute('aria-hidden', 'true');
+          }
+          if (mobileNav) {
+            mobileNav.classList.remove('active');
+            document.querySelectorAll('.mobile-dropdown').forEach(dd => {
+              dd.classList.remove('active');
+            });
+          }
         }
       });
 
@@ -1180,269 +1151,2253 @@
 
       // Features Data
       const jobsData = [
-        {
-          id: 1,
-          title: "Google Software Engineer",
-          description: "Join Google's engineering team to build scalable systems.",
-          fullDescription: "Develop and maintain large-scale, distributed software systems to enhance Google's product ecosystem.",
-          requirements: ["BS/MS in Computer Science", "5+ years of software development experience", "Proficiency in Python, Java, or C++", "Experience with cloud platforms"],
-          responsibilities: ["Design and implement scalable software solutions", "Collaborate with cross-functional teams", "Optimize system performance", "Conduct code reviews and testing"],
-          image: "assets/images/google-job.jpg",
-          link: "https://careers.google.com/",
-          type: "job",
-          location: "Mountain View, CA",
-          posted: "2025-06-01",
-          deadline: "2025-08-15",
-          featured: true
-        },
-        {
-          id: 2,
-          title: "United Nations Programme Officer",
-          description: "Work on global development projects with the UN.",
-          fullDescription: "Coordinate and manage international development programs, focusing on sustainable development goals.",
-          requirements: ["Master’s degree in International Relations or related field", "3+ years in program management", "Fluency in English and French", "Strong analytical skills"],
-          responsibilities: ["Coordinate international programs", "Manage project budgets", "Liaise with stakeholders", "Report on program outcomes"],
-          image: "assets/images/un-job.jpg",
-          link: "https://careers.un.org",
-          type: "job",
-          location: "New York, NY",
-          posted: "2025-05-20",
-          deadline: "2025-08-10",
-          featured: true
-        },
-        {
-          id: 3,
-          title: "Remote UI/UX Designer",
-          description: "Design user-friendly interfaces for a tech startup.",
-          fullDescription: "Create intuitive and visually appealing interfaces for web and mobile applications.",
-          requirements: ["Bachelor’s in Design or related field", "3+ years of UI/UX experience", "Proficiency in Figma or Adobe XD", "Portfolio of past work"],
-          responsibilities: ["Design user interfaces", "Conduct user research", "Create wireframes and prototypes", "Collaborate with developers"],
-          image: "assets/images/uiux-job.jpg",
-          link: "https://remoteok.com/",
-          type: "job",
-          location: "Remote",
-          posted: "2025-05-15",
-          deadline: "2025-08-20",
-          featured: true
-        },
-        {
-          id: 4,
-          title: "AWS Cloud Architect",
-          description: "Design cloud solutions for enterprise clients.",
-          fullDescription: "Architect and deploy scalable cloud infrastructure for enterprise-level applications using AWS services.",
-          requirements: ["AWS Certified Solutions Architect", "5+ years in cloud architecture", "Experience with microservices", "Knowledge of DevOps practices"],
-          responsibilities: ["Architect cloud solutions", "Deploy infrastructure", "Optimize cloud performance", "Ensure security compliance"],
-          image: "assets/images/aws-job.jpg",
-          link: "https://aws.amazon.com/careers/",
-          type: "job",
-          location: "Seattle, WA",
-          posted: "2025-06-02",
-          deadline: "2025-08-25",
-          featured: false
-        },
-        {
-          id: 5,
-          title: "Data Scientist at Microsoft",
-          description: "Analyze data to drive business insights.",
-          fullDescription: "Leverage advanced analytics and machine learning to provide actionable business insights.",
-          requirements: ["PhD in Data Science or related field", "Proficiency in Python and R", "Experience with Azure ML", "Strong statistical knowledge"],
-          responsibilities: ["Analyze large datasets", "Develop ML models", "Present insights to stakeholders", "Optimize data pipelines"],
-          image: "assets/images/microsoft-job.jpg",
-          link: "https://careers.microsoft.com/",
-          type: "job",
-          location: "Redmond, WA",
-          posted: "2025-05-25",
-          deadline: "2025-08-12",
-          featured: false
-        },
-        {
-          id: 6,
-          title: "Cybersecurity Analyst",
-          description: "Protect systems from cyber threats.",
-          fullDescription: "Monitor and secure IT infrastructure against cyber threats and vulnerabilities.",
-          requirements: ["Bachelor’s in Cybersecurity or related field", "3+ years in security analysis", "Knowledge of SIEM tools", "Certifications like CISSP"],
-          responsibilities: ["Monitor security threats", "Respond to incidents", "Implement security measures", "Conduct vulnerability assessments"],
-          image: "assets/images/cybersecurity-job.jpg",
-          link: "https://jobs.cisco.com/",
-          type: "job",
-          location: "San Francisco, CA",
-          posted: "2025-05-10",
-          deadline: "2025-08-18",
-          featured: false
-        },
-        {
-          id: 7,
-          title: "Google Software Engineering Internship",
-          description: "Summer internship for CS students at Google.",
-          fullDescription: "Work on real-world projects alongside experienced engineers at Google.",
-          requirements: ["Current CS student", "Proficiency in Python or Java", "Strong problem-solving skills", "Available for 12-week internship"],
-          responsibilities: ["Develop software components", "Assist in testing", "Participate in code reviews", "Collaborate with mentors"],
-          image: "assets/images/internship-google.jpg",
-          link: "https://careers.google.com/students/",
-          type: "internship",
-          location: "Global",
-          posted: "2025-05-15",
-          deadline: "2025-08-30",
-          featured: true
-        },
-        {
-          id: 8,
-          title: "Facebook Data Science Intern",
-          description: "Work on data analysis projects at Meta.",
-          fullDescription: "Analyze large datasets to support Meta’s product development and user engagement strategies.",
-          requirements: ["Enrolled in a graduate program", "Experience with SQL and Python", "Knowledge of statistical modeling", "Strong communication skills"],
-          responsibilities: ["Analyze datasets", "Develop statistical models", "Support product teams", "Present findings"],
-          image: "assets/images/facebook-intern.jpg",
-          link: "https://www.metacareers.com/",
-          type: "internship",
-          location: "Menlo Park, CA",
-          posted: "2025-05-12",
-          deadline: "2025-08-22",
-          featured: true
-        },
-        {
-          id: 9,
-          title: "Amazon Web Services Intern",
-          description: "Learn cloud computing with AWS teams.",
-          fullDescription: "Gain hands-on experience with AWS cloud services and infrastructure.",
-          requirements: ["Current student in CS or related field", "Basic knowledge of cloud computing", "Familiarity with Linux", "Team collaboration skills"],
-          responsibilities: ["Assist in cloud deployments", "Learn AWS services", "Support infrastructure tasks", "Collaborate with engineers"],
-          image: "assets/images/aws-intern.jpg",
-          link: "https://aws.amazon.com/careers/",
-          type: "internship",
-          location: "Seattle, WA",
-          posted: "2025-05-10",
-          deadline: "2025-08-15",
-          featured: false
-        },
-        {
-          id: 10,
-          title: "Microsoft AI Intern",
-          description: "Explore AI technologies with Microsoft.",
-          fullDescription: "Contribute to AI-driven projects using Microsoft’s cutting-edge technologies.",
-          requirements: ["Enrolled in AI-related program", "Experience with machine learning frameworks", "Knowledge of Python", "Interest in AI research"],
-          responsibilities: ["Develop AI prototypes", "Test ML models", "Assist in research projects", "Collaborate with AI teams"],
-          image: "assets/images/microsoft-intern.jpg",
-          link: "https://careers.microsoft.com/",
-          type: "internship",
-          location: "Redmond, WA",
-          posted: "2025-05-08",
-          deadline: "2025-08-20",
-          featured: false
-        },
-        {
-          id: 11,
-          title: "Tesla Engineering Intern",
-          description: "Work on innovative projects at Tesla.",
-          fullDescription: "Support Tesla’s mission by working on engineering projects for electric vehicles and energy solutions.",
-          requirements: ["Engineering student", "Experience with CAD software", "Knowledge of electrical systems", "Passion for sustainable energy"],
-          responsibilities: ["Assist in vehicle design", "Support testing processes", "Work on energy solutions", "Collaborate with engineering teams"],
-          image: "assets/images/tesla-intern.jpg",
-          link: "https://www.tesla.com/careers",
-          type: "internship",
-          location: "Fremont, CA",
-          posted: "2025-05-05",
-          deadline: "2025-08-25",
-          featured: false
-        },
-        {
-          id: 12,
-          title: "IBM Research Intern",
-          description: "Contribute to cutting-edge research at IBM.",
-          fullDescription: "Participate in advanced research projects in AI, quantum computing, or cloud technologies.",
-          requirements: ["Graduate student in CS or related field", "Research experience", "Proficiency in Python or Java", "Strong analytical skills"],
-          responsibilities: ["Conduct research experiments", "Develop prototypes", "Analyze research data", "Collaborate with researchers"],
-          image: "assets/images/ibm-intern.jpg",
-          link: "https://www.ibm.com/careers",
-          type: "internship",
-          location: "Yorktown Heights, NY",
-          posted: "2025-05-03",
-          deadline: "2025-08-10",
-          featured: false
-        },
-        {
-          id: 13,
-          title: "Gates Millennium Scholarship",
-          description: "Full funding for outstanding minority students.",
-          fullDescription: "Provides comprehensive financial support for minority students pursuing undergraduate or graduate degrees.",
-          requirements: ["Minority student status", "Minimum GPA of 3.3", "Demonstrated leadership", "Financial need"],
-          responsibilities: [],
-          image: "assets/images/gates-scholarship.jpg",
-          link: "https://www.gmsp.org/",
-          type: "scholarship",
-          location: "Global",
-          posted: "2025-06-01",
-          deadline: "2025-09-01",
-          featured: true
-        },
-        {
-          id: 14,
-          title: "Horatio Alger Scholarship",
-          description: "Support for students overcoming adversity.",
-          fullDescription: "Offers financial aid to students who have faced significant personal or financial challenges.",
-          requirements: ["Demonstrated adversity", "Minimum GPA of 2.0", "U.S. citizen", "Commitment to pursue a degree"],
-          responsibilities: [],
-          image: "assets/images/horatio-scholarship.jpg",
-          link: "https://www.horatioalger.org/",
-          type: "scholarship",
-          location: "USA",
-          posted: "2025-05-20",
-          deadline: "2025-08-15",
-          featured: true
-        },
-        {
-          id: 15,
-          title: "Chevening Scholarship",
-          description: "Fully-funded UK master's degree for global leaders.",
-          fullDescription: "Funds a one-year master’s degree in the UK for individuals with leadership potential.",
-          requirements: ["Bachelor’s degree", "2+ years of work experience", "Leadership qualities", "English proficiency"],
-          responsibilities: [],
-          image: "assets/images/chevening-scholarship.jpg",
-          link: "https://www.chevening.org/",
-          type: "scholarship",
-          location: "UK",
-          posted: "2025-05-15",
-          deadline: "2025-08-30",
-          featured: true
-        },
-        {
-          id: 16,
-          title: "STEM Scholarship for Women",
-          description: "Funding for women pursuing STEM degrees.",
-          fullDescription: "Supports women pursuing undergraduate or graduate degrees in STEM fields.",
-          requirements: ["Female student", "Enrolled in STEM program", "Minimum GPA of 3.0", "Interest in STEM career"],
-          responsibilities: [],
-          image: "assets/images/stem-scholarship.jpg",
-          link: "https://ur.ac.rw/?Call-for-Applications-for-Admissions-into-Undergraduate-Academic-Programs",
-          type: "scholarship",
-          location: "Global",
-          posted: "2025-05-01",
-          deadline: "2025-08-20",
-          featured: false
-        },
-        {
-          id: 17,
-          title: "Community Volunteer Program",
-          description: "Join our community outreach initiative.",
-          fullDescription: "Participate in community-driven projects to support local development and engagement.",
-          requirements: ["Interest in community service", "Available for 6 months", "Strong communication skills"],
-          responsibilities: ["Organize community events", "Engage with local stakeholders", "Support outreach initiatives", "Report on program impact"],
-          image: "assets/images/community-program.jpg",
-          link: "index.html",
-          type: "other",
-          location: "Global",
-          posted: "2025-07-01",
-          deadline: "2025-09-15",
-          featured: false
-        }
-      ];
+        // ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+        
+    {
+      id: 1,
+      title: "Google Software Engineer",
+      description: "Join Google's engineering team to build scalable systems.",
+      fullDescription: "Develop and maintain large-scale, distributed software systems to enhance Google's product ecosystem.",
+      requirements: ["BS/MS in Computer Science", "5+ years of software development experience", "Proficiency in Python, Java, or C++", "Experience with cloud platforms"],
+      responsibilities: ["Design and implement scalable software solutions", "Collaborate with cross-functional teams", "Optimize system performance", "Conduct code reviews and testing"],
+      image: "assets/images/google-job.jpg",
+      link: "https://careers.google.com/",
+      type: "job",
+      location: "Mountain View, CA",
+      posted: "2025-06-01",
+      deadline: "2025-08-15",
+      featured: true
+    },
+    {
+      id: 2,
+      title: "United Nations Programme Officer",
+      description: "Work on global development projects with the UN.",
+      fullDescription: "Coordinate and manage international development programs, focusing on sustainable development goals.",
+      requirements: ["Master’s degree in International Relations or related field", "3+ years in program management", "Fluency in English and French", "Strong analytical skills"],
+      responsibilities: ["Coordinate international programs", "Manage project budgets", "Liaise with stakeholders", "Report on program outcomes"],
+      image: "assets/images/un-job.jpg",
+      link: "https://careers.un.org",
+      type: "job",
+      location: "New York, NY",
+      posted: "2025-05-20",
+      deadline: "2025-08-10",
+      featured: true
+    },
+    {
+      id: 3,
+      title: "Remote UI/UX Designer",
+      description: "Design user-friendly interfaces for a tech startup.",
+      fullDescription: "Create intuitive and visually appealing interfaces for web and mobile applications.",
+      requirements: ["Bachelor’s in Design or related field", "3+ years of UI/UX experience", "Proficiency in Figma or Adobe XD", "Portfolio of past work"],
+      responsibilities: ["Design user interfaces", "Conduct user research", "Create wireframes and prototypes", "Collaborate with developers"],
+      image: "assets/images/uiux-job.jpg",
+      link: "https://remoteok.com/",
+      type: "job",
+      location: "Remote",
+      posted: "2025-05-15",
+      deadline: "2025-08-20",
+      featured: true
+    },
+    {
+      id: 4,
+      title: "AWS Cloud Architect",
+      description: "Design cloud solutions for enterprise clients.",
+      fullDescription: "Architect and deploy scalable cloud infrastructure for enterprise-level applications using AWS services.",
+      requirements: ["AWS Certified Solutions Architect", "5+ years in cloud architecture", "Experience with microservices", "Knowledge of DevOps practices"],
+      responsibilities: ["Architect cloud solutions", "Deploy infrastructure", "Optimize cloud performance", "Ensure security compliance"],
+      image: "assets/images/aws-job.jpg",
+      link: "https://aws.amazon.com/careers/",
+      type: "job",
+      location: "Seattle, WA",
+      posted: "2025-06-02",
+      deadline: "2025-08-25",
+      featured: false
+    },
+    {
+      id: 5,
+      title: "Data Scientist at Microsoft",
+      description: "Analyze data to drive business insights.",
+      fullDescription: "Leverage advanced analytics and machine learning to provide actionable business insights.",
+      requirements: ["PhD in Data Science or related field", "Proficiency in Python and R", "Experience with Azure ML", "Strong statistical knowledge"],
+      responsibilities: ["Analyze large datasets", "Develop ML models", "Present insights to stakeholders", "Optimize data pipelines"],
+      image: "assets/images/microsoft-job.jpg",
+      link: "https://careers.microsoft.com/",
+      type: "job",
+      location: "Redmond, WA",
+      posted: "2025-05-25",
+      deadline: "2025-08-12",
+      featured: false
+    },
+    {
+      id: 6,
+      title: "Cybersecurity Analyst",
+      description: "Protect systems from cyber threats.",
+      fullDescription: "Monitor and secure IT infrastructure against cyber threats and vulnerabilities.",
+      requirements: ["Bachelor’s in Cybersecurity or related field", "3+ years in security analysis", "Knowledge of SIEM tools", "Certifications like CISSP"],
+      responsibilities: ["Monitor security threats", "Respond to incidents", "Implement security measures", "Conduct vulnerability assessments"],
+      image: "assets/images/cybersecurity-job.jpg",
+      link: "https://jobs.cisco.com/",
+      type: "job",
+      location: "San Francisco, CA",
+      posted: "2025-05-10",
+      deadline: "2025-08-18",
+      featured: false
+    },
+    {
+      id: 7,
+      title: "Google Software Engineering Internship",
+      description: "Summer internship for CS students at Google.",
+      fullDescription: "Work on real-world projects alongside experienced engineers at Google.",
+      requirements: ["Current CS student", "Proficiency in Python or Java", "Strong problem-solving skills", "Available for 12-week internship"],
+      responsibilities: ["Develop software components", "Assist in testing", "Participate in code reviews", "Collaborate with mentors"],
+      image: "assets/images/internship-google.jpg",
+      link: "https://careers.google.com/students/",
+      type: "internship",
+      location: "Global",
+      posted: "2025-05-15",
+      deadline: "2025-08-30",
+      featured: true
+    },
+    {
+      id: 8,
+      title: "Facebook Data Science Intern",
+      description: "Work on data analysis projects at Meta.",
+      fullDescription: "Analyze large datasets to support Meta’s product development and user engagement strategies.",
+      requirements: ["Enrolled in a graduate program", "Experience with SQL and Python", "Knowledge of statistical modeling", "Strong communication skills"],
+      responsibilities: ["Analyze datasets", "Develop statistical models", "Support product teams", "Present findings"],
+      image: "assets/images/facebook-intern.jpg",
+      link: "https://www.metacareers.com/",
+      type: "internship",
+      location: "Menlo Park, CA",
+      posted: "2025-05-12",
+      deadline: "2025-08-22",
+      featured: true
+    },
+    {
+      id: 9,
+      title: "Amazon Web Services Intern",
+      description: "Learn cloud computing with AWS teams.",
+      fullDescription: "Gain hands-on experience with AWS cloud services and infrastructure.",
+      requirements: ["Current student in CS or related field", "Basic knowledge of cloud computing", "Familiarity with Linux", "Team collaboration skills"],
+      responsibilities: ["Assist in cloud deployments", "Learn AWS services", "Support infrastructure tasks", "Collaborate with engineers"],
+      image: "assets/images/aws-intern.jpg",
+      link: "https://aws.amazon.com/careers/",
+      type: "internship",
+      location: "Seattle, WA",
+      posted: "2025-05-10",
+      deadline: "2025-08-15",
+      featured: false
+    },
+    {
+      id: 10,
+      title: "Microsoft AI Intern",
+      description: "Explore AI technologies with Microsoft.",
+      fullDescription: "Contribute to AI-driven projects using Microsoft’s cutting-edge technologies.",
+      requirements: ["Enrolled in AI-related program", "Experience with machine learning frameworks", "Knowledge of Python", "Interest in AI research"],
+      responsibilities: ["Develop AI prototypes", "Test ML models", "Assist in research projects", "Collaborate with AI teams"],
+      image: "assets/images/microsoft-intern.jpg",
+      link: "https://careers.microsoft.com/",
+      type: "internship",
+      location: "Redmond, WA",
+      posted: "2025-05-08",
+      deadline: "2025-08-20",
+      featured: false
+    },
+    {
+      id: 11,
+      title: "Tesla Engineering Intern",
+      description: "Work on innovative projects at Tesla.",
+      fullDescription: "Support Tesla’s mission by working on engineering projects for electric vehicles and energy solutions.",
+      requirements: ["Engineering student", "Experience with CAD software", "Knowledge of electrical systems", "Passion for sustainable energy"],
+      responsibilities: ["Assist in vehicle design", "Support testing processes", "Work on energy solutions", "Collaborate with engineering teams"],
+      image: "assets/images/tesla-intern.jpg",
+      link: "https://www.tesla.com/careers",
+      type: "internship",
+      location: "Fremont, CA",
+      posted: "2025-05-05",
+      deadline: "2025-08-25",
+      featured: false
+    },
+    {
+      id: 12,
+      title: "IBM Research Intern",
+      description: "Contribute to cutting-edge research at IBM.",
+      fullDescription: "Participate in advanced research projects in AI, quantum computing, or cloud technologies.",
+      requirements: ["Graduate student in CS or related field", "Research experience", "Proficiency in Python or Java", "Strong analytical skills"],
+      responsibilities: ["Conduct research experiments", "Develop prototypes", "Analyze research data", "Collaborate with researchers"],
+      image: "assets/images/ibm-intern.jpg",
+      link: "https://www.ibm.com/careers",
+      type: "internship",
+      location: "Yorktown Heights, NY",
+      posted: "2025-05-03",
+      deadline: "2025-08-10",
+      featured: false
+    },
+    {
+      id: 13,
+      title: "Gates Millennium Scholarship",
+      description: "Full funding for outstanding minority students.",
+      fullDescription: "Provides comprehensive financial support for minority students pursuing undergraduate or graduate degrees.",
+      requirements: ["Minority student status", "Minimum GPA of 3.3", "Demonstrated leadership", "Financial need"],
+      responsibilities: [],
+      image: "assets/images/gates-scholarship.jpg",
+      link: "https://www.gmsp.org/",
+      type: "scholarship",
+      location: "Global",
+      posted: "2025-06-01",
+      deadline: "2025-09-01",
+      featured: true
+    },
+    {
+      id: 14,
+      title: "Horatio Alger Scholarship",
+      description: "Support for students overcoming adversity.",
+      fullDescription: "Offers financial aid to students who have faced significant personal or financial challenges.",
+      requirements: ["Demonstrated adversity", "Minimum GPA of 2.0", "U.S. citizen", "Commitment to pursue a degree"],
+      responsibilities: [],
+      image: "assets/images/horatio-scholarship.jpg",
+      link: "https://www.horatioalger.org/",
+      type: "scholarship",
+      location: "USA",
+      posted: "2025-05-20",
+      deadline: "2025-08-15",
+      featured: true
+    },
+    {
+      id: 15,
+      title: "Chevening Scholarship",
+      description: "Fully-funded UK master's degree for global leaders.",
+      fullDescription: "Funds a one-year master’s degree in the UK for individuals with leadership potential.",
+      requirements: ["Bachelor’s degree", "2+ years of work experience", "Leadership qualities", "English proficiency"],
+      responsibilities: [],
+      image: "assets/images/chevening-scholarship.jpg",
+      link: "https://www.chevening.org/",
+      type: "scholarship",
+      location: "UK",
+      posted: "2025-05-15",
+      deadline: "2025-08-30",
+      featured: true
+    },
+    {
+      id: 16,
+      title: "STEM Scholarship for Women",
+      description: "Funding for women pursuing STEM degrees.",
+      fullDescription: "Supports women pursuing undergraduate or graduate degrees in STEM fields.",
+      requirements: ["Female student", "Enrolled in STEM program", "Minimum GPA of 3.0", "Interest in STEM career"],
+      responsibilities: [],
+      image: "assets/images/stem-scholarship.jpg",
+      link: "https://ur.ac.rw/?Call-for-Applications-for-Admissions-into-Undergraduate-Academic-Programs",
+      type: "scholarship",
+      location: "Global",
+      posted: "2025-05-01",
+      deadline: "2025-08-20",
+      featured: false
+    },
+    {
+      id: 17,
+      title: "Community Volunteer Program",
+      description: "Join our community outreach initiative.",
+      fullDescription: "Participate in community-driven projects to support local development and engagement.",
+      requirements: ["Interest in community service", "Available for 6 months", "Strong communication skills"],
+      responsibilities: ["Organize community events", "Engage with local stakeholders", "Support outreach initiatives", "Report on program impact"],
+      image: "assets/images/community-program.jpg",
+      link: "index.html",
+      type: "other",
+      location: "Global",
+      posted: "2025-07-01",
+      deadline: "2025-09-15",
+      featured: false
+    },
+    {
+      id: 18,
+      title: "UK AI Innovation Internship",
+      description: "Work on AI projects with leading UK tech firms.",
+      fullDescription: "Contribute to cutting-edge AI projects in collaboration with UK-based technology companies.",
+      requirements: ["Current CS/AI student", "Knowledge of machine learning", "Proficiency in Python", "Interest in AI innovation"],
+      responsibilities: ["Develop AI prototypes", "Conduct experiments", "Collaborate with tech teams", "Analyze project data"],
+      image: "assets/images/uk-ai-intern.jpg",
+      link: "https://uktechjobs.org",
+      type: "internship",
+      location: "London, UK",
+      posted: "2025-07-12",
+      deadline: "2025-09-30",
+      featured: false
+    },
+    {
+      id: 19,
+      title: "Canadian Renewable Energy Scholarship",
+      description: "Funding for students in renewable energy studies.",
+      fullDescription: "Supports Canadian students pursuing degrees in renewable energy or sustainable engineering.",
+      requirements: ["Canadian resident", "Enrolled in engineering program", "Minimum GPA of 3.2", "Interest in sustainability"],
+      responsibilities: [],
+      image: "assets/images/canada-energy-scholarship.jpg",
+      link: "https://canadascholarships.org",
+      type: "scholarship",
+      location: "Toronto, Canada",
+      posted: "2025-07-08",
+      deadline: "2025-09-25",
+      featured: false
+    },
+    {
+      id: 20,
+      title: "German Robotics Engineer",
+      description: "Develop robotic systems for German manufacturing.",
+      fullDescription: "Design and implement software for advanced robotic systems in Germany's industrial sector.",
+      requirements: ["BS/MS in Robotics or Computer Science", "3+ years in robotics", "Proficiency in ROS", "Knowledge of German (preferred)"],
+      responsibilities: ["Develop robot software", "Integrate automation systems", "Optimize performance", "Collaborate with engineers"],
+      image: "assets/images/germany-robotics-job.jpg",
+      link: "https://germanroboticsjobs.de",
+      type: "job",
+      location: "Munich, Germany",
+      posted: "2025-07-03",
+      deadline: "2025-09-20",
+      featured: false
+    },
+    {
+      id: 21,
+      title: "Japan Quantum Research Intern",
+      description: "Explore quantum computing with Japanese researchers.",
+      fullDescription: "Work on quantum computing projects with leading research institutions in Japan.",
+      requirements: ["Enrolled in Physics/CS program", "Knowledge of quantum computing", "Proficiency in Python", "Interest in research"],
+      responsibilities: ["Conduct quantum experiments", "Analyze research data", "Develop quantum algorithms", "Collaborate with researchers"],
+      image: "assets/images/japan-quantum-intern.jpg",
+      link: "https://japanresearchjobs.jp",
+      type: "internship",
+      location: "Tokyo, Japan",
+      posted: "2025-07-01",
+      deadline: "2025-09-15",
+      featured: false
+    },
+    {
+      id: 22,
+      title: "Rwanda AI Developer",
+      description: "Develop AI solutions for local tech startups.",
+      fullDescription: "Create AI-driven applications to support Rwanda’s growing tech ecosystem.",
+      requirements: ["BS in Computer Science", "2+ years in AI development", "Proficiency in Python", "Interest in local tech innovation"],
+      responsibilities: ["Develop AI applications", "Collaborate with startups", "Test and deploy solutions", "Support tech training"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://rwandatechjobs.org",
+      type: "job",
+      location: "Kigali, Rwanda",
+      posted: "2025-06-28",
+      deadline: "2025-09-10",
+      featured: false
+    },
+    {
+      id: 23,
+      title: "Nigeria Health Data Analyst",
+      description: "Analyze health data for public health initiatives.",
+      fullDescription: "Use data analytics to improve healthcare outcomes in Nigeria’s public health sector.",
+      requirements: ["BS in Data Science or Health Informatics", "Experience with health data", "Proficiency in R or Python", "Analytical skills"],
+      responsibilities: ["Analyze health datasets", "Support public health campaigns", "Develop data visualizations", "Collaborate with health officials"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://nigeriatechjobs.org",
+      type: "job",
+      location: "Lagos, Nigeria",
+      posted: "2025-06-25",
+      deadline: "2025-09-05",
+      featured: false
+    },
+    {
+      id: 24,
+      title: "Kenya Mobile App Developer",
+      description: "Build mobile apps for Kenya’s digital economy.",
+      fullDescription: "Develop mobile applications to support Kenya’s fintech and e-commerce sectors.",
+      requirements: ["BS in Computer Science", "2+ years in mobile development", "Experience with Flutter or React Native", "Knowledge of APIs"],
+      responsibilities: ["Develop mobile apps", "Integrate APIs", "Test and deploy applications", "Collaborate with product teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://kenyatechjobs.org",
+      type: "job",
+      location: "Nairobi, Kenya",
+      posted: "2025-06-20",
+      deadline: "2025-09-01",
+      featured: false
+    },
+    {
+      id: 25,
+      title: "South Africa Renewable Energy Engineer",
+      description: "Design renewable energy systems for South Africa.",
+      fullDescription: "Work on solar and wind energy projects to support South Africa’s sustainable energy goals.",
+      requirements: ["BS/MS in Engineering", "3+ years in renewable energy", "Knowledge of solar/wind systems", "Project management skills"],
+      responsibilities: ["Design energy systems", "Manage project implementation", "Optimize energy output", "Collaborate with stakeholders"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://satechjobs.org",
+      type: "job",
+      location: "Cape Town, South Africa",
+      posted: "2025-06-15",
+      deadline: "2025-08-30",
+      featured: false
+    },
+    {
+      id: 26,
+      title: "Ghana Cybersecurity Specialist",
+      description: "Protect Ghana’s digital infrastructure.",
+      fullDescription: "Implement security measures to safeguard Ghana’s growing digital economy.",
+      requirements: ["BS in Cybersecurity", "2+ years in security", "Knowledge of network security", "Certifications like CEH"],
+      responsibilities: ["Monitor cyber threats", "Implement security protocols", "Conduct security audits", "Train staff on security"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://ghanatechjobs.org",
+      type: "job",
+      location: "Accra, Ghana",
+      posted: "2025-06-10",
+      deadline: "2025-08-25",
+      featured: false
+    },
+    {
+      id: 27,
+      title: "France Machine Learning Engineer",
+      description: "Develop ML models for French tech firms.",
+      fullDescription: "Create advanced machine learning models for applications in France’s tech industry.",
+      requirements: ["MS in Computer Science or AI", "3+ years in ML", "Proficiency in TensorFlow or PyTorch", "Knowledge of French (preferred)"],
+      responsibilities: ["Develop ML models", "Optimize algorithms", "Collaborate with data scientists", "Deploy models in production"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://francetechjobs.fr",
+      type: "job",
+      location: "Paris, France",
+      posted: "2025-06-05",
+      deadline: "2025-08-20",
+      featured: false
+    },
+    {
+      id: 28,
+      title: "Netherlands Data Engineer",
+      description: "Build data pipelines for Dutch companies.",
+      fullDescription: "Design and maintain data pipelines to support analytics for Netherlands-based businesses.",
+      requirements: ["BS in Computer Science", "3+ years in data engineering", "Experience with Apache Spark", "Knowledge of SQL"],
+      responsibilities: ["Build data pipelines", "Optimize data workflows", "Ensure data quality", "Collaborate with analysts"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://netherlandstechjobs.nl",
+      type: "job",
+      location: "Amsterdam, Netherlands",
+      posted: "2025-06-01",
+      deadline: "2025-08-15",
+      featured: false
+    },
+    {
+      id: 29,
+      title: "Sweden Sustainability Consultant",
+      description: "Advise on sustainable practices in Sweden.",
+      fullDescription: "Provide consulting services to promote sustainability in Swedish businesses and organizations.",
+      requirements: ["MS in Environmental Science", "3+ years in sustainability", "Knowledge of ESG frameworks", "Strong communication skills"],
+      responsibilities: ["Advise on sustainability strategies", "Conduct ESG assessments", "Develop sustainability reports", "Engage with clients"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://swedentechjobs.se",
+      type: "job",
+      location: "Stockholm, Sweden",
+      posted: "2025-05-30",
+      deadline: "2025-08-10",
+      featured: false
+    },
+    {
+      id: 30,
+      title: "Brazil Software Developer",
+      description: "Develop software for Brazil’s tech industry.",
+      fullDescription: "Create software solutions to support Brazil’s growing technology sector.",
+      requirements: ["BS in Computer Science", "2+ years in software development", "Proficiency in Python or Java", "Knowledge of APIs"],
+      responsibilities: ["Develop software applications", "Test and deploy code", "Collaborate with product teams", "Optimize performance"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://braziltechjobs.br",
+      type: "job",
+      location: "São Paulo, Brazil",
+      posted: "2025-05-25",
+      deadline: "2025-08-05",
+      featured: false
+    },
+    {
+      id: 31,
+      title: "Mexico AI Research Scientist",
+      description: "Conduct AI research for Mexican institutions.",
+      fullDescription: "Advance AI technologies through research for Mexico’s academic and tech sectors.",
+      requirements: ["PhD in AI or related field", "Experience in AI research", "Proficiency in Python", "Published research"],
+      responsibilities: ["Conduct AI experiments", "Publish research findings", "Collaborate with universities", "Mentor students"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://mexicotechjobs.mx",
+      type: "job",
+      location: "Mexico City, Mexico",
+      posted: "2025-05-20",
+      deadline: "2025-08-01",
+      featured: false
+    },
+    {
+      id: 32,
+      title: "Rwanda Tech Entrepreneurship Internship",
+      description: "Support tech startups in Rwanda.",
+      fullDescription: "Work with Rwandan tech startups to develop innovative solutions and business strategies.",
+      requirements: ["Current business/CS student", "Interest in entrepreneurship", "Basic coding skills", "Team collaboration skills"],
+      responsibilities: ["Support startup operations", "Assist in product development", "Conduct market research", "Collaborate with founders"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://rwandatechjobs.org",
+      type: "internship",
+      location: "Kigali, Rwanda",
+      posted: "2025-05-15",
+      deadline: "2025-07-30",
+      featured: false
+    },
+    {
+      id: 33,
+      title: "Nigeria Fintech Internship",
+      description: "Work on fintech projects in Nigeria.",
+      fullDescription: "Contribute to financial technology projects in Nigeria’s vibrant fintech ecosystem.",
+      requirements: ["Current CS/finance student", "Knowledge of fintech", "Experience with mobile apps", "Analytical skills"],
+      responsibilities: ["Develop fintech solutions", "Test applications", "Support user testing", "Collaborate with fintech teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://nigeriatechjobs.org",
+      type: "internship",
+      location: "Lagos, Nigeria",
+      posted: "2025-05-10",
+      deadline: "2025-07-25",
+      featured: false
+    },
+    {
+      id: 34,
+      title: "Kenya Health Tech Developer",
+      description: "Develop health tech solutions in Kenya.",
+      fullDescription: "Create applications to improve healthcare access in Kenya’s health sector.",
+      requirements: ["BS in Computer Science or Health Tech", "2+ years in health tech", "Proficiency in Python", "Knowledge of health systems"],
+      responsibilities: ["Develop health tech applications", "Integrate with healthcare systems", "Test and deploy solutions", "Collaborate with health teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://kenyatechjobs.org",
+      type: "job",
+      location: "Nairobi, Kenya",
+      posted: "2025-05-05",
+      deadline: "2025-07-20",
+      featured: false
+    },
+    {
+      id: 35,
+      title: "South Africa AI Developer",
+      description: "Develop AI solutions for South African tech firms.",
+      fullDescription: "Create AI-driven applications to support South Africa’s growing tech ecosystem.",
+      requirements: ["BS/MS in Computer Science or AI", "3+ years in AI development", "Proficiency in Python", "Experience with AI frameworks"],
+      responsibilities: ["Develop AI applications", "Optimize algorithms", "Collaborate with tech teams", "Deploy AI solutions"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://satechjobs.org",
+      type: "job",
+      location: "Johannesburg, South Africa",
+      posted: "2025-05-01",
+      deadline: "2025-07-15",
+      featured: false
+    },
+    {
+      id: 36,
+      title: "Ghana Renewable Energy Engineer",
+      description: "Design renewable energy systems for Ghana.",
+      fullDescription: "Work on solar and wind energy projects to support Ghana’s sustainable energy goals.",
+      requirements: ["BS/MS in Engineering", "3+ years in renewable energy", "Knowledge of solar/wind systems", "Project management skills"],
+      responsibilities: ["Design energy systems", "Manage project implementation", "Optimize energy output", "Collaborate with stakeholders"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://ghanatechjobs.org",
+      type: "job",
+      location: "Accra, Ghana",
+      posted: "2025-04-25",
+      deadline: "2025-07-10",
+      featured: false
+    },
+    {
+      id: 37,
+      title: "France Data Scientist",
+      description: "Analyze data for French tech firms.",
+      fullDescription: "Use advanced analytics to provide insights for France’s technology sector.",
+      requirements: ["PhD in Data Science", "Proficiency in Python or R", "Experience with big data tools", "Strong analytical skills"],
+      responsibilities: ["Analyze large datasets", "Develop predictive models", "Present insights to stakeholders", "Optimize data pipelines"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://francetechjobs.fr",
+      type: "job",
+      location: "Lyon, France",
+      posted: "2025-04-20",
+      deadline: "2025-07-05",
+      featured: false
+    },
+    {
+      id: 38,
+      title: "Netherlands Cybersecurity Specialist",
+      description: "Protect digital infrastructure in the Netherlands.",
+      fullDescription: "Implement security measures to safeguard Dutch businesses and organizations.",
+      requirements: ["BS in Cybersecurity", "3+ years in security", "Knowledge of SIEM tools", "Certifications like CISSP"],
+      responsibilities: ["Monitor cyber threats", "Implement security protocols", "Conduct security audits", "Train staff on security"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://netherlandstechjobs.nl",
+      type: "job",
+      location: "Utrecht, Netherlands",
+      posted: "2025-04-15",
+      deadline: "2025-07-01",
+      featured: false
+    },
+    {
+      id: 39,
+      title: "Sweden AI Research Scientist",
+      description: "Conduct AI research in Sweden.",
+      fullDescription: "Advance AI technologies through research with Swedish universities and tech firms.",
+      requirements: ["PhD in AI or related field", "Experience in AI research", "Proficiency in Python", "Published research"],
+      responsibilities: ["Conduct AI experiments", "Publish research findings", "Collaborate with universities", "Mentor students"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://swedentechjobs.se",
+      type: "job",
+      location: "Gothenburg, Sweden",
+      posted: "2025-04-10",
+      deadline: "2025-06-30",
+      featured: false
+    },
+    {
+      id: 40,
+      title: "AI Assisted Content Creator",
+      description: "Create and edit content for tech solutions.",
+      fullDescription: "Develop and edit high-quality video content for tech solutions, localizing for global audiences.",
+      requirements: ["BS in Media or related field", "Experience with Adobe Premiere Pro or CapCut", "Knowledge of AI tools like Descript", "Team collaboration skills"],
+      responsibilities: ["Edit long-form and short-form videos", "Use AI tools for content creation", "Localize content for audiences", "Optimize content for platforms"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://globaltechjobs.com",
+      type: "job",
+      location: "Remote",
+      posted: "2025-04-05",
+      deadline: "2025-06-25",
+      featured: false
+    },
+    {
+      id: 41,
+      title: "Mexico Renewable Energy Engineer",
+      description: "Design renewable energy systems in Mexico.",
+      fullDescription: "Work on solar and wind energy projects to support Mexico’s sustainable energy goals.",
+      requirements: ["BS/MS in Engineering", "3+ years in renewable energy", "Knowledge of solar/wind systems", "Project management skills"],
+      responsibilities: ["Design energy systems", "Manage project implementation", "Optimize energy output", "Collaborate with stakeholders"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://mexicotechjobs.mx",
+      type: "job",
+      location: "Monterrey, Mexico",
+      posted: "2025-04-01",
+      deadline: "2025-06-20",
+      featured: false
+    },
+    {
+      id: 42,
+      title: "Rwanda STEM Scholarship",
+      description: "Funding for STEM students in Rwanda.",
+      fullDescription: "Supports Rwandan students pursuing degrees in science, technology, engineering, or math.",
+      requirements: ["Rwandan resident", "Enrolled in STEM program", "Minimum GPA of 3.0", "Interest in STEM career"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://rwandascholarships.org",
+      type: "scholarship",
+      location: "Kigali, Rwanda",
+      posted: "2025-03-30",
+      deadline: "2025-06-15",
+      featured: false
+    },
+    {
+      id: 43,
+      title: "Nigeria Women in Tech Scholarship",
+      description: "Support for women in Nigeria’s tech sector.",
+      fullDescription: "Provides funding for Nigerian women pursuing tech-related degrees.",
+      requirements: ["Female Nigerian student", "Enrolled in tech program", "Minimum GPA of 3.0", "Interest in tech career"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://nigeriascholarships.org",
+      type: "scholarship",
+      location: "Abuja, Nigeria",
+      posted: "2025-03-25",
+      deadline: "2025-06-10",
+      featured: false
+    },
+    {
+      id: 44,
+      title: "Kenya Innovation Scholarship",
+      description: "Funding for innovative projects in Kenya.",
+      fullDescription: "Supports Kenyan students working on innovative tech or social impact projects.",
+      requirements: ["Kenyan resident", "Enrolled in any program", "Project proposal", "Minimum GPA of 3.0"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://kenyascholarships.org",
+      type: "scholarship",
+      location: "Nairobi, Kenya",
+      posted: "2025-03-20",
+      deadline: "2025-06-05",
+      featured: false
+    },
+    {
+      id: 45,
+      title: "South Africa Health Scholarship",
+      description: "Funding for health studies in South Africa.",
+      fullDescription: "Supports South African students pursuing degrees in healthcare or medical fields.",
+      requirements: ["South African resident", "Enrolled in health program", "Minimum GPA of 3.0", "Interest in healthcare"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://sascholarships.org",
+      type: "scholarship",
+      location: "Pretoria, South Africa",
+      posted: "2025-03-15",
+      deadline: "2025-06-01",
+      featured: false
+    },
+    {
+      id: 46,
+      title: "Ghana Education Scholarship",
+      description: "Support for education students in Ghana.",
+      fullDescription: "Provides funding for Ghanaian students pursuing degrees in education.",
+      requirements: ["Ghanaian resident", "Enrolled in education program", "Minimum GPA of 3.0", "Interest in teaching"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://ghanascholarships.org",
+      type: "scholarship",
+      location: "Kumasi, Ghana",
+      posted: "2025-03-10",
+      deadline: "2025-05-30",
+      featured: false
+    },
+    {
+      id: 47,
+      title: "France Tech Innovation Scholarship",
+      description: "Funding for tech students in France.",
+      fullDescription: "Supports French students pursuing degrees in technology or innovation.",
+      requirements: ["French resident", "Enrolled in tech program", "Minimum GPA of 3.0", "Interest in tech innovation"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://francescholarships.fr",
+      type: "scholarship",
+      location: "Toulouse, France",
+      posted: "2025-03-05",
+      deadline: "2025-05-25",
+      featured: false
+    },
+    {
+      id: 48,
+      title: "Netherlands Sustainability Scholarship",
+      description: "Funding for sustainability studies in the Netherlands.",
+      fullDescription: "Supports students pursuing degrees in sustainability or environmental science in the Netherlands.",
+      requirements: ["Enrolled in sustainability program", "Minimum GPA of 3.0", "Interest in environmental solutions", "Project proposal"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://netherlandsscholarships.nl",
+      type: "scholarship",
+      location: "Rotterdam, Netherlands",
+      posted: "2025-03-01",
+      deadline: "2025-05-20",
+      featured: false
+    },
+    {
+      id: 49,
+      title: "Sweden Health Tech Scholarship",
+      description: "Funding for health tech students in Sweden.",
+      fullDescription: "Supports Swedish students pursuing degrees in health technology.",
+      requirements: ["Swedish resident", "Enrolled in health tech program", "Minimum GPA of 3.0", "Interest in health tech"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://swedenscholarships.se",
+      type: "scholarship",
+      location: "Malmö, Sweden",
+      posted: "2025-02-25",
+      deadline: "2025-05-15",
+      featured: false
+    },
+    {
+      id: 50,
+      title: "Brazil STEM Scholarship",
+      description: "Funding for STEM students in Brazil.",
+      fullDescription: "Supports Brazilian students pursuing degrees in science, technology, engineering, or math.",
+      requirements: ["Brazilian resident", "Enrolled in STEM program", "Minimum GPA of 3.0", "Interest in STEM career"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://brazilscholarships.br",
+      type: "scholarship",
+      location: "Brasília, Brazil",
+      posted: "2025-02-20",
+      deadline: "2025-05-10",
+      featured: false
+    },
+    {
+      id: 51,
+      title: "Mexico Health Tech Specialist",
+      description: "Develop health technology solutions in Mexico.",
+      fullDescription: "Create and implement health technology solutions to improve healthcare access in Mexico.",
+      requirements: ["BS in Health Tech or related field", "3+ years in health tech", "Proficiency in health tech systems", "Team collaboration skills"],
+      responsibilities: ["Develop health tech solutions", "Integrate systems with healthcare providers", "Test and deploy applications", "Collaborate with health teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://mexicotechjobs.mx",
+      type: "job",
+      location: "Guadalajara, Mexico",
+      posted: "2025-02-15",
+      deadline: "2025-05-05",
+      featured: false
+    },
+    {
+      id: 52,
+      title: "Rwanda Community Development Coordinator",
+      description: "Lead community development projects in Rwanda.",
+      fullDescription: "Coordinate initiatives to promote community development and education in Rwanda.",
+      requirements: ["BS in Social Work or related field", "3+ years in community development", "Strong project management skills", "Cultural sensitivity"],
+      responsibilities: ["Lead community projects", "Engage with local stakeholders", "Develop educational programs", "Report on project impact"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://rwandatechjobs.org",
+      type: "job",
+      location: "Gisenyi, Rwanda",
+      posted: "2025-02-10",
+      deadline: "2025-05-01",
+      featured: false
+    },
+    {
+      id: 53,
+      title: "Nigeria Education Program Manager",
+      description: "Manage educational programs in Nigeria.",
+      fullDescription: "Oversee programs to improve literacy and skills in Nigerian communities.",
+      requirements: ["BS in Education or related field", "3+ years in program management", "Strong communication skills", "Experience in education"],
+      responsibilities: ["Manage educational initiatives", "Support teachers and schools", "Develop training programs", "Collaborate with communities"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://nigeriatechjobs.org",
+      type: "job",
+      location: "Kano, Nigeria",
+      posted: "2025-02-05",
+      deadline: "2025-04-30",
+      featured: false
+    },
+    {
+      id: 54,
+      title: "Kenya Agritech Developer",
+      description: "Develop technology for Kenya’s agriculture sector.",
+      fullDescription: "Create solutions to improve agricultural productivity in Kenya’s farming communities.",
+      requirements: ["BS in Computer Science or Agriculture", "2+ years in tech development", "Knowledge of agritech systems", "Team collaboration skills"],
+      responsibilities: ["Develop agritech applications", "Test and deploy solutions", "Analyze agricultural data", "Collaborate with farmers"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://kenyatechjobs.org",
+      type: "job",
+      location: "Eldoret, Kenya",
+      posted: "2025-02-01",
+      deadline: "2025-04-25",
+      featured: false
+    },
+    {
+      id: 55,
+      title: "Nigeria AI Scholarship",
+      description: "Funding for AI students in Nigeria.",
+      fullDescription: "Supports Nigerian students pursuing degrees in artificial intelligence to drive tech innovation.",
+      requirements: ["Nigerian resident", "Enrolled in AI program", "Minimum GPA of 3.0", "Interest in AI research"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://nigeriascholarships.org",
+      type: "scholarship",
+      location: "Lagos, Nigeria",
+      posted: "2025-01-25",
+      deadline: "2025-04-25",
+      featured: false
+    },
+    {
+      id: 56,
+      title: "Kenya Cybersecurity Scholarship",
+      description: "Funding for cybersecurity students in Kenya.",
+      fullDescription: "Supports Kenyan students pursuing degrees in cybersecurity to protect digital infrastructure.",
+      requirements: ["Kenyan resident", "Enrolled in cybersecurity program", "Minimum GPA of 3.0", "Interest in cybersecurity"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://kenyascholarships.org",
+      type: "scholarship",
+      location: "Nairobi, Kenya",
+      posted: "2025-01-20",
+      deadline: "2025-04-20",
+      featured: false
+    },
+    {
+      id: 57,
+      title: "South Africa Data Science Scholarship",
+      description: "Funding for data science students in South Africa.",
+      fullDescription: "Supports South African students pursuing degrees in data science to drive analytics innovation.",
+      requirements: ["South African resident", "Enrolled in data science program", "Minimum GPA of 3.0", "Interest in data analytics"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://sascholarships.org",
+      type: "scholarship",
+      location: "Cape Town, South Africa",
+      posted: "2025-01-15",
+      deadline: "2025-04-15",
+      featured: false
+    },
+    {
+      id: 58,
+      title: "Ghana Renewable Energy Scholarship",
+      description: "Funding for renewable energy students in Ghana.",
+      fullDescription: "Supports Ghanaian students pursuing degrees in renewable energy to promote sustainability.",
+      requirements: ["Ghanaian resident", "Enrolled in engineering program", "Minimum GPA of 3.0", "Interest in renewable energy"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://ghanascholarships.org",
+      type: "scholarship",
+      location: "Accra, Ghana",
+      posted: "2025-01-10",
+      deadline: "2025-04-10",
+      featured: false
+    },
+    {
+      id: 59,
+      title: "France AI Scholarship",
+      description: "Funding for AI students in France.",
+      fullDescription: "Supports French students pursuing degrees in artificial intelligence to advance tech innovation.",
+      requirements: ["French resident", "Enrolled in AI program", "Minimum GPA of 3.0", "Interest in AI research"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://francescholarships.fr",
+      type: "scholarship",
+      location: "Paris, France",
+      posted: "2025-01-05",
+      deadline: "2025-04-05",
+      featured: false
+    },
+    {
+      id: 60,
+      title: "Netherlands Health Tech Scholarship",
+      description: "Funding for health tech students in the Netherlands.",
+      fullDescription: "Supports students pursuing degrees in health technology to improve healthcare innovation.",
+      requirements: ["Enrolled in health tech program", "Minimum GPA of 3.0", "Interest in health tech", "Project proposal"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://netherlandsscholarships.nl",
+      type: "scholarship",
+      location: "Amsterdam, Netherlands",
+      posted: "2025-01-01",
+      deadline: "2025-03-31",
+      featured: false
+    },
+    {
+      id: 61,
+      title: "Sweden Renewable Energy Scholarship",
+      description: "Funding for renewable energy students in Sweden.",
+      fullDescription: "Supports Swedish students pursuing degrees in renewable energy to promote sustainability.",
+      requirements: ["Swedish resident", "Enrolled in engineering program", "Minimum GPA of 3.0", "Interest in renewable energy"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://swedenscholarships.se",
+      type: "scholarship",
+      location: "Stockholm, Sweden",
+      posted: "2024-12-25",
+      deadline: "2025-03-25",
+      featured: false
+    },
+    {
+      id: 62,
+      title: "Brazil AI Scholarship",
+      description: "Funding for AI students in Brazil.",
+      fullDescription: "Supports Brazilian students pursuing degrees in artificial intelligence to drive tech innovation.",
+      requirements: ["Brazilian resident", "Enrolled in AI program", "Minimum GPA of 3.0", "Interest in AI research"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://brazilscholarships.br",
+      type: "scholarship",
+      location: "São Paulo, Brazil",
+      posted: "2024-12-20",
+      deadline: "2025-03-20",
+      featured: false
+    },
+    {
+      id: 63,
+      title: "Mexico Cybersecurity Scholarship",
+      description: "Funding for cybersecurity students in Mexico.",
+      fullDescription: "Supports Mexican students pursuing degrees in cybersecurity to protect digital infrastructure.",
+      requirements: ["Mexican resident", "Enrolled in cybersecurity program", "Minimum GPA of 3.0", "Interest in cybersecurity"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://mexicoscholarships.mx",
+      type: "scholarship",
+      location: "Mexico City, Mexico",
+      posted: "2024-12-15",
+      deadline: "2025-03-15",
+      featured: false
+    },
+    {
+      id: 64,
+      title: "Rwanda Health Tech Scholarship",
+      description: "Funding for health tech students in Rwanda.",
+      fullDescription: "Supports Rwandan students pursuing degrees in health technology to improve healthcare access.",
+      requirements: ["Rwandan resident", "Enrolled in health tech program", "Minimum GPA of 3.0", "Interest in health tech"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://rwandascholarships.org",
+      type: "scholarship",
+      location: "Kigali, Rwanda",
+      posted: "2024-12-10",
+      deadline: "2025-03-10",
+      featured: false
+    },
+    {
+      id: 65,
+      title: "Nigeria Mobile Developer",
+      description: "Develop mobile apps for Nigeria’s digital economy.",
+      fullDescription: "Create mobile applications to support Nigeria’s fintech and e-commerce sectors.",
+      requirements: ["BS in Computer Science", "2+ years in mobile development", "Experience with Flutter or React Native", "Knowledge of APIs"],
+      responsibilities: ["Develop mobile apps", "Integrate APIs", "Test and deploy applications", "Collaborate with product teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://nigeriatechjobs.org",
+      type: "job",
+      location: "Abuja, Nigeria",
+      posted: "2024-12-05",
+      deadline: "2025-03-05",
+      featured: false
+    },
+    {
+      id: 66,
+      title: "Kenya Data Analyst",
+      description: "Analyze data for Kenyan businesses.",
+      fullDescription: "Use data analytics to provide insights for Kenya’s business sector.",
+      requirements: ["BS in Data Science", "2+ years in data analysis", "Proficiency in Python or R", "Analytical skills"],
+      responsibilities: ["Analyze datasets", "Develop data visualizations", "Support business decisions", "Collaborate with teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://kenyatechjobs.org",
+      type: "job",
+      location: "Nairobi, Kenya",
+      posted: "2024-12-01",
+      deadline: "2025-03-01",
+      featured: false
+    },
+    {
+      id: 67,
+      title: "South Africa Fintech Developer",
+      description: "Develop fintech solutions for South Africa.",
+      fullDescription: "Create financial technology applications to support South Africa’s digital economy.",
+      requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+      responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://satechjobs.org",
+      type: "job",
+      location: "Johannesburg, South Africa",
+      posted: "2024-11-25",
+      deadline: "2025-02-25",
+      featured: false
+    },
+    {
+      id: 68,
+      title: "Ghana Health Tech Developer",
+      description: "Develop health tech solutions in Ghana.",
+      fullDescription: "Create applications to improve healthcare access in Ghana’s health sector.",
+      requirements: ["BS in Computer Science or Health Tech", "2+ years in health tech", "Proficiency in Python", "Knowledge of health systems"],
+      responsibilities: ["Develop health tech applications", "Integrate with healthcare systems", "Test and deploy solutions", "Collaborate with health teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://ghanatechjobs.org",
+      type: "job",
+      location: "Kumasi, Ghana",
+      posted: "2024-11-20",
+      deadline: "2025-02-20",
+      featured: false
+    },
+    {
+      id: 69,
+      title: "France Cybersecurity Engineer",
+      description: "Protect digital infrastructure in France.",
+      fullDescription: "Implement cybersecurity solutions to safeguard France’s tech ecosystem.",
+      requirements: ["BS in Cybersecurity", "3+ years in security", "Knowledge of SIEM tools", "Certifications like CISSP"],
+      responsibilities: ["Monitor cyber threats", "Implement security measures", "Conduct security audits", "Train staff on security"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://francetechjobs.fr",
+      type: "job",
+      location: "Toulouse, France",
+      posted: "2024-11-15",
+      deadline: "2025-02-15",
+      featured: false
+    },
+    {
+      id: 70,
+      title: "Netherlands AI Developer",
+      description: "Develop AI solutions for Dutch tech firms.",
+      fullDescription: "Create AI-driven applications for Netherlands-based technology companies.",
+      requirements: ["BS/MS in Computer Science or AI", "3+ years in AI development", "Proficiency in Python", "Experience with AI frameworks"],
+      responsibilities: ["Develop AI applications", "Optimize algorithms", "Collaborate with tech teams", "Deploy AI solutions"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://netherlandstechjobs.nl",
+      type: "job",
+      location: "Rotterdam, Netherlands",
+      posted: "2024-11-10",
+      deadline: "2025-02-10",
+      featured: false
+    },
+    {
+      id: 71,
+      title: "Sweden Data Engineer",
+      description: "Build data pipelines for Swedish companies.",
+      fullDescription: "Design and maintain data pipelines to support analytics for Swedish businesses.",
+      requirements: ["BS in Computer Science", "3+ years in data engineering", "Experience with Apache Spark", "Knowledge of SQL"],
+      responsibilities: ["Build data pipelines", "Optimize data workflows", "Ensure data quality", "Collaborate with analysts"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://swedentechjobs.se",
+      type: "job",
+      location: "Malmö, Sweden",
+      posted: "2024-11-05",
+      deadline: "2025-02-05",
+      featured: false
+    },
+    {
+      id: 72,
+      title: "Brazil Fintech Developer",
+      description: "Develop fintech solutions for Brazil’s digital economy.",
+      fullDescription: "Create financial technology applications to support Brazil’s fintech sector.",
+      requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+      responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://braziltechjobs.br",
+      type: "job",
+      location: "Rio de Janeiro, Brazil",
+      posted: "2024-11-01",
+      deadline: "2025-02-01",
+      featured: false
+    },
+    {
+      id: 73,
+      title: "Mexico Data Scientist",
+      description: "Analyze data for Mexican businesses.",
+      fullDescription: "Use advanced analytics to provide insights for Mexico’s business sector.",
+      requirements: ["PhD in Data Science", "Proficiency in Python or R", "Experience with big data tools", "Strong analytical skills"],
+      responsibilities: ["Analyze large datasets", "Develop predictive models", "Present insights to stakeholders", "Optimize data pipelines"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://mexicotechjobs.mx",
+      type: "job",
+      location: "Guadalajara, Mexico",
+      posted: "2024-10-25",
+      deadline: "2025-01-25",
+      featured: false
+    },
+    {
+      id: 74,
+      title: "Rwanda Mobile Developer",
+      description: "Develop mobile apps for Rwanda’s digital economy.",
+      fullDescription: "Create mobile applications to support Rwanda’s fintech and e-commerce sectors.",
+      requirements: ["BS in Computer Science", "2+ years in mobile development", "Experience with Flutter or React Native", "Knowledge of APIs"],
+      responsibilities: ["Develop mobile apps", "Integrate APIs", "Test and deploy applications", "Collaborate with product teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://rwandatechjobs.org",
+      type: "job",
+      location: "Kigali, Rwanda",
+      posted: "2024-10-20",
+      deadline: "2025-01-20",
+      featured: false
+    },
+    {
+      id: 75,
+      title: "Nigeria Cybersecurity Specialist",
+      description: "Protect Nigeria’s digital infrastructure.",
+      fullDescription: "Implement security measures to safeguard Nigeria’s growing digital economy.",
+      requirements: ["BS in Cybersecurity", "3+ years in security", "Knowledge of SIEM tools", "Certifications like CISSP"],
+      responsibilities: ["Monitor cyber threats", "Implement security measures", "Conduct security audits", "Train staff on security"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://nigeriatechjobs.org",
+      type: "job",
+      location: "Lagos, Nigeria",
+      posted: "2024-10-15",
+      deadline: "2025-01-15",
+      featured: false
+    },
+    {
+      id: 76,
+      title: "Kenya AI Developer",
+      description: "Develop AI solutions for Kenyan tech firms.",
+      fullDescription: "Create AI-driven applications to support Kenya’s growing tech ecosystem.",
+      requirements: ["BS/MS in Computer Science or AI", "3+ years in AI development", "Proficiency in Python", "Experience with AI frameworks"],
+      responsibilities: ["Develop AI applications", "Optimize algorithms", "Collaborate with tech teams", "Deploy AI solutions"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://kenyatechjobs.org",
+      type: "job",
+      location: "Nairobi, Kenya",
+      posted: "2024-10-10",
+      deadline: "2025-01-10",
+      featured: false
+    },
+    {
+      id: 77,
+      title: "South Africa Health Tech Developer",
+      description: "Develop health tech solutions in South Africa.",
+      fullDescription: "Create applications to improve healthcare access in South Africa’s health sector.",
+      requirements: ["BS in Computer Science or Health Tech", "2+ years in health tech", "Proficiency in Python", "Knowledge of health systems"],
+      responsibilities: ["Develop health tech applications", "Integrate with healthcare systems", "Test and deploy solutions", "Collaborate with health teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://satechjobs.org",
+      type: "job",
+      location: "Cape Town, South Africa",
+      posted: "2024-10-05",
+      deadline: "2025-01-05",
+      featured: false
+    },
+    {
+      id: 78,
+      title: "Ghana Data Analyst",
+      description: "Analyze data for Ghanaian businesses.",
+      fullDescription: "Use data analytics to provide insights for Ghana’s business sector.",
+      requirements: ["BS in Data Science", "2+ years in data analysis", "Proficiency in Python or R", "Analytical skills"],
+      responsibilities: ["Analyze datasets", "Develop data visualizations", "Support business decisions", "Collaborate with teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://ghanatechjobs.org",
+      type: "job",
+      location: "Accra, Ghana",
+      posted: "2024-10-01",
+      deadline: "2025-01-01",
+      featured: false
+    },
+    {
+      id: 79,
+      title: "France Fintech Developer",
+      description: "Develop fintech solutions for French startups.",
+      fullDescription: "Create financial technology applications to support France’s digital economy.",
+      requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+      responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://francetechjobs.fr",
+      type: "job",
+      location: "Paris, France",
+      posted: "2024-09-25",
+      deadline: "2024-12-25",
+      featured: false
+    },
+    {
+      id: 80,
+      title: "Netherlands Renewable Energy Engineer",
+      description: "Design renewable energy systems in the Netherlands.",
+      fullDescription: "Work on solar and wind energy projects to support the Netherlands’ sustainability goals.",
+      requirements: ["BS/MS in Engineering", "3+ years in renewable energy", "Knowledge of solar/wind systems", "Project management skills"],
+      responsibilities: ["Design energy systems", "Manage project implementation", "Optimize energy output", "Collaborate with stakeholders"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://netherlandstechjobs.nl",
+      type: "job",
+      location: "Amsterdam, Netherlands",
+      posted: "2024-09-20",
+      deadline: "2024-12-20",
+      featured: false
+    },
+    {
+      id: 81,
+      title: "Sweden Cybersecurity Engineer",
+      description: "Protect digital infrastructure in Sweden.",
+      fullDescription: "Implement cybersecurity solutions to safeguard Sweden’s tech ecosystem.",
+      requirements: ["BS in Cybersecurity", "3+ years in security", "Knowledge of SIEM tools", "Certifications like CISSP"],
+      responsibilities: ["Monitor cyber threats", "Implement security measures", "Conduct security audits", "Train staff on security"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://swedentechjobs.se",
+      type: "job",
+      location: "Stockholm, Sweden",
+      posted: "2024-09-15",
+      deadline: "2024-12-15",
+      featured: false
+    },
+    {
+      id: 82,
+      title: "Brazil Data Engineer",
+      description: "Build data pipelines for Brazilian companies.",
+      fullDescription: "Design and maintain data pipelines to support analytics for Brazilian businesses.",
+      requirements: ["BS in Computer Science", "3+ years in data engineering", "Experience with Apache Spark", "Knowledge of SQL"],
+      responsibilities: ["Build data pipelines", "Optimize data workflows", "Ensure data quality", "Collaborate with analysts"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://braziltechjobs.br",
+      type: "job",
+      location: "São Paulo, Brazil",
+      posted: "2024-09-10",
+      deadline: "2024-12-10",
+      featured: false
+    },
+    {
+      id: 83,
+      title: "Mexico Health Tech Developer",
+      description: "Develop health tech solutions in Mexico.",
+      fullDescription: "Create applications to improve healthcare access in Mexico’s health sector.",
+      requirements: ["BS in Computer Science or Health Tech", "2+ years in health tech", "Proficiency in Python", "Knowledge of health systems"],
+      responsibilities: ["Develop health tech applications", "Integrate with healthcare systems", "Test and deploy solutions", "Collaborate with health teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://mexicotechjobs.mx",
+      type: "job",
+      location: "Monterrey, Mexico",
+      posted: "2024-09-05",
+      deadline: "2024-12-05",
+      featured: false
+    },
+    {
+      id: 84,
+      title: "Rwanda Fintech Developer",
+      description: "Develop fintech solutions for Rwanda’s digital economy.",
+      fullDescription: "Create financial technology applications to support Rwanda’s fintech sector.",
+      requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+      responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://rwandatechjobs.org",
+      type: "job",
+      location: "Kigali, Rwanda",
+      posted: "2024-09-01",
+      deadline: "2024-12-01",
+      featured: false
+    },
+    {
+      id: 85,
+      title: "Nigeria Data Analyst",
+      description: "Analyze data for Nigerian businesses.",
+      fullDescription: "Use data analytics to provide insights for Nigeria’s business sector.",
+      requirements: ["BS in Data Science", "2+ years in data analysis", "Proficiency in Python or R", "Analytical skills"],
+      responsibilities: ["Analyze datasets", "Develop data visualizations", "Support business decisions", "Collaborate with teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://nigeriatechjobs.org",
+      type: "job",
+      location: "Lagos, Nigeria",
+      posted: "2024-08-25",
+      deadline: "2024-11-25",
+      featured: false
+    },
+    {
+      id: 86,
+      title: "Kenya Renewable Energy Engineer",
+      description: "Design renewable energy systems in Kenya.",
+      fullDescription: "Work on solar and wind energy projects to support Kenya’s sustainability goals.",
+      requirements: ["BS/MS in Engineering", "3+ years in renewable energy", "Knowledge of solar/wind systems", "Project management skills"],
+      responsibilities: ["Design energy systems", "Manage project implementation", "Optimize energy output", "Collaborate with stakeholders"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://kenyatechjobs.org",
+      type: "job",
+      location: "Nairobi, Kenya",
+      posted: "2024-08-20",
+      deadline: "2024-11-20",
+      featured: false
+    },
+    {
+      id: 87,
+      title: "South Africa AI Developer",
+      description: "Develop AI solutions for South African tech firms.",
+      fullDescription: "Create AI-driven applications to support South Africa’s growing tech ecosystem.",
+      requirements: ["BS/MS in Computer Science or AI", "3+ years in AI development", "Proficiency in Python", "Experience with AI frameworks"],
+      responsibilities: ["Develop AI applications", "Optimize algorithms", "Collaborate with tech teams", "Deploy AI solutions"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://satechjobs.org",
+      type: "job",
+      location: "Cape Town, South Africa",
+      posted: "2024-08-15",
+      deadline: "2024-11-15",
+      featured: false
+    },
+    {
+      id: 88,
+      title: "Ghana Fintech Developer",
+      description: "Develop fintech solutions for Ghana’s digital economy.",
+      fullDescription: "Create financial technology applications to support Ghana’s fintech sector.",
+      requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+      responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://ghanatechjobs.org",
+      type: "job",
+      location: "Accra, Ghana",
+      posted: "2024-08-10",
+      deadline: "2024-11-10",
+      featured: false
+    },
+    {
+      id: 89,
+      title: "France Data Analyst",
+      description: "Analyze data for French businesses.",
+      fullDescription: "Use data analytics to provide insights for France’s business sector.",
+      requirements: ["BS in Data Science", "2+ years in data analysis", "Proficiency in Python or R", "Analytical skills"],
+      responsibilities: ["Analyze datasets", "Develop data visualizations", "Support business decisions", "Collaborate with teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://francetechjobs.fr",
+      type: "job",
+      location: "Lyon, France",
+      posted: "2024-08-05",
+      deadline: "2024-11-05",
+      featured: false
+    },
+    {
+    id: 90,
+    title: "Rwanda Blockchain Developer",
+    description: "Develop blockchain solutions for Rwanda’s fintech sector.",
+    fullDescription: "Create secure blockchain-based applications to support Rwanda’s growing financial technology ecosystem.",
+    requirements: ["BS in Computer Science", "2+ years in blockchain development", "Experience with Ethereum or Hyperledger", "Knowledge of smart contracts"],
+    responsibilities: ["Develop blockchain applications", "Integrate with fintech platforms", "Test and deploy solutions", "Collaborate with fintech teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://rwandatechjobs.org",
+    type: "job",
+    location: "Kigali, Rwanda",
+    posted: "2024-08-01",
+    deadline: "2024-11-01",
+    featured: false
+  },
+  {
+    id: 91,
+    title: "Nigeria AI Research Scientist",
+    description: "Conduct AI research for Nigerian institutions.",
+    fullDescription: "Advance AI technologies through research for Nigeria’s academic and tech sectors.",
+    requirements: ["PhD in AI or related field", "Experience in AI research", "Proficiency in Python", "Published research"],
+    responsibilities: ["Conduct AI experiments", "Publish research findings", "Collaborate with universities", "Mentor students"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://nigeriatechjobs.org",
+    type: "job",
+    location: "Abuja, Nigeria",
+    posted: "2024-07-25",
+    deadline: "2024-10-25",
+    featured: false
+  },
+  {
+    id: 92,
+    title: "Kenya Cloud Engineer",
+    description: "Design cloud infrastructure for Kenyan startups.",
+    fullDescription: "Architect and deploy scalable cloud solutions for Kenya’s tech ecosystem.",
+    requirements: ["BS in Computer Science", "3+ years in cloud engineering", "Experience with AWS or Azure", "Knowledge of DevOps practices"],
+    responsibilities: ["Design cloud architecture", "Deploy infrastructure", "Optimize cloud performance", "Ensure security compliance"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://kenyatechjobs.org",
+    type: "job",
+    location: "Nairobi, Kenya",
+    posted: "2024-07-20",
+    deadline: "2024-10-20",
+    featured: false
+  },
+  {
+    id: 93,
+    title: "South Africa Machine Learning Engineer",
+    description: "Develop ML models for South African tech firms.",
+    fullDescription: "Create advanced machine learning models for applications in South Africa’s tech industry.",
+    requirements: ["MS in Computer Science or AI", "3+ years in ML", "Proficiency in TensorFlow or PyTorch", "Strong analytical skills"],
+    responsibilities: ["Develop ML models", "Optimize algorithms", "Collaborate with data scientists", "Deploy models in production"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://satechjobs.org",
+    type: "job",
+    location: "Pretoria, South Africa",
+    posted: "2024-07-15",
+    deadline: "2024-10-15",
+    featured: false
+  },
+  {
+    id: 94,
+    title: "Ghana Mobile Developer",
+    description: "Develop mobile apps for Ghana’s digital economy.",
+    fullDescription: "Create mobile applications to support Ghana’s fintech and e-commerce sectors.",
+    requirements: ["BS in Computer Science", "2+ years in mobile development", "Experience with Flutter or React Native", "Knowledge of APIs"],
+    responsibilities: ["Develop mobile apps", "Integrate APIs", "Test and deploy applications", "Collaborate with product teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://ghanatechjobs.org",
+    type: "job",
+    location: "Kumasi, Ghana",
+    posted: "2024-07-10",
+    deadline: "2024-10-10",
+    featured: false
+  },
+  {
+    id: 95,
+    title: "France Renewable Energy Consultant",
+    description: "Advise on renewable energy projects in France.",
+    fullDescription: "Provide consulting services to promote renewable energy adoption in France’s energy sector.",
+    requirements: ["MS in Environmental Science or Engineering", "3+ years in renewable energy", "Knowledge of solar/wind systems", "Strong communication skills"],
+    responsibilities: ["Advise on energy strategies", "Conduct feasibility studies", "Develop project reports", "Engage with clients"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://francetechjobs.fr",
+    type: "job",
+    location: "Toulouse, France",
+    posted: "2024-07-05",
+    deadline: "2024-10-05",
+    featured: false
+  },
+  {
+    id: 96,
+    title: "Netherlands Data Scientist",
+    description: "Analyze data for Dutch businesses.",
+    fullDescription: "Use advanced analytics to provide insights for Netherlands-based companies.",
+    requirements: ["PhD in Data Science", "Proficiency in Python or R", "Experience with big data tools", "Strong analytical skills"],
+    responsibilities: ["Analyze large datasets", "Develop predictive models", "Present insights to stakeholders", "Optimize data pipelines"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://netherlandstechjobs.nl",
+    type: "job",
+    location: "Utrecht, Netherlands",
+    posted: "2024-07-01",
+    deadline: "2024-10-01",
+    featured: false
+  },
+  {
+    id: 97,
+    title: "Sweden Fintech Developer",
+    description: "Develop fintech solutions for Sweden’s digital economy.",
+    fullDescription: "Create financial technology applications to support Sweden’s fintech sector.",
+    requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+    responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://swedentechjobs.se",
+    type: "job",
+    location: "Gothenburg, Sweden",
+    posted: "2024-06-25",
+    deadline: "2024-09-25",
+    featured: false
+  },
+  {
+    id: 98,
+    title: "Brazil Cybersecurity Specialist",
+    description: "Protect Brazil’s digital infrastructure.",
+    fullDescription: "Implement security measures to safeguard Brazil’s growing digital economy.",
+    requirements: ["BS in Cybersecurity", "3+ years in security", "Knowledge of SIEM tools", "Certifications like CISSP"],
+    responsibilities: ["Monitor cyber threats", "Implement security measures", "Conduct security audits", "Train staff on security"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://braziltechjobs.br",
+    type: "job",
+    location: "Brasília, Brazil",
+    posted: "2024-06-20",
+    deadline: "2024-09-20",
+    featured: false
+  },
+  {
+    id: 99,
+    title: "Mexico AI Developer",
+    description: "Develop AI solutions for Mexican tech firms.",
+    fullDescription: "Create AI-driven applications to support Mexico’s growing tech ecosystem.",
+    requirements: ["BS/MS in Computer Science or AI", "3+ years in AI development", "Proficiency in Python", "Experience with AI frameworks"],
+    responsibilities: ["Develop AI applications", "Optimize algorithms", "Collaborate with tech teams", "Deploy AI solutions"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://mexicotechjobs.mx",
+    type: "job",
+    location: "Guadalajara, Mexico",
+    posted: "2024-06-15",
+    deadline: "2024-09-15",
+    featured: false
+  },
+  {
+    id: 100,
+    title: "Rwanda Data Engineer",
+    description: "Build data pipelines for Rwandan companies.",
+    fullDescription: "Design and maintain data pipelines to support analytics for Rwanda’s businesses.",
+    requirements: ["BS in Computer Science", "3+ years in data engineering", "Experience with Apache Spark", "Knowledge of SQL"],
+    responsibilities: ["Build data pipelines", "Optimize data workflows", "Ensure data quality", "Collaborate with analysts"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://rwandatechjobs.org",
+    type: "job",
+    location: "Gisenyi, Rwanda",
+    posted: "2024-06-10",
+    deadline: "2024-09-10",
+    featured: false
+  },
+  {
+    id: 101,
+    title: "Nigeria Health Tech Developer",
+    description: "Develop health tech solutions in Nigeria.",
+    fullDescription: "Create applications to improve healthcare access in Nigeria’s health sector.",
+    requirements: ["BS in Computer Science or Health Tech", "2+ years in health tech", "Proficiency in Python", "Knowledge of health systems"],
+    responsibilities: ["Develop health tech applications", "Integrate with healthcare systems", "Test and deploy solutions", "Collaborate with health teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://nigeriatechjobs.org",
+    type: "job",
+    location: "Kano, Nigeria",
+    posted: "2024-06-05",
+    deadline: "2024-09-05",
+    featured: false
+  },
+  {
+    id: 102,
+    title: "Kenya Fintech Developer",
+    description: "Develop fintech solutions for Kenya’s digital economy.",
+    fullDescription: "Create financial technology applications to support Kenya’s fintech sector.",
+    requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+    responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://kenyatechjobs.org",
+    type: "job",
+    location: "Mombasa, Kenya",
+    posted: "2024-06-01",
+    deadline: "2024-09-01",
+    featured: false
+  },
+  {
+    id: 103,
+    title: "South Africa Cloud Architect",
+    description: "Design cloud infrastructure for South African firms.",
+    fullDescription: "Architect and deploy scalable cloud solutions for South Africa’s tech ecosystem.",
+    requirements: ["BS in Computer Science", "3+ years in cloud architecture", "Experience with AWS or Azure", "Knowledge of DevOps practices"],
+    responsibilities: ["Design cloud architecture", "Deploy infrastructure", "Optimize cloud performance", "Ensure security compliance"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://satechjobs.org",
+    type: "job",
+    location: "Johannesburg, South Africa",
+    posted: "2024-05-25",
+    deadline: "2024-08-25",
+    featured: false
+  },
+  {
+    id: 104,
+    title: "Ghana AI Developer",
+    description: "Develop AI solutions for Ghanaian tech firms.",
+    fullDescription: "Create AI-driven applications to support Ghana’s growing tech ecosystem.",
+    requirements: ["BS/MS in Computer Science or AI", "3+ years in AI development", "Proficiency in Python", "Experience with AI frameworks"],
+    responsibilities: ["Develop AI applications", "Optimize algorithms", "Collaborate with tech teams", "Deploy AI solutions"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://ghanatechjobs.org",
+    type: "job",
+    location: "Accra, Ghana",
+    posted: "2024-05-20",
+    deadline: "2024-08-20",
+    featured: false
+  },
+  {
+    id: 105,
+    title: "France Blockchain Developer",
+    description: "Develop blockchain solutions for French startups.",
+    fullDescription: "Create secure blockchain-based applications for France’s fintech and tech sectors.",
+    requirements: ["BS in Computer Science", "2+ years in blockchain development", "Experience with Ethereum or Hyperledger", "Knowledge of smart contracts"],
+    responsibilities: ["Develop blockchain applications", "Integrate with platforms", "Test and deploy solutions", "Collaborate with teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://francetechjobs.fr",
+    type: "job",
+    location: "Lyon, France",
+    posted: "2024-05-15",
+    deadline: "2024-08-15",
+    featured: false
+  },
+  {
+    id: 106,
+    title: "Netherlands Cybersecurity Engineer",
+    description: "Protect digital infrastructure in the Netherlands.",
+    fullDescription: "Implement cybersecurity solutions to safeguard the Netherlands’ tech ecosystem.",
+    requirements: ["BS in Cybersecurity", "3+ years in security", "Knowledge of SIEM tools", "Certifications like CISSP"],
+    responsibilities: ["Monitor cyber threats", "Implement security measures", "Conduct security audits", "Train staff on security"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://netherlandstechjobs.nl",
+    type: "job",
+    location: "Rotterdam, Netherlands",
+    posted: "2024-05-10",
+    deadline: "2024-08-10",
+    featured: false
+  },
+  {
+    id: 107,
+    title: "Sweden Health Tech Developer",
+    description: "Develop health tech solutions in Sweden.",
+    fullDescription: "Create applications to improve healthcare access in Sweden’s health sector.",
+    requirements: ["BS in Computer Science or Health Tech", "2+ years in health tech", "Proficiency in Python", "Knowledge of health systems"],
+    responsibilities: ["Develop health tech applications", "Integrate with healthcare systems", "Test and deploy solutions", "Collaborate with health teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://swedentechjobs.se",
+    type: "job",
+    location: "Malmö, Sweden",
+    posted: "2024-05-05",
+    deadline: "2024-08-05",
+    featured: false
+  },
+  {
+    id: 108,
+    title: "Brazil Data Analyst",
+    description: "Analyze data for Brazilian businesses.",
+    fullDescription: "Use data analytics to provide insights for Brazil’s business sector.",
+    requirements: ["BS in Data Science", "2+ years in data analysis", "Proficiency in Python or R", "Analytical skills"],
+    responsibilities: ["Analyze datasets", "Develop data visualizations", "Support business decisions", "Collaborate with teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://braziltechjobs.br",
+    type: "job",
+    location: "Rio de Janeiro, Brazil",
+    posted: "2024-05-01",
+    deadline: "2024-08-01",
+    featured: false
+  },
+  {
+    id: 109,
+    title: "Mexico Fintech Developer",
+    description: "Develop fintech solutions for Mexico’s digital economy.",
+    fullDescription: "Create financial technology applications to support Mexico’s fintech sector.",
+    requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+    responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://mexicotechjobs.mx",
+    type: "job",
+    location: "Monterrey, Mexico",
+    posted: "2024-04-25",
+    deadline: "2024-07-25",
+    featured: false
+  },
+  {
+    id: 110,
+    title: "Rwanda Renewable Energy Engineer",
+    description: "Design renewable energy systems in Rwanda.",
+    fullDescription: "Work on solar and wind energy projects to support Rwanda’s sustainability goals.",
+    requirements: ["BS/MS in Engineering", "3+ years in renewable energy", "Knowledge of solar/wind systems", "Project management skills"],
+    responsibilities: ["Design energy systems", "Manage project implementation", "Optimize energy output", "Collaborate with stakeholders"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://rwandatechjobs.org",
+    type: "job",
+    location: "Kigali, Rwanda",
+    posted: "2024-04-20",
+    deadline: "2024-07-20",
+    featured: false
+  },
+  {
+    id: 111,
+    title: "Nigeria Cloud Engineer",
+    description: "Design cloud infrastructure for Nigerian startups.",
+    fullDescription: "Architect and deploy scalable cloud solutions for Nigeria’s tech ecosystem.",
+    requirements: ["BS in Computer Science", "3+ years in cloud engineering", "Experience with AWS or Azure", "Knowledge of DevOps practices"],
+    responsibilities: ["Design cloud architecture", "Deploy infrastructure", "Optimize cloud performance", "Ensure security compliance"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://nigeriatechjobs.org",
+    type: "job",
+    location: "Lagos, Nigeria",
+    posted: "2024-04-15",
+    deadline: "2024-07-15",
+    featured: false
+  },
+  {
+    id: 112,
+    title: "Kenya Data Scientist",
+    description: "Analyze data for Kenyan businesses.",
+    fullDescription: "Use advanced analytics to provide insights for Kenya’s business sector.",
+    requirements: ["PhD in Data Science", "Proficiency in Python or R", "Experience with big data tools", "Strong analytical skills"],
+    responsibilities: ["Analyze large datasets", "Develop predictive models", "Present insights to stakeholders", "Optimize data pipelines"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://kenyatechjobs.org",
+    type: "job",
+    location: "Nairobi, Kenya",
+    posted: "2024-04-10",
+    deadline: "2024-07-10",
+    featured: false
+  },
+  {
+    id: 113,
+    title: "South Africa Blockchain Developer",
+    description: "Develop blockchain solutions for South African fintech.",
+    fullDescription: "Create secure blockchain-based applications for South Africa’s financial technology sector.",
+    requirements: ["BS in Computer Science", "2+ years in blockchain development", "Experience with Ethereum or Hyperledger", "Knowledge of smart contracts"],
+    responsibilities: ["Develop blockchain applications", "Integrate with fintech platforms", "Test and deploy solutions", "Collaborate with fintech teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://satechjobs.org",
+    type: "job",
+    location: "Cape Town, South Africa",
+    posted: "2024-04-05",
+    deadline: "2024-07-05",
+    featured: false
+  },
+  {
+    id: 114,
+    title: "Ghana Cybersecurity Specialist",
+    description: "Protect Ghana’s digital infrastructure.",
+    fullDescription: "Implement security measures to safeguard Ghana’s growing digital economy.",
+    requirements: ["BS in Cybersecurity", "3+ years in security", "Knowledge of SIEM tools", "Certifications like CISSP"],
+    responsibilities: ["Monitor cyber threats", "Implement security measures", "Conduct security audits", "Train staff on security"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://ghanatechjobs.org",
+    type: "job",
+    location: "Kumasi, Ghana",
+    posted: "2024-04-01",
+    deadline: "2024-07-01",
+    featured: false
+  },
+  {
+    id: 115,
+    title: "France AI Research Scientist",
+    description: "Conduct AI research for French institutions.",
+    fullDescription: "Advance AI technologies through research for France’s academic and tech sectors.",
+    requirements: ["PhD in AI or related field", "Experience in AI research", "Proficiency in Python", "Published research"],
+    responsibilities: ["Conduct AI experiments", "Publish research findings", "Collaborate with universities", "Mentor students"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://francetechjobs.fr",
+    type: "job",
+    location: "Paris, France",
+    posted: "2024-03-25",
+    deadline: "2024-06-25",
+    featured: false
+  },
+  {
+    id: 116,
+    title: "Netherlands Mobile Developer",
+    description: "Develop mobile apps for Dutch startups.",
+    fullDescription: "Create mobile applications to support Netherlands’ tech and e-commerce sectors.",
+    requirements: ["BS in Computer Science", "2+ years in mobile development", "Experience with Flutter or React Native", "Knowledge of APIs"],
+    responsibilities: ["Develop mobile apps", "Integrate APIs", "Test and deploy applications", "Collaborate with product teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://netherlandstechjobs.nl",
+    type: "job",
+    location: "Amsterdam, Netherlands",
+    posted: "2024-03-20",
+    deadline: "2024-06-20",
+    featured: false
+  },
+  {
+    id: 117,
+    title: "Sweden Renewable Energy Engineer",
+    description: "Design renewable energy systems in Sweden.",
+    fullDescription: "Work on solar and wind energy projects to support Sweden’s sustainability goals.",
+    requirements: ["BS/MS in Engineering", "3+ years in renewable energy", "Knowledge of solar/wind systems", "Project management skills"],
+    responsibilities: ["Design energy systems", "Manage project implementation", "Optimize energy output", "Collaborate with stakeholders"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://swedentechjobs.se",
+    type: "job",
+    location: "Stockholm, Sweden",
+    posted: "2024-03-15",
+    deadline: "2024-06-15",
+    featured: false
+  },
+  {
+    id: 118,
+    title: "Brazil Health Tech Developer",
+    description: "Develop health tech solutions in Brazil.",
+    fullDescription: "Create applications to improve healthcare access in Brazil’s health sector.",
+    requirements: ["BS in Computer Science or Health Tech", "2+ years in health tech", "Proficiency in Python", "Knowledge of health systems"],
+    responsibilities: ["Develop health tech applications", "Integrate with healthcare systems", "Test and deploy solutions", "Collaborate with health teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://braziltechjobs.br",
+    type: "job",
+    location: "São Paulo, Brazil",
+    posted: "2024-03-10",
+    deadline: "2024-06-10",
+    featured: false
+  },
+  {
+    id: 119,
+    title: "Mexico Cloud Architect",
+    description: "Design cloud infrastructure for Mexican firms.",
+    fullDescription: "Architect and deploy scalable cloud solutions for Mexico’s tech ecosystem.",
+    requirements: ["BS in Computer Science", "3+ years in cloud architecture", "Experience with AWS or Azure", "Knowledge of DevOps practices"],
+    responsibilities: ["Design cloud architecture", "Deploy infrastructure", "Optimize cloud performance", "Ensure security compliance"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://mexicotechjobs.mx",
+    type: "job",
+    location: "Mexico City, Mexico",
+    posted: "2024-03-05",
+    deadline: "2024-06-05",
+    featured: false
+  },
+  {
+    id: 120,
+    title: "Brazil Health Tech Developer",
+    description: "Develop health tech solutions in Brazil.",
+    fullDescription: "Create applications to improve healthcare access in Brazil’s health sector.",
+    requirements: ["BS in Computer Science or Health Tech", "2+ years in health tech", "Proficiency in Python", "Knowledge of health systems"],
+    responsibilities: ["Develop health tech applications", "Integrate with healthcare systems", "Test and deploy solutions", "Collaborate with health teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://braziltechjobs.br",
+    type: "job",
+    location: "São Paulo, Brazil",
+    posted: "2024-03-10",
+    deadline: "2024-06-10",
+    featured: false
+  },
+  {
+    id: 121,
+    title: "Mexico Cloud Architect",
+    description: "Design cloud infrastructure for Mexican firms.",
+    fullDescription: "Architect and deploy scalable cloud solutions for Mexico’s tech ecosystem.",
+    requirements: ["BS in Computer Science", "3+ years in cloud architecture", "Experience with AWS or Azure", "Knowledge of DevOps practices"],
+    responsibilities: ["Design cloud architecture", "Deploy infrastructure", "Optimize cloud performance", "Ensure security compliance"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://mexicotechjobs.mx",
+    type: "job",
+    location: "Mexico City, Mexico",
+    posted: "2024-03-05",
+    deadline: "2024-06-05",
+    featured: false
+  },
+  {
+    id: 122,
+    title: "Rwanda Machine Learning Engineer",
+    description: "Develop ML models for Rwandan tech firms.",
+    fullDescription: "Create advanced machine learning models for applications in Rwanda’s tech industry.",
+    requirements: ["MS in Computer Science or AI", "3+ years in ML", "Proficiency in TensorFlow or PyTorch", "Strong analytical skills"],
+    responsibilities: ["Develop ML models", "Optimize algorithms", "Collaborate with data scientists", "Deploy models in production"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://rwandatechjobs.org",
+    type: "job",
+    location: "Kigali, Rwanda",
+    posted: "2024-03-01",
+    deadline: "2024-06-01",
+    featured: false
+  },
+  {
+    id: 123,
+    title: "Nigeria Mobile Developer",
+    description: "Develop mobile apps for Nigeria’s digital economy.",
+    fullDescription: "Create mobile applications to support Nigeria’s fintech and e-commerce sectors.",
+    requirements: ["BS in Computer Science", "2+ years in mobile development", "Experience with Flutter or React Native", "Knowledge of APIs"],
+    responsibilities: ["Develop mobile apps", "Integrate APIs", "Test and deploy applications", "Collaborate with product teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://nigeriatechjobs.org",
+    type: "job",
+    location: "Lagos, Nigeria",
+    posted: "2024-02-25",
+    deadline: "2024-05-25",
+    featured: false
+  },
+  {
+    id: 124,
+    title: "Kenya Cybersecurity Engineer",
+    description: "Protect Kenya’s digital infrastructure.",
+    fullDescription: "Implement cybersecurity solutions to safeguard Kenya’s tech ecosystem.",
+    requirements: ["BS in Cybersecurity", "3+ years in security", "Knowledge of SIEM tools", "Certifications like CISSP"],
+    responsibilities: ["Monitor cyber threats", "Implement security measures", "Conduct security audits", "Train staff on security"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://kenyatechjobs.org",
+    type: "job",
+    location: "Nairobi, Kenya",
+    posted: "2024-02-20",
+    deadline: "2024-05-20",
+    featured: false
+  },
+  {
+    id: 125,
+    title: "South Africa Data Analyst",
+    description: "Analyze data for South African businesses.",
+    fullDescription: "Use data analytics to provide insights for South Africa’s business sector.",
+    requirements: ["BS in Data Science", "2+ years in data analysis", "Proficiency in Python or R", "Analytical skills"],
+    responsibilities: ["Analyze datasets", "Develop data visualizations", "Support business decisions", "Collaborate with teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://satechjobs.org",
+    type: "job",
+    location: "Johannesburg, South Africa",
+    posted: "2024-02-15",
+    deadline: "2024-05-15",
+    featured: false
+  },
+  {
+    id: 126,
+    title: "Ghana Fintech Developer",
+    description: "Develop fintech solutions for Ghana’s digital economy.",
+    fullDescription: "Create financial technology applications to support Ghana’s fintech sector.",
+    requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+    responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://ghanatechjobs.org",
+    type: "job",
+    location: "Accra, Ghana",
+    posted: "2024-02-10",
+    deadline: "2024-05-10",
+    featured: false
+  },
+  {
+    id: 127,
+    title: "France Health Tech Developer",
+    description: "Develop health tech solutions in France.",
+    fullDescription: "Create applications to improve healthcare access in France’s health sector.",
+    requirements: ["BS in Computer Science or Health Tech", "2+ years in health tech", "Proficiency in Python", "Knowledge of health systems"],
+    responsibilities: ["Develop health tech applications", "Integrate with healthcare systems", "Test and deploy solutions", "Collaborate with health teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://francetechjobs.fr",
+    type: "job",
+    location: "Paris, France",
+    posted: "2024-02-05",
+    deadline: "2024-05-05",
+    featured: false
+  },
+  {
+    id: 128,
+    title: "Netherlands AI Developer",
+    description: "Develop AI solutions for Dutch tech firms.",
+    fullDescription: "Create AI-driven applications to support the Netherlands’ growing tech ecosystem.",
+    requirements: ["BS/MS in Computer Science or AI", "3+ years in AI development", "Proficiency in Python", "Experience with AI frameworks"],
+    responsibilities: ["Develop AI applications", "Optimize algorithms", "Collaborate with tech teams", "Deploy AI solutions"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://netherlandstechjobs.nl",
+    type: "job",
+    location: "Amsterdam, Netherlands",
+    posted: "2024-02-01",
+    deadline: "2024-05-01",
+    featured: false
+  },
+  {
+    id: 129,
+    title: "Sweden Cloud Engineer",
+    description: "Design cloud infrastructure for Swedish startups.",
+    fullDescription: "Architect and deploy scalable cloud solutions for Sweden’s tech ecosystem.",
+    requirements: ["BS in Computer Science", "3+ years in cloud engineering", "Experience with AWS or Azure", "Knowledge of DevOps practices"],
+    responsibilities: ["Design cloud architecture", "Deploy infrastructure", "Optimize cloud performance", "Ensure security compliance"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://swedentechjobs.se",
+    type: "job",
+    location: "Stockholm, Sweden",
+    posted: "2024-01-25",
+    deadline: "2024-04-25",
+    featured: false
+  },
+  {
+    id: 130,
+    title: "Brazil Blockchain Developer",
+    description: "Develop blockchain solutions for Brazilian fintech.",
+    fullDescription: "Create secure blockchain-based applications for Brazil’s financial technology sector.",
+    requirements: ["BS in Computer Science", "2+ years in blockchain development", "Experience with Ethereum or Hyperledger", "Knowledge of smart contracts"],
+    responsibilities: ["Develop blockchain applications", "Integrate with fintech platforms", "Test and deploy solutions", "Collaborate with fintech teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://braziltechjobs.br",
+    type: "job",
+    location: "Rio de Janeiro, Brazil",
+    posted: "2024-01-20",
+    deadline: "2024-04-20",
+    featured: false
+  },
+  {
+    id: 131,
+    title: "Mexico Data Scientist",
+    description: "Analyze data for Mexican businesses.",
+    fullDescription: "Use advanced analytics to provide insights for Mexico’s business sector.",
+    requirements: ["PhD in Data Science", "Proficiency in Python or R", "Experience with big data tools", "Strong analytical skills"],
+    responsibilities: ["Analyze large datasets", "Develop predictive models", "Present insights to stakeholders", "Optimize data pipelines"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://mexicotechjobs.mx",
+    type: "job",
+    location: "Guadalajara, Mexico",
+    posted: "2024-01-15",
+    deadline: "2024-04-15",
+    featured: false
+  },
+  {
+    id: 132,
+    title: "Rwanda Fintech Developer",
+    description: "Develop fintech solutions for Rwanda’s digital economy.",
+    fullDescription: "Create financial technology applications to support Rwanda’s fintech sector.",
+    requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+    responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://rwandatechjobs.org",
+    type: "job",
+    location: "Gisenyi, Rwanda",
+    posted: "2024-01-10",
+    deadline: "2024-04-10",
+    featured: false
+  },
+  {
+    id: 133,
+    title: "Nigeria Renewable Energy Engineer",
+    description: "Design renewable energy systems in Nigeria.",
+    fullDescription: "Work on solar and wind energy projects to support Nigeria’s sustainability goals.",
+    requirements: ["BS/MS in Engineering", "3+ years in renewable energy", "Knowledge of solar/wind systems", "Project management skills"],
+    responsibilities: ["Design energy systems", "Manage project implementation", "Optimize energy output", "Collaborate with stakeholders"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://nigeriatechjobs.org",
+    type: "job",
+    location: "Abuja, Nigeria",
+    posted: "2024-01-05",
+    deadline: "2024-04-05",
+    featured: false
+  },
+  {
+    id: 134,
+    title: "Kenya AI Research Scientist",
+    description: "Conduct AI research for Kenyan institutions.",
+    fullDescription: "Advance AI technologies through research for Kenya’s academic and tech sectors.",
+    requirements: ["PhD in AI or related field", "Experience in AI research", "Proficiency in Python", "Published research"],
+    responsibilities: ["Conduct AI experiments", "Publish research findings", "Collaborate with universities", "Mentor students"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://kenyatechjobs.org",
+    type: "job",
+    location: "Nairobi, Kenya",
+    posted: "2024-01-01",
+    deadline: "2024-04-01",
+    featured: false
+  },
+  {
+    id: 135,
+    title: "Kenya Health Tech Internship",
+    description: "Work on health tech projects in Kenya.",
+    fullDescription: "Contribute to health technology projects to improve healthcare access in Kenya.",
+    requirements: ["Current student in CS or Health Tech", "Basic coding skills in Python", "Interest in health tech", "Team collaboration skills"],
+    responsibilities: ["Assist in developing health tech applications", "Support testing processes", "Analyze health data", "Collaborate with health teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://kenyatechjobs.org",
+    type: "internship",
+    location: "Nairobi, Kenya",
+    posted: "2023-12-25",
+    deadline: "2024-03-25",
+    featured: false
+  },
+  {
+    id: 136,
+    title: "South Africa AI Internship",
+    description: "Explore AI technologies in South Africa.",
+    fullDescription: "Work on AI-driven projects with South African tech companies.",
+    requirements: ["Current student in CS or AI", "Knowledge of machine learning", "Proficiency in Python", "Interest in AI research"],
+    responsibilities: ["Develop AI prototypes", "Test ML models", "Assist in research projects", "Collaborate with AI teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://satechjobs.org",
+    type: "internship",
+    location: "Cape Town, South Africa",
+    posted: "2023-12-20",
+    deadline: "2024-03-20",
+    featured: false
+  },
+  {
+    id: 137,
+    title: "Brazil Fintech Internship",
+    description: "Work on fintech projects in Brazil.",
+    fullDescription: "Contribute to financial technology projects in Brazil’s vibrant fintech ecosystem.",
+    requirements: ["Current student in CS or finance", "Knowledge of fintech", "Experience with mobile apps", "Analytical skills"],
+    responsibilities: ["Develop fintech solutions", "Test applications", "Support user testing", "Collaborate with fintech teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://braziltechjobs.br",
+    type: "internship",
+    location: "São Paulo, Brazil",
+    posted: "2023-12-15",
+    deadline: "2024-03-15",
+    featured: false
+  },
+  {
+    id: 138,
+    title: "Rwanda AI Scholarship",
+    description: "Funding for AI students in Rwanda.",
+    fullDescription: "Supports Rwandan students pursuing degrees in artificial intelligence to drive tech innovation.",
+    requirements: ["Rwandan resident", "Enrolled in AI program", "Minimum GPA of 3.0", "Interest in AI research"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://rwandascholarships.org",
+    type: "scholarship",
+    location: "Kigali, Rwanda",
+    posted: "2023-12-10",
+    deadline: "2024-03-10",
+    featured: false
+  },
+  {
+    id: 139,
+    title: "Nigeria Health Tech Scholarship",
+    description: "Funding for health tech students in Nigeria.",
+    fullDescription: "Supports Nigerian students pursuing degrees in health technology to improve healthcare access.",
+    requirements: ["Nigerian resident", "Enrolled in health tech program", "Minimum GPA of 3.0", "Interest in health tech"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://nigeriascholarships.org",
+    type: "scholarship",
+    location: "Lagos, Nigeria",
+    posted: "2023-12-05",
+    deadline: "2024-03-05",
+    featured: false
+  },
+  {
+    id: 140,
+    title: "Kenya Renewable Energy Scholarship",
+    description: "Funding for renewable energy students in Kenya.",
+    fullDescription: "Supports Kenyan students pursuing degrees in renewable energy to promote sustainability.",
+    requirements: ["Kenyan resident", "Enrolled in engineering program", "Minimum GPA of 3.0", "Interest in renewable energy"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://kenyascholarships.org",
+    type: "scholarship",
+    location: "Nairobi, Kenya",
+    posted: "2023-12-01",
+    deadline: "2024-03-01",
+    featured: false
+  },
+  {
+    id: 141,
+    title: "South Africa Cybersecurity Scholarship",
+    description: "Funding for cybersecurity students in South Africa.",
+    fullDescription: "Supports South African students pursuing degrees in cybersecurity to protect digital infrastructure.",
+    requirements: ["South African resident", "Enrolled in cybersecurity program", "Minimum GPA of 3.0", "Interest in cybersecurity"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://sascholarships.org",
+    type: "scholarship",
+    location: "Pretoria, South Africa",
+    posted: "2023-11-25",
+    deadline: "2024-02-25",
+    featured: false
+  },
+  {
+    id: 142,
+    title: "Ghana Data Science Scholarship",
+    description: "Funding for data science students in Ghana.",
+    fullDescription: "Supports Ghanaian students pursuing degrees in data science to drive analytics innovation.",
+    requirements: ["Ghanaian resident", "Enrolled in data science program", "Minimum GPA of 3.0", "Interest in data analytics"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://ghanascholarships.org",
+    type: "scholarship",
+    location: "Accra, Ghana",
+    posted: "2023-11-20",
+    deadline: "2024-02-20",
+    featured: false
+  },
+  {
+    id: 143,
+    title: "France Blockchain Scholarship",
+    description: "Funding for blockchain students in France.",
+    fullDescription: "Supports French students pursuing degrees in blockchain technology to advance fintech innovation.",
+    requirements: ["French resident", "Enrolled in blockchain or CS program", "Minimum GPA of 3.0", "Interest in blockchain"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://francescholarships.fr",
+    type: "scholarship",
+    location: "Toulouse, France",
+    posted: "2023-11-15",
+    deadline: "2024-02-15",
+    featured: false
+  },
+  {
+    id: 144,
+    title: "Netherlands AI Scholarship",
+    description: "Funding for AI students in the Netherlands.",
+    fullDescription: "Supports students pursuing degrees in artificial intelligence to advance tech innovation in the Netherlands.",
+    requirements: ["Enrolled in AI program", "Minimum GPA of 3.0", "Interest in AI research", "Project proposal"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://netherlandsscholarships.nl",
+    type: "scholarship",
+    location: "Rotterdam, Netherlands",
+    posted: "2023-11-10",
+    deadline: "2024-02-10",
+    featured: false
+  },
+  {
+    id: 145,
+    title: "Sweden Data Science Scholarship",
+    description: "Funding for data science students in Sweden.",
+    fullDescription: "Supports Swedish students pursuing degrees in data science to drive analytics innovation.",
+    requirements: ["Swedish resident", "Enrolled in data science program", "Minimum GPA of 3.0", "Interest in data analytics"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://swedenscholarships.se",
+    type: "scholarship",
+    location: "Malmö, Sweden",
+    posted: "2023-11-05",
+    deadline: "2024-02-05",
+    featured: false
+  },
+  {
+    id: 146,
+    title: "Brazil Renewable Energy Scholarship",
+    description: "Funding for renewable energy students in Brazil.",
+    fullDescription: "Supports Brazilian students pursuing degrees in renewable energy to promote sustainability.",
+    requirements: ["Brazilian resident", "Enrolled in engineering program", "Minimum GPA of 3.0", "Interest in renewable energy"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://brazilscholarships.br",
+    type: "scholarship",
+    location: "Brasília, Brazil",
+    posted: "2023-11-01",
+    deadline: "2024-02-01",
+    featured: false
+  },
+  {
+    id: 147,
+    title: "Mexico Health Tech Scholarship",
+    description: "Funding for health tech students in Mexico.",
+    fullDescription: "Supports Mexican students pursuing degrees in health technology to improve healthcare access.",
+    requirements: ["Mexican resident", "Enrolled in health tech program", "Minimum GPA of 3.0", "Interest in health tech"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://mexicoscholarships.mx",
+    type: "scholarship",
+    location: "Monterrey, Mexico",
+    posted: "2023-10-25",
+    deadline: "2024-01-25",
+    featured: false
+  },
+  {
+    id: 148,
+    title: "Rwanda Cybersecurity Scholarship",
+    description: "Funding for cybersecurity students in Rwanda.",
+    fullDescription: "Supports Rwandan students pursuing degrees in cybersecurity to protect digital infrastructure.",
+    requirements: ["Rwandan resident", "Enrolled in cybersecurity program", "Minimum GPA of 3.0", "Interest in cybersecurity"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://rwandascholarships.org",
+    type: "scholarship",
+    location: "Gisenyi, Rwanda",
+    posted: "2023-10-20",
+    deadline: "2024-01-20",
+    featured: false
+  },
+  {
+    id: 149,
+    title: "Nigeria Blockchain Scholarship",
+    description: "Funding for blockchain students in Nigeria.",
+    fullDescription: "Supports Nigerian students pursuing degrees in blockchain technology to advance fintech innovation.",
+    requirements: ["Nigerian resident", "Enrolled in blockchain or CS program", "Minimum GPA of 3.0", "Interest in blockchain"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://nigeriascholarships.org",
+    type: "scholarship",
+    location: "Kano, Nigeria",
+    posted: "2023-10-15",
+    deadline: "2024-01-15",
+    featured: false
+  }
+]
+
+
 
       const featuresGrid = document.querySelector('.features-grid');
       const filterControls = document.querySelector('.filter-controls');
       const lastUpdatedEl = document.querySelector('.last-updated');
       const jobSearch = document.getElementById('jobSearch');
 
-      // Validate jobsData (warnings removed as all entries are valid)
+      // Validate jobsData
       jobsData.forEach(job => {
         if (!['job', 'internship', 'scholarship', 'other'].includes(job.type)) {
           job.type = 'other';
@@ -1460,29 +3415,37 @@
       updateLastUpdated();
 
       // Search functionality
-      jobSearch.addEventListener('input', (e) => {
-        const searchTerm = e.target.value.replace(/[<>]/g, '').toLowerCase();
-        const filteredJobs = jobsData.filter(job =>
-          job.title.toLowerCase().includes(searchTerm) ||
-          job.description.toLowerCase().includes(searchTerm) ||
-          job.fullDescription.toLowerCase().includes(searchTerm) ||
-          job.location.toLowerCase().includes(searchTerm)
-        );
-        renderJobs(filteredJobs);
-      });
-
-      filterControls.addEventListener('click', (e) => {
-        if (e.target.classList.contains('filter-btn')) {
-          document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-          e.target.classList.add('active');
-          const filter = e.target.dataset.filter;
-          const filteredJobs = filter === 'all' ? jobsData : jobsData.filter(job => job.type === filter);
+      if (jobSearch) {
+        jobSearch.addEventListener('input', (e) => {
+          const searchTerm = e.target.value.replace(/[<>]/g, '').toLowerCase();
+          const filteredJobs = jobsData.filter(job =>
+            job.title.toLowerCase().includes(searchTerm) ||
+            job.description.toLowerCase().includes(searchTerm) ||
+            job.fullDescription.toLowerCase().includes(searchTerm) ||
+            job.location.toLowerCase().includes(searchTerm)
+          );
           renderJobs(filteredJobs);
-          document.querySelector('.features-container').scrollIntoView({ behavior: 'smooth' });
-        }
-      });
+        });
+      }
+
+      if (filterControls) {
+        filterControls.addEventListener('click', (e) => {
+          if (e.target.classList.contains('filter-btn')) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            e.target.classList.add('active');
+            const filter = e.target.dataset.filter;
+            const filteredJobs = filter === 'all' ? jobsData : jobsData.filter(job => job.type === filter);
+            renderJobs(filteredJobs);
+            const featuresContainer = document.querySelector('.features-container');
+            if (featuresContainer) {
+              featuresContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        });
+      }
 
       function renderJobs(jobs) {
+        if (!featuresGrid) return;
         featuresGrid.innerHTML = '';
         jobs.forEach(job => {
           const jobEl = document.createElement('div');
@@ -1540,6 +3503,7 @@
       }
 
       function renderFilters() {
+        if (!filterControls) return;
         const filters = [
           { name: 'All', value: 'all' },
           { name: 'Jobs', value: 'job' },
@@ -1559,8 +3523,10 @@
       }
 
       function updateLastUpdated() {
-        const now = new Date();
-        lastUpdatedEl.textContent = `Last updated: ${now.toLocaleString()}`;
+        if (lastUpdatedEl) {
+          const now = new Date();
+          lastUpdatedEl.textContent = `Last updated: ${now.toLocaleString()}`;
+        }
       }
 
       function formatDate(dateString) {
@@ -1571,5 +3537,23 @@
       setInterval(updateLastUpdated, 86400000);
     });
   </script>
+  <!-- ------------- -->
+  <script>
+  let mybutton = document.getElementById("topBtn");
+
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
+
+  function topFunction() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+</script>
 </body>
 </html>

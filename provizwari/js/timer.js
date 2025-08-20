@@ -1,28 +1,38 @@
-let timeLeft = 20 * 60;
-let timerInterval;
+// timer.js
 
-function startTimer(onFinish) {
+/**
+ * Tangiza timer y'ikizamini.
+ *
+ * @param {number} secondsLeft - Umubare w'amasegonda asigaye (nko 20 * 60)
+ * @param {function} onTick - Callback yoherezwa buri segonda hamwe n’igihe gisigaye
+ * @param {function} onTimeout - Callback igihe igihe kirangiye
+ */
+export function startExamTimer(secondsLeft, onTick, onTimeout) {
   const timerEl = document.getElementById('timer');
-  if (!timerEl) {
-    console.error('Timer element not found');
-    return;
+
+  function updateTimerDisplay(time) {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    timerEl.textContent = `Igihe gisigaye: ${minutes}:${seconds.toString().padStart(2, '0')}`;
   }
-  if (timerInterval) clearInterval(timerInterval);
-  timerInterval = setInterval(() => {
-    if (timeLeft <= 0) {
-      clearInterval(timerInterval);
-      if (onFinish) onFinish();
-    } else {
-      const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
-      const seconds = String(timeLeft % 60).padStart(2, '0');
-      timerEl.textContent = `Iminota: ${minutes}:${seconds}`;
-      timeLeft--;
+
+  updateTimerDisplay(secondsLeft);
+
+  const interval = setInterval(() => {
+    secondsLeft--;
+
+    if (secondsLeft < 0) {
+      clearInterval(interval);
+      if (typeof onTimeout === 'function') {
+        onTimeout();
+      }
+      return;
+    }
+
+    updateTimerDisplay(secondsLeft);
+
+    if (typeof onTick === 'function') {
+      onTick(secondsLeft);
     }
   }, 1000);
 }
-
-function stopTimer() {
-  if (timerInterval) clearInterval(timerInterval);
-}
-
-window.timer = { startTimer, stopTimer };

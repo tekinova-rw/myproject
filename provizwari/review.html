@@ -10,12 +10,32 @@
       background: #f5f7fa;
       color: #333;
       padding: 30px;
-    }
-
-    .container {
       max-width: 900px;
       margin: auto;
     }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .summary {
+      background-color: #fff;
+      padding: 20px;
+      border-left: 6px solid #0077cc;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .score {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .pass { color: #28a745; }
+    .fail { color: #dc3545; }
 
     .question {
       background: white;
@@ -51,29 +71,6 @@
       border-radius: 6px;
     }
 
-    h2 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .summary {
-      background-color: #fff;
-      padding: 20px;
-      border-left: 6px solid #0077cc;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      margin-bottom: 30px;
-      text-align: center;
-    }
-
-    .summary .score {
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    .pass { color: #28a745; }
-    .fail { color: #dc3545; }
-
     .back-btn {
       display: block;
       text-align: center;
@@ -96,19 +93,18 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>🧐 Reba Ibisubizo Nyakuri</h2>
+  <h2>🧐 Reba Ibisubizo Nyakuri</h2>
 
-    <div class="summary" id="summaryBox"></div>
-    <div id="reviewContainer"></div>
+  <div class="summary" id="summaryBox"></div>
 
-    <div class="back-btn">
-      <a href="index.html">🏠 Subira ku Rubuga Nyamukuru</a>
-    </div>
+  <div id="reviewContainer"></div>
+
+  <div class="back-btn">
+    <a href="index.html">🏠 Subira ku Rubuga Nyamukuru</a>
   </div>
 
   <script>
-    // Soma amakuru abikwa mu localStorage
+    // Soma amakuru mu localStorage
     const questions = JSON.parse(localStorage.getItem('provizwari_questions')) || [];
     const userAnswers = JSON.parse(localStorage.getItem('provizwari_answers')) || [];
     const score = parseInt(localStorage.getItem('provizwari_score')) || 0;
@@ -118,7 +114,7 @@
     const summaryBox = document.getElementById('summaryBox');
     const reviewContainer = document.getElementById('reviewContainer');
 
-    // Subiza score hejuru
+    // Erekana amanota hejuru
     summaryBox.innerHTML = `
       <div class="score">
         Amanota: <span class="${score >= 12 ? 'pass' : 'fail'}">${score} / ${TOTAL}</span>
@@ -129,22 +125,23 @@
     `;
 
     // Fungura review y'ibibazo byose
-    for (let i = 0; i < questions.length; i++) {
+    for (let i = 0; i < questions.length && i < TOTAL; i++) {
       const q = questions[i];
       const userAnswer = userAnswers[i];
       const correctIndex = optionKeys.indexOf(q.answer);
 
+      // Kora options zerekana ibisubizo
       const optionsHtml = optionKeys.map((key, idx) => {
         let className = "neutral";
         let icon = "";
 
-        // ✔️ = igisubizo nyacyo
+        // niba ari igisubizo cy'ukuri
         if (idx === correctIndex && idx === userAnswer) {
-          className = "correct"; icon = "🔵"; // wacuze neza
+          className = "correct"; icon = "🔵"; // Yacuze neza (ibyo yahisemo ni byo nyakuri)
         } else if (idx === correctIndex) {
-          className = "correct"; icon = "✔️";
+          className = "correct"; icon = "✔️"; // Igisubizo nyakuri
         } else if (idx === userAnswer) {
-          className = "wrong"; icon = "❌";
+          className = "wrong"; icon = "❌"; // Yacuze nabi (yahitamo ibitari byo)
         }
 
         return `
@@ -154,20 +151,18 @@
         `;
       }).join("");
 
-      // Shyiramo ikibazo kimwe kimwe
       reviewContainer.innerHTML += `
         <div class="question">
           <h3>Q${i + 1}. ${q.question}</h3>
-          ${q.image ? `<img src="${q.image}" alt="Ifoto">` : ""}
+          ${q.image ? `<img src="${q.image}" alt="Ifoto y’ikibazo ${i + 1}">` : ""}
           ${optionsHtml}
         </div>
       `;
     }
+    localStorage.setItem('provizwari_questions', JSON.stringify(questionsArray)); // array y'ibibazo 20
+localStorage.setItem('provizwari_answers', JSON.stringify(userAnswersArray)); // array y'ibisubizo by'umunyeshuri, index z'inyuguti (0..3)
+localStorage.setItem('provizwari_score', score); // amanota y'umunyeshuri
 
-    // Ushaka gusiba localStorage nyuma ya review?
-    // localStorage.removeItem('provizwari_questions');
-    // localStorage.removeItem('provizwari_answers');
-    // localStorage.removeItem('provizwari_score');
   </script>
 </body>
 </html>

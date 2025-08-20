@@ -1,26 +1,10 @@
-const MODE_KEY = 'accessMode';
-
-function getAccessMode() {
-  return localStorage.getItem(MODE_KEY) || 'free';
-}
-
-function setAccessMode(mode) {
-  if (mode === 'free' || mode === 'bonus') {
-    localStorage.setItem(MODE_KEY, mode);
-  } else {
-    console.warn('Invalid mode:', mode);
-  }
-}
-
+// js/mode.js
 function hasBonusAccess() {
-  return getAccessMode() === 'bonus';
+  return localStorage.getItem('accessMode') === 'bonus';
 }
 
-function requireBonusAccess(redirectUrl = 'pay.html') {
+function redirectIfNotAllowed() {
   if (!hasBonusAccess()) {
-    alert('Utabonye uburenganzira bwa Bonus, urasubizwa ku rupapuro rwa password.');
-    window.location.href = redirectUrl;
+    window.location.href = "pay.html";
   }
 }
-
-window.mode = { getAccessMode, setAccessMode, hasBonusAccess, requireBonusAccess };
