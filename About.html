@@ -3,9 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <meta name="description" content="TekiNova - Your digital career and services hub">
-  <title>TekiNova</title>
-  <!-- Font Awesome Icons with Subresource Integrity -->
+  <meta name="description" content="Job and Scholarships - Find job opportunities, internships, and scholarships in Rwanda and beyond."/>
+  <meta name="keywords" content="jobs, scholarships, Rwanda, careers, internships, employment, education, opportunities"/>
+  <meta name="author" content="Job and Scholarships Team"/>
+  <meta name="robots" content="index, follow"/>
+  <!-- Open Graph Tags for Social Media -->
+  <meta property="og:title" content="Job and Scholarships - Opportunities in Rwanda"/>
+  <meta property="og:description" content="Discover job opportunities, internships, and scholarships to advance your career and education."/>
+  <meta property="og:image" content="logo.jpeg"/>
+  <meta property="og:url" content="https://www.jobandscholarships.com"/>
+  <meta property="og:type" content="website"/>
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Job and Scholarships - Opportunities in Rwanda"/>
+  <meta name="twitter:description" content="Discover job opportunities, internships, and scholarships to advance your career and education."/>
+  <meta name="twitter:image" content="logo.jpeg"/>
+  <title>Job and Scholarships</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="strict-origin-when-cross-origin" />
   <style>
     /* Fallback if Font Awesome fails */
@@ -136,12 +149,14 @@
 
     /* Hamburger Menu Icon */
     .hamburger-icon {
-      font-size: 20px;
+      font-size: 22px;
       cursor: pointer;
       color: white;
       transition: color 0.3s ease, transform 0.3s ease;
-      padding: 5px;
+      padding: 8px;
       will-change: transform, color;
+      z-index: 1001;
+      display: block;
     }
 
     .hamburger-icon:hover {
@@ -574,10 +589,52 @@
       color: #012f47;
     }
 
+    /* Moving Text */
+    .top-right-slider {
+      position: sticky;
+      top: 60px;
+      width: 100%;
+      background: #02635e;
+      color: white;
+      padding: 8px 0;
+      text-align: center;
+      overflow: hidden;
+      z-index: 90; /* Lower than sidebar (999) and dropdown (100) */
+    }
+
+    .slider-text {
+      display: inline-block;
+      padding-left: 100%;
+      white-space: nowrap;
+      animation: slide-left 35s linear infinite;
+      font-size: 1rem;
+    }
+
+    @keyframes slide-left {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    .content {
+      margin-top: 20px;
+      padding: 20px;
+    }
+
+    .slider-text b {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: x-large;
+    }
+
     /* Responsive Design */
     @media (max-width: 992px) {
       header {
         padding: 8px 12px;
+        flex-wrap: wrap;
+        justify-content: space-between;
       }
 
       .navbar ul {
@@ -587,6 +644,10 @@
       .hamburger-icon {
         margin-left: auto;
         margin-right: 12px;
+        font-size: 22px;
+        padding: 8px;
+        z-index: 1001;
+        display: block;
       }
 
       .sidebar {
@@ -597,6 +658,10 @@
       .abb {
         margin-top: 64px;
       }
+
+      .top-right-slider {
+        top: 56px;
+      }
     }
 
     @media (max-width: 768px) {
@@ -605,8 +670,8 @@
       }
 
       .logo {
-        min-width: 100%;
-        justify-content: center;
+        flex: 1;
+        justify-content: flex-start;
         margin-bottom: 6px;
       }
 
@@ -630,6 +695,18 @@
 
       .abb h2 {
         font-size: 1.4rem;
+      }
+
+      .top-right-slider {
+        top: 56px;
+      }
+
+      .slider-text {
+        font-size: 0.95rem;
+      }
+
+      .slider-text b {
+        font-size: large;
       }
     }
 
@@ -666,59 +743,81 @@
       }
 
       .hamburger-icon {
-        font-size: 18px;
+        font-size: 20px;
         margin-right: 8px;
+        padding: 6px;
+      }
+
+      .top-right-slider {
+        top: 50px;
+      }
+
+      .slider-text {
+        font-size: 0.9rem;
+      }
+
+      .slider-text b {
+        font-size: large;
       }
     }
-     /* muving image  */
-    .top-right-slider {
-  position: sticky;      /* sticky aho */
-  top: 60px;             /* itegereze hejuru ya header (height ya header) */
-  width: 100%;
-  background: #02635e;
-  color: white;
-  padding: 8px 0;
-  text-align: center;
-  overflow: hidden;
-  z-index: 9000;
-  
-}
 
-/* animation ntiyahinduwe */
-.slider-text {
-  display: inline-block;
-  padding-left: 100%;
-  white-space: nowrap;
-  animation: slide-left 35s linear infinite;
-  font-size: 1rem;
-}
+    @media (max-width: 360px) {
+      .hamburger-icon {
+        font-size: 18px;
+        padding: 5px;
+      }
 
-@keyframes slide-left {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
+      .logo h1 {
+        font-size: 16px;
+      }
 
-/* content isikororinga */
-.content {
-  margin-top: 20px;
-  padding: 20px;
-}
-.slider-text b{
-font-family: 'Times New Roman', Times, serif;
-  font-size: x-large;
-}
+      .logo img {
+        width: 28px;
+        height: 28px;
+      }
+
+      .abb {
+        margin-top: 48px;
+      }
+
+      .top-right-slider {
+        top: 46px;
+      }
+
+      .slider-text {
+        font-size: 0.85rem;
+      }
+
+      .slider-text b {
+        font-size: medium;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Job and Scholarships",
+    "url": "https://www.jobandscholarships.com",
+    "logo": "logo.jpeg",
+    "description": "Job and Scholarships provides opportunities for jobs, internships, and scholarships in Rwanda and beyond.",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+250733253803",
+      "contactType": "Customer Service",
+      "email": "info@jobandscholarships.com"
+    }
+  }
+  </script>
+
   <!-- HEADER -->
   <header>
     <div class="logo" id="logo">
-      <img src="tekilogo.jpg" alt="TEKINOVA Logo">
-      <h1>TekiNova</h1>
+      <img src="logo.jpeg" alt="Job and Scholarships Logo" width="36" height="36">
+      <h1>Job and Scholarships</h1>
     </div>
     <nav class="navbar">
       <ul id="main-nav" role="navigation" aria-label="Main navigation">
@@ -726,7 +825,7 @@ font-family: 'Times New Roman', Times, serif;
         <li>
           <a href="#" aria-haspopup="true" aria-expanded="false">About</a>
           <div class="dropdown">
-            <h2>About TEKINOVA</h2>
+            <h2>About Job and Scholarships</h2>
             <a href="About.html">About</a>
             <a href="#">Mission & goals</a>
             <a href="#">Contacts</a>
@@ -740,60 +839,60 @@ font-family: 'Times New Roman', Times, serif;
         <li>
           <a href="#" aria-haspopup="true" aria-expanded="false">Services</a>
           <div class="dropdown">
-            <a href="services.html">Got Services</a>
-            <a href="#">Web development</a>
-            <a href="#">App development</a>
-            <a href="#">Tech consultancy</a>
-            <a href="#">Custom software</a>
-            <a href="#">AI/IoT/Automation services</a>
+            <a href="services.html">Our Services</a>
+            <a href="#">Career counseling</a>
+            <a href="#">Scholarship guidance</a>
+            <a href="#">Job placement</a>
+            <a href="#">Resume building</a>
+            <a href="#">Internship opportunities</a>
           </div>
         </li>
         <li>
-          <a href="#" aria-haspopup="true" aria-expanded="false">Product</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Opportunities</a>
           <div class="dropdown">
-            <a href="Products.html">Web development</a>
-            <a href="#">App development</a>
-            <a href="#">Tech consultancy</a>
-            <a href="#">Custom software</a>
-            <a href="#">AI/IoT/Automation services</a>
+            <a href="opportunities.html">Jobs & Scholarships</a>
+            <a href="#">Full-time jobs</a>
+            <a href="#">Part-time jobs</a>
+            <a href="#">Internships</a>
+            <a href="#">Scholarships</a>
           </div>
         </li>
         <li>
-          <a href="#" aria-haspopup="true" aria-expanded="false">Tech News</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Blog</a>
           <div class="dropdown">
             <h2>Blog</h2>
-            <a href="Blog_Tech_News.html">Blog_Tech_News</a>
-            <a href="#">Articles about technology trends</a>
-            <a href="#">How-to guides or tutorials</a>
-            <a href="#">Company updates</a>
+            <a href="Blog_News.html">Career & Education News</a>
+            <a href="#">Career tips</a>
+            <a href="#">Scholarship guides</a>
+            <a href="#">Success stories</a>
           </div>
         </li>
         <li>
           <a href="#" aria-haspopup="true" aria-expanded="false">Careers</a>
           <div class="dropdown">
-            <a href="Careers.html">Develop your careers</a>
-            <a href="#">Articles about technology trends</a>
-            <a href="#">How-to guides or tutorials</a>
-            <a href="#">Company updates</a>
+            <a href="Careers.html">Join Our Team</a>
+            <a href="#">Open positions</a>
+            <a href="#">Work culture</a>
+            <a href="#">Employee benefits</a>
           </div>
         </li>
         <li>
           <a href="#" aria-haspopup="true" aria-expanded="false">Jobs</a>
           <div class="dropdown">
             <h2>Apply Job</h2>
-            <a href="features.html">Go to Jobs & internships</a>
+            <a href="features.html">Go to Jobs & Internships</a>
           </div>
         </li>
         <li>
           <a href="#" aria-haspopup="true" aria-expanded="false">Contact</a>
           <div class="dropdown">
-            <a href="contact_us.html">Tell us anything</a>
+            <a href="contact_us.html">Tell Us Anything</a>
           </div>
         </li>
         <li>
-          <a href="#" aria-haspopup="true" aria-expanded="false">Working Calendar</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Calendar</a>
           <div class="dropdown">
-            <a href="amasahayakazi.html">Our Calendar Days</a>
+            <a href="amasahayakazi.html">Application Deadlines</a>
           </div>
         </li>
       </ul>
@@ -802,10 +901,9 @@ font-family: 'Times New Roman', Times, serif;
       <i class="fas fa-bars"></i>
     </div>
   </header>
- <div class="top-right-slider">
-  <div class="slider-text"><b>Ushaka ko tugufasha zimwe murizi services zikurikira
-    watwandikira kuri 0733253803 cg ukaduhamagara kur 0780019239!</b></div>
-</div>
+  <div class="top-right-slider">
+    <div class="slider-text"><b>Ushaka ko tugufasha kwishakira akazi cg scholarship? Twandikire kuri 0733253803 cg utuhamagare kuri 0780019239!</b></div>
+  </div>
   <!-- Sidebar Overlay -->
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
@@ -819,8 +917,8 @@ font-family: 'Times New Roman', Times, serif;
       <a href="index.html"><i class="fas fa-home"></i> Home</a>
       <a href="About.html"><i class="fas fa-info-circle"></i> About</a>
       <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
-      <a href="Products.html"><i class="fas fa-box"></i> Products</a>
-      <a href="Blog_Tech_News.html"><i class="fas fa-blog"></i> Blog</a>
+      <a href="opportunities.html"><i class="fas fa-box"></i> Opportunities</a>
+      <a href="Blog_News.html"><i class="fas fa-blog"></i> Blog</a>
       <a href="Careers.html"><i class="fas fa-briefcase"></i> Careers</a>
       <a href="features.html"><i class="fas fa-laptop-code"></i> Jobs</a>
       <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
@@ -835,19 +933,19 @@ font-family: 'Times New Roman', Times, serif;
         </div>
         <div>
           <span>24</span>
-          <small>Projects</small>
+          <small>Opportunities</small>
         </div>
         <div>
           <span>18</span>
-          <small>Team</small>
+          <small>Partners</small>
         </div>
       </div>
     </div>
     <div class="menu-widget">
       <h3>Recent Activity</h3>
-      <p><i class="fas fa-check-circle"></i> New project started</p>
-      <p><i class="fas fa-user-plus"></i> 3 new team members</p>
-      <p><i class="fas fa-sync-alt"></i> Website updated</p>
+      <p><i class="fas fa-check-circle"></i> New job posted</p>
+      <p><i class="fas fa-user-plus"></i> 3 new applications</p>
+      <p><i class="fas fa-sync-alt"></i> Scholarship updated</p>
     </div>
   </aside>
 
@@ -856,41 +954,41 @@ font-family: 'Times New Roman', Times, serif;
 
   <!-- MAIN CONTENT -->
   <div class="abb">
-    <h1>Welcome to TekiNova</h1>
-    <p>Your one-stop hub for digital careers and services</p>
+    <h1>Welcome to Job and Scholarships</h1>
+    <p>Your one-stop hub for job opportunities and scholarships</p>
     <main>
       <section>
         <h2>Who We Are</h2>
-        <p><strong>TekiNova</strong> is a modern online platform offering digital services for individuals and businesses. From job seekers to tech startups, we empower our community with tools and opportunities to thrive in the digital world.</p>
+        <p><strong>Job and Scholarships</strong> is a modern online platform connecting individuals with job opportunities, internships, and scholarships in Rwanda and beyond. We empower job seekers, students, and professionals to achieve their career and educational goals.</p>
       </section>
       <section>
         <h2>What We Offer</h2>
         <ul>
           <li>Job Listings and Applications</li>
           <li>Internship Opportunities</li>
-          <li>Website Development Services</li>
-          <li>Freelance Projects</li>
-          <li>Resume & CV Building Help</li>
+          <li>Scholarship Guidance and Applications</li>
+          <li>Career Counseling Services</li>
+          <li>Resume & CV Building Support</li>
           <li>Online Portfolio Hosting</li>
-          <li>Tech Courses and Training</li>
-          <li>Startup & Tech Consulting</li>
+          <li>Career Development Workshops</li>
+          <li>Education and Funding Consulting</li>
         </ul>
       </section>
       <section>
         <h2>Our Vision</h2>
-        <p class="highlight">To become a leading global platform that bridges the gap between talent and opportunity, helping people unlock their full potential and businesses thrive through technology.</p>
+        <p class="highlight">To become a leading global platform that bridges the gap between talent and opportunity, helping people secure jobs and scholarships to unlock their full potential.</p>
       </section>
       <section>
         <h2>Our Mission</h2>
-        <p>To empower individuals and organizations by providing accessible digital tools, career-building services, and professional development opportunities in a rapidly evolving tech landscape.</p>
+        <p>To empower individuals by providing accessible tools, career-building services, and scholarship opportunities in a rapidly evolving job and education landscape.</p>
       </section>
       <section>
         <h2>Founded</h2>
-        <p>TekiNova was proudly founded on <strong>May 22, 2025</strong> by <strong>Jane Doe</strong> with a vision to build a platform that supports growth, innovation, and career success in technology.</p>
+        <p>Job and Scholarships was proudly founded on <strong>May 22, 2025</strong> by <strong>Jane Doe</strong> with a vision to support career success and educational advancement.</p>
       </section>
       <section>
         <h2>Location</h2>
-        <p>TekiNova HQ<br>123 Innovation Street<br>Tech City, Rwanda</p>
+        <p>Job and Scholarships HQ<br>123 Opportunity Street<br>Kigali, Rwanda</p>
       </section>
       <section>
         <h2>Operating Hours</h2>
@@ -904,14 +1002,14 @@ font-family: 'Times New Roman', Times, serif;
         <h2>Who We Serve</h2>
         <ul>
           <li>Students and fresh graduates</li>
-          <li>Freelancers and job seekers</li>
-          <li>Startups and small businesses</li>
-          <li>Anyone passionate about tech and growth</li>
+          <li>Job seekers and professionals</li>
+          <li>Educational institutions</li>
+          <li>Anyone seeking career and educational growth</li>
         </ul>
       </section>
       <section style="text-align: center;">
-        <h2>Join the TekiNova Community</h2>
-        <p>Explore opportunities, grow your skills, and connect with a future in tech.</p>
+        <h2>Join the Job and Scholarships Community</h2>
+        <p>Explore opportunities, grow your career, and connect with your future.</p>
         <a href="#" class="cta" id="join-btn">Get Started</a>
       </section>
     </main>
@@ -924,10 +1022,10 @@ font-family: 'Times New Roman', Times, serif;
         <h3>Contact</h3>
         <a href="./contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
         <p><strong>WhatsApp:</strong> <a href="https://wa.me/+250733253803" target="_blank" rel="noopener noreferrer">+250 733 253 803</a></p>
-        <p><strong>Email:</strong> <a href="mailto:info@tekinova.com" rel="noopener noreferrer">info@tekinova.com</a></p>
+        <p><strong>Email:</strong> <a href="mailto:info@jobandscholarships.com" rel="noopener noreferrer">info@jobandscholarships.com</a></p>
       </div>
       <div class="col">
-        <h3>About TekiNova</h3>
+        <h3>About Job and Scholarships</h3>
         <a href="About.html" style="text-decoration: underline;"><b>More Info</b></a>
         <a href="#">Company background & vision</a>
         <a href="#">Mission & goals</a>
@@ -941,26 +1039,26 @@ font-family: 'Times New Roman', Times, serif;
       <div class="col">
         <h3>Services</h3>
         <a href="services.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="#">Web development</a>
-        <a href="#">App development</a>
-        <a href="#">Tech consultancy</a>
-        <a href="#">Custom software</a>
-        <a href="#">AI/IoT/Automation services</a>
+        <a href="#">Career counseling</a>
+        <a href="#">Scholarship guidance</a>
+        <a href="#">Job placement</a>
+        <a href="#">Resume building</a>
+        <a href="#">Internship opportunities</a>
       </div>
       <div class="col">
-        <h3>Product</h3>
-        <a href="Products.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="#">App development</a>
-        <a href="#">Tech consultancy</a>
-        <a href="#">Custom software</a>
-        <a href="#">AI/IoT/Automation services</a>
+        <h3>Opportunities</h3>
+        <a href="opportunities.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Full-time jobs</a>
+        <a href="#">Part-time jobs</a>
+        <a href="#">Internships</a>
+        <a href="#">Scholarships</a>
       </div>
       <div class="col">
         <h3>Careers</h3>
         <a href="Careers.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="#">Articles about technology trends</a>
-        <a href="#">How-to guides or tutorials</a>
-        <a href="#">Company updates</a>
+        <a href="#">Open positions</a>
+        <a href="#">Work culture</a>
+        <a href="#">Employee benefits</a>
       </div>
       <div class="col">
         <h3>Jobs & Internships</h3>
@@ -968,7 +1066,7 @@ font-family: 'Times New Roman', Times, serif;
       </div>
     </div>
     <div class="copyright">
-      <p>© 2025 TekiNova. All rights reserved.</p>
+      <p>© 2025 Job and Scholarships. All rights reserved.</p>
     </div>
   </footer>
 

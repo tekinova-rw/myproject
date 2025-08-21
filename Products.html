@@ -3,8 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <meta name="description" content="TekiNova - Our Products"/>
-  <title>TekiNova</title>
+  <meta name="description" content="Job and Scholarships - Explore job opportunities, internships, and scholarship services in Rwanda and beyond."/>
+  <meta name="keywords" content="jobs, scholarships, Rwanda, careers, internships, employment, education, opportunities"/>
+  <meta name="author" content="Job and Scholarships Team"/>
+  <meta name="robots" content="index, follow"/>
+  <!-- Open Graph Tags for Social Media -->
+  <meta property="og:title" content="Job and Scholarships - Opportunities and Services"/>
+  <meta property="og:description" content="Discover job opportunities, internships, and scholarship services to advance your career and education."/>
+  <meta property="og:image" content="logo.jpeg"/>
+  <meta property="og:url" content="https://www.jobandscholarships.com/products.html"/>
+  <meta property="og:type" content="website"/>
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Job and Scholarships - Opportunities and Services"/>
+  <meta name="twitter:description" content="Discover job opportunities, internships, and scholarship services to advance your career and education."/>
+  <meta name="twitter:image" content="logo.jpeg"/>
+  <title>Job and Scholarships</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="strict-origin-when-cross-origin" />
   <style>
     /* Fallback if Font Awesome fails */
@@ -143,12 +157,14 @@
 
     /* Sidebar Icon */
     .sidebar-icon {
-      font-size: 20px;
+      font-size: 22px;
       cursor: pointer;
       color: white;
       transition: color 0.3s ease, transform 0.3s ease;
-      padding: 5px;
+      padding: 8px;
       will-change: transform, color;
+      z-index: 1001;
+      display: block;
     }
 
     .sidebar-icon:hover {
@@ -337,7 +353,7 @@
       padding-bottom: 8px;
     }
 
-    /* Product Cards */
+    /* Service Cards */
     .tek-services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -496,10 +512,52 @@
       display: block;
     }
 
+    /* Moving Text */
+    .top-right-slider {
+      position: sticky;
+      top: 60px;
+      width: 100%;
+      background: #02635e;
+      color: white;
+      padding: 8px 0;
+      text-align: center;
+      overflow: hidden;
+      z-index: 90; /* Lower than sidebar (999) and dropdown (100) */
+    }
+
+    .slider-text {
+      display: inline-block;
+      padding-left: 100%;
+      white-space: nowrap;
+      animation: slide-left 35s linear infinite;
+      font-size: 1rem;
+    }
+
+    @keyframes slide-left {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    .content {
+      margin-top: 20px;
+      padding: 20px;
+    }
+
+    .slider-text b {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: x-large;
+    }
+
     /* Responsive Design */
     @media (max-width: 1024px) {
       header {
         padding: 8px 12px;
+        flex-wrap: wrap;
+        justify-content: space-between;
       }
 
       .logo h1 {
@@ -523,6 +581,10 @@
       .main-content h2 {
         font-size: 1.8rem;
       }
+
+      .top-right-slider {
+        top: 56px;
+      }
     }
 
     @media (max-width: 768px) {
@@ -531,8 +593,8 @@
       }
 
       .logo {
-        min-width: 100%;
-        justify-content: center;
+        flex: 1;
+        justify-content: flex-start;
         margin-bottom: 6px;
       }
 
@@ -543,6 +605,10 @@
       .sidebar-icon {
         margin-left: auto;
         margin-right: 12px;
+        font-size: 22px;
+        padding: 8px;
+        z-index: 1001;
+        display: block;
       }
 
       .main-content {
@@ -560,6 +626,18 @@
 
       .main-content h2 {
         font-size: 1.6rem;
+      }
+
+      .top-right-slider {
+        top: 56px;
+      }
+
+      .slider-text {
+        font-size: 0.95rem;
+      }
+
+      .slider-text b {
+        font-size: large;
       }
     }
 
@@ -594,8 +672,9 @@
       }
 
       .sidebar-icon {
-        font-size: 18px;
+        font-size: 20px;
         margin-right: 8px;
+        padding: 6px;
       }
 
       .main-content h2 {
@@ -609,56 +688,77 @@
       .tek-service-description {
         font-size: 0.9rem;
       }
+
+      .top-right-slider {
+        top: 50px;
+      }
+
+      .slider-text {
+        font-size: 0.9rem;
+      }
+
+      .slider-text b {
+        font-size: large;
+      }
     }
-     /* muving image  */
-    .top-right-slider {
-  position: sticky;      /* sticky aho */
-  top: 60px;             /* itegereze hejuru ya header (height ya header) */
-  width: 100%;
-  background: #02635e;
-  color: white;
-  padding: 8px 0;
-  text-align: center;
-  overflow: hidden;
-  z-index: 9000;
-  
-}
 
-/* animation ntiyahinduwe */
-.slider-text {
-  display: inline-block;
-  padding-left: 100%;
-  white-space: nowrap;
-  animation: slide-left 35s linear infinite;
-  font-size: 1rem;
-}
+    @media (max-width: 360px) {
+      .sidebar-icon {
+        font-size: 18px;
+        padding: 5px;
+      }
 
-@keyframes slide-left {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
+      .logo h1 {
+        font-size: 16px;
+      }
 
-/* content isikororinga */
-.content {
-  margin-top: 20px;
-  padding: 20px;
-}
-.slider-text b{
-font-family: 'Times New Roman', Times, serif;
-  font-size: x-large;
-}
+      .logo img {
+        width: 28px;
+        height: 28px;
+      }
+
+      .main-content {
+        margin-top: 48px;
+      }
+
+      .top-right-slider {
+        top: 46px;
+      }
+
+      .slider-text {
+        font-size: 0.85rem;
+      }
+
+      .slider-text b {
+        font-size: medium;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Job and Scholarships",
+    "url": "https://www.jobandscholarships.com",
+    "logo": "logo.jpeg",
+    "description": "Job and Scholarships provides opportunities for jobs, internships, and scholarships in Rwanda and beyond.",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+250733253803",
+      "contactType": "Customer Service",
+      "email": "info@jobandscholarships.com"
+    }
+  }
+  </script>
+
   <!-- HEADER -->
   <header>
     <div class="logo" id="logo">
-      <img src="logo.jpeg" alt="TEKINOVA Logo">
-      <h1>TekiNova</h1>
+      <img src="logo.jpeg" alt="Job and Scholarships Logo" width="36" height="36">
+      <h1>Job and Scholarships</h1>
     </div>
     <nav class="navbar">
       <ul id="main-nav" role="navigation" aria-label="Main navigation">
@@ -666,7 +766,7 @@ font-family: 'Times New Roman', Times, serif;
         <li>
           <a href="#" aria-haspopup="true" aria-expanded="false">About</a>
           <div class="dropdown">
-            <h2>About TEKINOVA</h2>
+            <h2>About Job and Scholarships</h2>
             <a href="About.html">About Us</a>
             <a href="#">Company background & vision</a>
             <a href="#">Mission & goals</a>
@@ -681,41 +781,41 @@ font-family: 'Times New Roman', Times, serif;
         <li>
           <a href="#" aria-haspopup="true" aria-expanded="false">Services</a>
           <div class="dropdown">
-            <a href="services.html">Got Services</a>
-            <a href="#">Web development</a>
-            <a href="#">App development</a>
-            <a href="#">Tech consultancy</a>
-            <a href="#">Custom software</a>
-            <a href="#">AI/IoT/Automation services</a>
+            <a href="services.html">Our Services</a>
+            <a href="#">Career counseling</a>
+            <a href="#">Scholarship guidance</a>
+            <a href="#">Job placement</a>
+            <a href="#">Resume building</a>
+            <a href="#">Internship opportunities</a>
           </div>
         </li>
         <li>
-          <a href="#" aria-haspopup="true" aria-expanded="false">Product</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Opportunities</a>
           <div class="dropdown">
-            <a href="Products.html">Product</a>
-            <a href="#">App development</a>
-            <a href="#">Tech consultancy</a>
-            <a href="#">Custom software</a>
-            <a href="#">AI/IoT/Automation services</a>
+            <a href="products.html">Opportunities</a>
+            <a href="#">Full-time jobs</a>
+            <a href="#">Part-time jobs</a>
+            <a href="#">Internships</a>
+            <a href="#">Scholarships</a>
           </div>
         </li>
         <li>
-          <a href="#" aria-haspopup="true" aria-expanded="false">Tech News</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Blog</a>
           <div class="dropdown">
             <h2>Blog</h2>
-            <a href="Blog_Tech_News.html">Blog Tech News</a>
-            <a href="#">Articles about technology trends</a>
-            <a href="#">How-to guides or tutorials</a>
-            <a href="#">Company updates</a>
+            <a href="Blog_News.html">Career & Education News</a>
+            <a href="#">Career tips</a>
+            <a href="#">Scholarship guides</a>
+            <a href="#">Success stories</a>
           </div>
         </li>
         <li>
           <a href="#" aria-haspopup="true" aria-expanded="false">Careers</a>
           <div class="dropdown">
-            <a href="Careers.html">Develop Your Career</a>
-            <a href="#">Articles about technology trends</a>
-            <a href="#">How-to guides or tutorials</a>
-            <a href="#">Company updates</a>
+            <a href="Careers.html">Join Our Team</a>
+            <a href="#">Open positions</a>
+            <a href="#">Work culture</a>
+            <a href="#">Employee benefits</a>
           </div>
         </li>
         <li>
@@ -732,9 +832,9 @@ font-family: 'Times New Roman', Times, serif;
           </div>
         </li>
         <li>
-          <a href="#" aria-haspopup="true" aria-expanded="false">Working Calendar</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Calendar</a>
           <div class="dropdown">
-            <a href="amasahayakazi.html">Our Calendar Days</a>
+            <a href="amasahayakazi.html">Application Deadlines</a>
           </div>
         </li>
       </ul>
@@ -743,10 +843,9 @@ font-family: 'Times New Roman', Times, serif;
       <i class="fas fa-bars"></i>
     </div>
   </header>
- <div class="top-right-slider">
-  <div class="slider-text"><b>Ushaka ko tugufasha zimwe murizi services zikurikira
-    watwandikira kuri 0733253803 cg ukaduhamagara kur 0780019239!</b></div>
-</div>
+  <div class="top-right-slider">
+    <div class="slider-text"><b>Ushaka ko tugufasha kwishakira akazi cg scholarship? Twandikire kuri 0733253803 cg utuhamagare kuri 0780019239!</b></div>
+  </div>
   <!-- Sidebar Overlay -->
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
@@ -760,8 +859,8 @@ font-family: 'Times New Roman', Times, serif;
       <a href="index.html"><i class="fas fa-home"></i> Home</a>
       <a href="About.html"><i class="fas fa-info-circle"></i> About</a>
       <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
-      <a href="Products.html"><i class="fas fa-box"></i> Products</a>
-      <a href="Blog_Tech_News.html"><i class="fas fa-blog"></i> Blog</a>
+      <a href="products.html"><i class="fas fa-box"></i> Opportunities</a>
+      <a href="Blog_News.html"><i class="fas fa-blog"></i> Blog</a>
       <a href="Careers.html"><i class="fas fa-briefcase"></i> Careers</a>
       <a href="features.html"><i class="fas fa-laptop-code"></i> Jobs</a>
       <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
@@ -776,70 +875,70 @@ font-family: 'Times New Roman', Times, serif;
         </div>
         <div>
           <span>24</span>
-          <small>Projects</small>
+          <small>Opportunities</small>
         </div>
         <div>
           <span>18</span>
-          <small>Team</small>
+          <small>Partners</small>
         </div>
       </div>
     </div>
     <div class="sidebar-widget">
       <h3>Recent Activity</h3>
-      <p><i class="fas fa-check-circle"></i> New project started</p>
-      <p><i class="fas fa-user-plus"></i> 3 new team members</p>
-      <p><i class="fas fa-sync-alt"></i> Website updated</p>
+      <p><i class="fas fa-check-circle"></i> New job posted</p>
+      <p><i class="fas fa-user-plus"></i> 3 new applications</p>
+      <p><i class="fas fa-sync-alt"></i> Scholarship updated</p>
     </div>
   </aside>
 
   <!-- MAIN CONTENT -->
   <div class="services-list-container main-content">
-    <h2>Our Products</h2>
+    <h2>Our Services</h2>
     <div class="tek-services-grid">
       <div class="tek-service-card">
         <i class="fas fa-paint-brush"></i>
-        <h3 class="tek-service-title">Graphic Design</h3>
-        <p class="tek-service-description">We design logos, posters, social media banners, UI designs, and more. Our creativity gives your brand a strong visual identity.</p>
+        <h3 class="tek-service-title">Career Profile Design</h3>
+        <p class="tek-service-description">We create professional resumes, cover letters, and LinkedIn profiles to enhance your job and scholarship applications.</p>
       </div>
       <div class="tek-service-card">
         <i class="fas fa-globe"></i>
-        <h3 class="tek-service-title">Website Development</h3>
-        <p class="tek-service-description">We build responsive websites for businesses, portfolios, blogs, and e-commerce. Fast, secure, and modern.</p>
+        <h3 class="tek-service-title">Job Search Assistance</h3>
+        <p class="tek-service-description">We connect job seekers with opportunities for full-time, part-time, and remote jobs through verified platforms and partners.</p>
       </div>
       <div class="tek-service-card">
         <i class="fas fa-mobile-alt"></i>
-        <h3 class="tek-service-title">Mobile App Development</h3>
-        <p class="tek-service-description">We develop Android and iOS apps that connect your users to your products or services efficiently on mobile.</p>
+        <h3 class="tek-service-title">Mobile App for Opportunities</h3>
+        <p class="tek-service-description">Access job and scholarship listings on the go with our Android and iOS apps, designed for efficiency and ease of use.</p>
       </div>
       <div class="tek-service-card">
         <i class="fas fa-cogs"></i>
-        <h3 class="tek-service-title">Software & Systems Maintenance</h3>
-        <p class="tek-service-description">We provide ongoing maintenance and support for your digital systems — keeping them updated, fast, and secure.</p>
+        <h3 class="tek-service-title">Career Counseling</h3>
+        <p class="tek-service-description">Receive personalized guidance to navigate career paths, including skill development and job market strategies.</p>
       </div>
       <div class="tek-service-card">
         <i class="fas fa-search"></i>
         <h3 class="tek-service-title">Job Opportunity Guidance</h3>
-        <p class="tek-service-description">We help job seekers find employment, internships, gigs, and remote jobs through verified links and partner organizations.</p>
+        <p class="tek-service-description">We help you find employment, internships, gigs, and remote jobs through verified links and partner organizations.</p>
       </div>
       <div class="tek-service-card">
         <i class="fas fa-graduation-cap"></i>
-        <h3 class="tek-service-title">Scholarships & Internships</h3>
-        <p class="tek-service-description">We guide students to apply for scholarships and internships locally and abroad, with support in preparing their profiles.</p>
+        <h3 class="tek-service-title">Scholarship Application Support</h3>
+        <p class="tek-service-description">We guide students to apply for scholarships locally and internationally, with support in preparing strong applications.</p>
       </div>
       <div class="tek-service-card">
         <i class="fas fa-paper-plane"></i>
         <h3 class="tek-service-title">Application Support</h3>
-        <p class="tek-service-description">Need help applying for jobs, internships, or grants? We help you craft CVs, cover letters, and complete forms professionally.</p>
+        <p class="tek-service-description">Need help applying for jobs, internships, or scholarships? We assist with CVs, cover letters, and form completion.</p>
       </div>
       <div class="tek-service-card">
         <i class="fas fa-terminal"></i>
-        <h3 class="tek-service-title">Custom Software & Automation</h3>
-        <p class="tek-service-description">We develop custom desktop tools, automation scripts, and software to help businesses save time and boost productivity.</p>
+        <h3 class="tek-service-title">Online Portfolio Tools</h3>
+        <p class="tek-service-description">Build and host professional online portfolios to showcase your skills and achievements to employers and institutions.</p>
       </div>
       <div class="tek-service-card">
         <i class="fas fa-users"></i>
-        <h3 class="tek-service-title">Tech Career Coaching</h3>
-        <p class="tek-service-description">We mentor students and young professionals on how to start and grow careers in tech — coding, design, and freelancing.</p>
+        <h3 class="tek-service-title">Career Workshops</h3>
+        <p class="tek-service-description">Join our workshops to learn job search strategies, interview skills, and career planning for long-term success.</p>
       </div>
     </div>
   </div>
@@ -851,10 +950,10 @@ font-family: 'Times New Roman', Times, serif;
         <h3>Contact</h3>
         <a href="./contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
         <p><strong>WhatsApp:</strong> <a href="https://wa.me/+250733253803" target="_blank" rel="noopener noreferrer">+250 733 253 803</a></p>
-        <p><strong>Email:</strong> <a href="mailto:info@tekinova.com" rel="noopener noreferrer">info@tekinova.com</a></p>
+        <p><strong>Email:</strong> <a href="mailto:info@jobandscholarships.com" rel="noopener noreferrer">info@jobandscholarships.com</a></p>
       </div>
       <div class="col">
-        <h3>About TekiNova</h3>
+        <h3>About Job and Scholarships</h3>
         <a href="About.html" style="text-decoration: underline;"><b>More Info</b></a>
         <a href="#">Company background & vision</a>
         <a href="#">Mission & goals</a>
@@ -868,26 +967,26 @@ font-family: 'Times New Roman', Times, serif;
       <div class="col">
         <h3>Services</h3>
         <a href="services.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="#">Web development</a>
-        <a href="#">App development</a>
-        <a href="#">Tech consultancy</a>
-        <a href="#">Custom software</a>
-        <a href="#">AI/IoT/Automation services</a>
+        <a href="#">Career counseling</a>
+        <a href="#">Scholarship guidance</a>
+        <a href="#">Job placement</a>
+        <a href="#">Resume building</a>
+        <a href="#">Internship opportunities</a>
       </div>
       <div class="col">
-        <h3>Product</h3>
-        <a href="Products.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="#">App development</a>
-        <a href="#">Tech consultancy</a>
-        <a href="#">Custom software</a>
-        <a href="#">AI/IoT/Automation services</a>
+        <h3>Opportunities</h3>
+        <a href="products.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Full-time jobs</a>
+        <a href="#">Part-time jobs</a>
+        <a href="#">Internships</a>
+        <a href="#">Scholarships</a>
       </div>
       <div class="col">
         <h3>Careers</h3>
         <a href="Careers.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="#">Articles about technology trends</a>
-        <a href="#">How-to guides or tutorials</a>
-        <a href="#">Company updates</a>
+        <a href="#">Open positions</a>
+        <a href="#">Work culture</a>
+        <a href="#">Employee benefits</a>
       </div>
       <div class="col">
         <h3>Jobs & Internships</h3>
@@ -895,7 +994,7 @@ font-family: 'Times New Roman', Times, serif;
       </div>
     </div>
     <div class="copyright">
-      <p>© 2025 TekiNova. All rights reserved.</p>
+      <p>© 2025 Job and Scholarships. All rights reserved.</p>
     </div>
   </footer>
 

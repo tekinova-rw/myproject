@@ -3,9 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>TekiNova</title>
+  <meta name="description" content="Job and Scholarships - Read the latest news, tips, and guides on job opportunities and scholarships in Rwanda and beyond."/>
+  <meta name="keywords" content="jobs, scholarships, Rwanda, careers, internships, education, opportunities, news, blog"/>
+  <meta name="author" content="Job and Scholarships Team"/>
+  <meta name="robots" content="index, follow"/>
+  <!-- Open Graph Tags for Social Media -->
+  <meta property="og:title" content="Job and Scholarships - Career & Education News"/>
+  <meta property="og:description" content="Stay updated with the latest news, tips, and guides on job opportunities and scholarships."/>
+  <meta property="og:image" content="logo.jpeg"/>
+  <meta property="og:url" content="https://www.jobandscholarships.com/Blog_News.html"/>
+  <meta property="og:type" content="website"/>
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Job and Scholarships - Career & Education News"/>
+  <meta name="twitter:description" content="Stay updated with the latest news, tips, and guides on job opportunities and scholarships."/>
+  <meta name="twitter:image" content="logo.jpeg"/>
+  <title>Job and Scholarships</title>
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="strict-origin-when-cross-origin"/>
   <!-- Tailwind CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
   <style>
@@ -22,6 +37,10 @@
       color: #333;
       line-height: 1.6;
       overflow-x: hidden;
+    }
+
+    body.no-scroll {
+      overflow: hidden;
     }
 
     /* Header */
@@ -42,6 +61,7 @@
       display: flex;
       align-items: center;
       min-width: 180px;
+      cursor: pointer;
     }
 
     .logo img {
@@ -50,6 +70,11 @@
       border-radius: 50%;
       border: 2px solid gold;
       margin-right: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover img {
+      transform: rotate(15deg);
     }
 
     .logo h1 {
@@ -72,7 +97,7 @@
       font-size: 14px;
       padding: 6px 8px;
       border-radius: 6px;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s, color 0.3s;
     }
 
     nav a:hover {
@@ -80,17 +105,25 @@
       color: gold;
     }
 
+    nav a.active {
+      color: #eaedf1;
+    }
+
     /* Hamburger Menu Icon */
     .hamburger-menu {
       font-size: 24px;
       cursor: pointer;
       color: white;
-      transition: color 0.3s;
+      transition: color 0.3s, transform 0.3s;
       margin-left: 15px;
+      padding: 8px;
+      z-index: 1001;
+      display: block;
     }
 
     .hamburger-menu:hover {
       color: gold;
+      transform: scale(1.1);
     }
 
     /* Sidebar */
@@ -107,10 +140,25 @@
       z-index: 999;
       box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
     }
 
     .sidebar.active {
       right: 0;
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background: #555;
+      border-radius: 4px;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+      background: #002240;
     }
 
     .sidebar-header {
@@ -126,12 +174,13 @@
 
     .sidebar-header i {
       cursor: pointer;
-      transition: color 0.3s;
+      transition: color 0.3s, transform 0.3s;
       font-size: 18px;
     }
 
     .sidebar-header i:hover {
       color: #d4af37;
+      transform: scale(1.2);
     }
 
     .sidebar a {
@@ -141,12 +190,14 @@
       color: white;
       padding: 10px 0;
       text-decoration: none;
-      transition: color 0.3s;
+      transition: color 0.3s, background-color 0.3s;
       font-size: 13px;
+      border-radius: 5px;
     }
 
     .sidebar a:hover {
       color: gold;
+      background-color: #033d3d;
     }
 
     .sidebar i {
@@ -161,6 +212,11 @@
       border-radius: 8px;
       padding: 12px;
       margin: 10px 0;
+      transition: transform 0.3s;
+    }
+
+    .menu-widget:hover {
+      transform: translateY(-3px);
     }
 
     .menu-widget h3 {
@@ -207,7 +263,7 @@
       gap: 20px;
     }
 
-    /* Blog Tech News */
+    /* Blog Career & Education News */
     .blog-tech-news {
       max-width: 780px;
       margin: 1.5rem auto;
@@ -281,6 +337,8 @@
       flex-wrap: wrap;
       gap: 15px;
       justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .footer-columns .col {
@@ -305,12 +363,21 @@
       color: white;
       text-decoration: none;
       margin-bottom: 5px;
-      transition: color 0.3s;
+      transition: color 0.3s, padding-left 0.3s;
       font-size: 13px;
     }
 
     .footer-columns .col a:hover {
       color: #d4af37;
+      padding-left: 3px;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 15px;
     }
 
     /* Navigation Dropdowns */
@@ -335,6 +402,7 @@
 
     .navbar a:hover {
       background-color: #033d3d;
+      color: gold;
     }
 
     .navbar a.active {
@@ -349,9 +417,22 @@
       background-color: #002366;
       min-width: 220px;
       border-radius: 0 0 5px 5px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       z-index: 999;
       padding: 8px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropdown h2 {
+      color: gold;
+      font-size: 14px;
+      padding: 8px 12px;
+      margin: 0;
     }
 
     .dropdown a {
@@ -364,6 +445,7 @@
 
     .dropdown a:hover {
       background-color: #033d3d;
+      color: gold;
     }
 
     .navbar li:hover .dropdown {
@@ -378,12 +460,55 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0,0.5);
+      background-color: rgba(0, 0, 0, 0.5);
       z-index: 998;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
     .overlay.active {
       display: block;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Moving Text */
+    .top-right-slider {
+      position: sticky;
+      top: 60px;
+      width: 100%;
+      background: #02635e;
+      color: white;
+      padding: 8px 0;
+      text-align: center;
+      overflow: hidden;
+      z-index: 90; /* Behind sidebar (999) and dropdowns (999) */
+    }
+
+    .slider-text {
+      display: inline-block;
+      padding-left: 100%;
+      white-space: nowrap;
+      animation: slide-left 35s linear infinite;
+      font-size: 1rem;
+    }
+
+    @keyframes slide-left {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    .content {
+      margin-top: 20px;
+      padding: 20px;
+    }
+
+    .slider-text b {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: x-large;
     }
 
     /* Responsive Design */
@@ -395,6 +520,8 @@
 
       .logo {
         min-width: 140px;
+        flex: 1;
+        justify-content: flex-start;
       }
 
       .logo h1 {
@@ -412,11 +539,15 @@
 
       .hamburger-menu {
         display: block;
+        font-size: 22px;
+        padding: 8px;
+        margin-right: 12px;
       }
 
       .sidebar {
         width: 80%;
         max-width: 280px;
+        right: -100%;
       }
 
       .main-content {
@@ -440,6 +571,18 @@
       .footer-columns .col {
         min-width: 160px;
       }
+
+      .top-right-slider {
+        top: 56px;
+      }
+
+      .slider-text {
+        font-size: 0.95rem;
+      }
+
+      .slider-text b {
+        font-size: large;
+      }
     }
 
     @media (max-width: 576px) {
@@ -462,6 +605,8 @@
 
       .hamburger-menu {
         margin: 0 8px;
+        font-size: 20px;
+        padding: 6px;
       }
 
       .blog-tech-news {
@@ -487,6 +632,18 @@
         margin-bottom: 15px;
         text-align: center;
       }
+
+      .top-right-slider {
+        top: 50px;
+      }
+
+      .slider-text {
+        font-size: 0.9rem;
+      }
+
+      .slider-text b {
+        font-size: large;
+      }
     }
 
     @media (max-width: 480px) {
@@ -507,6 +664,18 @@
       .blog-tech-news h2 {
         font-size: 1rem;
       }
+
+      .top-right-slider {
+        top: 50px;
+      }
+
+      .slider-text {
+        font-size: 0.9rem;
+      }
+
+      .slider-text b {
+        font-size: large;
+      }
     }
 
     @media (max-width: 360px) {
@@ -519,6 +688,12 @@
         height: 30px;
       }
 
+      .hamburger-menu {
+        font-size: 18px;
+        padding: 5px;
+        margin: 0 6px;
+      }
+
       .blog-tech-news h1 {
         font-size: 1.2rem;
       }
@@ -526,66 +701,54 @@
       .blog-tech-news p {
         font-size: 0.85rem;
       }
+
+      .top-right-slider {
+        top: 46px;
+      }
+
+      .slider-text {
+        font-size: 0.85rem;
+      }
+
+      .slider-text b {
+        font-size: medium;
+      }
     }
-     /* muving image  */
-    .top-right-slider {
-  position: sticky;      /* sticky aho */
-  top: 60px;             /* itegereze hejuru ya header (height ya header) */
-  width: 100%;
-  background: #02635e;
-  color: white;
-  padding: 8px 0;
-  text-align: center;
-  overflow: hidden;
-  z-index: 9000;
-  
-}
-
-/* animation ntiyahinduwe */
-.slider-text {
-  display: inline-block;
-  padding-left: 100%;
-  white-space: nowrap;
-  animation: slide-left 35s linear infinite;
-  font-size: 1rem;
-}
-
-@keyframes slide-left {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-/* content isikororinga */
-.content {
-  margin-top: 20px;
-  padding: 20px;
-}
-.slider-text b{
-font-family: 'Times New Roman', Times, serif;
-  font-size: x-large;
-}
   </style>
 </head>
 <body>
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Job and Scholarships",
+    "url": "https://www.jobandscholarships.com",
+    "logo": "logo.jpeg",
+    "description": "Job and Scholarships provides news, tips, and guides on job opportunities and scholarships in Rwanda and beyond.",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+250733253803",
+      "contactType": "Customer Service",
+      "email": "info@jobandscholarships.com"
+    }
+  }
+  </script>
 
   <!-- HEADER -->
   <header class="flex items-center">
-    <div class="logo">
-      <img src="tekilogo.jpg" alt="TEKINOVA Logo">
-      <h1>TekiNova</h1>
+    <div class="logo" id="logo">
+      <img src="logo.jpeg" alt="Job and Scholarships Logo" width="40" height="40">
+      <h1>Job and Scholarships</h1>
     </div>
 
     <nav class="navbar">
-      <ul id="desktop-nav">
+      <ul id="desktop-nav" role="navigation" aria-label="Main navigation">
         <li><a href="index.html">Home</a></li>
         <li>
-          <a href="#">About</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">About</a>
           <div class="dropdown">
-            <h2>About TEKINOVA</h2>
+            <h2>About Job and Scholarships</h2>
             <a href="About.html">About Us</a>
             <a href="#">Company Background & Vision</a>
             <a href="#">Mission & Goals</a>
@@ -598,97 +761,96 @@ font-family: 'Times New Roman', Times, serif;
           </div>
         </li>
         <li>
-          <a href="#">Services</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Services</a>
           <div class="dropdown">
             <h2>Services</h2>
             <a href="services.html">Our Services</a>
-            <a href="#">Web Development</a>
-            <a href="#">App Development</a>
-            <a href="#">Tech Consultancy</a>
-            <a href="#">Custom Software</a>
-            <a href="#">AI/IoT/Automation Services</a>
+            <a href="#">Career Counseling</a>
+            <a href="#">Scholarship Guidance</a>
+            <a href="#">Job Placement</a>
+            <a href="#">Resume Building</a>
+            <a href="#">Internship Opportunities</a>
           </div>
         </li>
         <li>
-          <a href="#">Products</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Opportunities</a>
           <div class="dropdown">
-            <h2>Products</h2>
-            <a href="Products.html">Products</a>
-            <a href="#">App Development</a>
-            <a href="#">Tech Consultancy</a>
-            <a href="#">Custom Software</a>
-            <a href="#">AI/IoT/Automation Services</a>
+            <h2>Opportunities</h2>
+            <a href="products.html">Opportunities</a>
+            <a href="#">Full-time Jobs</a>
+            <a href="#">Part-time Jobs</a>
+            <a href="#">Internships</a>
+            <a href="#">Scholarships</a>
           </div>
         </li>
         <li>
-          <a href="#">Tech News</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Blog</a>
           <div class="dropdown">
             <h2>Blog</h2>
-            <a href="Blog_Tech_News.html">Blog Tech News</a>
-            <a href="#">Articles About Technology Trends</a>
-            <a href="#">How-to Guides or Tutorials</a>
-            <a href="#">Company Updates</a>
+            <a href="Blog_News.html">Career & Education News</a>
+            <a href="#">Career Tips</a>
+            <a href="#">Scholarship Guides</a>
+            <a href="#">Success Stories</a>
           </div>
         </li>
         <li>
-          <a href="#">Careers</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Careers</a>
           <div class="dropdown">
             <h2>Careers</h2>
-            <a href="Careers.html">Develop Your Careers</a>
-            <a href="#">Articles About Technology Trends</a>
-            <a href="#">How-to Guides or Tutorials</a>
-            <a href="#">Company Updates</a>
+            <a href="Careers.html">Join Our Team</a>
+            <a href="#">Open Positions</a>
+            <a href="#">Work Culture</a>
+            <a href="#">Employee Benefits</a>
           </div>
         </li>
         <li>
-          <a href="#">Jobs</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Jobs</a>
           <div class="dropdown">
             <h2>Apply Job</h2>
             <a href="features.html">Go to Jobs & Internships</a>
           </div>
         </li>
         <li>
-          <a href="#">Contact</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Contact</a>
           <div class="dropdown">
             <h2>Contact</h2>
             <a href="contact_us.html">Tell Us Anything</a>
           </div>
         </li>
         <li>
-          <a href="#">Working Calendar</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Calendar</a>
           <div class="dropdown">
             <h2>Calendar</h2>
-            <a href="amasahayakazi.html">Our Calendar Days</a>
+            <a href="amasahayakazi.html">Application Deadlines</a>
           </div>
         </li>
       </ul>
     </nav>
 
     <!-- Hamburger Menu -->
-    <div class="hamburger-menu" onclick="toggleHamburgerMenu()">
+    <div class="hamburger-menu" id="hamburger-menu" role="button" aria-label="Toggle sidebar menu" tabindex="0">
       <i class="fas fa-bars"></i>
     </div>
   </header>
- <div class="top-right-slider">
-  <div class="slider-text"><b>Ushaka ko tugufasha zimwe murizi services zikurikira
-    watwandikira kuri 0733253803 cg ukaduhamagara kur 0780019239!</b></div>
-</div>
+  <div class="top-right-slider">
+    <div class="slider-text"><b>Ushaka ko tugufasha kwishakira akazi cg scholarship? Twandikire kuri 0733253803 cg utuhamagare kuri 0780019239!</b></div>
+  </div>
   <!-- Overlay for sidebar -->
   <div class="overlay" id="overlay"></div>
 
   <!-- SIDEBAR -->
-  <aside class="sidebar" id="hamburger-menu">
+  <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <span><i class="fas fa-tachometer-alt"></i> Dashboard</span>
-      <i class="fas fa-times" onclick="toggleHamburgerMenu()"></i>
+      <i class="fas fa-times" id="close-sidebar" role="button" aria-label="Close sidebar menu" tabindex="0"></i>
     </div>
     
     <nav>
       <a href="index.html"><i class="fas fa-home"></i> Home</a>
       <a href="About.html"><i class="fas fa-info-circle"></i> About</a>
       <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
-      <a href="Products.html"><i class="fas fa-box"></i> Products</a>
-      <a href="Blog_Tech_News.html"><i class="fas fa-blog"></i> Blog</a>
+      <a href="products.html"><i class="fas fa-box"></i> Opportunities</a>
+      <a href="Blog_News.html"><i class="fas fa-blog"></i> Blog</a>
       <a href="Careers.html"><i class="fas fa-briefcase"></i> Careers</a>
       <a href="features.html"><i class="fas fa-laptop-code"></i> Jobs</a>
       <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
@@ -700,60 +862,63 @@ font-family: 'Times New Roman', Times, serif;
       <p>Overview of your recent activity</p>
       <div class="widget-stats">
         <div>
-          <span>1,245</span>
+          <span id="visitors-count">1,245</span>
           <small>Visitors</small>
         </div>
         <div>
           <span>24</span>
-          <small>Projects</small>
+          <small>Opportunities</small>
         </div>
         <div>
           <span>18</span>
-          <small>Team</small>
+          <small>Partners</small>
         </div>
       </div>
     </div>
     
     <div class="menu-widget">
       <h3>Recent Activity</h3>
-      <p><i class="fas fa-check-circle"></i> New project started</p>
-      <p><i class="fas fa-user-plus"></i> 3 new team members</p>
-      <p><i class="fas fa-sync-alt"></i> Website updated</p>
+      <p><i class="fas fa-check-circle"></i> New job posted</p>
+      <p><i class="fas fa-user-plus"></i> 3 new applications</p>
+      <p><i class="fas fa-sync-alt"></i> Scholarship updated</p>
     </div>
   </aside>
 
   <!-- MAIN CONTENT -->
   <div class="main-content">
     <div class="blog-tech-news">
-      <h1>Blog & Tech News</h1>
-      <p>Inyandiko, tutorials, n'amakuru agezweho mu ikoranabuhanga.</p>
+      <h1>Career & Education News</h1>
+      <p>Inyandiko, amasomo, n'amakuru agezweho ku kazi no kwiga.</p>
 
       <section>
-        <h2>Tutorials</h2>
+        <h2>Career Tips</h2>
         <ul>
-          <li><a href="#">Uko wakora website ya mbere ukoresheje HTML & CSS</a></li>
-          <li><a href="#">Gutangira gukoresha Figma mu gukora UI</a></li>
+          <li><a href="#">Uko wakora CV y’umwuga izagufasha kubona akazi</a></li>
+          <li><a href="#">Inama 5 zo kwitegura interview y’akazi</a></li>
         </ul>
       </section>
 
       <section>
-        <h2>Tech News</h2>
+        <h2>Scholarship Guides</h2>
         <ul>
-          <li><a href="#">AI izasimbura abakozi? Ibyatangajwe mu nama ya KigaliTech</a></li>
+          <li><a href="#">Uko wakwiyandikisha kuri scholarship za MasterCard Foundation</a></li>
+          <li><a href="#">Amabwiriza yo gusaba scholarship muri kaminuza z’ibyamahanga</a></li>
         </ul>
       </section>
 
       <section>
-        <h2>Community</h2>
+        <h2>Success Stories</h2>
         <ul>
-          <li><a href="#">Uko internship muri TekiNova yamfashije kubona akazi</a></li>
+          <li><a href="#">Uko internship yatumye mpata akazi ka Data Analyst</a></li>
+          <li><a href="#">Nkunda ko nize muri USA kubera scholarship yatanzwe</a></li>
         </ul>
       </section>
 
       <section>
         <h2>Events & Opportunities</h2>
         <ul>
-          <li><a href="#">Dore uko wakwiyandikisha muri AfricaCode Week</a></li>
+          <li><a href="#">Dore uko wakwiyandikisha muri Rwanda Career Fair 2025</a></li>
+          <li><a href="#">Amakuru agezweho ku bikorwa by’akazi muri Kigali</a></li>
         </ul>
       </section>
 
@@ -767,13 +932,11 @@ font-family: 'Times New Roman', Times, serif;
       <div class="col">
         <h3>Contact</h3>
         <a href="./contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <strong>WhatsApp:</strong>
-        <a href="https://wa.me/+250733253803" target="_blank"> +250 733 253 803</a>
-        <strong>Email:</strong>
-        <a href="mailto:fiqueat@gmail.com">fiqueat@gmail.com</a>
+        <p><strong>WhatsApp:</strong> <a href="https://wa.me/+250733253803" target="_blank" rel="noopener noreferrer">+250 733 253 803</a></p>
+        <p><strong>Email:</strong> <a href="mailto:info@jobandscholarships.com" rel="noopener noreferrer">info@jobandscholarships.com</a></p>
       </div>
       <div class="col">
-        <h3>About TEKINOVA</h3>
+        <h3>About Job and Scholarships</h3>
         <a href="About.html" style="text-decoration: underline;"><b>More Info</b></a>
         <a href="#">Company Background & Vision</a>
         <a href="#">Mission & Goals</a>
@@ -787,88 +950,214 @@ font-family: 'Times New Roman', Times, serif;
       <div class="col">
         <h3>Services</h3>
         <a href="services.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="#">Web Development</a>
-        <a href="#">App Development</a>
-        <a href="#">Tech Consultancy</a>
-        <a href="#">Custom Software</a>
-        <a href="#">AI/IoT/Automation Services</a>
+        <a href="#">Career Counseling</a>
+        <a href="#">Scholarship Guidance</a>
+        <a href="#">Job Placement</a>
+        <a href="#">Resume Building</a>
+        <a href="#">Internship Opportunities</a>
       </div>
       <div class="col">
-        <h3>Products</h3>
-        <a href="Products.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="#">App Development</a>
-        <a href="#">Tech Consultancy</a>
-        <a href="#">Custom Software</a>
-        <a href="#">AI/IoT/Automation Services</a>
+        <h3>Opportunities</h3>
+        <a href="products.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Full-time Jobs</a>
+        <a href="#">Part-time Jobs</a>
+        <a href="#">Internships</a>
+        <a href="#">Scholarships</a>
       </div>
       <div class="col">
         <h3>Careers</h3>
         <a href="Careers.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="#">Articles About Technology Trends</a>
-        <a href="#">How-to Guides or Tutorials</a>
-        <a href="#">Company Updates</a>
+        <a href="#">Open Positions</a>
+        <a href="#">Work Culture</a>
+        <a href="#">Employee Benefits</a>
       </div>
       <div class="col">
         <h3>Jobs & Internships</h3>
         <a href="features.html" style="text-decoration: underline;"><b>More Info</b></a>
       </div>
     </div>
+    <div class="copyright">
+      <p>© 2025 Job and Scholarships. All rights reserved.</p>
+    </div>
   </footer>
 
   <script>
-    // Store scroll position
-    let scrollPositions = {};
+    // DOM Elements
+    const sidebar = document.getElementById('sidebar');
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const closeSidebar = document.getElementById('close-sidebar');
+    const overlay = document.getElementById('overlay');
+    const logo = document.getElementById('logo');
 
-    // Toggle hamburger menu (sidebar)
+    // Scroll position storage
+    const scrollPositions = {};
+
+    // Save scroll position
+    function saveScrollPosition() {
+      scrollPositions[window.location.pathname] = window.scrollY || window.pageYOffset;
+    }
+
+    // Restore scroll position
+    function restoreScrollPosition() {
+      const scrollPosition = scrollPositions[window.location.pathname] || 0;
+      window.scrollTo({ top: scrollPosition, behavior: 'auto' });
+    }
+
+    // Toggle sidebar
     function toggleHamburgerMenu() {
-      const sidebar = document.getElementById('hamburger-menu');
-      const overlay = document.getElementById('overlay');
-
-      sidebar.classList.toggle('active');
-      overlay.classList.toggle('active');
-
-      // Save or restore scroll position
-      if (sidebar.classList.contains('active')) {
-        scrollPositions['main'] = window.scrollY;
+      const isActive = sidebar.classList.toggle('active');
+      overlay.classList.toggle('active', isActive);
+      document.body.classList.toggle('no-scroll', isActive);
+      if (isActive) {
+        saveScrollPosition();
+        sidebar.scrollTop = 0;
       } else {
-        window.scrollTo(0, scrollPositions['main'] || 0);
+        restoreScrollPosition();
       }
     }
 
-    // Close sidebar on resize
-    window.addEventListener('resize', function() {
-      const sidebar = document.getElementById('hamburger-menu');
-      const overlay = document.getElementById('overlay');
+    // Swipe to close sidebar
+    let touchStartX = 0;
+    let touchEndX = 0;
 
-      if (window.innerWidth > 768) {
-        sidebar.classList.remove('active');
-        overlay.classList.remove('active');
+    sidebar.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    sidebar.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50 && sidebar.classList.contains('active')) {
+        toggleHamburgerMenu();
       }
-    });
+    }, { passive: true });
 
-    // Close sidebar on link click
-    document.querySelectorAll('.sidebar a').forEach(link => {
-      link.addEventListener('click', function() {
-        document.getElementById('hamburger-menu').classList.remove('active');
-        document.getElementById('overlay').classList.remove('active');
-        window.scrollTo(0, scrollPositions['main'] || 0);
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // Update visitor count
+      try {
+        const visitorCount = document.getElementById('visitors-count');
+        const baseCount = 1245;
+        const randomIncrement = Math.floor(Math.random() * 10);
+        if (visitorCount) {
+          visitorCount.textContent = (baseCount + randomIncrement).toLocaleString();
+        }
+      } catch (error) {
+        console.error('Error updating visitor count:', error);
+      }
+
+      // Highlight current page
+      try {
+        const currentPage = location.pathname.split('/').pop();
+        document.querySelectorAll('.sidebar a').forEach(link => {
+          if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+          }
+        });
+      } catch (error) {
+        console.error('Error setting active navigation link:', error);
+      }
+
+      // Event Listeners
+      if (hamburgerMenu) {
+        hamburgerMenu.addEventListener('click', toggleHamburgerMenu);
+        hamburgerMenu.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleHamburgerMenu();
+          }
+        });
+      }
+
+      if (closeSidebar) {
+        closeSidebar.addEventListener('click', toggleHamburgerMenu);
+        closeSidebar.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleHamburgerMenu();
+          }
+        });
+      }
+
+      if (overlay) {
+        overlay.addEventListener('click', toggleHamburgerMenu);
+      }
+
+      if (logo) {
+        logo.addEventListener('click', () => {
+          window.location.href = 'index.html';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      // Sidebar links
+      document.querySelectorAll('.sidebar a').forEach(link => {
+        link.addEventListener('click', () => {
+          saveScrollPosition();
+          sidebar.classList.remove('active');
+          overlay.classList.remove('active');
+          document.body.classList.remove('no-scroll');
+          if (link.href && !link.href.includes('#')) {
+            sidebar.addEventListener('transitionend', restoreScrollPosition, { once: true });
+          } else {
+            restoreScrollPosition();
+          }
+        });
       });
+
+      // Close sidebar on outside click
+      document.addEventListener('mousedown', (event) => {
+        if (sidebar.classList.contains('active') && !sidebar.contains(event.target) && !hamburgerMenu.contains(event.target)) {
+          toggleHamburgerMenu();
+        }
+      });
+
+      // Close sidebar on Escape key
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && sidebar.classList.contains('active')) {
+          toggleHamburgerMenu();
+        }
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = anchor.getAttribute('href');
+          if (targetId === '#') return;
+          const target = document.querySelector(targetId);
+          if (target) {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // Handle resize
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && sidebar.classList.contains('active')) {
+          sidebar.classList.remove('active');
+          overlay.classList.remove('active');
+          document.body.classList.remove('no-scroll');
+          restoreScrollPosition();
+        }
+      });
+
+      // Restore scroll on load
+      window.addEventListener('load', restoreScrollPosition);
+
+      // Save scroll before unload
+      window.addEventListener('beforeunload', saveScrollPosition);
     });
 
-    // Close sidebar on overlay click
-    document.getElementById('overlay').addEventListener('click', function() {
-      document.getElementById('hamburger-menu').classList.remove('active');
-      this.classList.remove('active');
-      window.scrollTo(0, scrollPositions['main'] || 0);
-    });
-
-    // Close sidebar on Escape key
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') {
-        document.getElementById('hamburger-menu').classList.remove('active');
-        document.getElementById('overlay').classList.remove('active');
-        window.scrollTo(0, scrollPositions['main'] || 0);
-      }
+    // Prevent default navigation for placeholder links
+    document.querySelectorAll('a[href="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+      });
     });
   </script>
 </body>
