@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SERVICE DUTANGA</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#9fb2c5;      /* background */
+      --panel:#031842;   /* dark blue */
+      --accent:#f7df1e;  /* yellow */
+      --brown:#b67c2f;   /* abstract shape */
+      --text:#ffffff;
+      --radius:14px;
+      --shadow:0 6px 20px rgba(0,0,0,.2);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:"Poppins",sans-serif;
+      background:var(--bg);
+      padding:20px;
+    }
+    .poster{
+      max-width:1100px;
+      margin:auto;
+      display:grid;
+      grid-template-columns:1fr 2fr;
+      gap:20px;
+    }
+    .left{display:flex;flex-direction:column;gap:20px}
+    .device img{width:100%;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .abstract{background:var(--brown);border-radius:var(--radius);flex:1}
+    .panel{
+      background:var(--panel);
+      color:var(--text);
+      border-radius:var(--radius);
+      padding:30px;
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+      box-shadow:var(--shadow);
+    }
+    .title{
+      font-size:26px;
+      font-weight:700;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .title span{color:var(--accent);font-size:42px;font-weight:800}
+    ol.services{
+      margin-left:20px;
+      display:grid;
+      gap:10px;
+      font-size:16px;
+    }
+    .bottom-bar{
+      margin-top:auto;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .logo img{
+      width:80px;
+      height:auto;
+      background:#fff;
+      padding:6px;
+      border-radius:var(--radius);
+      box-shadow:0 4px 10px rgba(0,0,0,.2);
+    }
+    .accent-bar{
+      flex:1;
+      height:50px;
+      background:var(--accent);
+      border-radius:var(--radius);
+      position:relative;
+    }
+    .accent-bar::after{
+      content:"”";
+      position:absolute;
+      right:15px;
+      top:50%;
+      transform:translateY(-50%);
+      font-size:44px;
+      font-weight:800;
+      color:var(--accent);
+    }
+    @media(max-width:920px){
+      .poster{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+  <main class="poster">
+    <!-- LEFT -->
+    <div class="left">
+      <!-- real computer image -->
+      <div class="device">
+        <img src="your-computer-image.png" alt="Computer">
+      </div>
+      <div class="abstract"></div>
+    </div>
+
+    <!-- RIGHT -->
+    <section class="panel">
+      <h1 class="title"><span>“</span>SERVICE DUTANGA</h1>
+      <ol class="services">
+        <li>Web Designing.</li>
+        <li>Guhanga Email cg kuzihuza na SIM card yawe.</li>
+        <li>Application mur University zitandukanye.</li>
+        <li>Gukora Account zitandukanye yaba MIFOTRA, Irembo, Imbuga nkoranyambaga n'ibindi.</li>
+        <li>Kwandika kubyapa yaba ibito cg ibinini.</li>
+        <li>Kwandika amamenyesha y'ubukwe n'indi mihango itandukanye.</li>
+        <li>Kumenyesha akazi no kugufasha gusaba akazi.</li>
+        <li>Computer Maintenance and Networking.</li>
+        <li>Mobile App.</li>
+        <li>Gufasha umuntu ufite ikibazo cyo kudepozita kuri MIFOTRA bakamubwira ngo <i>you are not qualified</i> kandi yujuje ibisabwa.</li>
+      </ol>
+
+      <div class="bottom-bar">
+        <!-- real logo -->
+        <div class="logo">
+          <img src="your-logo.png" alt="Logo">
+        </div>
+        <div class="accent-bar"></div>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>

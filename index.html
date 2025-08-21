@@ -21,7 +21,10 @@
   <meta name="twitter:image" content="./jo.jpeg">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <!-- Schema.org JSON-LD -->
+  <!-- gusubira hejuru -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
   
   <style>
     * {
@@ -809,6 +812,97 @@
       font-weight: bold;
       user-select: none;
     }
+    /* ibyo dukora */
+    /* ===== SERVICE DUTANGA (scoped) ===== */
+#service-dutanga{
+  --sd-bg: #9fb2c5;    /* light blue background */
+  --sd-panel:#031842;  /* dark blue */
+  --sd-accent:#f7df1e; /* yellow */
+  --sd-brown:#b67c2f;  /* brown abstract */
+  --sd-text:#ffffff;
+  --sd-radius:16px;
+  --sd-shadow:0 8px 24px rgba(0,0,0,.18);
+
+  display:grid;
+  grid-template-columns: 1fr 2fr;
+  gap:18px;
+  background:var(--sd-bg);
+  padding:16px;
+}
+
+/* left side */
+#service-dutanga .sd-left{display:flex;flex-direction:column;gap:18px}
+#service-dutanga .sd-device{
+  background:#fff;border-radius:var(--sd-radius);box-shadow:var(--sd-shadow);
+  padding:12px;display:flex;align-items:center;justify-content:center;min-height:180px
+}
+#service-dutanga .sd-device img{max-width:100%;height:auto;display:block}
+#service-dutanga .sd-abstract{
+  background:var(--sd-brown);border-radius:10px;min-height:320px;position:relative;overflow:hidden
+}
+#service-dutanga .sd-abstract::before{
+  content:"";position:absolute;inset:18px 24px;border-radius:12px;
+  background:
+    radial-gradient(120px 160px at 40% 45%, transparent 60%, transparent 61%),
+    radial-gradient(40px 50px at 60% 20%, #7aa13a 49%, transparent 51%),
+    radial-gradient(36px 46px at 62% 78%, #7aa13a 49%, transparent 51%),
+    var(--sd-bg);
+}
+
+/* right panel */
+#service-dutanga .sd-panel{
+  background:var(--sd-panel);color:var(--sd-text);
+  border-radius:var(--sd-radius);padding:26px;box-shadow:var(--sd-shadow);
+  display:flex;flex-direction:column;gap:16px
+}
+#service-dutanga .sd-head{display:flex;align-items:center;gap:10px}
+#service-dutanga .sd-quote-open{color:var(--sd-accent);font-size:42px;font-weight:800;line-height:.8}
+#service-dutanga .sd-title{margin:0;font-size:26px;letter-spacing:.5px}
+#service-dutanga .sd-services{margin:0;padding-left:20px;display:grid;gap:10px;font-size:16px}
+#service-dutanga .sd-bottom{margin-top:auto;display:flex;align-items:center;gap:12px;position:relative}
+#service-dutanga .sd-logo{
+  background:#fff;border-radius:10px;padding:8px;width:92px;height:72px;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.2)
+}
+#service-dutanga .sd-logo img{max-width:100%;max-height:100%}
+#service-dutanga .sd-accent{flex:1;height:52px;background:var(--sd-accent);border-radius:10px}
+#service-dutanga .sd-quote-close{
+  position:absolute;right:14px;bottom:-6px;font-size:46px;font-weight:800;color:var(--sd-accent);line-height:.6
+}
+
+/* responsiveness */
+@media (max-width: 920px){
+  #service-dutanga{grid-template-columns:1fr}
+  #service-dutanga .sd-abstract{min-height:200px}
+}
+@media (max-width: 480px){
+  #service-dutanga .sd-title{font-size:22px}
+  #service-dutanga .sd-quote-open{font-size:36px}
+  #service-dutanga .sd-services{font-size:15px}
+  #service-dutanga .sd-accent{height:46px}
+}
+/* gusubira hejuru */
+#topBtn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99;
+  font-size: 30px;
+  background-color: #570a2e;
+  color: white;
+  border: none;
+  padding: 12px 15px;
+  border-radius: 30%;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+#topBtn:hover {
+  background-color: #555;
+}
+
+
   </style>
 </head>
 <body>
@@ -912,8 +1006,62 @@
   <div class="top-right-slider">
     <div class="slider-text"><b lang="rw">Ushaka ko tugufasha zimwe murizi services zikurikira watwandikira kuri unyuze kuri buto ya twandikire cg ukaduhamagara kur +250771217065!</b></div>
   </div>
+<!-- ibyodukora  -->
+<section class="sd" id="service-dutanga">
+  <div class="sd-left">
+    <figure class="sd-device">
+      <!-- SHYIRAMO IFOTO YAWE YA COMPUTER -->
+      <img src="computer.webp" alt="Desktop computer" loading="lazy">
+    </figure>
+    <div class="sd-abstract" aria-hidden="true"></div>
+  </div>
 
-  <img src="WhatsApp Image 2025-06-11 at 2.36.16 AM.jpeg" class="moving-image" alt="Jobs and Scholarships Banner Image">
+  <div class="sd-panel">
+    <div class="sd-head">
+      <span class="sd-quote-open">“</span>
+      <h2 class="sd-title">SERVICE&nbsp;DUTANGA</h2>
+    </div>
+
+    <ol class="sd-services">
+      <li>Web designing.</li>
+      <li>Guhanga email cg kuzihuza na SIM card yawe.</li>
+      <li>Application mur University zitandukanye.</li>
+      <li>Gukora account zitandukanye yaba MIFOTRA, Irembo, imbuga nkoranyambaga n'ibindi.</li>
+      <li>Kwandika kubyapa yaba ibito cg ibinini.</li>
+      <li>Kwandika amamenyesha y'ubukwe n’indi mihango itandukanye.</li>
+      <li>Kumenyesha akazi no kugufasha gusaba akazi.</li>
+      <li>Computer maintenance and networking.</li>
+      <li>Mobile app.</li>
+      <li>Gufasha umuntu ufite ikibazo cyo kudepoza kuri MIFOTRA bakakubwira ngo “you are not qualified” kandi wujuje ibisabwa.</li>
+      <h1> In english</h1>
+      <li>Graphic design (logos, posters, flyers).</li>
+      <li>Video editing no gukora short clips.</li>
+      <li>Digital marketing (SEO, social media campaigns).</li>
+      <li>Developing websites of e-commerce.</li>
+      <li>IT training & tutoring (beginners and advanced).</li>
+      <li>Database setup & management.</li>
+      <li>Cyber security awareness & support.</li>
+      <li>Document typing & formatting (Word, Excel, PowerPoint).</li>
+      <li>Translation services (EN–RW, RW–EN).</li>
+      <li>Photography & photo editing.</li>
+      <li>Online job application assistance.</li>
+      <li>Domain & hosting setup.</li>
+      <li>Email marketing campaigns.</li>
+      <li>Data recovery & backup solutions.</li>
+      <li>Consulting services for tech-related projects.</li>
+    </ol>
+
+    <div class="sd-bottom">
+      <!-- SHYIRAMO LOGO YAWE NYAYO -->
+      <div class="sd-logo">
+        <img src="inama2.webp" alt="Company logo" loading="lazy">
+      </div>
+      <div class="sd-accent" title="Decoration"></div>
+      <span class="sd-quote-close">”</span>
+    </div>
+  </div>
+</section>
+
 
   <!-- Mobile Menu -->
   <div class="mobile-menu" id="mobileMenu">
@@ -1147,6 +1295,10 @@
         <a href="suprt.html" style="text-decoration: underline;" lang="en"><b>More Info</b></a>
       </div>
     </div>
+    <button onclick="topFunction()" id="topBtn">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
   </footer>
 
   <!-- Internal JavaScript -->
@@ -1295,5 +1447,25 @@
     setInterval(waveHand, 120000);
     waveHand();
   </script>
+  <!-- buto yo gusubira hejuru -->
+   <script>
+  let mybutton = document.getElementById("topBtn");
+
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
+
+  function topFunction() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+</script>
+</body>
+
 </body>
 </html>
