@@ -3,8 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <meta name="description" content="TekiNova - Serivisi za TekiNova"/>
-  <title>TekiNova</title>
+  <meta name="description" content="Job and Scholarships - Find job opportunities, internships, and scholarships in Rwanda and beyond."/>
+  <meta name="keywords" content="jobs, scholarships, Rwanda, careers, internships, employment, education, opportunities"/>
+  <meta name="author" content="Job and Scholarships Team"/>
+  <meta name="robots" content="index, follow"/>
+  <!-- Open Graph Tags for Social Media -->
+  <meta property="og:title" content="Job and Scholarships - Opportunities in Rwanda"/>
+  <meta property="og:description" content="Discover job opportunities, internships, and scholarships to advance your career and education."/>
+  <meta property="og:image" content="logo.jpeg"/>
+  <meta property="og:url" content="https://www.jobandscholarships.com"/>
+  <meta property="og:type" content="website"/>
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Job and Scholarships - Opportunities in Rwanda"/>
+  <meta name="twitter:description" content="Discover job opportunities, internships, and scholarships to advance your career and education."/>
+  <meta name="twitter:image" content="logo.jpeg"/>
+  <title>Job and Scholarships</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="strict-origin-when-cross-origin" />
   <style>
     /* Fallback if Font Awesome fails */
@@ -140,12 +154,14 @@
 
     /* Dashboard Icon */
     .dashboard-icon {
-      font-size: 22px;
+      font-size: 24px;
       cursor: pointer;
       color: white;
       transition: color 0.3s ease, transform 0.3s ease;
-      padding: 5px;
+      padding: 8px;
+      z-index: 1001;
       will-change: transform, color;
+      display: block;
     }
 
     .dashboard-icon:hover {
@@ -277,7 +293,7 @@
       padding: 10px;
       margin-bottom: 10px;
       transition: transform 0.3s ease;
-      will-change: transform px;
+      will-change: transform;
     }
 
     .dashboard-widget:hover {
@@ -497,7 +513,7 @@
     }
 
     /* Responsive Design */
-    @media (max-width: 1024px) {
+    @media (max-width: 1200px) {
       header {
         padding: 8px 12px;
       }
@@ -509,6 +525,11 @@
       .logo img {
         width: 36px;
         height: 36px;
+      }
+
+      .navbar a {
+        font-size: 14px;
+        padding: 5px 8px;
       }
 
       .sidebar {
@@ -528,11 +549,14 @@
     @media (max-width: 768px) {
       header {
         padding: 8px 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
       }
 
       .logo {
-        min-width: 100%;
-        justify-content: center;
+        flex: 1;
+        justify-content: flex-start;
         margin-bottom: 6px;
       }
 
@@ -541,8 +565,11 @@
       }
 
       .dashboard-icon {
-        margin-left: auto;
-        margin-right: 12px;
+        display: block;
+        font-size: 24px;
+        margin-right: 10px;
+        padding: 8px;
+        z-index: 1001;
       }
 
       .services-section {
@@ -568,6 +595,10 @@
 
       .section-title {
         font-size: 1.6rem;
+      }
+
+      .top-right-slider {
+        top: 56px;
       }
     }
 
@@ -602,8 +633,18 @@
       }
 
       .dashboard-icon {
-        font-size: 20px;
+        font-size: 22px;
         margin-right: 8px;
+        padding: 6px;
+      }
+
+      .logo h1 {
+        font-size: 18px;
+      }
+
+      .logo img {
+        width: 32px;
+        height: 32px;
       }
 
       .section-title {
@@ -617,56 +658,111 @@
       .service-card p {
         font-size: 0.85rem;
       }
+
+      .top-right-slider {
+        top: 50px;
+      }
+
+      .slider-text {
+        font-size: 0.9rem;
+      }
+
+      .slider-text b {
+        font-size: large;
+      }
     }
-     /* muving image  */
+
+    @media (max-width: 360px) {
+      .dashboard-icon {
+        font-size: 20px;
+        padding: 5px;
+      }
+
+      .logo h1 {
+        font-size: 16px;
+      }
+
+      .logo img {
+        width: 28px;
+        height: 28px;
+      }
+
+      .services-section {
+        margin-top: 48px;
+      }
+
+      .top-right-slider {
+        top: 46px;
+      }
+    }
+
+    /* Moving image */
     .top-right-slider {
-  position: sticky;      /* sticky aho */
-  top: 60px;             /* itegereze hejuru ya header (height ya header) */
-  width: 100%;
-  background: #02635e;
-  color: white;
-  padding: 8px 0;
-  text-align: center;
-  overflow: hidden;
-  z-index: 9000;
-  
-}
+      position: sticky;
+      top: 60px;
+      width: 100%;
+      background: #02635e;
+      color: white;
+      padding: 8px 0;
+      text-align: center;
+      overflow: hidden;
+      z-index: 9000;
+    }
 
-/* animation ntiyahinduwe */
-.slider-text {
-  display: inline-block;
-  padding-left: 100%;
-  white-space: nowrap;
-  animation: slide-left 35s linear infinite;
-  font-size: 1rem;
-}
+    /* Animation */
+    .slider-text {
+      display: inline-block;
+      padding-left: 100%;
+      white-space: nowrap;
+      animation: slide-left 35s linear infinite;
+      font-size: 1rem;
+    }
 
-@keyframes slide-left {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
+    @keyframes slide-left {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
 
-/* content isikororinga */
-.content {
-  margin-top: 20px;
-  padding: 20px;
-}
-.slider-text b{
-font-family: 'Times New Roman', Times, serif;
-  font-size: x-large;
-}
+    /* Content */
+    .content {
+      margin-top: 20px;
+      padding: 20px;
+    }
+
+    .slider-text b {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: x-large;
+    }
   </style>
 </head>
 <body>
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Job and Scholarships",
+    "url": "https://www.jobandscholarships.com",
+    "logo": "logo.jpeg",
+    "description": "Job and Scholarships provides opportunities for jobs, internships, and scholarships in Rwanda and beyond.",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+250733253803",
+      "contactType": "Customer Service",
+      "email": "info@jobandscholarships.com"
+    }
+  }
+  </script>
+
   <!-- Header -->
   <header>
     <div class="logo" id="logo">
-      <img src="logo.jpeg" alt="TEKINOVA Logo">
-      <h1>TekiNova</h1>
+      <img src="logo.jpeg" alt="Job and Scholarships Logo" width="40" height="40">
+      <h1>Job and Scholarships</h1>
     </div>
     <nav class="navbar">
       <ul id="main-nav" role="navigation" aria-label="Main navigation">
@@ -674,7 +770,7 @@ font-family: 'Times New Roman', Times, serif;
         <li>
           <a href="#" aria-haspopup="true" aria-expanded="false">About</a>
           <div class="dropdown">
-            <h2>About TEKINOVA</h2>
+            <h2>About Job and Scholarships</h2>
             <a href="About.html">About Us</a>
             <a href="#">Company background & vision</a>
             <a href="#">Mission & goals</a>
@@ -689,41 +785,41 @@ font-family: 'Times New Roman', Times, serif;
         <li>
           <a href="#" aria-haspopup="true" aria-expanded="false">Services</a>
           <div class="dropdown">
-            <a href="services.html">Got Services</a>
-            <a href="#">Web development</a>
-            <a href="#">App development</a>
-            <a href="#">Tech consultancy</a>
-            <a href="#">Custom software</a>
-            <a href="#">AI/IoT/Automation services</a>
+            <a href="services.html">Our Services</a>
+            <a href="#">Career counseling</a>
+            <a href="#">Scholarship guidance</a>
+            <a href="#">Job placement</a>
+            <a href="#">Resume building</a>
+            <a href="#">Internship opportunities</a>
           </div>
         </li>
         <li>
-          <a href="#" aria-haspopup="true" aria-expanded="false">Product</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Opportunities</a>
           <div class="dropdown">
-            <a href="Products.html">Product</a>
-            <a href="#">App development</a>
-            <a href="#">Tech consultancy</a>
-            <a href="#">Custom software</a>
-            <a href="#">AI/IoT/Automation services</a>
+            <a href="opportunities.html">Jobs & Scholarships</a>
+            <a href="#">Full-time jobs</a>
+            <a href="#">Part-time jobs</a>
+            <a href="#">Internships</a>
+            <a href="#">Scholarships</a>
           </div>
         </li>
         <li>
-          <a href="#" aria-haspopup="true" aria-expanded="false">Tech News</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Blog</a>
           <div class="dropdown">
             <h2>Blog</h2>
-            <a href="Blog_Tech_News.html">Blog Tech News</a>
-            <a href="#">Articles about technology trends</a>
-            <a href="#">How-to guides or tutorials</a>
-            <a href="#">Company updates</a>
+            <a href="Blog_News.html">Career & Education News</a>
+            <a href="#">Career tips</a>
+            <a href="#">Scholarship guides</a>
+            <a href="#">Success stories</a>
           </div>
         </li>
         <li>
           <a href="#" aria-haspopup="true" aria-expanded="false">Careers</a>
           <div class="dropdown">
-            <a href="Careers.html">Develop Your Career</a>
-            <a href="#">Articles about technology trends</a>
-            <a href="#">How-to guides or tutorials</a>
-            <a href="#">Company updates</a>
+            <a href="Careers.html">Join Our Team</a>
+            <a href="#">Open positions</a>
+            <a href="#">Work culture</a>
+            <a href="#">Employee benefits</a>
           </div>
         </li>
         <li>
@@ -740,9 +836,9 @@ font-family: 'Times New Roman', Times, serif;
           </div>
         </li>
         <li>
-          <a href="#" aria-haspopup="true" aria-expanded="false">Working Calendar</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Calendar</a>
           <div class="dropdown">
-            <a href="amasahayakazi.html">Our Calendar Days</a>
+            <a href="amasahayakazi.html">Application Deadlines</a>
           </div>
         </li>
       </ul>
@@ -751,10 +847,9 @@ font-family: 'Times New Roman', Times, serif;
       <i class="fas fa-bars"></i>
     </div>
   </header>
- <div class="top-right-slider">
-  <div class="slider-text"><b>Ushaka ko tugufasha zimwe murizi services zikurikira
-    watwandikira kuri 0733253803 cg ukaduhamagara kur 0780019239!</b></div>
-</div>
+  <div class="top-right-slider">
+    <div class="slider-text"><b>Ushaka ko tugufasha kwishakira akazi cg scholarship? Twandikire kuri 0733253803 cg utuhamagare kuri 0780019239!</b></div>
+  </div>
   <!-- Sidebar Overlay -->
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
@@ -768,8 +863,8 @@ font-family: 'Times New Roman', Times, serif;
       <a href="home.html"><i class="fas fa-home"></i> Home</a>
       <a href="About.html"><i class="fas fa-info-circle"></i> About</a>
       <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
-      <a href="Products.html"><i class="fas fa-box"></i> Products</a>
-      <a href="Blog_Tech_News.html"><i class="fas fa-blog"></i> Blog</a>
+      <a href="opportunities.html"><i class="fas fa-box"></i> Opportunities</a>
+      <a href="Blog_News.html"><i class="fas fa-blog"></i> Blog</a>
       <a href="Careers.html"><i class="fas fa-briefcase"></i> Careers</a>
       <a href="features.html"><i class="fas fa-briefcase"></i> Jobs</a>
       <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
@@ -784,61 +879,61 @@ font-family: 'Times New Roman', Times, serif;
         </div>
         <div>
           <span>24</span>
-          <small>Projects</small>
+          <small>Opportunities</small>
         </div>
         <div>
           <span>18</span>
-          <small>Team</small>
+          <small>Partners</small>
         </div>
       </div>
     </div>
     <div class="dashboard-widget">
       <h3>Recent Activity</h3>
-      <p><i class="fas fa-check-circle"></i> New project started</p>
-      <p><i class="fas fa-user-plus"></i> 3 new team members</p>
-      <p><i class="fas fa-sync-alt"></i> Website updated</p>
+      <p><i class="fas fa-check-circle"></i> New job posted</p>
+      <p><i class="fas fa-user-plus"></i> 3 new applications</p>
+      <p><i class="fas fa-sync-alt"></i> Scholarship updated</p>
     </div>
   </aside>
 
   <!-- Main Content -->
   <section class="services-section">
-    <h2 class="section-title">Serivisi za TekiNova</h2>
+    <h2 class="section-title">Serivisi za Job and Scholarships</h2>
     <div class="services-grid">
       <div class="service-card">
         <i class="fas fa-laptop-code icon"></i>
-        <h3>Amahugurwa y’Ikoranabuhanga</h3>
-        <p>Web development, UI/UX, data analysis, n’ibindi.</p>
-        <a href="amahugurwa-section.html" class="btn">Soma byinshi</a>
+        <h3>Career Counseling</h3>
+        <p>Personalized guidance to help you choose the right career path.</p>
+        <a href="counseling.html" class="btn">Soma byinshi</a>
       </div>
       <div class="service-card">
         <i class="fas fa-globe icon"></i>
-        <h3>Gukora Websites & Apps</h3>
-        <p>Gukora, gutunganya no gucunga imbuga na applications.</p>
-        <a href="gukorawebsites.html" class="btn">Soma byinshi</a>
+        <h3>Job Placement</h3>
+        <p>Connecting you with job opportunities in Rwanda and beyond.</p>
+        <a href="jobplacement.html" class="btn">Soma byinshi</a>
       </div>
       <div class="service-card">
         <i class="fas fa-comments icon"></i>
-        <h3>Ubujyanama</h3>
-        <p>Inama ku mishinga ya tech, product planning, na digital strategy.</p>
-        <a href="ubujyanama.html" class="btn">Soma byinshi</a>
+        <h3>Scholarship Guidance</h3>
+        <p>Assistance in finding and applying for scholarships.</p>
+        <a href="scholarships.html" class="btn">Soma byinshi</a>
       </div>
       <div class="service-card">
         <i class="fas fa-tools icon"></i>
-        <h3>Support ya Software</h3>
-        <p>Gufasha gukemura ibibazo bya software na mudasobwa.</p>
-        <a href="suprt.html" class="btn">Soma byinshi</a>
+        <h3>Resume Building</h3>
+        <p>Support to create professional resumes and cover letters.</p>
+        <a href="resume.html" class="btn">Soma byinshi</a>
       </div>
       <div class="service-card">
         <i class="fas fa-user-graduate icon"></i>
-        <h3>Internships & Projects</h3>
-        <p>Amahirwe yo kwitoza no gukorera kuri real projects.</p>
-        <a href="internalships.html" class="btn">Soma byinshi</a>
+        <h3>Internships</h3>
+        <p>Opportunities to gain experience through internships.</p>
+        <a href="internships.html" class="btn">Soma byinshi</a>
       </div>
       <div class="service-card">
         <i class="fas fa-blog icon"></i>
-        <h3>Blog & Events</h3>
-        <p>Inyandiko z’ubumenyi, tutorials, jobs, na hackathons.</p>
-        <a href="events.html" class="btn">Soma byinshi</a>
+        <h3>Blog & Resources</h3>
+        <p>Career tips, scholarship guides, and success stories.</p>
+        <a href="resources.html" class="btn">Soma byinshi</a>
       </div>
     </div>
   </section>
@@ -850,10 +945,10 @@ font-family: 'Times New Roman', Times, serif;
         <h3>Contact</h3>
         <a href="./contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
         <p><strong>WhatsApp:</strong> <a href="https://wa.me/+250733253803" target="_blank" rel="noopener noreferrer">+250 733 253 803</a></p>
-        <p><strong>Email:</strong> <a href="mailto:info@tekinova.com" rel="noopener noreferrer">info@tekinova.com</a></p>
+        <p><strong>Email:</strong> <a href="mailto:info@jobandscholarships.com" rel="noopener noreferrer">info@jobandscholarships.com</a></p>
       </div>
       <div class="col">
-        <h3>About TekiNova</h3>
+        <h3>About Job and Scholarships</h3>
         <a href="About.html" style="text-decoration: underline;"><b>More Info</b></a>
         <a href="#">Company background & vision</a>
         <a href="#">Mission & goals</a>
@@ -867,26 +962,26 @@ font-family: 'Times New Roman', Times, serif;
       <div class="col">
         <h3>Services</h3>
         <a href="services.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="#">Web development</a>
-        <a href="#">App development</a>
-        <a href="#">Tech consultancy</a>
-        <a href="#">Custom software</a>
-        <a href="#">AI/IoT/Automation services</a>
+        <a href="#">Career counseling</a>
+        <a href="#">Scholarship guidance</a>
+        <a href="#">Job placement</a>
+        <a href="#">Resume building</a>
+        <a href="#">Internship opportunities</a>
       </div>
       <div class="col">
-        <h3>Product</h3>
-        <a href="Products.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="#">App development</a>
-        <a href="#">Tech consultancy</a>
-        <a href="#">Custom software</a>
-        <a href="#">AI/IoT/Automation services</a>
+        <h3>Opportunities</h3>
+        <a href="opportunities.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Full-time jobs</a>
+        <a href="#">Part-time jobs</a>
+        <a href="#">Internships</a>
+        <a href="#">Scholarships</a>
       </div>
       <div class="col">
         <h3>Careers</h3>
         <a href="Careers.html" style="text-decoration: underline;"><b>More Info</b></a>
-        <a href="#">Articles about technology trends</a>
-        <a href="#">How-to guides or tutorials</a>
-        <a href="#">Company updates</a>
+        <a href="#">Open positions</a>
+        <a href="#">Work culture</a>
+        <a href="#">Employee benefits</a>
       </div>
       <div class="col">
         <h3>Jobs & Internships</h3>

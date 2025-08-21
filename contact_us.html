@@ -2,12 +2,27 @@
 <html lang="rw">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>TekiNova - Contact Us</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="description" content="Contact Job and Scholarships to get assistance with job applications, scholarship opportunities, or career guidance in Rwanda and beyond."/>
+  <meta name="keywords" content="contact, jobs, scholarships, Rwanda, career guidance, job applications, internship opportunities"/>
+  <meta name="author" content="Job and Scholarships Team"/>
+  <meta name="robots" content="index, follow"/>
+  <!-- Open Graph Tags for Social Media -->
+  <meta property="og:title" content="Job and Scholarships - Contact Us"/>
+  <meta property="og:description" content="Reach out to Job and Scholarships for help with job applications, scholarships, or career guidance."/>
+  <meta property="og:image" content="logo.jpeg"/>
+  <meta property="og:url" content="https://www.jobandscholarships.com/contact_us.html"/>
+  <meta property="og:type" content="website"/>
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Job and Scholarships - Contact Us"/>
+  <meta name="twitter:description" content="Reach out to Job and Scholarships for help with job applications, scholarships, or career guidance."/>
+  <meta name="twitter:image" content="logo.jpeg"/>
+  <title>Job and Scholarships - Contact Us</title>
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <!-- Tailwind CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Tailwind CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
   <style>
     /* Reset and Global Styles */
     * {
@@ -18,40 +33,113 @@
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      overflow-x: hidden;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
       background-color: #f4f4f4;
       color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body.no-scroll {
+      overflow: hidden;
     }
 
     /* Header */
     header {
+      background-color: #012f47;
+      color: white;
+      padding: 10px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       position: sticky;
       top: 0;
-      left: 0;
-      width: 100%;
       z-index: 1000;
-      background-color: #012f47;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
     }
 
     .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
       border: 2px solid gold;
+      margin-right: 8px;
+      transition: transform 0.3s ease;
     }
 
-    /* Sidebar */
+    .logo:hover img {
+      transform: rotate(15deg);
+    }
+
+    .logo h1 {
+      color: gold;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 12px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #033d3d;
+      color: gold;
+    }
+
+    nav a.active {
+      color: #eaedf1;
+      background-color: #033d3d;
+    }
+
+    /* Dashboard Icons */
+    .mobile-dashboard-icon, .desktop-dashboard-icon {
+      font-size: 20px;
+      cursor: pointer;
+      color: white;
+      transition: color 0.3s, transform 0.3s;
+      padding: 8px;
+      z-index: 1001;
+    }
+
+    .mobile-dashboard-icon:hover, .desktop-dashboard-icon:hover {
+      color: gold;
+      transform: scale(1.1);
+    }
+
+    /* Sidebar Menu (Mobile) */
     .sidebar {
       position: fixed;
       top: 0;
       right: -100%;
+      width: 100%;
       height: 100vh;
+      background-color: #002240;
+      color: white;
+      padding: 15px;
       transition: right 0.3s ease;
       z-index: 999;
-      background-color: #002240;
-      overflow-y: auto;
       box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
     }
 
     .sidebar.active {
@@ -62,387 +150,1054 @@
       width: 8px;
     }
 
-    .sidebar::-webkit-scrollbar-track {
-      background: #1a2a44;
+    .sidebar::-webkit-scrollbar-thumb {
+      background: #555;
+      border-radius: 4px;
     }
 
-    .sidebar::-webkit-scrollbar-thumb {
-      background: #d4af37;
-      border-radius: 4px;
+    .sidebar::-webkit-scrollbar-track {
+      background: #002240;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+      color: gold;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #555;
+    }
+
+    .sidebar-header i {
+      cursor: pointer;
+      transition: color 0.3s, transform 0.3s;
+      font-size: 18px;
+    }
+
+    .sidebar-header i:hover {
+      color: #d4af37;
+      transform: scale(1.2);
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      padding: 10px 0;
+      text-decoration: none;
+      transition: color 0.3s, background-color 0.3s;
+      font-size: 13px;
+      border-radius: 5px;
+    }
+
+    .sidebar a:hover {
+      color: gold;
+      background-color: #033d3d;
+    }
+
+    .sidebar a.active {
+      color: gold;
+      background-color: #033d3d;
+    }
+
+    .sidebar i {
+      width: 18px;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    /* Menu Widgets */
+    .menu-widget {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 12px;
+      margin: 10px 0;
+      transition: transform 0.3s;
+    }
+
+    .menu-widget:hover {
+      transform: translateY(-3px);
+    }
+
+    .menu-widget h3 {
+      color: gold;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .menu-widget p {
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .menu-widget .widget-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .widget-stats div {
+      text-align: center;
+      flex: 1;
+    }
+
+    .widget-stats span {
+      display: block;
+      font-size: 16px;
+      font-weight: bold;
+      color: gold;
+    }
+
+    .widget-stats small {
+      font-size: 11px;
+      opacity: 0.8;
     }
 
     /* Main Content */
     main {
+      max-width: 960px;
+      margin: 20px auto;
+      padding: 15px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       flex: 1;
-      padding-top: 80px;
     }
 
-    /* Dialog */
-    #contactDialog {
-      z-index: 10001;
+    main h1 {
+      color: #002240;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
     }
 
-    /* Footer */
-    footer {
-      background-color: #012f47;
+    main p {
+      font-size: 0.95rem;
+      color: #333;
+      margin-bottom: 1rem;
     }
 
-    /* Prevent horizontal scroll */
-    html, body {
-      max-width: 100%;
-      overflow-x: hidden;
+    /* Form Styles */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
-    /* Dropdowns */
-    .dropdown {
-      transition: all 0.3s;
+    form label {
+      font-weight: bold;
+      font-size: 0.9rem;
+      color: #002240;
     }
 
-    /* Custom form focus */
-    input:focus, textarea:focus {
+    form input, form textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    form input:focus, form textarea:focus {
       outline: none;
       border-color: #012f47;
       box-shadow: 0 0 0 3px rgba(1, 47, 71, 0.2);
     }
 
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      main {
-        padding-top: 100px;
+    form button {
+      padding: 0.75rem 1.5rem;
+      background-color: #012f47;
+      color: gold;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    form button:hover {
+      background-color: #033d3d;
+    }
+
+    .confirmation-notice, .alert-notice {
+      padding: 0.75rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .confirmation-notice {
+      background-color: #e6ffed;
+      color: #2e7d32;
+    }
+
+    .alert-notice {
+      background-color: #ffe6e6;
+      color: #d32f2f;
+    }
+
+    /* Contact Section */
+    .contact-section ul {
+      padding-left: 1.2rem;
+      list-style-type: none;
+    }
+
+    .contact-section li {
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .contact-section a {
+      color: #0077cc;
+      text-decoration: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .contact-section a:hover {
+      background-color: #e6f3ff;
+      color: #0055aa;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #012f47;
+      color: white;
+      padding: 20px 10px;
+      margin-top: auto;
+    }
+
+    .footer-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      padding: 0 15px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-columns .col {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .footer-columns .col h3 {
+      color: gold;
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+
+    .footer-columns .col h2 {
+      color: gold;
+      margin: 12px 0 8px;
+      font-size: 15px;
+    }
+
+    .footer-columns .col a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 5px;
+      transition: color 0.3s, padding-left 0.3s;
+      font-size: 13px;
+    }
+
+    .footer-columns .col a:hover {
+      color: #d4af37;
+      padding-left: 3px;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 15px;
+    }
+
+    /* Navigation Dropdowns */
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .navbar li {
+      position: relative;
+    }
+
+    .navbar a {
+      display: block;
+      padding: 10px 12px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .navbar a:hover {
+      background-color: #033d3d;
+      color: gold;
+    }
+
+    .navbar a.active {
+      color: #eaedf1;
+      background-color: #033d3d;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #002366;
+      min-width: 220px;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 999;
+      padding: 8px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropdown h2 {
+      color: gold;
+      font-size: 14px;
+      padding: 8px 12px;
+      margin: 0;
+    }
+
+    .dropdown a {
+      padding: 8px 12px;
+      display: block;
+      color: white;
+      text-decoration: none;
+      font-size: 13px;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+
+    .dropdown a:hover {
+      background-color: #033d3d;
+      padding-left: 14px;
+      color: gold;
+    }
+
+    .navbar li:hover .dropdown {
+      display: block;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      width: 100%;
+      background-color: #012f47;
+      padding: 8px 0;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      z-index: 998;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+      display: none;
+    }
+
+    .mobile-menu.active {
+      display: block;
+    }
+
+    .mobile-menu ul {
+      list-style: none;
+    }
+
+    .mobile-menu li {
+      padding: 8px 15px;
+      border-bottom: 1px solid #033d3d;
+    }
+
+    .mobile-menu a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      font-size: 13px;
+      transition: color 0.3s;
+    }
+
+    .mobile-menu a:hover {
+      color: gold;
+    }
+
+    .mobile-menu a.active {
+      color: gold;
+      background-color: #033d3d;
+    }
+
+    .mobile-menu .dropdown {
+      display: none;
+      padding-left: 15px;
+      background-color: #002366;
+    }
+
+    .mobile-menu .dropdown a {
+      padding: 6px 0;
+      font-size: 12px;
+    }
+
+    .mobile-menu li.active .dropdown {
+      display: block;
+    }
+
+    /* Moving Text */
+    .top-right-slider {
+      position: sticky;
+      top: 60px;
+      width: 100%;
+      background: #02635e;
+      color: white;
+      padding: 8px 0;
+      text-align: center;
+      overflow: hidden;
+      z-index: 90; /* Behind sidebar (999) and dropdowns (999) */
+    }
+
+    .slider-text {
+      display: inline-block;
+      padding-left: 100%;
+      white-space: nowrap;
+      animation: slide-left 35s linear infinite;
+      font-size: 1rem;
+    }
+
+    @keyframes slide-left {
+      0% {
+        transform: translateX(0%);
       }
-      .navbar ul {
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    .slider-text b {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: x-large;
+    }
+
+    /* Responsive Styles */
+    @media (min-width: 769px) {
+      .mobile-dashboard-icon {
         display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background-color: #012f47;
-        padding: 8px 0;
-        z-index: 998;
       }
-      .navbar ul.active {
+      .desktop-dashboard-icon {
+        display: block;
+      }
+      .sidebar {
+        display: none;
+      }
+      .navbar {
         display: flex;
       }
-      .dropdown {
-        position: static;
-        width: 100%;
-        box-shadow: none;
-        background-color: #002240;
-        padding: 0 15px;
+      .mobile-menu {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .desktop-dashboard-icon {
+        display: none;
+      }
+      .mobile-dashboard-icon {
+        display: block;
+      }
+      header {
+        padding: 8px 12px;
+      }
+      .logo {
+        flex: 1;
+        justify-content: flex-start;
+      }
+      .logo h1 {
+        font-size: 18px;
+      }
+      .logo img {
+        width: 36px;
+        height: 36px;
+      }
+      .navbar {
+        display: none;
       }
       .sidebar {
         width: 100%;
+        right: -100%;
+      }
+      .sidebar.active {
+        display: block;
+        right: 0;
+      }
+      .mobile-menu {
+        top: 56px;
+      }
+      .mobile-menu ul {
+        flex-direction: column;
+        width: 100%;
+      }
+      .navbar ul {
+        display: none;
+      }
+      .main-content {
+        padding: 10px;
+      }
+      .top-right-slider {
+        top: 56px;
+      }
+      .slider-text {
+        font-size: 0.95rem;
+      }
+      .slider-text b {
+        font-size: large;
       }
     }
 
     @media (max-width: 576px) {
-      main {
-        padding-top: 90px;
+      .logo h1 {
+        font-size: 16px;
       }
-      .navbar ul {
-        top: 60px;
+      .logo img {
+        width: 32px;
+        height: 32px;
+      }
+      .mobile-dashboard-icon {
+        font-size: 18px;
+        padding: 6px;
+        margin: 0 8px;
+      }
+      .mobile-menu {
+        top: 50px;
+      }
+      .main-content {
+        margin: 10px auto;
+        padding: 8px;
+      }
+      main h1 {
+        font-size: 1.5rem;
+      }
+      .top-right-slider {
+        top: 50px;
+      }
+      .slider-text {
+        font-size: 0.9rem;
+      }
+      .slider-text b {
+        font-size: large;
       }
     }
-     /* muving image  */
-    .top-right-slider {
-  position: sticky;      /* sticky aho */
-  top: 60px;             /* itegereze hejuru ya header (height ya header) */
-  width: 100%;
-  background: #02635e;
-  color: white;
-  padding: 8px 0;
-  text-align: center;
-  overflow: hidden;
-  z-index: 9000;
-  
-}
 
-/* animation ntiyahinduwe */
-.slider-text {
-  display: inline-block;
-  padding-left: 100%;
-  white-space: nowrap;
-  animation: slide-left 35s linear infinite;
-  font-size: 1rem;
-}
+    @media (max-width: 480px) {
+      .main-content {
+        margin: 15px auto;
+        padding: 10px;
+      }
+      main h1 {
+        font-size: 1.4rem;
+      }
+      .top-right-slider {
+        top: 50px;
+      }
+      .slider-text {
+        font-size: 0.9rem;
+      }
+      .slider-text b {
+        font-size: large;
+      }
+    }
 
-@keyframes slide-left {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-/* content isikororinga */
-.content {
-  margin-top: 20px;
-  padding: 20px;
-}
-.slider-text b{
-font-family: 'Times New Roman', Times, serif;
-  font-size: x-large;
-}
+    @media (max-width: 360px) {
+      .logo h1 {
+        font-size: 15px;
+      }
+      .logo img {
+        width: 30px;
+        height: 30px;
+      }
+      .mobile-dashboard-icon {
+        font-size: 16px;
+        padding: 5px;
+        margin: 0 6px;
+      }
+      main h1 {
+        font-size: 1.3rem;
+      }
+      .mobile-menu {
+        top: 46px;
+      }
+      .top-right-slider {
+        top: 46px;
+      }
+      .slider-text {
+        font-size: 0.85rem;
+      }
+      .slider-text b {
+        font-size: medium;
+      }
+    }
   </style>
 </head>
-<body>
-  <!-- Header -->
-  <header class="text-white p-4 flex justify-between items-center flex-wrap">
-    <div class="logo flex items-center">
-      <img src="tekilogo.jpg" alt="TEKINOVA Logo" class="w-9 h-9 rounded-full mr-2">
-      <h1 class="text-yellow-400 text-lg font-bold">TekiNova</h1>
-    </div>
+<body class="flex flex-col min-h-screen">
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Job and Scholarships",
+    "url": "https://www.jobandscholarships.com",
+    "logo": "logo.jpeg",
+    "description": "Job and Scholarships provides resources and opportunities to advance your career and education in Rwanda and beyond.",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+250733253803",
+      "contactType": "Customer Service",
+      "email": "info@jobandscholarships.com"
+    }
+  }
+  </script>
 
+  <!-- ===== HEADER ===== -->
+  <header class="w-full">
+    <div class="logo" id="logo">
+      <img src="logo.jpeg" alt="Job and Scholarships Logo" width="40" height="40">
+      <h1>Job and Scholarships</h1>
+    </div>
     <nav class="navbar hidden md:flex">
-      <ul id="navMenu" class="flex flex-wrap gap-2">
-        <li><a href="index.html" class="px-2 py-1 text-sm font-semibold hover:bg-blue-800 hover:text-yellow-400 rounded transition">Home</a></li>
-        <li class="relative">
-          <a href="#" class="px-2 py-1 text-sm font-semibold hover:bg-blue-800 hover:text-yellow-400 rounded transition">About</a>
-          <div class="dropdown hidden absolute top-full left-0 bg-blue-900 min-w-[180px] rounded-b shadow-lg p-2">
-            <h2 class="text-yellow-400 text-sm mb-1">About TEKINOVA</h2>
-            <a href="About.html" class="block px-2 py-1 text-sm text-white hover:bg-blue-800 hover:pl-3 rounded">About Us</a>
-            <a href="#" class="block px-2 py-1 text-sm text-white hover:bg-blue-800 hover:pl-3 rounded">Company Background & Vision</a>
-            <a href="#" class="block px-2 py-1 text-sm text-white hover:bg-blue-800 hover:pl-3 rounded">Mission & Goals</a>
-            <a href="#" class="block px-2 py-1 text-sm text-white hover:bg-blue-800 hover:pl-3 rounded">Contacts</a>
-            <h2 class="text-yellow-400 text-sm mt-2 mb-1">Administrative</h2>
-            <a href="#" class="block px-2 py-1 text-sm text-white hover:bg-blue-800 hover:pl-3 rounded">Team or Founders</a>
-            <a href="#" class="block px-2 py-1 text-sm text-white hover:bg-blue-800 hover:pl-3 rounded">Core Values</a>
-            <a href="#" class="block px-2 py-1 text-sm text-white hover:bg-blue-800 hover:pl-3 rounded">Executive Organ</a>
-            <a href="#" class="block px-2 py-1 text-sm text-white hover:bg-blue-800 hover:pl-3 rounded">Senior Management</a>
+      <ul id="desktop-nav" role="navigation" aria-label="Main navigation">
+        <li><a href="index.html">Home</a></li>
+        <li>
+          <a href="#" aria-haspopup="true" aria-expanded="false">About</a>
+          <div class="dropdown">
+            <h2>About Job and Scholarships</h2>
+            <a href="About.html">About Us</a>
+            <a href="#">Company Background & Vision</a>
+            <a href="#">Mission & Goals</a>
+            <a href="#">Contacts</a>
+            <h2>Management</h2>
+            <a href="#">Team or Founders</a>
+            <a href="#">Core Values</a>
+            <a href="#">Leadership Organ</a>
+            <a href="#">Senior Management</a>
           </div>
         </li>
-        <li><a href="services.html" class="px-2 py-1 text-sm font-semibold hover:bg-blue-800 hover:text-yellow-400 rounded transition">Services</a></li>
-        <li><a href="Products.html" class="px-2 py-1 text-sm font-semibold hover:bg-blue-800 hover:text-yellow-400 rounded transition">Products</a></li>
-        <li><a href="Blog_Tech_News.html" class="px-2 py-1 text-sm font-semibold hover:bg-blue-800 hover:text-yellow-400 rounded transition">Tech News</a></li>
-        <li><a href="Careers.html" class="px-2 py-1 text-sm font-semibold hover:bg-blue-800 hover:text-yellow-400 rounded transition">Careers</a></li>
-        <li><a href="features.html" class="px-2 py-1 text-sm font-semibold hover:bg-blue-800 hover:text-yellow-400 rounded transition">Jobs</a></li>
-        <li><a href="contact_us.html" class="px-2 py-1 text-sm font-semibold bg-blue-800 text-yellow-400 rounded">Contact</a></li>
-        <li><a href="amasahayakazi.html" class="px-2 py-1 text-sm font-semibold hover:bg-blue-800 hover:text-yellow-400 rounded transition">Working Calendar</a></li>
+        <li>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Services</a>
+          <div class="dropdown">
+            <h2>Services</h2>
+            <a href="services.html">Our Services</a>
+            <a href="#">Career Counseling</a>
+            <a href="#">Scholarship Guidance</a>
+            <a href="#">Job Placement</a>
+            <a href="#">Resume Building</a>
+            <a href="#">Internship Opportunities</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Opportunities</a>
+          <div class="dropdown">
+            <h2>Opportunities</h2>
+            <a href="products.html">Opportunities</a>
+            <a href="#">Full-time Jobs</a>
+            <a href="#">Part-time Jobs</a>
+            <a href="#">Internships</a>
+            <a href="#">Scholarships</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Blog</a>
+          <div class="dropdown">
+            <h2>Blog</h2>
+            <a href="Blog_News.html">Career & Education News</a>
+            <a href="#">Career Tips</a>
+            <a href="#">Scholarship Guides</a>
+            <a href="#">Success Stories</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Careers</a>
+          <div class="dropdown">
+            <h2>Careers</h2>
+            <a href="Careers.html">Join Our Team</a>
+            <a href="#">Open Positions</a>
+            <a href="#">Work Culture</a>
+            <a href="#">Employee Benefits</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Jobs</a>
+          <div class="dropdown">
+            <h2>Apply Job</h2>
+            <a href="features.html">Go to Jobs & Internships</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" aria-haspopup="true" aria-expanded="false" class="active">Contact</a>
+          <div class="dropdown">
+            <h2>Contact</h2>
+            <a href="contact_us.html" class="active">Tell Us Anything</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Calendar</a>
+          <div class="dropdown">
+            <h2>Calendar</h2>
+            <a href="amasahayakazi.html">Application Deadlines</a>
+          </div>
+        </li>
       </ul>
     </nav>
 
-    <div class="nav-switch md:hidden text-white text-lg cursor-pointer p-2 hover:text-yellow-400" onclick="toggleSidebar()">
+    <!-- Mobile Dashboard Icon (visible on mobile, hidden on desktop) -->
+    <div class="mobile-dashboard-icon md:hidden" id="mobileDashboardIcon" role="button" aria-label="Toggle sidebar menu" aria-controls="hamburgerMenu" aria-expanded="false" tabindex="0">
       <i class="fas fa-bars"></i>
     </div>
-    <div class="sidebar-toggle hidden md:block text-white text-lg cursor-pointer p-2 hover:text-yellow-400" onclick="toggleSidebar()">
+
+    <!-- Desktop Dashboard Icon (visible on desktop, hidden on mobile) -->
+    <div class="desktop-dashboard-icon hidden md:block" id="desktopDashboardIcon" role="button" aria-label="Toggle navigation menu" aria-controls="desktopNav" aria-expanded="false" tabindex="0">
       <i class="fas fa-bars"></i>
     </div>
   </header>
- <div class="top-right-slider">
-  <div class="slider-text"><b>Ushaka ko tugufasha zimwe murizi services zikurikira
-    watwandikira kuri 0733253803 cg ukaduhamagara kur 0780019239!</b></div>
-</div>
-  <!-- Sidebar Navigation -->
-  <aside id="sidebarNav" class="sidebar w-full md:w-64 text-white p-4">
-    <div class="flex justify-between items-center mb-4 pb-2 border-b border-gray-600">
-      <span class="text-yellow-400 text-base"><i class="fas fa-bars mr-2"></i> Sidebar Navigation</span>
-      <i class="fas fa-times text-lg cursor-pointer hover:text-yellow-300" onclick="toggleSidebar()"></i>
+
+  <div class="top-right-slider">
+    <div class="slider-text"><b>Ushaka ko tugufasha kwishakira akazi cg scholarship? Twandikire kuri 0733253803 cg utuhamagare kuri 0780019239!</b></div>
+  </div>
+
+  <!-- Mobile Menu (visible on mobile) -->
+  <div class="mobile-menu md:hidden" id="mobileMenu">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li>
+        <a href="#" aria-expanded="false">About <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown">
+          <h2>About Job and Scholarships</h2>
+          <a href="About.html">About Us</a>
+          <a href="#">Company Background & Vision</a>
+          <a href="#">Mission & Goals</a>
+          <a href="#">Contacts</a>
+          <h2>Management</h2>
+          <a href="#">Team or Founders</a>
+          <a href="#">Core Values</a>
+          <a href="#">Leadership Organ</a>
+          <a href="#">Senior Management</a>
+        </div>
+      </li>
+      <li>
+        <a href="#" aria-expanded="false">Services <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown">
+          <h2>Services</h2>
+          <a href="services.html">Our Services</a>
+          <a href="#">Career Counseling</a>
+          <a href="#">Scholarship Guidance</a>
+          <a href="#">Job Placement</a>
+          <a href="#">Resume Building</a>
+          <a href="#">Internship Opportunities</a>
+        </div>
+      </li>
+      <li>
+        <a href="#" aria-expanded="false">Opportunities <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown">
+          <h2>Opportunities</h2>
+          <a href="products.html">Opportunities</a>
+          <a href="#">Full-time Jobs</a>
+          <a href="#">Part-time Jobs</a>
+          <a href="#">Internships</a>
+          <a href="#">Scholarships</a>
+        </div>
+      </li>
+      <li>
+        <a href="#" aria-expanded="false">Blog <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown">
+          <h2>Blog</h2>
+          <a href="Blog_News.html">Career & Education News</a>
+          <a href="#">Career Tips</a>
+          <a href="#">Scholarship Guides</a>
+          <a href="#">Success Stories</a>
+        </div>
+      </li>
+      <li>
+        <a href="#" aria-expanded="false">Careers <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown">
+          <h2>Careers</h2>
+          <a href="Careers.html">Join Our Team</a>
+          <a href="#">Open Positions</a>
+          <a href="#">Work Culture</a>
+          <a href="#">Employee Benefits</a>
+        </div>
+      </li>
+      <li>
+        <a href="#" aria-expanded="false">Jobs <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown">
+          <h2>Apply Job</h2>
+          <a href="features.html">Go to Jobs & Internships</a>
+        </div>
+      </li>
+      <li>
+        <a href="#" aria-expanded="false" class="active">Contact <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown">
+          <h2>Contact</h2>
+          <a href="contact_us.html" class="active">Tell Us Anything</a>
+        </div>
+      </li>
+      <li>
+        <a href="#" aria-expanded="false">Calendar <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown">
+          <h2>Calendar</h2>
+          <a href="amasahayakazi.html">Application Deadlines</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ===== HAMBURGER MENU SIDEBAR (Mobile) ===== -->
+  <aside class="sidebar md:hidden" id="hamburgerMenu" aria-hidden="true">
+    <div class="sidebar-header">
+      <span><i class="fas fa-tachometer-alt"></i> Dashboard Menu</span>
+      <i class="fas fa-times" id="closeSidebar" role="button" aria-label="Close sidebar menu" tabindex="0"></i>
     </div>
-
-    <nav class="space-y-2">
-      <a href="index.html" class="flex items-center gap-2 text-sm text-white hover:text-yellow-400 py-2"><i class="fas fa-home"></i> Home</a>
-      <a href="About.html" class="flex items-center gap-2 text-sm text-white hover:text-yellow-400 py-2"><i class="fas fa-info-circle"></i> About</a>
-      <a href="services.html" class="flex items-center gap-2 text-sm text-white hover:text-yellow-400 py-2"><i class="fas fa-cogs"></i> Services</a>
-      <a href="Products.html" class="flex items-center gap-2 text-sm text-white hover:text-yellow-400 py-2"><i class="fas fa-box"></i> Products</a>
-      <a href="Blog_Tech_News.html" class="flex items-center gap-2 text-sm text-white hover:text-yellow-400 py-2"><i class="fas fa-blog"></i> Blog</a>
-      <a href="Careers.html" class="flex items-center gap-2 text-sm text-white hover:text-yellow-400 py-2"><i class="fas fa-briefcase"></i> Careers</a>
-      <a href="features.html" class="flex items-center gap-2 text-sm text-white hover:text-yellow-400 py-2"><i class="fas fa-laptop-code"></i> Jobs</a>
-      <a href="contact_us.html" class="flex items-center gap-2 text-sm text-white bg-blue-800 text-yellow-400 py-2 px-2 rounded"><i class="fas fa-envelope"></i> Contact</a>
+    
+    <nav>
+      <a href="index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="About.html"><i class="fas fa-info-circle"></i> About</a>
+      <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
+      <a href="products.html"><i class="fas fa-box"></i> Opportunities</a>
+      <a href="Blog_News.html"><i class="fas fa-blog"></i> Blog</a>
+      <a href="Careers.html"><i class="fas fa-briefcase"></i> Careers</a>
+      <a href="features.html"><i class="fas fa-laptop-code"></i> Jobs</a>
+      <a href="contact_us.html" class="active"><i class="fas fa-envelope"></i> Contact</a>
     </nav>
-
-    <div class="menu-widget bg-white bg-opacity-10 rounded-lg p-3 my-3">
-      <h3 class="text-yellow-400 text-sm mb-2">Quick Stats</h3>
-      <p class="text-xs mb-2">Overview of your recent activity</p>
-      <div class="grid grid-cols-3 gap-2 text-center">
+    
+    <div class="menu-widget">
+      <h3>Quick Stats</h3>
+      <p>Overview of your recent activity</p>
+      <div class="widget-stats">
         <div>
-          <span class="block text-yellow-400 font-bold text-base">1,245</span>
-          <small class="text-xs opacity-80">Visitors</small>
+          <span id="visitors-count">1,245</span>
+          <small>Visitors</small>
         </div>
         <div>
-          <span class="block text-yellow-400 font-bold text-base">24</span>
-          <small class="text-xs opacity-80">Projects</small>
+          <span>24</span>
+          <small>Opportunities</small>
         </div>
         <div>
-          <span class="block text-yellow-400 font-bold text-base">18</span>
-          <small class="text-xs opacity-80">Team</small>
+          <span>18</span>
+          <small>Partners</small>
         </div>
       </div>
     </div>
-
-    <div class="menu-widget bg-white bg-opacity-10 rounded-lg p-3 my-3">
-      <h3 class="text-yellow-400 text-sm mb-2">Recent Activity</h3>
-      <p class="text-xs mb-2"><i class="fas fa-check-circle mr-1"></i> New project started</p>
-      <p class="text-xs mb-2"><i class="fas fa-user-plus mr-1"></i> 3 new team members</p>
-      <p class="text-xs"><i class="fas fa-sync-alt mr-1"></i> Website updated</p>
+    
+    <div class="menu-widget">
+      <h3>Recent Activity</h3>
+      <p><i class="fas fa-check-circle"></i> New job posted</p>
+      <p><i class="fas fa-user-plus"></i> 3 new applications</p>
+      <p><i class="fas fa-sync-alt"></i> Scholarship updated</p>
     </div>
   </aside>
 
-  <!-- Main Content -->
-  <main class="max-w-3xl mx-auto p-4 bg-gray-200 rounded-lg shadow-lg">
-    <h1 class="text-2xl font-bold mb-4">Contact Us</h1>
-    <p class="mb-4">You are welcome! Please fill out the form below to get in touch.</p>
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content">
+    <h1 class="text-2xl md:text-3xl">Contact Us</h1>
+    <p>Twifuza kugushyira mu gikorwa! Uzuza ifishi ikurikira kugira ngo utugezeho.</p>
 
     <form id="inquiryForm" class="space-y-4">
       <div>
-        <label for="name" class="block text-sm font-bold">Your Name</label>
-        <input type="text" id="name" name="name" placeholder="Enter your name" required class="w-full p-2 border border-gray-300 rounded">
+        <label for="name" class="block">Izina ryawe</label>
+        <input type="text" id="name" name="name" placeholder="Injiza izina ryawe" required aria-required="true" class="w-full"/>
       </div>
       <div>
-        <label for="email" class="block text-sm font-bold">Your Email</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email" required class="w-full p-2 border border-gray-300 rounded">
+        <label for="email" class="block">Email yawe</label>
+        <input type="email" id="email" name="email" placeholder="Injiza email yawe" required aria-required="true" class="w-full"/>
       </div>
       <div>
-        <label for="message" class="block text-sm font-bold">Your Message</label>
-        <textarea id="message" name="message" rows="5" placeholder="Write your message here" required class="w-full p-2 border border-gray-300 rounded"></textarea>
+        <label for="message" class="block">Ubutumwa bwawe</label>
+        <textarea id="message" name="message" rows="5" placeholder="Andika ubutumwa bwawe hano" required aria-required="true" class="w-full"></textarea>
       </div>
-      <button type="submit" class="w-full md:w-auto px-4 py-2 bg-blue-900 text-yellow-400 rounded hover:bg-blue-800 font-bold transition">Send Message</button>
+      <button type="submit" class="w-full md:w-auto">Ohereza ubutumwa</button>
     </form>
 
-    <div class="confirmation-notice hidden mt-4 p-2 bg-green-100 text-green-800 rounded font-bold" id="confirmationNotice">
-      ✅ Thank you! Your message has been sent successfully.
+    <div class="confirmation-notice hidden mt-4" id="confirmationNotice">
+      ✅ Urakoze! Ubutumwa bwawe bwoherejwe neza.
     </div>
-    <div class="alert-notice hidden mt-4 p-2 bg-red-100 text-red-800 rounded font-bold" id="alertNotice">
-      ❌ Please fill in all fields correctly.
+    <div class="alert-notice hidden mt-4" id="alertNotice">
+      ❌ Nyamuneka uzuza ibisabwa byose neza.
     </div>
 
-    <section class="mt-6">
-      <h2 class="text-lg font-bold mb-2">Other Ways to Contact Us</h2>
-      <p class="mb-2">Get in touch with us through the following channels:</p>
+    <section class="contact-section mt-6">
+      <h2 class="text-lg font-bold mb-2">Izindi nzira zo kutugezaho</h2>
+      <p class="mb-2">Twandikire cyangwa utuhamagare kuri:</p>
       <ul class="space-y-2">
-        <li><strong>📱 WhatsApp:</strong> <a href="https://wa.me/+250733253803" target="_blank" class="toto inline-block px-2 py-1 bg-blue-900 text-yellow-400 rounded hover:bg-blue-800 text-sm transition">+250 733 253 803</a></li>
-        <li><strong>📍 Location:</strong> Musanze, Kinigi, Rwanda</li>
-        <li><strong>📧 Email:</strong> <a href="mailto:fiqueat@gmail.com" class="toto inline-block px-2 py-1 bg-blue-900 text-yellow-400 rounded hover:bg-blue-800 text-sm transition">fiqueat@gmail.com</a></li>
+        <li><i class="fas fa-phone-alt"></i> <strong>WhatsApp:</strong> <a href="https://wa.me/+250733253803" target="_blank" rel="noopener noreferrer">+250 733 253 803</a></li>
+        <li><i class="fas fa-map-marker-alt"></i> <strong>Aho turi:</strong> Musanze, Kinigi, Rwanda</li>
+        <li><i class="fas fa-envelope"></i> <strong>Email:</strong> <a href="mailto:info@jobandscholarships.com" rel="noopener noreferrer">info@jobandscholarships.com</a></li>
       </ul>
     </section>
   </main>
 
-  <!-- Dialog Container -->
-  <div id="contactDialog" class="hidden fixed inset-0 bg-black bg-opacity-70">
-    <div class="modal-content relative w-11/12 max-w-xl mx-auto mt-5 bg-gray-600 rounded-lg shadow-xl">
-      <button onclick="hideContactDialog()" class="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 transition">X</button>
-      <iframe src="contact_us.html" class="w-full h-80 md:h-96"></iframe>
+  <!-- ===== FOOTER ===== -->
+  <footer class="mt-auto">
+    <div class="footer-columns">
+      <div class="col">
+        <h3>Contact</h3>
+        <a href="contact_us.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <p><strong>WhatsApp:</strong> <a href="https://wa.me/+250733253803" target="_blank" rel="noopener noreferrer">+250 733 253 803</a></p>
+        <p><strong>Email:</strong> <a href="mailto:info@jobandscholarships.com" rel="noopener noreferrer">info@jobandscholarships.com</a></p>
+      </div>
+      <div class="col">
+        <h3>About Job and Scholarships</h3>
+        <a href="About.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Company Background & Vision</a>
+        <a href="#">Mission & Goals</a>
+        <a href="#">Contacts</a>
+        <h2>Management</h2>
+        <a href="#">Team or Founders</a>
+        <a href="#">Core Values</a>
+        <a href="#">Leadership Organ</a>
+        <a href="#">Senior Management</a>
+      </div>
+      <div class="col">
+        <h3>Services</h3>
+        <a href="services.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Career Counseling</a>
+        <a href="#">Scholarship Guidance</a>
+        <a href="#">Job Placement</a>
+        <a href="#">Resume Building</a>
+        <a href="#">Internship Opportunities</a>
+      </div>
+      <div class="col">
+        <h3>Opportunities</h3>
+        <a href="products.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Full-time Jobs</a>
+        <a href="#">Part-time Jobs</a>
+        <a href="#">Internships</a>
+        <a href="#">Scholarships</a>
+      </div>
+      <div class="col">
+        <h3>Careers</h3>
+        <a href="Careers.html" style="text-decoration: underline;"><b>More Info</b></a>
+        <a href="#">Open Positions</a>
+        <a href="#">Work Culture</a>
+        <a href="#">Employee Benefits</a>
+      </div>
+      <div class="col">
+        <h3>Jobs & Internships</h3>
+        <a href="features.html" style="text-decoration: underline;"><b>More Info</b></a>
+      </div>
     </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="text-white p-5 mt-5">
-    <div class="footer-columns grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-      <div class="col">
-        <h3 class="text-yellow-400 text-base mb-2">Contact</h3>
-        <a href="contact_us.html" class="block text-sm text-white hover:text-yellow-300 underline mb-2 transition"><b>More Info</b></a>
-        <p class="text-sm">+250 733 214 677</p>
-        <a href="mailto:fiqueat@gmail.com" class="toto inline-block px-2 py-1 text-sm bg-blue-900 text-yellow-400 rounded hover:bg-blue-800 transition">fiqueat@gmail.com</a>
-      </div>
-      <div class="col">
-        <h3 class="text-yellow-400 text-base mb-2">About TEKINOVA</h3>
-        <a href="About.html" class="block text-sm text-white hover:text-yellow-300 underline mb-2 transition"><b>More Info</b></a>
-        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Company Background & Vision</a>
-        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Mission & Goals</a>
-        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Contacts</a>
-        <h2 class="text-yellow-400 text-sm mt-2 mb-1">Administrative</h2>
-        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Team or Founders</a>
-        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Core Values</a>
-        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Executive Organ</a>
-        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Senior Management</a>
-      </div>
-      <div class="col">
-        <h3 class="text-yellow-400 text-base mb-2">Services</h3>
-        <a href="services.html" class="block text-sm text-white hover:text-yellow-300 underline mb-2 transition"><b>More Info</b></a>
-        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Web Development</a>
-        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">App Development</a>
-        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Tech Consultancy</a>
-        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Custom Software</a>
-        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">AI/IoT/Automation Services</a>
-      </div>
-      <div class="col">
-        <h3 class="text-yellow-400 text-base mb-2">Products</h3>
-        <a href="Products.html" class="block text-sm text-white hover:text-yellow-300 underline mb-2 transition"><b>More Info</b></a>
-        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">App Development</a>
-        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Tech Consultancy</a>
-        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Custom Software</a>
-        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">AI/IoT/Automation Services</a>
-      </div>
-      <div class="col">
-        <h3 class="text-yellow-400 text-base mb-2">Careers</h3>
-        <a href="Careers.html" class="block text-sm text-white hover:text-yellow-300 underline mb-2 transition"><b>More Info</b></a>
-        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Articles About Technology Trends</a>
-        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">How-to Guides or Tutorials</a>
-        <a href="#" class="block text-sm text-white hover:text-yellow-300 mb-1 transition">Company Updates</a>
-      </div>
-      <div class="col">
-        <h3 class="text-yellow-400 text-base mb-2">Jobs & Internships</h3>
-        <a href="features.html" class="block text-sm text-white hover:text-yellow-300 underline mb-2 transition"><b>More Info</b></a>
-      </div>
+    <div class="copyright">
+      <p>© 2025 Job and Scholarships. All rights reserved.</p>
     </div>
   </footer>
 
+  <!-- ===== JS: Toggle Menus and Scroll Behavior ===== -->
   <script>
-    // Toggle sidebar and mobile navigation
-    function toggleSidebar() {
-      const sidebarNav = document.getElementById('sidebarNav');
-      const navMenu = document.getElementById('navMenu');
-      const isActive = sidebarNav.classList.toggle('active');
-      navMenu.classList.toggle('active', isActive && window.innerWidth <= 768);
-      document.body.style.overflow = isActive ? 'hidden' : 'auto';
-      if (isActive) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-      document.querySelectorAll('.dropdown').forEach(dropdown => {
-        dropdown.classList.add('hidden');
-      });
+    // DOM Elements
+    const sidebar = document.getElementById('hamburgerMenu');
+    const mobileDashboardIcon = document.getElementById('mobileDashboardIcon');
+    const desktopDashboardIcon = document.getElementById('desktopDashboardIcon');
+    const closeSidebar = document.getElementById('closeSidebar');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const logo = document.getElementById('logo');
+
+    // Scroll position storage
+    const scrollPositions = {};
+
+    // Save scroll position
+    function saveScrollPosition() {
+      scrollPositions[window.location.pathname] = window.scrollY || window.pageYOffset;
     }
 
-    // Close sidebar on outside click
-    document.addEventListener('click', function(event) {
-      const sidebarNav = document.getElementById('sidebarNav');
-      const sidebarToggle = document.querySelector('.sidebar-toggle');
-      const navSwitch = document.querySelector('.nav-switch');
-      if (sidebarNav.classList.contains('active') &&
-          !sidebarNav.contains(event.target) &&
-          !sidebarToggle.contains(event.target) &&
-          !navSwitch.contains(event.target)) {
-        toggleSidebar();
+    // Restore scroll position
+    function restoreScrollPosition() {
+      const scrollPosition = scrollPositions[window.location.pathname] || 0;
+      window.scrollTo({ top: scrollPosition, behavior: 'auto' });
+    }
+
+    // Toggle mobile dashboard menu (sidebar)
+    function toggleMobileDashboardMenu() {
+      const isActive = sidebar.classList.toggle('active');
+      mobileDashboardIcon.setAttribute('aria-expanded', isActive);
+      sidebar.setAttribute('aria-hidden', !isActive);
+      mobileMenu.classList.remove('active');
+      document.body.classList.toggle('no-scroll', isActive);
+      if (isActive) {
+        saveScrollPosition();
+        sidebar.scrollTop = 0;
+      } else {
+        restoreScrollPosition();
       }
-    });
+    }
 
-    // Close sidebar on Escape key
-    document.addEventListener('keydown', function(event) {
-      const sidebarNav = document.getElementById('sidebarNav');
-      if (event.key === 'Escape' && sidebarNav.classList.contains('active')) {
-        toggleSidebar();
+    // Toggle desktop dashboard menu (navbar)
+    function toggleDesktopDashboardMenu() {
+      const desktopNav = document.getElementById('desktop-nav');
+      if (desktopNav && desktopDashboardIcon) {
+        const isActive = desktopNav.classList.toggle('active');
+        desktopDashboardIcon.setAttribute('aria-expanded', isActive);
+        desktopNav.style.display = isActive ? 'flex' : 'none';
       }
-    });
+    }
 
-    // Navigation and dropdown handling
-    let scrollPosition = 0;
-    document.querySelectorAll('.navbar li > a, .sidebar a').forEach(link => {
-      link.addEventListener('click', function(e) {
-        const dropdown = this.nextElementSibling;
-        if (window.innerWidth <= 768 && dropdown && dropdown.classList.contains('dropdown')) {
-          e.preventDefault();
-          dropdown.classList.toggle('hidden');
-          this.parentElement.classList.toggle('active');
-        } else {
-          scrollPosition = window.scrollY;
-          toggleSidebar();
-        }
-      });
-    });
+    // Toggle mobile dropdown
+    function toggleMobileDropdown(element) {
+      const dropdown = element.querySelector('.dropdown');
+      const link = element.querySelector('a');
+      if (dropdown && link) {
+        const isActive = element.classList.toggle('active');
+        dropdown.style.display = isActive ? 'block' : 'none';
+        link.setAttribute('aria-expanded', isActive);
+      }
+    }
 
-    // Page load handling
+    // Swipe to close sidebar
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    sidebar.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    sidebar.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50 && sidebar.classList.contains('active')) {
+        toggleMobileDashboardMenu();
+      }
+    }, { passive: true });
+
+    // Initialize event listeners
     document.addEventListener('DOMContentLoaded', () => {
-      window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
-
-      // Remove duplicate elements
-      const mains = document.querySelectorAll('main');
-      if (mains.length > 1) {
-        mains.forEach((el, index) => index > 0 && el.remove());
+      // Update visitor count
+      try {
+        const visitorCount = document.getElementById('visitors-count');
+        const baseCount = 1245;
+        const randomIncrement = Math.floor(Math.random() * 10);
+        if (visitorCount) {
+          visitorCount.textContent = (baseCount + randomIncrement).toLocaleString();
+        }
+      } catch (error) {
+        console.error('Error updating visitor count:', error);
       }
-      const sidebars = document.querySelectorAll('.sidebar');
-      if (sidebars.length > 1) {
-        sidebars.forEach((el, index) => index > 0 && el.remove());
+
+      // Highlight current page
+      try {
+        const currentPage = location.pathname.split('/').pop();
+        document.querySelectorAll('.navbar a, .sidebar a, .mobile-menu a').forEach(link => {
+          if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+          }
+        });
+      } catch (error) {
+        console.error('Error setting active navigation link:', error);
       }
 
       // Form handling
@@ -469,36 +1224,176 @@ font-family: 'Times New Roman', Times, serif;
         });
       }
 
+      // Event Listeners
+      if (mobileDashboardIcon) {
+        mobileDashboardIcon.addEventListener('click', toggleMobileDashboardMenu);
+        mobileDashboardIcon.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            toggleMobileDashboardMenu();
+          }
+        });
+      }
+
+      if (desktopDashboardIcon) {
+        desktopDashboardIcon.addEventListener('click', toggleDesktopDashboardMenu);
+        desktopDashboardIcon.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            toggleDesktopDashboardMenu();
+          }
+        });
+      }
+
+      if (closeSidebar) {
+        closeSidebar.addEventListener('click', toggleMobileDashboardMenu);
+        closeSidebar.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            toggleMobileDashboardMenu();
+          }
+        });
+      }
+
+      if (logo) {
+        logo.addEventListener('click', () => {
+          window.location.href = 'index.html';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      const mobileMenuItems = document.querySelectorAll('.mobile-menu li');
+      mobileMenuItems.forEach(item => {
+        if (item.querySelector('.dropdown')) {
+          item.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMobileDropdown(item);
+          });
+        }
+      });
+
+      // Mobile menu link behavior
+      const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
+      mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+          if (!link.parentElement.querySelector('.dropdown')) {
+            mobileMenu.classList.remove('active');
+            document.querySelectorAll('.mobile-menu .dropdown').forEach(dropdown => {
+              dropdown.style.display = 'none';
+              dropdown.parentElement.classList.remove('active');
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (link.hash && link.hash !== '#') {
+              event.preventDefault();
+              const targetId = link.hash.substring(1);
+              const targetElement = document.getElementById(targetId);
+              if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+              }
+            }
+          }
+        });
+      });
+
+      // Sidebar link behavior
+      const sidebarLinks = document.querySelectorAll('.sidebar a');
+      sidebarLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+          saveScrollPosition();
+          sidebar.classList.remove('active');
+          mobileDashboardIcon.setAttribute('aria-expanded', 'false');
+          sidebar.setAttribute('aria-hidden', 'true');
+          mobileMenu.classList.remove('active');
+          document.body.classList.remove('no-scroll');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          if (link.hash && link.hash !== '#') {
+            event.preventDefault();
+            const targetId = link.hash.substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+              targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+          sidebar.addEventListener('transitionend', restoreScrollPosition, { once: true });
+        });
+      });
+
+      // Close mobile dashboard menu when clicking outside
+      document.addEventListener('mousedown', (event) => {
+        if (sidebar.classList.contains('active') &&
+            !sidebar.contains(event.target) &&
+            !mobileDashboardIcon.contains(event.target) &&
+            !mobileMenu.contains(event.target)) {
+          toggleMobileDashboardMenu();
+        }
+      });
+
+      // Close mobile dashboard menu on Escape key
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && sidebar.classList.contains('active')) {
+          toggleMobileDashboardMenu();
+        }
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+          if (anchor.getAttribute('href') === '#') return;
+          e.preventDefault();
+          const targetId = anchor.getAttribute('href');
+          const target = document.querySelector(targetId);
+          if (target) {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // Handle resize
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && sidebar.classList.contains('active')) {
+          sidebar.classList.remove('active');
+          mobileDashboardIcon.setAttribute('aria-expanded', 'false');
+          sidebar.setAttribute('aria-hidden', 'true');
+          mobileMenu.classList.remove('active');
+          document.body.classList.remove('no-scroll');
+          restoreScrollPosition();
+        }
+      });
+
+      // Restore scroll on load
+      window.addEventListener('load', restoreScrollPosition);
+
+      // Save scroll before unload
+      window.addEventListener('beforeunload', saveScrollPosition);
+
       // Dropdown hover for desktop
       document.querySelectorAll('.navbar li').forEach(item => {
         item.addEventListener('mouseenter', () => {
           if (window.innerWidth > 768) {
             const dropdown = item.querySelector('.dropdown');
-            if (dropdown) dropdown.classList.remove('hidden');
+            if (dropdown) dropdown.style.display = 'block';
           }
         });
         item.addEventListener('mouseleave', () => {
           if (window.innerWidth > 768) {
             const dropdown = item.querySelector('.dropdown');
-            if (dropdown) dropdown.classList.add('hidden');
+            if (dropdown) dropdown.style.display = 'none';
           }
         });
       });
     });
 
-    // Dialog functions
-    function showContactDialog() {
-      document.getElementById('contactDialog').classList.remove('hidden');
-      scrollPosition = window.scrollY;
-      document.body.style.overflow = 'hidden';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function hideContactDialog() {
-      document.getElementById('contactDialog').classList.add('hidden');
-      document.body.style.overflow = 'auto';
-      window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
-    }
+    // Prevent default navigation for placeholder links
+    document.querySelectorAll('a[href="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+      });
+    });
   </script>
 </body>
 </html>
