@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -7,18 +7,18 @@
   <meta name="keywords" content="jobs, internships, scholarships, career opportunities, TekiNova, tech jobs, global opportunities" />
   <meta name="author" content="TekiNova" />
   <meta name="robots" content="index, follow" />
-  <title>T Job and scholarships</title>
+  <title>TekiNova - Jobs and Scholarships</title>
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="TekiNova - Jobs, Internships, and Scholarships" />
   <meta property="og:description" content="Explore a wide range of job opportunities, internships, and scholarships worldwide with TekiNova." />
-  <meta property="og:image" content="assets/images/tekilogo.jpg" />
+  <meta property="og:image" content="https://via.placeholder.com/1200x600?text=TekiNova+Logo" />
   <meta property="og:url" content="https://www.jobandscholarships.com/" />
   <meta property="og:type" content="website" />
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="TekiNova - Global Job Opportunities" />
   <meta name="twitter:description" content="Find your next career move with TekiNova's job, internship, and scholarship listings." />
-  <meta name="twitter:image" content="assets/images/tekilogo.jpg" />
+  <meta name="twitter:image" content="https://via.placeholder.com/1200x600?text=TekiNova+Logo" />
   <!-- Font Awesome (Latest Stable CDN) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
@@ -288,6 +288,7 @@
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 15px;
       margin-top: 15px;
+      justify-content: center;
     }
 
     .feature-box {
@@ -299,6 +300,9 @@
       position: relative;
       display: flex;
       flex-direction: column;
+      min-width: 260px;
+      max-width: 100%;
+      width: 100%;
     }
 
     .feature-box:hover {
@@ -307,11 +311,12 @@
     }
 
     .feature-box-expanded {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
       grid-column: 1 / -1;
+      max-width: 100%;
+      width: 100%;
+      margin: 0 auto;
       z-index: 10;
+      padding: 10px;
     }
 
     .feature-box img {
@@ -339,8 +344,8 @@
       margin-bottom: 12px;
       line-height: 1.5;
       font-size: 13px;
-      width: 100%;
       word-wrap: break-word;
+      hyphens: auto;
     }
 
     .view-details-btn, .apply-btn, .back-btn {
@@ -356,7 +361,7 @@
       text-align: center;
       min-width: 100px;
       cursor: pointer;
-      margin: 4px 2px;
+      margin: 4px;
     }
 
     .view-details-btn:hover, .apply-btn:hover, .back-btn:hover {
@@ -456,9 +461,11 @@
     }
 
     .job-details {
-      margin-top: 10px;
       display: none;
       padding: 16px;
+      background-color: #f1f1f1;
+      border-left: 4px solid #012f47;
+      width: 100%;
     }
 
     .job-details.active {
@@ -476,21 +483,24 @@
       color: #555;
       font-size: 14px;
       line-height: 1.8;
-      width: 100%;
       word-wrap: break-word;
+      hyphens: auto;
       margin-bottom: 12px;
     }
 
     .job-details ul {
       list-style-type: disc;
       margin-left: 20px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .job-details li {
       color: #555;
       font-size: 13px;
+      line-height: 1.6;
       margin-bottom: 6px;
+      word-wrap: break-word;
+      hyphens: auto;
     }
 
     .countdown {
@@ -665,7 +675,10 @@
       .hamburger-widget .widget-stats { grid-template-columns: repeat(2, 1fr); }
       .feature-box p { font-size: 12px; }
       .job-details p { font-size: 13px; line-height: 1.7; }
+      .job-details li { font-size: 12px; }
+      .feature-box { min-width: 240px; }
       .feature-box-expanded { max-width: 100%; }
+      .job-details { padding: 14px; }
     }
 
     @media (max-width: 768px) {
@@ -685,7 +698,10 @@
       .main-content, .features-container { padding: 8px; margin: 8px auto; }
       .feature-box p { font-size: 11px; }
       .job-details p { font-size: 12px; line-height: 1.6; }
+      .job-details li { font-size: 11px; }
+      .feature-box { min-width: 100%; max-width: 100%; }
       .feature-box-expanded { max-width: 100%; padding: 12px; }
+      .job-details { padding: 12px; }
     }
 
     @media (max-width: 576px) {
@@ -699,7 +715,10 @@
       .mobile-nav { top: 52px; }
       .feature-box p { font-size: 10px; }
       .job-details p { font-size: 11px; line-height: 1.5; }
+      .job-details li { font-size: 10px; }
+      .feature-box { min-width: 100%; max-width: 100%; }
       .feature-box-expanded { max-width: 100%; padding: 10px; }
+      .job-details { padding: 10px; }
     }
 
     @media (max-width: 480px) {
@@ -707,7 +726,10 @@
       .features-container h1 { font-size: 1.2rem; }
       .feature-box p { font-size: 9px; }
       .job-details p { font-size: 10px; line-height: 1.4; }
+      .job-details li { font-size: 9px; }
+      .feature-box { min-width: 100%; max-width: 100%; }
       .feature-box-expanded { max-width: 100%; padding: 8px; }
+      .job-details { padding: 8px; }
     }
 
     #topBtn {
@@ -735,8 +757,8 @@
   <!-- ===== HEADER ===== -->
   <header class="flex justify-between items-center">
     <div class="logo flex items-center">
-      <img src="./jo.jpeg" alt="TekiNova Company Logo" class="w-9 h-9 rounded-full border-2 border-yellow-400 mr-2">
-      <h1 class="text-yellow-400 text-lg font-bold">Job and scholarships</h1>
+      <img src="https://via.placeholder.com/36x36?text=Logo" alt="TekiNova Company Logo" class="w-9 h-9 rounded-full border-2 border-yellow-400 mr-2">
+      <h1 class="text-yellow-400 text-lg font-bold">TekiNova</h1>
     </div>
     
     <div class="menu-toggle md:hidden" id="menuToggle" aria-label="Toggle mobile navigation">
@@ -765,7 +787,7 @@
         <li>
           <a href="#" data-toggle="servicesDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Services dropdown">Services <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="servicesDropdown">
-            <a href="services.html">Got Services</a>
+            <a href="services.html">Our Services</a>
             <a href="index.html">Web Development</a>
             <a href="index.html">App Development</a>
             <a href="index.html">Tech Consultancy</a>
@@ -774,7 +796,7 @@
           </div>
         </li>
         <li>
-          <a href="#" data-toggle="productsDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Products dropdown">Product <i class="fas fa-chevron-down"></i></a>
+          <a href="#" data-toggle="productsDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Products dropdown">Products <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="productsDropdown">
             <a href="Products.html">Products</a>
             <a href="index.html">App Development</a>
@@ -905,13 +927,13 @@
   </header>
 
   <div class="top-right-slider">
-    <div class="slider-text"><b>Contact us for assistance with our services at 0771217065 </b></div>
+    <div class="slider-text"><b>Contact us for assistance with our services at 0771217065</b></div>
   </div>
 
   <!-- ===== HAMBURGER MENU SIDEBAR ===== -->
   <aside class="sidebar" id="hamburgerMenu" aria-hidden="true">
     <div class="sidebar-header">
-      <span><i class="fas fa-bars"></i> Hamburger Menu</span>
+      <span><i class="fas fa-bars"></i> Menu</span>
       <i class="fas fa-times" id="closeHamburger" aria-label="Close sidebar"></i>
     </div>
     <nav class="flex flex-col gap-2">
@@ -946,6 +968,18 @@
     <input type="text" id="jobSearch" placeholder="Search jobs, internships, or scholarships..." aria-label="Search opportunities">
   </section>
 
+  <!-- ===== UPLOAD SECTION ===== -->
+  <section class="upload-section">
+    <h1>Upload Your Opportunity</h1>
+    <p>Share new job openings, internships, or scholarships with our community.</p>
+    <ol>
+      <li>Create an account or log in to submit your opportunity.</li>
+      <li>Fill out the opportunity details form.</li>
+      <li>Submit for review, and we'll post it once approved.</li>
+    </ol>
+    <a href="submit.html">Submit Now</a>
+  </section>
+
   <!-- ===== MAIN CONTENT ===== -->
   <main class="features-container flex-1">
     <h1 class="text-center text-2xl md:text-3xl">Latest Global Opportunities</h1>
@@ -961,7 +995,7 @@
         <h3 class="text-yellow-400">Contact</h3>
         <a href="./contact_us.html" class="underline font-bold">More Info</a>
         <strong>WhatsApp:</strong>
-        <a href="https://wa.me/+250733253803" target="_blank" class="toto"> +250 733 253 803</a>
+        <a href="https://wa.me/+250733253803" target="_blank" class="toto">+250 733 253 803</a>
         <strong>Email:</strong>
         <a href="mailto:info@tekinova.com" class="toto">info@tekinova.com</a>
       </div>
@@ -1016,8 +1050,9 @@
       // Handle image errors globally
       document.querySelectorAll('img').forEach(img => {
         img.addEventListener('error', () => {
-          img.src = '/assets/images/placeholder.jpg';
+          img.src = 'https://via.placeholder.com/300x160?text=Image+Not+Found';
           img.alt = img.alt || 'Placeholder image';
+          console.log(`Image failed to load at ${img.src}, switched to placeholder`);
         });
       });
 
@@ -1171,8 +1206,7 @@
         setInterval(updateCountdown, 1000);
       }
 
-     
-      // Features Data
+     // Features Data
       const jobsData = [
         // ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
         
@@ -1363,12 +1397,12 @@
       fullDescription: "Provides comprehensive financial support for minority students pursuing undergraduate or graduate degrees.",
       requirements: ["Minority student status", "Minimum GPA of 3.3", "Demonstrated leadership", "Financial need"],
       responsibilities: [],
-      image: "assets/images/gates-scholarship.",
+      image: "assets/images/mastercard.jpg",
       link: "https://www.gmsp.org/",
       type: "scholarship",
       location: "Global",
       posted: "2025-06-01",
-      deadline: "2025-09-01",
+      deadline: "2025-03-06",
       featured: true
     },
     {
@@ -1389,17 +1423,17 @@
     },
     {
       id: 15,
-      title: "Chevening Scholarship",
-      description: "Fully-funded UK master's degree for global leaders.",
-      fullDescription: "Funds a one-year master’s degree in the UK for individuals with leadership potential.",
-      requirements: ["Bachelor’s degree", "2+ years of work experience", "Leadership qualities", "English proficiency"],
-      responsibilities: [],
-      image: "assets/images/chevening-scholarship.jpg",
-      link: "https://www.chevening.org/",
+      title: "SCHOLARSHIP [BURUSE] KUBANA BA P.6",
+      description: "KIDS FIRST INTERNATIONAL ACADEMY.",
+      fullDescription: "Ubuyobozi bw’ishuri KIDS FIRST INTERNATIONAL ACADEMY buramenyesha ababyeyi bose ko hateganyijwe \n scholarships (buruse) ku bana bose \n 1. kizamini cyo guhitamo abana kizaba ku wa kabiri, tariki ya 26/08/2025, saa mbiri za mu gitondo \n 2. Abana bazatsinda bazakurirwaho amafaranga y’ishuri (school fees) yose. \n 3. Abana bose bazitabira bazajyana indangamanota zabo z’umwaka wa gatanu basoje  .",
+      requirements: ["Kuba ufite amanota nibura 85%", "Kuba urangije umwaka wa gatanu", "Kuzana indangamanota za P.5", ],
+      responsibilities: ["Abana bazatsinda bazakurirwaho amafaranaga y’ishuri (school fees) yose.", "IGIHE IKIZAMINI KIZABERA :" , "Itariki: Kuwa Kabiri,26/08/2025" , "Isaha: Saa mbili za mu gitondo (08:00)"  ],
+      image: "assets/images/kids.jpg",
+      link: "emailto:kidsfirstacademy18@gmail.com/",
       type: "scholarship",
-      location: "UK",
-      posted: "2025-05-15",
-      deadline: "2025-08-30",
+      location: "Kanombe – Busanza, Rwanda",
+      posted: "2025-08-22",
+      deadline: "2025-08-26",
       featured: true
     },
     {
@@ -3414,7 +3448,6 @@
   }
 ]
 
-
       const featuresGrid = document.querySelector('.features-grid');
       const filterControls = document.querySelector('.filter-controls');
       const lastUpdatedEl = document.querySelector('.last-updated');
@@ -3432,8 +3465,8 @@
         if (!['job', 'internship', 'scholarship', 'other'].includes(job.type)) {
           job.type = 'other';
         }
-        if (!job.image) {
-          job.image = 'assets/images/placeholder.jpg';
+        if (!job.image || job.image === '') {
+          job.image = 'https://via.placeholder.com/300x160?text=Default+Image';
         }
         if (!job.deadline || isNaN(new Date(job.deadline))) {
           job.deadline = '2030-12-31';
@@ -3490,7 +3523,7 @@
               <div class="countdown" id="countdown-${job.id}"></div>
               <button class="view-details-btn" data-job-id="${job.id}" aria-label="Toggle details for ${job.title}" aria-expanded="false">View Details</button>
               <div class="job-details" id="details-${job.id}">
-                <h3>Full Description</h3>
+                <h3>${job.type.charAt(0).toUpperCase() + job.type.slice(1)} Description</h3>
                 <p class="text-gray-600">${job.fullDescription}</p>
                 <h3>Requirements</h3>
                 <ul>
@@ -3513,6 +3546,7 @@
           startCountdown(job.deadline, `countdown-${job.id}`);
         });
 
+        // Event listeners for View Details and Back buttons
         document.querySelectorAll('.view-details-btn').forEach(button => {
           button.addEventListener('click', () => {
             const jobId = button.dataset.jobId;
@@ -3521,22 +3555,19 @@
             const backBtn = details.querySelector('.back-btn');
             const featureBox = button.closest('.feature-box');
             const allFeatureBoxes = document.querySelectorAll('.feature-box');
-            
-            // Toggle details visibility and expanded state
+
             const isActive = details.classList.contains('active');
             details.classList.toggle('active');
             featureBox.classList.toggle('feature-box-expanded', !isActive);
             button.textContent = details.classList.contains('active') ? 'Hide Details' : 'View Details';
             button.setAttribute('aria-expanded', details.classList.contains('active'));
 
-            // Show/hide other feature boxes
             allFeatureBoxes.forEach(box => {
               if (box !== featureBox) {
                 box.style.display = details.classList.contains('active') ? 'none' : 'block';
               }
             });
 
-            // Handle button visibility
             if (details.classList.contains('active')) {
               applyBtn.style.display = 'inline-block';
               backBtn.style.display = 'inline-block';
@@ -3560,7 +3591,6 @@
             const featureBox = button.closest('.feature-box');
             const allFeatureBoxes = document.querySelectorAll('.feature-box');
 
-            // Hide details and remove expanded state
             details.classList.remove('active');
             featureBox.classList.remove('feature-box-expanded');
             viewDetailsBtn.textContent = 'View Details';
@@ -3568,12 +3598,10 @@
             applyBtn.style.display = 'none';
             backBtn.style.display = 'none';
 
-            // Show all feature boxes
             allFeatureBoxes.forEach(box => {
               box.style.display = 'block';
             });
 
-            // Scroll to features container
             const featuresContainer = document.querySelector('.features-container');
             if (featuresContainer) {
               featuresContainer.scrollIntoView({ behavior: 'smooth' });
@@ -3616,8 +3644,7 @@
 
       setInterval(updateLastUpdated, 86400000);
     });
-  </script>
-  <script>
+
     let mybutton = document.getElementById("topBtn");
 
     window.onscroll = function() {scrollFunction()};

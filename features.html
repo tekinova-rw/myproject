@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -7,18 +7,18 @@
   <meta name="keywords" content="jobs, internships, scholarships, career opportunities, TekiNova, tech jobs, global opportunities" />
   <meta name="author" content="TekiNova" />
   <meta name="robots" content="index, follow" />
-  <title>T Job and scholarships</title>
+  <title>TekiNova - Jobs and Scholarships</title>
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="TekiNova - Jobs, Internships, and Scholarships" />
   <meta property="og:description" content="Explore a wide range of job opportunities, internships, and scholarships worldwide with TekiNova." />
-  <meta property="og:image" content="assets/images/tekilogo.jpg" />
+  <meta property="og:image" content="https://via.placeholder.com/1200x600?text=TekiNova+Logo" />
   <meta property="og:url" content="https://www.jobandscholarships.com/" />
   <meta property="og:type" content="website" />
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="TekiNova - Global Job Opportunities" />
   <meta name="twitter:description" content="Find your next career move with TekiNova's job, internship, and scholarship listings." />
-  <meta name="twitter:image" content="assets/images/tekilogo.jpg" />
+  <meta name="twitter:image" content="https://via.placeholder.com/1200x600?text=TekiNova+Logo" />
   <!-- Font Awesome (Latest Stable CDN) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
@@ -285,7 +285,7 @@
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 360px));
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 15px;
       margin-top: 15px;
       justify-content: center;
@@ -311,11 +311,12 @@
     }
 
     .feature-box-expanded {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
       grid-column: 1 / -1;
+      max-width: 100%;
+      width: 100%;
+      margin: 0 auto;
       z-index: 10;
+      padding: 10px;
     }
 
     .feature-box img {
@@ -343,12 +344,10 @@
       margin-bottom: 12px;
       line-height: 1.5;
       font-size: 13px;
-      width: 100%;
       word-wrap: break-word;
       hyphens: auto;
     }
-    /* kwagura interuro */
-    
+
     .view-details-btn, .apply-btn, .back-btn {
       display: inline-block;
       background-color: #012f47;
@@ -362,7 +361,7 @@
       text-align: center;
       min-width: 100px;
       cursor: pointer;
-      margin: 4px 0;
+      margin: 4px;
     }
 
     .view-details-btn:hover, .apply-btn:hover, .back-btn:hover {
@@ -462,9 +461,10 @@
     }
 
     .job-details {
-      margin-top: 10px;
       display: none;
       padding: 16px;
+      background-color: #f1f1f1;
+      border-left: 4px solid #012f47;
       width: 100%;
     }
 
@@ -481,10 +481,8 @@
 
     .job-details p {
       color: #555;
-      font-size: 16px;
+      font-size: 14px;
       line-height: 1.8;
-      width: 100%;
-      max-width: 100%;
       word-wrap: break-word;
       hyphens: auto;
       margin-bottom: 12px;
@@ -494,13 +492,11 @@
       list-style-type: disc;
       margin-left: 20px;
       margin-bottom: 10px;
-      width: 100%;
-      max-width: 100%;
     }
 
     .job-details li {
       color: #555;
-      font-size: 14px;
+      font-size: 13px;
       line-height: 1.6;
       margin-bottom: 6px;
       word-wrap: break-word;
@@ -675,11 +671,11 @@
       .navbar ul { gap: 4px; }
       .navbar a { font-size: 12px; padding: 5px 7px; }
       .dropdown { min-width: 200px; }
-      .features-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 320px)); }
+      .features-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
       .hamburger-widget .widget-stats { grid-template-columns: repeat(2, 1fr); }
       .feature-box p { font-size: 12px; }
-      .job-details p { font-size: 14px; line-height: 1.7; }
-      .job-details li { font-size: 13px; }
+      .job-details p { font-size: 13px; line-height: 1.7; }
+      .job-details li { font-size: 12px; }
       .feature-box { min-width: 240px; }
       .feature-box-expanded { max-width: 100%; }
       .job-details { padding: 14px; }
@@ -761,8 +757,8 @@
   <!-- ===== HEADER ===== -->
   <header class="flex justify-between items-center">
     <div class="logo flex items-center">
-      <img src="./jo.jpeg" alt="TekiNova Company Logo" class="w-9 h-9 rounded-full border-2 border-yellow-400 mr-2">
-      <h1 class="text-yellow-400 text-lg font-bold">Job and scholarships</h1>
+      <img src="https://via.placeholder.com/36x36?text=Logo" alt="TekiNova Company Logo" class="w-9 h-9 rounded-full border-2 border-yellow-400 mr-2">
+      <h1 class="text-yellow-400 text-lg font-bold">TekiNova</h1>
     </div>
     
     <div class="menu-toggle md:hidden" id="menuToggle" aria-label="Toggle mobile navigation">
@@ -791,7 +787,7 @@
         <li>
           <a href="#" data-toggle="servicesDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Services dropdown">Services <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="servicesDropdown">
-            <a href="services.html">Got Services</a>
+            <a href="services.html">Our Services</a>
             <a href="index.html">Web Development</a>
             <a href="index.html">App Development</a>
             <a href="index.html">Tech Consultancy</a>
@@ -800,7 +796,7 @@
           </div>
         </li>
         <li>
-          <a href="#" data-toggle="productsDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Products dropdown">Product <i class="fas fa-chevron-down"></i></a>
+          <a href="#" data-toggle="productsDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Products dropdown">Products <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="productsDropdown">
             <a href="Products.html">Products</a>
             <a href="index.html">App Development</a>
@@ -931,13 +927,13 @@
   </header>
 
   <div class="top-right-slider">
-    <div class="slider-text"><b>Contact us for assistance with our services at 0771217065 </b></div>
+    <div class="slider-text"><b>Contact us for assistance with our services at 0771217065</b></div>
   </div>
 
   <!-- ===== HAMBURGER MENU SIDEBAR ===== -->
   <aside class="sidebar" id="hamburgerMenu" aria-hidden="true">
     <div class="sidebar-header">
-      <span><i class="fas fa-bars"></i> Hamburger Menu</span>
+      <span><i class="fas fa-bars"></i> Menu</span>
       <i class="fas fa-times" id="closeHamburger" aria-label="Close sidebar"></i>
     </div>
     <nav class="flex flex-col gap-2">
@@ -972,6 +968,18 @@
     <input type="text" id="jobSearch" placeholder="Search jobs, internships, or scholarships..." aria-label="Search opportunities">
   </section>
 
+  <!-- ===== UPLOAD SECTION ===== -->
+  <section class="upload-section">
+    <h1>Upload Your Opportunity</h1>
+    <p>Share new job openings, internships, or scholarships with our community.</p>
+    <ol>
+      <li>Create an account or log in to submit your opportunity.</li>
+      <li>Fill out the opportunity details form.</li>
+      <li>Submit for review, and we'll post it once approved.</li>
+    </ol>
+    <a href="submit.html">Submit Now</a>
+  </section>
+
   <!-- ===== MAIN CONTENT ===== -->
   <main class="features-container flex-1">
     <h1 class="text-center text-2xl md:text-3xl">Latest Global Opportunities</h1>
@@ -987,7 +995,7 @@
         <h3 class="text-yellow-400">Contact</h3>
         <a href="./contact_us.html" class="underline font-bold">More Info</a>
         <strong>WhatsApp:</strong>
-        <a href="https://wa.me/+250733253803" target="_blank" class="toto"> +250 733 253 803</a>
+        <a href="https://wa.me/+250733253803" target="_blank" class="toto">+250 733 253 803</a>
         <strong>Email:</strong>
         <a href="mailto:info@tekinova.com" class="toto">info@tekinova.com</a>
       </div>
@@ -1042,7 +1050,7 @@
       // Handle image errors globally
       document.querySelectorAll('img').forEach(img => {
         img.addEventListener('error', () => {
-          img.src = '/assets/images/placeholder.jpg';
+          img.src = 'https://via.placeholder.com/300x160?text=Image+Not+Found';
           img.alt = img.alt || 'Placeholder image';
           console.log(`Image failed to load at ${img.src}, switched to placeholder`);
         });
@@ -1198,7 +1206,7 @@
         setInterval(updateCountdown, 1000);
       }
 
-      // Features Data
+     // Features Data
       const jobsData = [
         // ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
         
@@ -1435,7 +1443,7 @@
       fullDescription: " Physics-Economics-Mathematics; Mathematics-Economics-Geography; Mathematics-Chemistry-Biology; Mathematics-Physics-Biology; Mathematics-Computer Science-Economics; Mathematics-Geography; Mathematics-Economy; Mathematics-Computer; Mathematics-Physics; Latin Sciences; Latin-Biochimie; Biochimie, TTC/Science & Math Option; Science and Mathematics Education; Normale Primaire A2./n-Applicants must have achieved the required grades qualifying them for university admission and must have majored in one of the following cluster combinations\nINES-Ruhengeri, in partnership with the Young Women’s Christian Association (YWCA) of Rwanda, is pleased to announce a new scholarship opportunity for eligible female students in STEM, funded by the Scottish Government through Oxfam. Through this collaboration, YWCA will provide support the female students from the following ten Districts where the project is operating Now: Kicukiro, Nyarugenge, Bugesera, Kayonza, Kamonyi, Muhanga, Gicumbi, Musanze, Rubavu, and Ngororero..",
       requirements: [" Eligibility Criteria in Bachelor of Statistics Applied to Economy:/n Eligibility Criteria in Bachelor in Computer Sciences:\n  -Applicants must have achieved the required grades qualifying them for university admission and must have majored in one of the following cluster combinations\nPhysics-Chemistry–Biology;Physics-Chemistry-Mathematics; Mathematics-Physics-Geography; Mathematics-Physics-Computer Sciences; Physics-Economics-Mathematics; Mathematics-Economics-Geography; Mathematics-Chemistry-Biology; Mathematics-Computer Science-Economics; Mathematics-Physics-Biology; Computer Science; Mathematics-Geography;Mathematics-Economy;Mathematics-Computer; Mathematics-Physics;TTC/Science & Math Option; Science and Mathematics Education, Software Development, Networking, CT and Multimedia; Industrial Electricity, Electronics and Telecommunication, Computer Electronics, Telecommunication , Electronic Services, Solar Energy, Automobile Transmission and Control System Technology, Computer Science and Management;"],
       responsibilities: [],
-      image: "assets/images/yicwa.jpg",
+      image: "data:image/jpeg;base64,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",
       link: "https://digitalcampus.ines.ac.rw/admission/scholarships/YWCA-KH3lXl3Zxc2a198/",
       type: "scholarship",
       location: "Global",
@@ -3440,7 +3448,6 @@
   }
 ]
 
-
       const featuresGrid = document.querySelector('.features-grid');
       const filterControls = document.querySelector('.filter-controls');
       const lastUpdatedEl = document.querySelector('.last-updated');
@@ -3459,7 +3466,7 @@
           job.type = 'other';
         }
         if (!job.image || job.image === '') {
-          job.image = '/assets/images/placeholder.jpg';
+          job.image = 'https://via.placeholder.com/300x160?text=Default+Image';
         }
         if (!job.deadline || isNaN(new Date(job.deadline))) {
           job.deadline = '2030-12-31';
@@ -3516,7 +3523,7 @@
               <div class="countdown" id="countdown-${job.id}"></div>
               <button class="view-details-btn" data-job-id="${job.id}" aria-label="Toggle details for ${job.title}" aria-expanded="false">View Details</button>
               <div class="job-details" id="details-${job.id}">
-                <h3>Full Description</h3>
+                <h3>${job.type.charAt(0).toUpperCase() + job.type.slice(1)} Description</h3>
                 <p class="text-gray-600">${job.fullDescription}</p>
                 <h3>Requirements</h3>
                 <ul>
@@ -3539,6 +3546,7 @@
           startCountdown(job.deadline, `countdown-${job.id}`);
         });
 
+        // Event listeners for View Details and Back buttons
         document.querySelectorAll('.view-details-btn').forEach(button => {
           button.addEventListener('click', () => {
             const jobId = button.dataset.jobId;
@@ -3547,22 +3555,19 @@
             const backBtn = details.querySelector('.back-btn');
             const featureBox = button.closest('.feature-box');
             const allFeatureBoxes = document.querySelectorAll('.feature-box');
-            
-            // Toggle details visibility and expanded state
+
             const isActive = details.classList.contains('active');
             details.classList.toggle('active');
             featureBox.classList.toggle('feature-box-expanded', !isActive);
             button.textContent = details.classList.contains('active') ? 'Hide Details' : 'View Details';
             button.setAttribute('aria-expanded', details.classList.contains('active'));
 
-            // Show/hide other feature boxes
             allFeatureBoxes.forEach(box => {
               if (box !== featureBox) {
                 box.style.display = details.classList.contains('active') ? 'none' : 'block';
               }
             });
 
-            // Handle button visibility
             if (details.classList.contains('active')) {
               applyBtn.style.display = 'inline-block';
               backBtn.style.display = 'inline-block';
@@ -3586,7 +3591,6 @@
             const featureBox = button.closest('.feature-box');
             const allFeatureBoxes = document.querySelectorAll('.feature-box');
 
-            // Hide details and remove expanded state
             details.classList.remove('active');
             featureBox.classList.remove('feature-box-expanded');
             viewDetailsBtn.textContent = 'View Details';
@@ -3594,12 +3598,10 @@
             applyBtn.style.display = 'none';
             backBtn.style.display = 'none';
 
-            // Show all feature boxes
             allFeatureBoxes.forEach(box => {
               box.style.display = 'block';
             });
 
-            // Scroll to features container
             const featuresContainer = document.querySelector('.features-container');
             if (featuresContainer) {
               featuresContainer.scrollIntoView({ behavior: 'smooth' });
@@ -3642,8 +3644,7 @@
 
       setInterval(updateLastUpdated, 86400000);
     });
-  </script>
-  <script>
+
     let mybutton = document.getElementById("topBtn");
 
     window.onscroll = function() {scrollFunction()};
