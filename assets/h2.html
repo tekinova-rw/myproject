@@ -285,10 +285,9 @@
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 360px));
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 15px;
       margin-top: 15px;
-      justify-content: center;
     }
 
     .feature-box {
@@ -300,9 +299,6 @@
       position: relative;
       display: flex;
       flex-direction: column;
-      min-width: 260px;
-      max-width: 100%;
-      width: 100%;
     }
 
     .feature-box:hover {
@@ -345,10 +341,8 @@
       font-size: 13px;
       width: 100%;
       word-wrap: break-word;
-      hyphens: auto;
     }
-    /* kwagura interuro */
-    
+
     .view-details-btn, .apply-btn, .back-btn {
       display: inline-block;
       background-color: #012f47;
@@ -362,7 +356,7 @@
       text-align: center;
       min-width: 100px;
       cursor: pointer;
-      margin: 4px 0;
+      margin: 4px 2px;
     }
 
     .view-details-btn:hover, .apply-btn:hover, .back-btn:hover {
@@ -465,7 +459,6 @@
       margin-top: 10px;
       display: none;
       padding: 16px;
-      width: 100%;
     }
 
     .job-details.active {
@@ -481,30 +474,23 @@
 
     .job-details p {
       color: #555;
-      font-size: 16px;
+      font-size: 14px;
       line-height: 1.8;
       width: 100%;
-      max-width: 100%;
       word-wrap: break-word;
-      hyphens: auto;
       margin-bottom: 12px;
     }
 
     .job-details ul {
       list-style-type: disc;
       margin-left: 20px;
-      margin-bottom: 10px;
-      width: 100%;
-      max-width: 100%;
+      margin-bottom: 12px;
     }
 
     .job-details li {
       color: #555;
-      font-size: 14px;
-      line-height: 1.6;
+      font-size: 13px;
       margin-bottom: 6px;
-      word-wrap: break-word;
-      hyphens: auto;
     }
 
     .countdown {
@@ -675,14 +661,11 @@
       .navbar ul { gap: 4px; }
       .navbar a { font-size: 12px; padding: 5px 7px; }
       .dropdown { min-width: 200px; }
-      .features-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 320px)); }
+      .features-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
       .hamburger-widget .widget-stats { grid-template-columns: repeat(2, 1fr); }
       .feature-box p { font-size: 12px; }
-      .job-details p { font-size: 14px; line-height: 1.7; }
-      .job-details li { font-size: 13px; }
-      .feature-box { min-width: 240px; }
+      .job-details p { font-size: 13px; line-height: 1.7; }
       .feature-box-expanded { max-width: 100%; }
-      .job-details { padding: 14px; }
     }
 
     @media (max-width: 768px) {
@@ -702,10 +685,7 @@
       .main-content, .features-container { padding: 8px; margin: 8px auto; }
       .feature-box p { font-size: 11px; }
       .job-details p { font-size: 12px; line-height: 1.6; }
-      .job-details li { font-size: 11px; }
-      .feature-box { min-width: 100%; max-width: 100%; }
       .feature-box-expanded { max-width: 100%; padding: 12px; }
-      .job-details { padding: 12px; }
     }
 
     @media (max-width: 576px) {
@@ -719,10 +699,7 @@
       .mobile-nav { top: 52px; }
       .feature-box p { font-size: 10px; }
       .job-details p { font-size: 11px; line-height: 1.5; }
-      .job-details li { font-size: 10px; }
-      .feature-box { min-width: 100%; max-width: 100%; }
       .feature-box-expanded { max-width: 100%; padding: 10px; }
-      .job-details { padding: 10px; }
     }
 
     @media (max-width: 480px) {
@@ -730,10 +707,7 @@
       .features-container h1 { font-size: 1.2rem; }
       .feature-box p { font-size: 9px; }
       .job-details p { font-size: 10px; line-height: 1.4; }
-      .job-details li { font-size: 9px; }
-      .feature-box { min-width: 100%; max-width: 100%; }
       .feature-box-expanded { max-width: 100%; padding: 8px; }
-      .job-details { padding: 8px; }
     }
 
     #topBtn {
@@ -1044,7 +1018,6 @@
         img.addEventListener('error', () => {
           img.src = '/assets/images/placeholder.jpg';
           img.alt = img.alt || 'Placeholder image';
-          console.log(`Image failed to load at ${img.src}, switched to placeholder`);
         });
       });
 
@@ -1198,6 +1171,7 @@
         setInterval(updateCountdown, 1000);
       }
 
+     
       // Features Data
       const jobsData = [
         // ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
@@ -3458,8 +3432,8 @@
         if (!['job', 'internship', 'scholarship', 'other'].includes(job.type)) {
           job.type = 'other';
         }
-        if (!job.image || job.image === '') {
-          job.image = '/assets/images/placeholder.jpg';
+        if (!job.image) {
+          job.image = 'assets/images/placeholder.jpg';
         }
         if (!job.deadline || isNaN(new Date(job.deadline))) {
           job.deadline = '2030-12-31';

@@ -285,10 +285,9 @@
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 360px));
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 15px;
       margin-top: 15px;
-      justify-content: center;
     }
 
     .feature-box {
@@ -296,26 +295,15 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease, width 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       position: relative;
       display: flex;
       flex-direction: column;
-      min-width: 260px;
-      max-width: 100%;
-      width: 100%;
     }
 
     .feature-box:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    }
-
-    .feature-box-expanded {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      grid-column: 1 / -1;
-      z-index: 10;
     }
 
     .feature-box img {
@@ -343,12 +331,11 @@
       margin-bottom: 12px;
       line-height: 1.5;
       font-size: 13px;
-      width: 100%;
+      max-width: 100%;
+      width: calc(100% - 1rem);
       word-wrap: break-word;
-      hyphens: auto;
     }
-    /* kwagura interuro */
-    
+
     .view-details-btn, .apply-btn, .back-btn {
       display: inline-block;
       background-color: #012f47;
@@ -464,8 +451,7 @@
     .job-details {
       margin-top: 10px;
       display: none;
-      padding: 16px;
-      width: 100%;
+      padding: 12px;
     }
 
     .job-details.active {
@@ -474,37 +460,30 @@
 
     .job-details h3 {
       color: #012f47;
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .job-details p {
       color: #555;
-      font-size: 16px;
-      line-height: 1.8;
-      width: 100%;
+      font-size: 13px;
+      line-height: 1.5;
       max-width: 100%;
+      width: calc(100% - 1rem);
       word-wrap: break-word;
-      hyphens: auto;
-      margin-bottom: 12px;
     }
 
     .job-details ul {
       list-style-type: disc;
       margin-left: 20px;
       margin-bottom: 10px;
-      width: 100%;
-      max-width: 100%;
     }
 
     .job-details li {
       color: #555;
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 6px;
-      word-wrap: break-word;
-      hyphens: auto;
+      font-size: 12px;
+      margin-bottom: 4px;
     }
 
     .countdown {
@@ -675,14 +654,9 @@
       .navbar ul { gap: 4px; }
       .navbar a { font-size: 12px; padding: 5px 7px; }
       .dropdown { min-width: 200px; }
-      .features-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 320px)); }
+      .features-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
       .hamburger-widget .widget-stats { grid-template-columns: repeat(2, 1fr); }
-      .feature-box p { font-size: 12px; }
-      .job-details p { font-size: 14px; line-height: 1.7; }
-      .job-details li { font-size: 13px; }
-      .feature-box { min-width: 240px; }
-      .feature-box-expanded { max-width: 100%; }
-      .job-details { padding: 14px; }
+      .feature-box p, .job-details p { width: calc(100% - 0.8rem); font-size: 12px; }
     }
 
     @media (max-width: 768px) {
@@ -700,12 +674,7 @@
       .navbar li:hover .dropdown { display: none; }
       .hamburger-widget .widget-stats { grid-template-columns: 1fr; gap: 12px; }
       .main-content, .features-container { padding: 8px; margin: 8px auto; }
-      .feature-box p { font-size: 11px; }
-      .job-details p { font-size: 12px; line-height: 1.6; }
-      .job-details li { font-size: 11px; }
-      .feature-box { min-width: 100%; max-width: 100%; }
-      .feature-box-expanded { max-width: 100%; padding: 12px; }
-      .job-details { padding: 12px; }
+      .feature-box p, .job-details p { width: calc(100% - 0.6rem); font-size: 11px; }
     }
 
     @media (max-width: 576px) {
@@ -717,23 +686,13 @@
       .footer-columns { grid-template-columns: 1fr; }
       .feature-box img { height: 120px; }
       .mobile-nav { top: 52px; }
-      .feature-box p { font-size: 10px; }
-      .job-details p { font-size: 11px; line-height: 1.5; }
-      .job-details li { font-size: 10px; }
-      .feature-box { min-width: 100%; max-width: 100%; }
-      .feature-box-expanded { max-width: 100%; padding: 10px; }
-      .job-details { padding: 10px; }
+      .feature-box p, .job-details p { width: calc(100% - 0.5rem); font-size: 10px; }
     }
 
     @media (max-width: 480px) {
       .main-content, .features-container { padding: 8px; margin: 10px auto; }
       .features-container h1 { font-size: 1.2rem; }
-      .feature-box p { font-size: 9px; }
-      .job-details p { font-size: 10px; line-height: 1.4; }
-      .job-details li { font-size: 9px; }
-      .feature-box { min-width: 100%; max-width: 100%; }
-      .feature-box-expanded { max-width: 100%; padding: 8px; }
-      .job-details { padding: 8px; }
+      .feature-box p, .job-details p { width: calc(100% - 0.4rem); font-size: 9px; }
     }
 
     #topBtn {
@@ -1042,7 +1001,7 @@
       // Handle image errors globally
       document.querySelectorAll('img').forEach(img => {
         img.addEventListener('error', () => {
-          img.src = '/assets/images/placeholder.jpg';
+          img.src = '/assets/images/placeholder.jpg'; // Use absolute path as fallback
           img.alt = img.alt || 'Placeholder image';
           console.log(`Image failed to load at ${img.src}, switched to placeholder`);
         });
@@ -1198,6 +1157,8 @@
         setInterval(updateCountdown, 1000);
       }
 
+      // Features Data
+     
       // Features Data
       const jobsData = [
         // ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
@@ -3459,7 +3420,7 @@
           job.type = 'other';
         }
         if (!job.image || job.image === '') {
-          job.image = '/assets/images/placeholder.jpg';
+          job.image = '/assets/images/placeholder.jpg'; // Ensure a valid fallback
         }
         if (!job.deadline || isNaN(new Date(job.deadline))) {
           job.deadline = '2030-12-31';
@@ -3545,19 +3506,17 @@
             const details = document.getElementById(`details-${jobId}`);
             const applyBtn = details.querySelector('.apply-btn');
             const backBtn = details.querySelector('.back-btn');
-            const featureBox = button.closest('.feature-box');
             const allFeatureBoxes = document.querySelectorAll('.feature-box');
             
-            // Toggle details visibility and expanded state
+            // Toggle details visibility
             const isActive = details.classList.contains('active');
             details.classList.toggle('active');
-            featureBox.classList.toggle('feature-box-expanded', !isActive);
             button.textContent = details.classList.contains('active') ? 'Hide Details' : 'View Details';
             button.setAttribute('aria-expanded', details.classList.contains('active'));
 
             // Show/hide other feature boxes
             allFeatureBoxes.forEach(box => {
-              if (box !== featureBox) {
+              if (box !== button.closest('.feature-box')) {
                 box.style.display = details.classList.contains('active') ? 'none' : 'block';
               }
             });
@@ -3583,18 +3542,15 @@
             const viewDetailsBtn = document.querySelector(`.view-details-btn[data-job-id="${jobId}"]`);
             const applyBtn = details.querySelector('.apply-btn');
             const backBtn = details.querySelector('.back-btn');
-            const featureBox = button.closest('.feature-box');
             const allFeatureBoxes = document.querySelectorAll('.feature-box');
 
-            // Hide details and remove expanded state
+            // Hide details and show all feature boxes
             details.classList.remove('active');
-            featureBox.classList.remove('feature-box-expanded');
             viewDetailsBtn.textContent = 'View Details';
             viewDetailsBtn.setAttribute('aria-expanded', 'false');
             applyBtn.style.display = 'none';
             backBtn.style.display = 'none';
 
-            // Show all feature boxes
             allFeatureBoxes.forEach(box => {
               box.style.display = 'block';
             });

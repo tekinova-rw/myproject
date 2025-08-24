@@ -1,209 +1,1437 @@
 <!DOCTYPE html>
 <html lang="rw">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Ikizamini cya provizwari - wige amategeko y'umuhanda no kwitegura uruhushya rw'agateganyo.">
-  <meta name="keywords" content="Ikizamini, provizwari, uruhushya, amategeko y'umuhanda, exam, provisional, driving test">
-  <meta name="author" content="Fique">
-  <title>Ikizamini cya Provizwari - Tangira Kwitoza Ubu</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jobs and Scholarships</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Find job opportunities, internships, and scholarships in Rwanda. Connect with us for career guidance and tech-related services.">
+  <meta name="keywords" content="jobs, scholarships, Rwanda, careers, internships, tech services, job opportunities">
+  <meta name="author" content="Jobs and Scholarships Team">
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Jobs and Scholarships - Rwanda">
+  <meta property="og:description" content="Explore job opportunities, internships, and scholarships in Rwanda. Contact us for career support and tech services.">
+  <meta property="og:image" content="./jo.jpeg">
+  <meta property="og:url" content="https://yourwebsite.com">
+  <meta property="og:type" content="website">
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Jobs and Scholarships - Rwanda">
+  <meta name="twitter:description" content="Explore job opportunities, internships, and scholarships in Rwanda. Contact us for career support and tech services.">
+  <meta name="twitter:image" content="./jo.jpeg">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <!-- gusubira hejuru -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+  
   <style>
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to right, #f1f9ff, #e0f7fa);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 30px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+      padding-top: 68px; /* Adjusted for header (48px) + slider (20px) */
     }
 
-    .card {
-      background-color: #ffffff;
-      max-width: 700px;
+    /* Header */
+    header {
+      background-color: #012f47;
+      color: white;
+      padding: 6px 12px; /* Reduced from 10px 20px */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      border-radius: 16px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-      padding: 40px;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      width: 32px; /* Reduced from 40px */
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid gold;
+      margin-right: 8px;
+    }
+
+    .logo h1 {
+      color: gold;
+      font-size: 18px; /* Reduced from 22px */
+      font-weight: 700;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      font-size: 13px; /* Reduced from 15px */
+      padding: 4px 8px; /* Reduced from 6px 10px */
+      border-radius: 6px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #033d3d;
+      color: gold;
+    }
+
+    /* Menu Icon */
+    .menu-icon {
+      font-size: 18px; /* Reduced from 22px */
+      cursor: pointer;
+      color: white;
+      transition: color 0.3s;
+      padding: 6px;
+      display: none;
+    }
+
+    .menu-icon:hover {
+      color: gold;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    .menu-toggle {
+      font-size: 18px; /* Reduced from 22px */
+      cursor: pointer;
+      padding: 6px;
+      display: none;
+    }
+
+    .menu-toggle:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    /* Sidebar Menu */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -250px;
+      width: 240px;
+      height: 100vh;
+      background-color: #002240;
+      color: white;
+      padding: 15px;
+      transition: right 0.3s ease;
+      z-index: 999;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+      overflow-y: auto;
+    }
+
+    .sidebar.active {
+      right: 0;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+      color: gold;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #555;
+    }
+
+    .sidebar-header i {
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .sidebar-header i:hover {
+      color: #d4af37;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      padding: 10px 0;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .sidebar a:hover {
+      color: gold;
+    }
+
+    .sidebar i {
+      width: 18px;
       text-align: center;
     }
 
-    .card h1 {
-      font-size: 2rem;
-      color: #0077b6;
-      margin-bottom: 20px;
+    /* Menu Widgets */
+    .menu-widget {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 10px;
+      margin: 10px 0;
     }
 
-    .card p {
-      font-size: 16px;
-      color: #333;
-      line-height: 1.6;
-      margin-bottom: 10px;
-      text-align: left;
-    }
-
-    ul {
-      text-align: left;
-      padding-left: 20px;
-      margin-bottom: 20px;
-    }
-
-    li {
+    .menu-widget h3 {
+      color: gold;
+      margin-bottom: 8px;
       font-size: 15px;
+    }
+
+    .menu-widget p {
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .menu-widget .widget-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .widget-stats div {
+      text-align: center;
+      flex: 1;
+    }
+
+    .widget-stats span {
+      display: block;
+      font-size: 16px;
+      font-weight: bold;
+      color: gold;
+    }
+
+    .widget-stats small {
+      font-size: 11px;
+      opacity: 0.8;
+    }
+
+    /* Staff Cards */
+    .main-content {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 15px;
+    }
+
+    .main-content h2 {
+      font-size: 1.8rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .staff-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .staff-card {
+      background-color: white;
+      border-radius: 12px;
+      width: 180px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      flex: 1 1 180px;
+      max-width: 200px;
+    }
+
+    .staff-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .staff-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #012f47;
+      color: white;
+      padding: 30px 15px;
+    }
+
+    .footer-columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+    }
+
+    .footer-columns .col {
+      flex: 1 1 180px;
+      min-width: 160px;
+    }
+
+    .footer-columns .col h3 {
+      color: gold;
       margin-bottom: 10px;
     }
 
-    .btn-start {
-      margin-top: 25px;
-      padding: 15px 35px;
-      font-size: 16px;
-      background-color: #0077b6;
+    .footer-columns .col a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 5px;
+      transition: color 0.3s;
+    }
+
+    .footer-columns .col a:hover {
+      color: #d4af37;
+    }
+
+    /* Navigation Dropdowns */
+    .navbar ul {
+      list-style: none;
+      display: flex;
+    }
+
+    .navbar li {
+      position: relative;
+    }
+
+    .navbar a {
+      display: block;
+      padding: 12px 16px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+
+    .navbar a:hover {
+      background-color: #033d3d;
+    }
+
+    .navbar a.active {
+      color: #eaedf1;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 220px;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 1000;
+      background-color: #012f47;
+    }
+
+    .dropdown a {
+      padding: 10px 14px;
+      display: block;
+      color: white;
+      text-decoration: none;
+    }
+
+    .dropdown a:hover {
+      background-color: #033d3d;
+    }
+
+    .navbar li:hover .dropdown {
+      display: block;
+    }
+
+    /* Talk to Us CSS */
+    .contact-compact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      background: #eef6fb;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+    }
+
+    .contact-compact > div {
+      flex: 1 1 180px;
+    }
+
+    .contact-compact h3 {
+      margin: 0 0 0.2rem;
+      color: #004080;
+      font-size: 0.9rem;
+    }
+
+    .contact-compact p {
+      margin: 0 0 0.3rem;
+      color: #444;
+      font-size: 0.75rem;
+    }
+
+    .contact-compact .btn {
+      display: inline-block;
+      padding: 0.3rem 0.6rem;
+      background: #487081;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .contact-compact .btn:hover {
+      opacity: 0.9;
+    }
+
+    /* Floating WhatsApp Buttons */
+    .floating-whatsapp-buttons {
+      position: fixed;
+      bottom: 15px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .floating-whatsapp-buttons.left-side {
+      left: 15px;
+    }
+
+    .float-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #57010f;
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 14px;
+      box-shadow: 0 4px 12px rgba(12, 12, 12, 0.2);
+      transition: transform 0.2s ease, background-color 0.3s;
+      touch-action: manipulation;
+    }
+
+    .float-btn:hover {
+      transform: scale(1.05);
+      background-color: #000c05;
+    }
+
+    .float-btn .icon {
+      width: 18px;
+      height: 18px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      display: inline-block;
+    }
+
+    .float-btn.chat .icon {
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg');
+    }
+
+    .float-btn.group .icon {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/124/124034.png');
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 48px; /* Adjusted for new header height */
+      left: 0;
+      width: 100%;
+      background-color: #012f47;
+      z-index: 998;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .mobile-menu.active {
+      max-height: 1000px;
+      overflow-y: auto;
+      z-index: 998;
+    }
+
+    .mobile-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .mobile-menu li {
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 12px 15px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      touch-action: manipulation;
+    }
+
+    .mobile-menu a:hover {
+      background-color: #033d3d;
+      color: gold;
+    }
+
+    .mobile-dropdown {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      background-color: #002240;
+      z-index: 1000;
+    }
+
+    .mobile-dropdown.active {
+      max-height: 1000px;
+    }
+
+    .mobile-dropdown a {
+      padding-left: 30px;
+    }
+
+    .mobile-dropdown-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mobile-dropdown-toggle i {
+      transition: transform 0.3s;
+    }
+
+    .mobile-dropdown-toggle.active i {
+      transform: rotate(180deg);
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 1024px) {
+      .footer-columns {
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+      
+      .staff-card {
+        flex: 1 1 calc(33.333% - 15px);
+        max-width: 220px;
+      }
+
+      .main-content {
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar ul {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+        color: white;
+      }
+
+      .menu-icon {
+        display: none;
+      }
+      
+      .sidebar {
+        display: none;
+      }
+      
+      .mobile-menu {
+        display: block;
+      }
+      
+      .footer-columns {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      
+      .staff-card {
+        flex: 1 1 calc(50% - 15px);
+        max-width: 200px;
+      }
+      
+      header {
+        padding: 4px 8px; /* Reduced from 8px 12px */
+      }
+      
+      .main-content {
+        padding: 15px 10px;
+        margin: 20px auto;
+      }
+
+      .moving-image {
+        width: 100%;
+        max-width: 768px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      body {
+        padding-top: 60px; /* Adjusted for header (40px) + slider (20px) */
+      }
+
+      .logo h1 {
+        font-size: 16px; /* Reduced from 18px */
+      }
+      
+      .logo img {
+        width: 28px; /* Reduced from 36px */
+        height: 28px;
+      }
+      
+      .floating-whatsapp-buttons.left-side {
+        left: 10px;
+        bottom: 10px;
+      }
+      
+      .float-btn {
+        font-size: 12px;
+        padding: 0.35rem 0.7rem;
+      }
+      
+      .main-content h2 {
+        font-size: 1.4rem;
+      }
+      
+      .mobile-menu {
+        top: 40px; /* Adjusted for new header height */
+      }
+
+      .moving-image {
+        width: 100%;
+        max-width: 576px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo img {
+        width: 28px; /* Already reduced */
+        height: 28px;
+      }
+
+      .logo h1 {
+        font-size: 14px; /* Further reduced from 16px */
+      }
+
+      .staff-card {
+        max-width: 100%;
+      }
+
+      .contact-compact {
+        padding: 0.3rem 0.6rem;
+        gap: 0.3rem;
+      }
+
+      .contact-compact > div {
+        flex: 1 1 100%;
+      }
+
+      .floating-whatsapp-buttons {
+        gap: 8px;
+      }
+
+      .moving-image {
+        width: 100%;
+        max-width: 480px;
+      }
+    }
+
+    /* Animation for mobile menu */
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .mobile-menu.active li {
+      animation: slideDown 0.3s ease forwards;
+    }
+
+    .mobile-menu.active li:nth-child(1) { animation-delay: 0.1s; }
+    .mobile-menu.active li:nth-child(2) { animation-delay: 0.2s; }
+    .mobile-menu.active li:nth-child(3) { animation-delay: 0.3s; }
+    .mobile-menu.active li:nth-child(4) { animation-delay: 0.4s; }
+    .mobile-menu.active li:nth-child(5) { animation-delay: 0.5s; }
+    .mobile-menu.active li:nth-child(6) { animation-delay: 0.6s; }
+    .mobile-menu.active li:nth-child(7) { animation-delay: 0.7s; }
+    /* Moving words */
+    .top-right-slider {
+      position: fixed;
+      top: 48px; /* Adjusted for new header height */
+      width: 100%;
+      background: #02635e;
+      color: white;
+      padding: 8px 0;
+      text-align: center;
+      overflow: hidden;
+      z-index: 900;
+    }
+
+    .slider-text {
+      display: inline-block;
+      padding-left: 100%;
+      white-space: nowrap;
+      animation: slide-left 35s linear infinite;
+      font-size: 1rem;
+    }
+
+    @keyframes slide-left {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    .content {
+      margin-top: 20px;
+      padding: 20px;
+    }
+
+    .slider-text b {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: x-large;
+    }
+
+    /* Adjust slider position for smaller screens */
+    @media (max-width: 576px) {
+      .top-right-slider {
+        top: 40px; /* Adjusted for new header height */
+      }
+    }
+
+    /* Provizwari Button */
+    .floating-car-btn {
+      position: fixed;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      background-color: #970202;
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 40px;
+      padding: 10px 15px;
+      font-size: 16px;
       cursor: pointer;
-      transition: background 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      z-index: 9999;
+      transition: transform 0.2s ease, background-color 0.3s ease;
     }
 
-    .btn-start:hover {
-      background-color: #005f8e;
+    .floating-car-btn:hover {
+      transform: translateY(-50%) scale(1.1);
+      background-color: #500236;
     }
 
-    .footer {
-      margin-top: 40px;
-      font-size: 13px;
-      color: gray;
+    .floating-car-btn i {
+      pointer-events: none;
+      font-size: 20px;
+      transition: transform 0.3s ease;
     }
 
-    @media (max-width: 600px) {
-      .card {
-        padding: 25px 20px;
-      }
-
-      .card h1 {
-        font-size: 1.6rem;
-      }
-
-      .btn-start {
-        width: 100%;
-      }
+    @keyframes wave {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(20deg); }
+      50% { transform: rotate(-10deg); }
+      75% { transform: rotate(20deg); }
     }
-    /* pay buton */
-    #pay-btn {
+
+    .wave-hand {
+      animation: wave 1.5s ease-in-out 3;
+      transform-origin: 70% 70%;
+    }
+
+    .btn-text {
+      font-size: 14px;
+      font-weight: bold;
+      user-select: none;
+    }
+    /* ibyo dukora */
+    /* ===== SERVICE DUTANGA (scoped) ===== */
+#service-dutanga{
+  --sd-bg: #9fb2c5;    /* light blue background */
+  --sd-panel:#031842;  /* dark blue */
+  --sd-accent:#f7df1e; /* yellow */
+  --sd-brown:#b67c2f;  /* brown abstract */
+  --sd-text:#ffffff;
+  --sd-radius:16px;
+  --sd-shadow:0 8px 24px rgba(0,0,0,.18);
+
+  display:grid;
+  grid-template-columns: 1fr 2fr;
+  gap:18px;
+  background:var(--sd-bg);
+  padding:16px;
+}
+
+/* left side */
+#service-dutanga .sd-left{display:flex;flex-direction:column;gap:18px}
+#service-dutanga .sd-device{
+  background:#fff;border-radius:var(--sd-radius);box-shadow:var(--sd-shadow);
+  padding:12px;display:flex;align-items:center;justify-content:center;min-height:180px
+}
+#service-dutanga .sd-device img{max-width:100%;height:auto;display:block}
+#service-dutanga .sd-abstract{
+  background:var(--sd-brown);border-radius:10px;min-height:320px;position:relative;overflow:hidden
+}
+#service-dutanga .sd-abstract::before{
+  content:"";position:absolute;inset:18px 24px;border-radius:12px;
+  background:
+    radial-gradient(120px 160px at 40% 45%, transparent 60%, transparent 61%),
+    radial-gradient(40px 50px at 60% 20%, #7aa13a 49%, transparent 51%),
+    radial-gradient(36px 46px at 62% 78%, #7aa13a 49%, transparent 51%),
+    var(--sd-bg);
+}
+
+/* right panel */
+#service-dutanga .sd-panel{
+  background:var(--sd-panel);color:var(--sd-text);
+  border-radius:var(--sd-radius);padding:26px;box-shadow:var(--sd-shadow);
+  display:flex;flex-direction:column;gap:16px
+}
+#service-dutanga .sd-head{display:flex;align-items:center;gap:10px}
+#service-dutanga .sd-quote-open{color:var(--sd-accent);font-size:42px;font-weight:800;line-height:.8}
+#service-dutanga .sd-title{margin:0;font-size:26px;letter-spacing:.5px}
+#service-dutanga .sd-services{margin:0;padding-left:20px;display:grid;gap:10px;font-size:16px}
+#service-dutanga .sd-bottom{margin-top:auto;display:flex;align-items:center;gap:12px;position:relative}
+#service-dutanga .sd-logo{
+  background:#fff;border-radius:10px;padding:8px;width:92px;height:72px;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.2)
+}
+#service-dutanga .sd-logo img{max-width:100%;max-height:100%}
+#service-dutanga .sd-accent{flex:1;height:52px;background:var(--sd-accent);border-radius:10px}
+#service-dutanga .sd-quote-close{
+  position:absolute;right:14px;bottom:-6px;font-size:46px;font-weight:800;color:var(--sd-accent);line-height:.6
+}
+
+/* responsiveness */
+@media (max-width: 920px){
+  #service-dutanga{grid-template-columns:1fr}
+  #service-dutanga .sd-abstract{min-height:200px}
+}
+@media (max-width: 480px){
+  #service-dutanga .sd-title{font-size:22px}
+  #service-dutanga .sd-quote-open{font-size:36px}
+  #service-dutanga .sd-services{font-size:15px}
+  #service-dutanga .sd-accent{height:46px}
+}
+/* gusubira hejuru */
+#topBtn {
+  display: none;
   position: fixed;
-  top: 20px;
+  bottom: 20px;
   right: 20px;
-  z-index: 99999;
-  background-color: #3b0101;
+  z-index: 99;
+  font-size: 30px;
+  background-color: #570a2e;
   color: white;
   border: none;
-  border-radius: 40px;
-  padding: 15px 25px;
-  font-size: 20px;
-  font-weight: bold;
+  padding: 12px 15px;
+  border-radius: 30%;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  user-select: none;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
   transition: background-color 0.3s ease;
 }
-
-#pay-btn:hover {
-  background-color: #012c0b;
+#topBtn:hover {
+  background-color: #555;
 }
 
-.finger-emoji {
-  display: inline-block;
-  animation: fingerWave 2s infinite;
-  transform-origin: 70% 70%;
-}
-
-@keyframes fingerWave {
-  0%, 100% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(20deg);
-  }
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  #pay-btn {
-    padding: 12px 20px;
-    font-size: 18px;
-  }
-}
 
   </style>
 </head>
 <body>
-  
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="logo">
+      <img src="./jo.jpeg" alt="Jobs and Scholarships Logo">
+      <h1 lang="en">Jobs and Scholarships</h1>
+    </div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html" lang="en">Home</a></li>
+        <li>
+          <a href="#" lang="en">About</a>
+          <div class="dropdown">
+            <h2 lang="en">About Jobs and Scholarships</h2>
+            <a href="About.html" lang="en">About Us</a>
+            <a href="./amasahayakazi.html" lang="rw">Amasaha y'akazi</a>
+            <a href="#" lang="en">Company Background & Vision</a>
+            <a href="#" lang="en">Mission & Goals</a>
+            <a href="#" lang="en">Contacts</a>
+            <h2 lang="en">Administrative</h2>
+            <a href="#" lang="en">Team or Founders</a>
+            <a href="#" lang="en">Core Values</a>
+            <a href="#" lang="en">Leadership Team</a>
+            <a href="#" lang="en">Senior Management</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" lang="en">Services</a>
+          <div class="dropdown">
+            <a href="services.html" lang="en">Got Services</a>
+            <a href="" lang="en">Web Development</a>
+            <a href="" lang="en">App Development</a>
+            <a href="" lang="en">Tech Consultancy</a>
+            <a href="" lang="en">Custom Software</a>
+            <a href="" lang="en">AI/IoT/Automation Services</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" lang="en">Product</a>
+          <div class="dropdown">
+            <a href="Products.html" lang="en">Products</a>
+            <a href="" lang="en">App Development</a>
+            <a href="" lang="en">Tech Consultancy</a>
+            <a href="" lang="en">Custom Software</a>
+            <a href="" lang="en">AI/IoT/Automation Services</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" lang="en">Tech News</a>
+          <div class="dropdown">
+            <h2 lang="en">Blog</h2>
+            <a href="Blog_Tech_News.html" lang="en">Blog Tech News</a>
+            <a href="" lang="en">Articles About Technology Trends</a>
+            <a href="" lang="en">How-to Guides or Tutorials</a>
+            <a href="" lang="en">Company Updates</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" lang="en">Careers</a>
+          <div class="dropdown">
+            <a href="Careers.html" lang="en">Develop Your Careers</a>
+            <a href="" lang="en">Articles About Technology Trends</a>
+            <a href="" lang="en">How-to Guides or Tutorials</a>
+            <a href="" lang="en">Company Updates</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" lang="en">Jobs</a>
+          <div class="dropdown">
+            <h2 lang="en">Apply Job</h2>
+            <a href="features.html" lang="en">Go to Jobs & Internships</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" lang="en">Contact</a>
+          <div class="dropdown">
+            <a href="contact_us.html" lang="en">Tell Us Anything</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" lang="en">Working Calendar</a>
+          <div class="dropdown">
+            <a href="amasahayakazi.html" lang="rw">Our Calendar Days</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+    <!-- Menu Icon (right side, desktop) -->
+    <div class="menu-icon" id="menuIcon">
+      <i class="fas fa-bars"></i>
+    </div>
+    <!-- Mobile menu toggle (mobile) -->
+    <div class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </div>
+  </header>
 
-  <!-- <main class="card">
-    <button id="pay-btn" aria-label="Kanda hano kwishyura" title="Kanda hano kwishyura">
-  Kwishyura <span class="finger-emoji">👉</span>
-</button><br>
-<br> -->
-    <h1>Ikaze ku kuri Test ya Provizwari 🚘</h1>
-    <p><strong> TURA BAMENYESHA KO IYI SERVINCE IRABAGERAHO VUBA BIDATINZE MURAKOZE :</strong></p>
-    <!-- <ul>
-      <li>Ishyura <strong>3030 FRW</strong> umare <strong>ukwezi</strong> kose wimenyereza </li>
-      <li>tumenyeshe ko umaze kwishyura maze utangire test</li>
-      <li>Ukora <strong>ibibazo 20</strong> gutsinnda nukuba wagize amanota <strong>12 kuzamura.</strong></li>
-      <li>Ufite <strong>iminota 20</strong> gusa yo kurangiza ikizamini.</li>
-      <li>Uhisemo igisubizo kimwe kuri buri kibazo: A, B, C cyangwa D.</li>
-      <li>Ushobora kongera gukora ikizamini uko ubishatse, ariko ibibazo bizajya bihinduka.</li>
-      <li>Ibyavuye mu kizamini birahita byerekanwa nyuma yo kukirangiza.</li>
-    </ul> -->
-    <!-- <button class="btn-start" onclick="startExam()">Tangira Ikizamini</button>
+  <!-- Moving Words -->
+  <div class="top-right-slider">
+    <div class="slider-text"><b lang="rw">Ushaka ko tugufasha zimwe murizi services zikurikira watwandikira kuri unyuze kuri buto ya twandikire cg ukaduhamagara kur +250771217065!</b></div>
+  </div>
+<!-- ibyodukora  -->
+<section class="sd" id="service-dutanga">
+  <div class="sd-left">
+    <figure class="sd-device">
+      <!-- SHYIRAMO IFOTO YAWE YA COMPUTER -->
+      <img src="computer.webp" alt="Desktop computer" loading="lazy">
+    </figure>
+    <div class="sd-abstract" aria-hidden="true"></div>
+  </div>
 
-    <div class="footer">© 2025 Provizwari Exam | By Fique | Kigali, Rwanda</div>
-  </main> -->
+  <div class="sd-panel">
+    <div class="sd-head">
+      <span class="sd-quote-open">“</span>
+      <h2 class="sd-title">SERVICE&nbsp;DUTANGA</h2>
+    </div>
 
+    <ol class="sd-services">
+      <li>Web designing.</li>
+      <li>Guhanga email cg kuzihuza na SIM card yawe.</li>
+      <li>Application mur University zitandukanye.</li>
+      <li>Gukora account zitandukanye yaba MIFOTRA, Irembo, imbuga nkoranyambaga n'ibindi.</li>
+      <li>Kwandika kubyapa yaba ibito cg ibinini.</li>
+      <li>Kwandika amamenyesha y'ubukwe n’indi mihango itandukanye.</li>
+      <li>Kumenyesha akazi no kugufasha gusaba akazi.</li>
+      <li>Computer maintenance and networking.</li>
+      <li>Mobile app.</li>
+      <li>Gufasha umuntu ufite ikibazo cyo kudepoza kuri MIFOTRA bakakubwira ngo “you are not qualified” kandi wujuje ibisabwa.</li>
+      <h1> In english</h1>
+      <li>Graphic design (logos, posters, flyers).</li>
+      <li>Video editing no gukora short clips.</li>
+      <li>Digital marketing (SEO, social media campaigns).</li>
+      <li>Developing websites of e-commerce.</li>
+      <li>IT training & tutoring (beginners and advanced).</li>
+      <li>Database setup & management.</li>
+      <li>Cyber security awareness & support.</li>
+      <li>Document typing & formatting (Word, Excel, PowerPoint).</li>
+      <li>Translation services (EN–RW, RW–EN).</li>
+      <li>Photography & photo editing.</li>
+      <li>Online job application assistance.</li>
+      <li>Domain & hosting setup.</li>
+      <li>Email marketing campaigns.</li>
+      <li>Data recovery & backup solutions.</li>
+      <li>Consulting services for tech-related projects.</li>
+    </ol>
+
+    <div class="sd-bottom">
+      <!-- SHYIRAMO LOGO YAWE NYAYO -->
+      <div class="sd-logo">
+        <img src="inama2.webp" alt="Company logo" loading="lazy">
+      </div>
+      <div class="sd-accent" title="Decoration"></div>
+      <span class="sd-quote-close">”</span>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="index.html" lang="en">Home</a></li>
+      <li>
+        <div class="mobile-dropdown-toggle" data-toggle="about">
+          <a href="#" lang="en">About</a>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="mobile-dropdown">
+          <a href="About.html" lang="en">About Us</a>
+          <a href="amasahayakazi.html" lang="rw">Amasaha y'akazi</a>
+          <a href="#" lang="en">Company Background & Vision</a>
+          <a href="#" lang="en">Mission & Goals</a>
+          <a href="#" lang="en">Contacts</a>
+          <a href="#" lang="en">Team or Founders</a>
+          <a href="#" lang="en">Core Values</a>
+          <a href="#" lang="en">Leadership Team</a>
+          <a href="#" lang="en">Senior Management</a>
+        </div>
+      </li>
+      <li>
+        <div class="mobile-dropdown-toggle" data-toggle="services">
+          <a href="#" lang="en">Services</a>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="mobile-dropdown">
+          <a href="services.html" lang="en">Got Services</a>
+          <a href="" lang="en">Web Development</a>
+          <a href="" lang="en">App Development</a>
+          <a href="" lang="en">Tech Consultancy</a>
+          <a href="" lang="en">Custom Software</a>
+          <a href="" lang="en">AI/IoT/Automation Services</a>
+        </div>
+      </li>
+      <li>
+        <div class="mobile-dropdown-toggle" data-toggle="product">
+          <a href="#" lang="en">Product</a>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="mobile-dropdown">
+          <a href="Products.html" lang="en">Products</a>
+          <a href="" lang="en">App Development</a>
+          <a href="" lang="en">Tech Consultancy</a>
+          <a href="" lang="en">Custom Software</a>
+          <a href="" lang="en">AI/IoT/Automation Services</a>
+        </div>
+      </li>
+      <li>
+        <div class="mobile-dropdown-toggle" data-toggle="tech-news">
+          <a href="#" lang="en">Tech News</a>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="mobile-dropdown">
+          <a href="Blog_Tech_News.html" lang="en">Blog Tech News</a>
+          <a href="" lang="en">Articles About Technology Trends</a>
+          <a href="" lang="en">How-to Guides or Tutorials</a>
+          <a href="" lang="en">Company Updates</a>
+        </div>
+      </li>
+      <li>
+        <div class="mobile-dropdown-toggle" data-toggle="careers">
+          <a href="#" lang="en">Careers</a>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="mobile-dropdown">
+          <a href="Careers.html" lang="en">Develop Your Careers</a>
+          <a href="" lang="en">Articles About Technology Trends</a>
+          <a href="" lang="en">How-to Guides or Tutorials</a>
+          <a href="" lang="en">Company Updates</a>
+        </div>
+      </li>
+      <li>
+        <div class="mobile-dropdown-toggle" data-toggle="jobs">
+          <a href="" lang="en">Jobs</a>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="mobile-dropdown">
+          <a href="features.html" lang="en">Go to Jobs & Internships</a>
+        </div>
+      </li>
+      <li><a href="contact_us.html" lang="en">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Sidebar Menu -->
+  <aside class="sidebar" id="menuSidebar">
+    <div class="sidebar-header">
+      <span><i class="fas fa-bars"></i> Menu</span>
+      <i class="fas fa-times" id="closeMenu"></i>
+    </div>
+    <nav>
+      <a href="index.html" lang="en"><i class="fas fa-home"></i> Home</a>
+      <a href="About.html" lang="en"><i class="fas fa-info-circle"></i> About</a>
+      <a href="Services.html" lang="en"><i class="fas fa-cogs"></i> Services</a>
+      <a href="Products.html" lang="en"><i class="fas fa-box"></i> Products</a>
+      <a href="Blog_Tech_News.html" lang="en"><i class="fas fa-blog"></i> Blog</a>
+      <a href="Careers.html" lang="en"><i class="fas fa-briefcase"></i> Careers</a>
+      <a href="features.html" lang="en"><i class="fas fa-laptop-code"></i> Jobs</a>
+      <a href="contact_us.html" lang="en"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+    <div class="menu-widget">
+      <h3 lang="en">Quick Stats</h3>
+      <p lang="en">Overview of your recent activity</p>
+      <div class="widget-stats">
+        <div>
+          <span>1,245</span>
+          <small lang="en">Visitors</small>
+        </div>
+        <div>
+          <span>24</span>
+          <small lang="en">Projects</small>
+        </div>
+        <div>
+          <span>18</span>
+          <small lang="en">Team</small>
+        </div>
+      </div>
+    </div>
+    <div class="menu-widget">
+      <h3 lang="en">Recent Activity</h3>
+      <p lang="en"><i class="fas fa-check-circle"></i> New project started</p>
+      <p lang="en"><i class="fas fa-user-plus"></i> 3 new team members</p>
+      <p lang="en"><i class="fas fa-sync-alt"></i> Website updated</p>
+    </div>
+  </aside>
+
+  <!-- Talk to Us -->
+  <div class="floating-whatsapp-buttons left-side">
+    <a href="https://whatsapp.com/channel/0029VbBUVsPDTkKD9z89s20H" class="float-btn group" target="_blank" rel="noopener noreferrer">
+      <span class="icon"></span>
+      <span class="label" lang="en">Follow Channel</span>
+    </a>
+    <a href="https://wa.me/250733253803" class="float-btn chat" target="_blank" rel="noopener noreferrer">
+      <span class="icon"></span>
+      <span class="label" lang="rw">Twandikire</span>
+    </a>
+    <a href="https://chat.whatsapp.com/CoPf3siZOpKB2B9UNh2fYC" class="float-btn group" target="_blank" rel="noopener noreferrer">
+      <span class="icon"></span>
+      <span class="label" lang="en">Join Group</span>
+    </a>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <h2 lang="en">Meet Our Staff</h2>
+    <div class="staff-container">
+      <div class="staff-card">
+        <img src="logos.jpeg" alt="John Doe, Developer at Jobs and Scholarships" />
+        <h3 lang="en">own</h3>
+        <p lang="en">Developer</p>
+      </div>
+      <div class="staff-card">
+        <img src="JJ.jpg" alt="Jane Smith, Designer at Jobs and Scholarships" />
+        <h3 lang="en"> engineers group</h3>
+        <p lang="en">Designer</p>
+      </div>
+      <div class="staff-card">
+        <img src="jo.jpeg" alt="Mike Lee, Accountant at Jobs and Scholarships" />
+        <h3 lang="en">J&S</h3>
+        <p lang="en">source </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Provizwari Button -->
+  <button class="floating-car-btn" title="Kanda hano" onclick="document.getElementById('provizwari-link').click()">
+    <div class="icons">
+      <i id="hand-icon" class="fas fa-hand-pointer"></i>
+      <i class="fas fa-car"></i>
+    </div>
+    <span class="btn-text" lang="rw">provizwari</span>
+  </button>
+  <a href="provizwari/index.html" style="display:none;" id="provizwari-link" lang="en">Provizwari Page</a>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-columns">
+      <div class="col">
+        <h3 lang="en">Contact</h3>
+        <a href="./contact_us.html" style="text-decoration: underline;" lang="en"><b>More Info</b></a>
+        <strong lang="en">WhatsApp:</strong>
+        <a href="https://wa.me/+250733253803" target="_blank" class="toto" rel="noopener noreferrer" lang="en"> +250 733 253 803</a>
+        <strong lang="en">Email:</strong>
+        <a href="mailto:fiqueat@gmail.com" class="toto" rel="noopener noreferrer" lang="en">fiqueat@gmail.com</a>
+      </div>
+      <div class="col">
+        <h3 lang="en">About Jobs and Scholarships</h3>
+        <a href="About.html" style="text-decoration: underline;" lang="en"><b>More Info</b></a>
+        <a href="#" lang="en">Company Background & Vision</a>
+        <a href="#" lang="en">Mission & Goals</a>
+        <a href="#" lang="en">Contacts</a>
+        <h2 lang="en">Administrative</h2>
+        <a href="#" lang="en">Team or Founders</a>
+        <a href="#" lang="en">Core Values</a>
+        <a href="#" lang="en">Leadership Team</a>
+        <a href="#" lang="en">Senior Management</a>
+      </div>
+      <div class="col">
+        <h3 lang="en">Services</h3>
+        <a href="services.html" style="text-decoration: underline;" lang="en"><b>More Info</b></a>
+        <a href="" lang="en">Web Development</a>
+        <a href="" lang="en">App Development</a>
+        <a href="" lang="en">Tech Consultancy</a>
+        <a href="" lang="en">Custom Software</a>
+        <a href="" lang="en">AI/IoT/Automation Services</a>
+      </div>
+      <div class="col">
+        <h3 lang="en">Product</h3>
+        <a href="Products.html" style="text-decoration: underline;" lang="en"><b>More Info</b></a>
+        <a href="" lang="en">App Development</a>
+        <a href="" lang="en">Tech Consultancy</a>
+        <a href="" lang="en">Custom Software</a>
+        <a href="" lang="en">AI/IoT/Automation Services</a>
+      </div>
+      <div class="col">
+        <h3 lang="en">Careers</h3>
+        <a href="Careers.html" style="text-decoration: underline;" lang="en"><b>More Info</b></a>
+        <a href="" lang="en">Articles About Technology Trends</a>
+        <a href="" lang="en">How-to Guides or Tutorials</a>
+        <a href="" lang="en">Company Updates</a>
+      </div>
+      <div class="col">
+        <h3 lang="en">Jobs & Internships</h3>
+        <a href="features.html" style="text-decoration: underline;" lang="en"><b>More Info</b></a>
+      </div>
+       <div class="col">
+        <h3 lang="en">Jobs & Internships</h3>
+        <a href="suprt.html" style="text-decoration: underline;" lang="en"><b>More Info</b></a>
+      </div>
+    </div>
+    <button onclick="topFunction()" id="topBtn">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+  </footer>
+
+  <!-- Internal JavaScript -->
   <script>
-    function startExam() {
-      // Shyira aha logic yo kohereza umuntu ku kizamini cyangwa kuri page ya kwishyura
-      window.location.href = "pay.html"; // cyangwa "exam.html" bitewe na mode.js
+    // Toggle sidebar menu (desktop only)
+    function toggleMenuSidebar() {
+      const menu = document.getElementById('menuSidebar');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const slider = document.querySelector('.top-right-slider');
+      if (window.innerWidth > 768) {
+        menu.classList.toggle('active');
+        mobileMenu.classList.remove('active');
+        slider.style.zIndex = menu.classList.contains('active') ? '900' : '900';
+      }
     }
-    // buto pay
-     // paybutton
-    function handlePayment() {
-  if (/Mobi|Android/i.test(navigator.userAgent)) {
-    // Telefoni – yohereza kuri app yo kwishyura
-    window.location.href = "tel:*182*8*1*0780019239*300#"; // urugero: MTN MoMo
-  } else {
-    // Mudasobwa – yerekana code yo kwishyura
-    alert("Code yo kwishyura: *182*8*1*814570*3030#");
-  }
-}
-// buto pay
-document.getElementById('pay-btn').addEventListener('click', function() {
-  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  const paymentCode = "*182*8*1*814570*3030#";  // Shyiramo code yawe nyayo
 
-  if (isMobile) {
-    // Kuri telephone, yohereza muri dialer USSD code
-    window.location.href = `tel:${paymentCode}`;
-  } else {
-    // Kuri mudasobwa, garagaza code yo kwishyura
-    alert(`Code yo kwishyura: ${paymentCode}`);
-  }
-});
+    // Toggle mobile menu
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuSidebar = document.getElementById('menuSidebar');
+      const slider = document.querySelector('.top-right-slider');
+      if (window.innerWidth <= 768) {
+        mobileMenu.classList.toggle('active');
+        menuSidebar.classList.remove('active');
+        slider.style.zIndex = mobileMenu.classList.contains('active') ? '900' : '900';
+        if (!mobileMenu.classList.contains('active')) {
+          document.querySelectorAll('.mobile-dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+          });
+          document.querySelectorAll('.mobile-dropdown-toggle').forEach(toggle => {
+            toggle.classList.remove('active');
+            const icon = toggle.querySelector('i');
+            icon.classList.remove('fa-chevron-up');
+            icon.classList.add('fa-chevron-down');
+          });
+        }
+      }
+    }
 
+    // Mobile dropdown toggle
+    function toggleMobileDropdown(element) {
+      const parent = element.parentElement;
+      const dropdown = parent.querySelector('.mobile-dropdown');
+      const icon = element.querySelector('i');
+      const slider = document.querySelector('.top-right-slider');
+      
+      element.classList.toggle('active');
+      dropdown.classList.toggle('active');
+      icon.classList.toggle('fa-chevron-down');
+      icon.classList.toggle('fa-chevron-up');
+      slider.style.zIndex = dropdown.classList.contains('active') ? '900' : '900';
+    }
 
+    // Event listeners for menu toggles
+    document.getElementById('menuIcon').addEventListener('click', toggleMenuSidebar);
+    document.getElementById('menuToggle').addEventListener('click', toggleMobileMenu);
+    document.getElementById('closeMenu').addEventListener('click', toggleMenuSidebar);
 
+    // Mobile dropdown toggles
+    document.querySelectorAll('.mobile-dropdown-toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => toggleMobileDropdown(toggle));
+    });
 
+    // Close menus when clicking outside
+    document.addEventListener('click', function (event) {
+      const menuSidebar = document.getElementById('menuSidebar');
+      const menuIcon = document.getElementById('menuIcon');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuToggle = document.getElementById('menuToggle');
+      const slider = document.querySelector('.top-right-slider');
+
+      if (menuSidebar.classList.contains('active') &&
+          !menuSidebar.contains(event.target) &&
+          !menuIcon.contains(event.target)) {
+        menuSidebar.classList.remove('active');
+        slider.style.zIndex = '900';
+      }
+
+      if (mobileMenu.classList.contains('active') &&
+          !mobileMenu.contains(event.target) &&
+          !menuToggle.contains(event.target)) {
+        mobileMenu.classList.remove('active');
+        slider.style.zIndex = '900';
+      }
+    });
+
+    // Close menus on Escape key
+    document.addEventListener('keydown', function (event) {
+      const menuSidebar = document.getElementById('menuSidebar');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const slider = document.querySelector('.top-right-slider');
+      if (event.key === 'Escape') {
+        menuSidebar.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        slider.style.zIndex = '900';
+      }
+    });
+
+    // Scroll to top and close menus on link click
+    document.querySelectorAll('.mobile-menu a, .sidebar a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.remove('active');
+        document.getElementById('menuSidebar').classList.remove('active');
+        document.querySelector('.top-right-slider').style.zIndex = '900';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // Ensure correct menu visibility on resize
+    window.addEventListener('resize', () => {
+      const menuSidebar = document.getElementById('menuSidebar');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const slider = document.querySelector('.top-right-slider');
+      if (window.innerWidth > 768) {
+        mobileMenu.classList.remove('active');
+        document.getElementById('menuIcon').style.display = 'block';
+        document.getElementById('menuToggle').style.display = 'none';
+        slider.style.zIndex = '900';
+      } else {
+        menuSidebar.classList.remove('active');
+        document.getElementById('menuIcon').style.display = 'none';
+        document.getElementById('menuToggle').style.display = 'block';
+        slider.style.zIndex = '900';
+      }
+    });
+
+    // Initialize menu visibility based on screen size
+    window.addEventListener('load', () => {
+      if (window.innerWidth > 768) {
+        document.getElementById('menuIcon').style.display = 'block';
+        document.getElementById('menuToggle').style.display = 'none';
+      } else {
+        document.getElementById('menuIcon').style.display = 'none';
+        document.getElementById('menuToggle').style.display = 'block';
+      }
+    });
+
+    // Provizwari button wave animation
+    const handIcon = document.getElementById('hand-icon');
+    function waveHand() {
+      handIcon.classList.add('wave-hand');
+      setTimeout(() => {
+        handIcon.classList.remove('wave-hand');
+      }, 4500);
+    }
+    setInterval(waveHand, 120000);
+    waveHand();
   </script>
+  <!-- buto yo gusubira hejuru -->
+   <script>
+  let mybutton = document.getElementById("topBtn");
+
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
+
+  function topFunction() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+</script>
+</body>
+
 </body>
 </html>
