@@ -1,23 +1,23 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <meta name="description" content="Discover global job opportunities, internships, and scholarships at TekiNova. Apply now to advance your career!" />
-  <meta name="keywords" content="jobs, internships, scholarships, career opportunities, TekiNova, tech jobs, global opportunities" />
-  <meta name="author" content="TekiNova" />
+  <meta name="description" content="Discover global job opportunities, internships, and scholarships at jobandscholarships. Apply now to advance your career!" />
+  <meta name="keywords" content="jobs, internships, scholarships, career opportunities, jobandscholarships, tech jobs, global opportunities" />
+  <meta name="author" content="Jobandscholarships" />
   <meta name="robots" content="index, follow" />
   <title>Jobs and Scholarships</title>
   <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="TekiNova - Jobs, Internships, and Scholarships" />
-  <meta property="og:description" content="Explore a wide range of job opportunities, internships, and scholarships worldwide with TekiNova." />
+  <meta property="og:title" content="jobandscholarships - Jobs, Internships, and Scholarships" />
+  <meta property="og:description" content="Explore a wide range of job opportunities, internships, and scholarships worldwide with jobandscholarships." />
   <meta property="og:image" content="https://via.placeholder.com/1200x600?text=TekiNova+Logo" />
   <meta property="og:url" content="https://www.jobandscholarships.com/" />
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content="https://jobandscholarships.netlify.app/" />
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="TekiNova - Global Job Opportunities" />
-  <meta name="twitter:description" content="Find your next career move with TekiNova's job, internship, and scholarship listings." />
+  <meta name="twitter:title" content="jobandscholarships - Global Job Opportunities" />
+  <meta name="twitter:description" content="Find your next career move with jobandscholarships's job, internship, and scholarship listings." />
   <meta name="twitter:image" content="https://via.placeholder.com/1200x600?text=TekiNova+Logo" />
   <!-- Font Awesome (Latest Stable CDN) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -328,9 +328,27 @@
       display: block;
     }
 
+    .feature-box-expanded img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      object-position: center;
+      border-bottom: 3px solid #012f47;
+      display: block;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 9;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
     .feature-content {
       padding: 12px;
       flex-grow: 1;
+    }
+
+    .feature-box-expanded .feature-content {
+      margin-top: 0;
     }
 
     .feature-box h2 {
@@ -348,7 +366,7 @@
       hyphens: auto;
     }
 
-    .view-details-btn, .apply-btn, .back-btn {
+    .view-details-btn, .apply-btn, .back-btn, .share-btn {
       display: inline-block;
       background-color: #012f47;
       color: white;
@@ -364,8 +382,12 @@
       margin: 4px;
     }
 
-    .view-details-btn:hover, .apply-btn:hover, .back-btn:hover {
+    .view-details-btn:hover, .apply-btn:hover, .back-btn:hover, .share-btn:hover {
       background-color: #034d6d;
+    }
+
+    .share-btn i {
+      margin-right: 6px;
     }
 
     .job-type {
@@ -496,7 +518,7 @@
 
     .job-details li {
       color: #555;
-      font-size: 13px;
+      font-size: 20px;
       line-height: 1.6;
       margin-bottom: 6px;
       word-wrap: break-word;
@@ -679,6 +701,8 @@
       .feature-box { min-width: 240px; }
       .feature-box-expanded { max-width: 100%; }
       .job-details { padding: 14px; }
+      .feature-box img, .feature-box-expanded img { height: 140px; }
+      .feature-box-expanded .feature-content { margin-top: 0; }
     }
 
     @media (max-width: 768px) {
@@ -690,7 +714,7 @@
       .sidebar { width: 100%; max-width: 100%; }
       .features-container h1 { font-size: 1.4rem; margin-bottom: 12px; }
       .feature-box h2 { font-size: 1rem; }
-      .feature-box img { height: 140px; }
+      .feature-box img, .feature-box-expanded img { height: 120px; }
       .filter-btn { padding: 5px 10px; font-size: 12px; }
       .dropdown { position: static; display: none; width: 100%; box-shadow: none; border-radius: 0; }
       .navbar li:hover .dropdown { display: none; }
@@ -702,6 +726,7 @@
       .feature-box { min-width: 100%; max-width: 100%; }
       .feature-box-expanded { max-width: 100%; padding: 12px; }
       .job-details { padding: 12px; }
+      .feature-box-expanded .feature-content { margin-top: 0; }
     }
 
     @media (max-width: 576px) {
@@ -711,7 +736,7 @@
       .features-grid { grid-template-columns: 1fr; }
       .filter-controls { flex-direction: column; align-items: center; }
       .footer-columns { grid-template-columns: 1fr; }
-      .feature-box img { height: 120px; }
+      .feature-box img, .feature-box-expanded img { height: 120px; }
       .mobile-nav { top: 52px; }
       .feature-box p { font-size: 10px; }
       .job-details p { font-size: 11px; line-height: 1.5; }
@@ -719,6 +744,7 @@
       .feature-box { min-width: 100%; max-width: 100%; }
       .feature-box-expanded { max-width: 100%; padding: 10px; }
       .job-details { padding: 10px; }
+      .feature-box-expanded .feature-content { margin-top: 0; }
     }
 
     @media (max-width: 480px) {
@@ -730,6 +756,8 @@
       .feature-box { min-width: 100%; max-width: 100%; }
       .feature-box-expanded { max-width: 100%; padding: 8px; }
       .job-details { padding: 8px; }
+      .feature-box img, .feature-box-expanded img { height: 80px; }
+      .feature-box-expanded .feature-content { margin-top: 0; }
     }
 
     #topBtn {
@@ -757,7 +785,7 @@
   <!-- ===== HEADER ===== -->
   <header class="flex justify-between items-center">
     <div class="logo flex items-center">
-      <img src="jo.jpeg" alt="j&s Company Logo" class="w-9 h-9 rounded-full border-2 border-yellow-400 mr-2">
+      <img src="https://via.placeholder.com/36x36?text=Logo" alt="TekiNova Company Logo" class="w-9 h-9 rounded-full border-2 border-yellow-400 mr-2">
       <h1 class="text-yellow-400 text-lg font-bold">jobandscholarships</h1>
     </div>
     
@@ -772,7 +800,7 @@
         <li>
           <a href="#" data-toggle="aboutDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle About dropdown">About <i class="fas fa-chevron-down"></i></a>
           <div class="mobile-dropdown" id="aboutDropdown">
-            <h3 class="text-yellow-400">About TEKINOVA</h3>
+            <h3 class="text-yellow-400">About jobandscholarships</h3>
             <a href="About.html">About Us</a>
             <a href="index.html">Company Background & Vision</a>
             <a href="index.html">Mission & Goals</a>
@@ -853,7 +881,7 @@
         <li>
           <a href="#" aria-expanded="false" aria-label="Toggle About dropdown">About</a>
           <div class="dropdown">
-            <h2 class="text-yellow-400">About job&Scholarships</h2>
+            <h2 class="text-yellow-400">Aboutjob & scholarship</h2>
             <a href="About.html">About Us</a>
             <a href="index.html">Company Background & Vision</a>
             <a href="index.html">Mission & Goals</a>
@@ -1000,7 +1028,7 @@
         <a href="mailto:info@tekinova.com" class="toto">info@tekinova.com</a>
       </div>
       <div class="col">
-        <h2 class="text-yellow-400">About job ands cholarships</h2>
+        <h2 class="text-yellow-400">About job and scholarships</h2>
         <a href="About.html" class="underline font-bold">More Info</a>
         <a href="index.html">Company Background & Vision</a>
         <a href="index.html">Mission & Goals</a>
@@ -1206,23 +1234,24 @@
         setInterval(updateCountdown, 1000);
       }
 
-     // Features Data
+      // Features Data
+       // Features Data
       const jobsData = [
         // ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
         
     {
       id: 1,
-      title: "Google Software Engineer",
-      description: "Join Google's engineering team to build scalable systems.",
-      fullDescription: "Develop and maintain large-scale, distributed software systems to enhance Google's product ecosystem.",
-      requirements: ["BS/MS in Computer Science", "5+ years of software development experience", "Proficiency in Python, Java, or C++", "Experience with cloud platforms"],
-      responsibilities: ["Design and implement scalable software solutions", "Collaborate with cross-functional teams", "Optimize system performance", "Conduct code reviews and testing"],
-      image: "assets/images/isina.jpg",
+      title: "Job Opportunity at ADMA International Ltd for(A2)Graduation from high school",
+      description: "<b>Company Name: ADMA International Ltd\nJob Title:  Plumber\nReports to:  Production Manager\nFunction Area: Production</b>.",
+      fullDescription: "We are seeking a skilled and detail-oriented Plumber with strong knowledge of plumbing systems, installation techniques, safety standards, and quality assurance practices. In this role, you will be responsible for installing, repairing, and maintaining piping systems, fixtures, and water supply networks in compliance with standards and specifications..",
+      requirements: ["Graduation from high school, recognized craftsman apprenticeship program or equivalent.", "At least five (5) years of experience and knowledge of and ability to use tools materials and methods.", "Physical ability to work in various environments and handle plumbing tools and equipment.", "Ability to read labels, safety warnings, and guidelines.","Always attentive to detail and alert to ensure safety.","Ability to read and interpret technical drawings and blueprints.","Ability to receive and follow instructions and communicate with co-workers.","Strong knowledge of plumbing systems, installation techniques, and safety standards.","<b>To apply, send:</b>\n","A full curriculum vitae (CV) including details of 2 professional referees.","Scanned copy ID","Motivation letter \n\nApplication must be submitted by email, including scanned PDF documents to the Administration Director at this Email address <b>hr@admarwanda.com</b> with the position as the subject","(please sign your documents before sending them as PDF attachment by email)\n\nPlease note that company reserve the right to close the application period before the convenient time if it gets the needed person, only shortlisted candidates will be contacted, if you don’t receive any feedback from us withing two weeks after the closing day of the application, you should consider your application unsuccessful. At ADMA International Ltd, applicants are exclusively selected based on their qualification."],
+      responsibilities: ["Read and interpret blueprints, drawings, and specifications for plumbing projects.", "Install, repair, and maintain pipes, fixtures, and other plumbing systems for residential, commercial, or industrial projects.", "Inspect plumbing systems to ensure functionality, compliance, and safety standards are met.", "Diagnose and troubleshoot plumbing issues, providing effective and timely solutions.","Perform preventive maintenance to avoid future system failures.","Maintain tools and equipment in excellent condition for efficient operations.","Adhere strictly to safety protocols and industry regulations to guarantee a safe and productive work environment."],
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdkJmHkBy6Hu2K6lyyZvCKXh3ifCcUBZ9MAQ&s",
       link: "https://careers.google.com/",
       type: "job",
       location: "Mountain View, CA",
       posted: "2025-06-01",
-      deadline: "2025-08-15",
+      deadline: "2025-08-30",
       featured: true
     },
     {
@@ -3447,7 +3476,6 @@
     featured: false
   }
 ]
-
       const featuresGrid = document.querySelector('.features-grid');
       const filterControls = document.querySelector('.filter-controls');
       const lastUpdatedEl = document.querySelector('.last-updated');
@@ -3472,6 +3500,18 @@
           job.deadline = '2030-12-31';
         }
       });
+
+      // Check URL hash for job ID and expand details if present
+      const hash = window.location.hash;
+      if (hash && hash.startsWith('#job-')) {
+        const jobId = hash.replace('#job-', '');
+        setTimeout(() => {
+          const button = document.querySelector(`.view-details-btn[data-job-id="${jobId}"]`);
+          if (button) {
+            button.click();
+          }
+        }, 100);
+      }
 
       renderJobs(activeJobs);
       renderFilters();
@@ -3514,6 +3554,7 @@
           const jobEl = document.createElement('div');
           jobEl.className = 'feature-box';
           const applyLink = job.type === 'other' ? 'index.html' : job.link;
+          const shareUrl = `${window.location.origin}${window.location.pathname}#job-${job.id}`;
           jobEl.innerHTML = `
             <img src="${job.image}" alt="${job.title} image" class="w-full h-40 object-cover object-center border-b-4 border-teal-900" loading="lazy">
             <div class="job-type">${job.type.charAt(0).toUpperCase() + job.type.slice(1)}</div>
@@ -3535,6 +3576,11 @@
                 </ul>
                 <a class="apply-btn" href="${applyLink}" ${job.type === 'other' ? '' : 'target="_blank"'} aria-label="Apply for ${job.title}">Apply Now</a>
                 <button class="back-btn" data-job-id="${job.id}" aria-label="Back to opportunities list">Back</button>
+                <div class="share-buttons">
+                  <a class="share-btn" href="https://wa.me/?text=${encodeURIComponent(`Check out this ${job.type}: ${job.title} at ${shareUrl}`)}" target="_blank" aria-label="Share ${job.title} on WhatsApp"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
+                  <a class="share-btn" href="https://x.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(`Check out this ${job.type}: ${job.title}`)}" target="_blank" aria-label="Share ${job.title} on X"><i class="fab fa-x-twitter"></i> Share on X</a>
+                  <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}" target="_blank" aria-label="Share ${job.title} on Facebook"><i class="fab fa-facebook"></i> Share on Facebook</a>
+                </div>
               </div>
               <div class="job-meta flex justify-between flex-wrap text-xs text-gray-500">
                 <span>📍 ${job.location}</span>
@@ -3553,6 +3599,7 @@
             const details = document.getElementById(`details-${jobId}`);
             const applyBtn = details.querySelector('.apply-btn');
             const backBtn = details.querySelector('.back-btn');
+            const shareButtons = details.querySelector('.share-buttons');
             const featureBox = button.closest('.feature-box');
             const allFeatureBoxes = document.querySelectorAll('.feature-box');
 
@@ -3561,6 +3608,13 @@
             featureBox.classList.toggle('feature-box-expanded', !isActive);
             button.textContent = details.classList.contains('active') ? 'Hide Details' : 'View Details';
             button.setAttribute('aria-expanded', details.classList.contains('active'));
+
+            // Update URL hash when expanding details
+            if (details.classList.contains('active')) {
+              window.location.hash = `job-${jobId}`;
+            } else {
+              window.location.hash = '';
+            }
 
             allFeatureBoxes.forEach(box => {
               if (box !== featureBox) {
@@ -3571,12 +3625,14 @@
             if (details.classList.contains('active')) {
               applyBtn.style.display = 'inline-block';
               backBtn.style.display = 'inline-block';
+              shareButtons.style.display = 'block';
               setTimeout(() => {
                 details.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }, 100);
             } else {
               applyBtn.style.display = 'none';
               backBtn.style.display = 'none';
+              shareButtons.style.display = 'none';
             }
           });
         });
@@ -3588,6 +3644,7 @@
             const viewDetailsBtn = document.querySelector(`.view-details-btn[data-job-id="${jobId}"]`);
             const applyBtn = details.querySelector('.apply-btn');
             const backBtn = details.querySelector('.back-btn');
+            const shareButtons = details.querySelector('.share-buttons');
             const featureBox = button.closest('.feature-box');
             const allFeatureBoxes = document.querySelectorAll('.feature-box');
 
@@ -3597,6 +3654,8 @@
             viewDetailsBtn.setAttribute('aria-expanded', 'false');
             applyBtn.style.display = 'none';
             backBtn.style.display = 'none';
+            shareButtons.style.display = 'none';
+            window.location.hash = '';
 
             allFeatureBoxes.forEach(box => {
               box.style.display = 'block';
