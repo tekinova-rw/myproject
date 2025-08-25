@@ -9,14 +9,14 @@
   <meta name="robots" content="index, follow" />
   <title>jobandscholarships - Global Jobs, Internships, and Scholarships</title>
   <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="jobandscholarships - Jobs, Internships, and Scholarships" />
+  <meta property="og:title" content="jobandscholarships - Global Jobs, Internships, and Scholarships" />
   <meta property="og:description" content="Explore a wide range of job opportunities, internships, and scholarships worldwide with jobandscholarships." />
   <meta property="og:image" content="https://via.placeholder.com/1200x600?text=jobandscholarships+Logo" />
   <meta property="og:url" content="https://www.jobandscholarships.com/" />
   <meta property="og:type" content="website" />
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="jobandscholarships - Global Job Opportunities" />
+  <meta name="twitter:title" content="jobandscholarships - Global Jobs, Internships, and Scholarships" />
   <meta name="twitter:description" content="Find your next career move with jobandscholarships's job, internship, and scholarship listings." />
   <meta name="twitter:image" content="https://via.placeholder.com/1200x600?text=jobandscholarships+Logo" />
   <!-- Structured Data for SEO -->
@@ -1248,6 +1248,7 @@
       }
 
       // Features Data
+       // Features Data
       const jobsData = [
         // ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
         
@@ -3590,8 +3591,8 @@
                 <a class="apply-btn" href="${applyLink}" ${job.type === 'other' ? '' : 'target="_blank"'} aria-label="Apply for ${job.title}">Apply Now</a>
                 <button class="back-btn" data-job-id="${job.id}" aria-label="Back to opportunities list">Back</button>
                 <div class="share-buttons">
-                  <a class="share-btn" href="https://wa.me/?text=${encodeURIComponent(`Check out this ${job.type}: ${job.title} at ${shareUrl}\nImage: ${job.image}`)}" target="_blank" aria-label="Share ${job.title} on WhatsApp"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
-                  <a class="share-btn" href="https://x.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(`Check out this ${job.type}: ${job.title}`)}" target="_blank" aria-label="Share ${job.title} on X"><i class="fab fa-x-twitter"></i> Share on X</a>
+                  <a class="share-btn" href="https://wa.me/?text=${encodeURIComponent(`jobandscholarships: ${job.title} at ${shareUrl}\nImage: ${job.image}`)}" target="_blank" aria-label="Share ${job.title} on WhatsApp"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
+                  <a class="share-btn" href="https://x.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(`jobandscholarships: ${job.title}`)}" target="_blank" aria-label="Share ${job.title} on X"><i class="fab fa-x-twitter"></i> Share on X</a>
                   <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}" target="_blank" aria-label="Share ${job.title} on Facebook"><i class="fab fa-facebook"></i> Share on Facebook</a>
                 </div>
               </div>
