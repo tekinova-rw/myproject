@@ -4,21 +4,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <meta name="description" content="Discover global job opportunities, internships, and scholarships at jobandscholarships. Apply now to advance your career!" />
-  <meta name="keywords" content="jobs, internships, scholarships, career opportunities, jobandscholarships, tech jobs, global opportunities" />
-  <meta name="author" content="Jobandscholarships" />
+  <meta name="keywords" content="jobs, internships, scholarships, career opportunities, jobandscholarships, tech jobs, global opportunities, employment, career development" />
+  <meta name="author" content="jobandscholarships" />
   <meta name="robots" content="index, follow" />
-  <title>Jobs and Scholarships</title>
+  <title>jobandscholarships - Global Jobs, Internships, and Scholarships</title>
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="jobandscholarships - Jobs, Internships, and Scholarships" />
   <meta property="og:description" content="Explore a wide range of job opportunities, internships, and scholarships worldwide with jobandscholarships." />
-  <meta property="og:image" content="https://via.placeholder.com/1200x600?text=TekiNova+Logo" />
+  <meta property="og:image" content="https://via.placeholder.com/1200x600?text=jobandscholarships+Logo" />
   <meta property="og:url" content="https://www.jobandscholarships.com/" />
-  <meta property="og:type" content="https://jobandscholarships.netlify.app/" />
+  <meta property="og:type" content="website" />
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="jobandscholarships - Global Job Opportunities" />
   <meta name="twitter:description" content="Find your next career move with jobandscholarships's job, internship, and scholarship listings." />
-  <meta name="twitter:image" content="https://via.placeholder.com/1200x600?text=TekiNova+Logo" />
+  <meta name="twitter:image" content="https://via.placeholder.com/1200x600?text=jobandscholarships+Logo" />
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "jobandscholarships",
+      "url": "https://www.jobandscholarships.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.jobandscholarships.com/?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
   <!-- Font Awesome (Latest Stable CDN) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
@@ -334,7 +348,6 @@
       object-fit: cover;
       object-position: center;
       border-bottom: 3px solid #012f47;
-      display: block;
       max-width: 1200px;
       margin: 0 auto;
       position: relative;
@@ -518,7 +531,7 @@
 
     .job-details li {
       color: #555;
-      font-size: 20px;
+      font-size: 14px;
       line-height: 1.6;
       margin-bottom: 6px;
       word-wrap: break-word;
@@ -785,7 +798,7 @@
   <!-- ===== HEADER ===== -->
   <header class="flex justify-between items-center">
     <div class="logo flex items-center">
-      <img src="https://via.placeholder.com/36x36?text=Logo" alt="TekiNova Company Logo" class="w-9 h-9 rounded-full border-2 border-yellow-400 mr-2">
+      <img src="https://via.placeholder.com/36x36?text=Logo" alt="jobandscholarships Company Logo" class="w-9 h-9 rounded-full border-2 border-yellow-400 mr-2">
       <h1 class="text-yellow-400 text-lg font-bold">jobandscholarships</h1>
     </div>
     
@@ -881,7 +894,7 @@
         <li>
           <a href="#" aria-expanded="false" aria-label="Toggle About dropdown">About</a>
           <div class="dropdown">
-            <h2 class="text-yellow-400">Aboutjob & scholarship</h2>
+            <h2 class="text-yellow-400">About jobandscholarships</h2>
             <a href="About.html">About Us</a>
             <a href="index.html">Company Background & Vision</a>
             <a href="index.html">Mission & Goals</a>
@@ -1025,10 +1038,10 @@
         <strong>WhatsApp:</strong>
         <a href="https://wa.me/+250733253803" target="_blank" class="toto">+250 733 253 803</a>
         <strong>Email:</strong>
-        <a href="mailto:info@tekinova.com" class="toto">info@tekinova.com</a>
+        <a href="mailto:info@jobandscholarships.com" class="toto">info@jobandscholarships.com</a>
       </div>
       <div class="col">
-        <h2 class="text-yellow-400">About job and scholarships</h2>
+        <h2 class="text-yellow-400">About jobandscholarships</h2>
         <a href="About.html" class="underline font-bold">More Info</a>
         <a href="index.html">Company Background & Vision</a>
         <a href="index.html">Mission & Goals</a>
@@ -1235,7 +1248,7 @@
       }
 
       // Features Data
-       // Features Data
+     // Features Data
       const jobsData = [
         // ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
         
@@ -3476,6 +3489,7 @@
     featured: false
   }
 ]
+
       const featuresGrid = document.querySelector('.features-grid');
       const filterControls = document.querySelector('.filter-controls');
       const lastUpdatedEl = document.querySelector('.last-updated');
@@ -3590,6 +3604,36 @@
           `;
           featuresGrid.appendChild(jobEl);
           startCountdown(job.deadline, `countdown-${job.id}`);
+        });
+
+        // Structured Data for Jobs
+        jobs.forEach(job => {
+          const script = document.createElement('script');
+          script.type = 'application/ld+json';
+          script.textContent = JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "JobPosting",
+            "title": job.title,
+            "description": job.fullDescription,
+            "datePosted": job.posted,
+            "validThrough": job.deadline,
+            "employmentType": job.type === "job" ? "FULL_TIME" : (job.type === "internship" ? "INTERN" : "OTHER"),
+            "hiringOrganization": {
+              "@type": "Organization",
+              "name": "jobandscholarships",
+              "sameAs": "https://www.jobandscholarships.com/"
+            },
+            "jobLocation": {
+              "@type": "Place",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": job.location.split(',')[0].trim(),
+                "addressRegion": job.location.split(',')[1]?.trim() || ""
+              }
+            },
+            "url": job.link
+          });
+          document.head.appendChild(script);
         });
 
         // Event listeners for View Details and Back buttons

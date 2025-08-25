@@ -1248,7 +1248,6 @@
       }
 
       // Features Data
-     // Features Data
       const jobsData = [
         // ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
         
@@ -3591,7 +3590,7 @@
                 <a class="apply-btn" href="${applyLink}" ${job.type === 'other' ? '' : 'target="_blank"'} aria-label="Apply for ${job.title}">Apply Now</a>
                 <button class="back-btn" data-job-id="${job.id}" aria-label="Back to opportunities list">Back</button>
                 <div class="share-buttons">
-                  <a class="share-btn" href="https://wa.me/?text=${encodeURIComponent(`Check out this ${job.type}: ${job.title} at ${shareUrl}`)}" target="_blank" aria-label="Share ${job.title} on WhatsApp"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
+                  <a class="share-btn" href="https://wa.me/?text=${encodeURIComponent(`Check out this ${job.type}: ${job.title} at ${shareUrl}\nImage: ${job.image}`)}" target="_blank" aria-label="Share ${job.title} on WhatsApp"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
                   <a class="share-btn" href="https://x.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(`Check out this ${job.type}: ${job.title}`)}" target="_blank" aria-label="Share ${job.title} on X"><i class="fab fa-x-twitter"></i> Share on X</a>
                   <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}" target="_blank" aria-label="Share ${job.title} on Facebook"><i class="fab fa-facebook"></i> Share on Facebook</a>
                 </div>
