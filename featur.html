@@ -1,0 +1,3665 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="description" content="Discover global job opportunities, internships, and scholarships at TekiNova. Apply now to advance your career!" />
+  <meta name="keywords" content="jobs, internships, scholarships, career opportunities, TekiNova, tech jobs, global opportunities" />
+  <meta name="author" content="TekiNova" />
+  <meta name="robots" content="index, follow" />
+  <title>Jobs and Scholarships</title>
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="TekiNova - Jobs, Internships, and Scholarships" />
+  <meta property="og:description" content="Explore a wide range of job opportunities, internships, and scholarships worldwide with TekiNova." />
+  <meta property="og:image" content="https://via.placeholder.com/1200x600?text=TekiNova+Logo" />
+  <meta property="og:url" content="https://www.jobandscholarships.com/" />
+  <meta property="og:type" content="website" />
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TekiNova - Global Job Opportunities" />
+  <meta name="twitter:description" content="Find your next career move with TekiNova's job, internship, and scholarship listings." />
+  <meta name="twitter:image" content="https://via.placeholder.com/1200x600?text=TekiNova+Logo" />
+  <!-- Font Awesome (Latest Stable CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #012f47;
+      color: white;
+      padding: 10px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      z-index: 1001;
+    }
+
+    .logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid #f1c40f;
+      margin-right: 8px;
+    }
+
+    .logo h1 {
+      color: #f1c40f;
+      font-size: 18px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 8px;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+      white-space: nowrap;
+    }
+
+    .navbar a:hover {
+      background-color: #033d3d;
+      color: #f1c40f;
+    }
+
+    .hamburger-icon, .menu-toggle {
+      font-size: 18px;
+      cursor: pointer;
+      color: white;
+      transition: color 0.3s;
+      padding: 6px;
+    }
+
+    .hamburger-icon:hover, .menu-toggle:hover {
+      color: #f1c40f;
+    }
+
+    .menu-toggle {
+      display: none;
+      z-index: 1001;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #002366;
+      min-width: 220px;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 999;
+      padding: 8px;
+    }
+
+    .dropdown h2 {
+      color: #f1c40f;
+      font-size: 13px;
+      margin: 8px 0 4px;
+      padding-left: 4px;
+    }
+
+    .dropdown a {
+      padding: 6px 10px;
+      display: block;
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+
+    .dropdown a:hover {
+      background-color: #033d3d;
+      padding-left: 12px;
+    }
+
+    .navbar li {
+      position: relative;
+    }
+
+    .navbar li:hover .dropdown {
+      display: block;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      max-width: 280px;
+      height: 100vh;
+      background-color: #002240;
+      color: white;
+      padding: 15px;
+      transition: right 0.3s ease;
+      z-index: 1000;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+      overflow-y: auto;
+    }
+
+    .sidebar.active {
+      right: 0;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      color: #f1c40f;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #555;
+    }
+
+    .sidebar-header i {
+      cursor: pointer;
+      transition: color 0.3s;
+      font-size: 18px;
+    }
+
+    .sidebar-header i:hover {
+      color: #d4af37;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      padding: 10px 0;
+      text-decoration: none;
+      transition: color 0.3s;
+      font-size: 13px;
+    }
+
+    .sidebar a:hover {
+      color: #f1c40f;
+    }
+
+    .sidebar i {
+      width: 18px;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    .hamburger-widget {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+    .hamburger-widget h3 {
+      color: #f1c40f;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .hamburger-widget p {
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .hamburger-widget .widget-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .widget-stats div {
+      text-align: center;
+    }
+
+    .widget-stats span {
+      display: block;
+      font-size: 15px;
+      font-weight: bold;
+      color: #f1c40f;
+    }
+
+    .widget-stats small {
+      font-size: 11px;
+      opacity: 0.8;
+    }
+
+    .main-content {
+      max-width: 100%;
+      margin: 15px auto;
+      padding: 10px;
+      flex: 1;
+    }
+
+    .features-container {
+      max-width: 1200px;
+      margin: 15px auto;
+      padding: 10px;
+    }
+
+    .features-container h1 {
+      text-align: center;
+      color: #012f47;
+      margin-bottom: 15px;
+      font-size: 1.6rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+      justify-content: center;
+    }
+
+    .feature-box {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, width 0.3s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-width: 260px;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .feature-box-expanded {
+      grid-column: 1 / -1;
+      max-width: 100%;
+      width: 100%;
+      margin: 0 auto;
+      z-index: 10;
+      padding: 10px;
+    }
+
+    .feature-box img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      object-position: center;
+      border-bottom: 3px solid #012f47;
+      display: block;
+    }
+
+    .feature-content {
+      padding: 12px;
+      flex-grow: 1;
+    }
+
+    .feature-box h2 {
+      color: #012f47;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+
+    .feature-box p {
+      color: #555;
+      margin-bottom: 12px;
+      line-height: 1.5;
+      font-size: 13px;
+      word-wrap: break-word;
+      hyphens: auto;
+    }
+
+    .view-details-btn, .apply-btn, .back-btn {
+      display: inline-block;
+      background-color: #012f47;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s;
+      font-size: 13px;
+      text-align: center;
+      min-width: 100px;
+      cursor: pointer;
+      margin: 4px;
+    }
+
+    .view-details-btn:hover, .apply-btn:hover, .back-btn:hover {
+      background-color: #034d6d;
+    }
+
+    .job-type {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background-color: #f1c40f;
+      color: #012f47;
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.65rem;
+    }
+
+    .last-updated {
+      text-align: center;
+      margin-top: 15px;
+      color: #777;
+      font-style: italic;
+      font-size: 13px;
+    }
+
+    .filter-controls {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 6px 12px;
+      background: #e0e0e0;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 13px;
+    }
+
+    .filter-btn.active {
+      background: #012f47;
+      color: white;
+    }
+
+    .filter-btn:hover {
+      background: #d0d0d0;
+    }
+
+    .upload-section {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 15px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .upload-section h1 {
+      color: #012f47;
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .upload-section p {
+      color: #555;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .upload-section ol {
+      list-style-type: decimal;
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+
+    .upload-section li {
+      color: #333;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .upload-section a {
+      color: #012f47;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    .upload-section a:hover {
+      color: #034d6d;
+    }
+
+    .job-details {
+      display: none;
+      padding: 16px;
+      background-color: #f1f1f1;
+      border-left: 4px solid #012f47;
+      width: 100%;
+    }
+
+    .job-details.active {
+      display: block;
+    }
+
+    .job-details h3 {
+      color: #012f47;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .job-details p {
+      color: #555;
+      font-size: 14px;
+      line-height: 1.8;
+      word-wrap: break-word;
+      hyphens: auto;
+      margin-bottom: 12px;
+    }
+
+    .job-details ul {
+      list-style-type: disc;
+      margin-left: 20px;
+      margin-bottom: 10px;
+    }
+
+    .job-details li {
+      color: #555;
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 6px;
+      word-wrap: break-word;
+      hyphens: auto;
+    }
+
+    .countdown {
+      background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 8px;
+      padding: 8px;
+      border-radius: 6px;
+      text-align: center;
+      border: 1px solid #ff9f43;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s ease;
+    }
+
+    .countdown.expired {
+      background: linear-gradient(135deg, #6b7280, #4b5563);
+      color: #ffffff;
+      border: 1px solid #4b5563;
+    }
+
+    footer {
+      background-color: #012f47;
+      color: white;
+      padding: 20px 10px;
+    }
+
+    .footer-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 15px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-columns .col h3, .footer-columns .col h2 {
+      color: #f1c40f;
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+
+    .footer-columns .col a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 5px;
+      transition: color 0.3s;
+      font-size: 13px;
+    }
+
+    .footer-columns .col a:hover {
+      color: #f1c40f;
+    }
+
+    .mobile-nav {
+      display: none;
+      width: 100%;
+      background-color: #012f47;
+      padding: 8px;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      z-index: 998;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    .mobile-nav.active {
+      display: block;
+    }
+
+    .mobile-nav ul {
+      list-style: none;
+    }
+
+    .mobile-nav li {
+      margin-bottom: 8px;
+    }
+
+    .mobile-nav a {
+      display: block;
+      padding: 8px 12px;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+      font-size: 13px;
+    }
+
+    .mobile-nav a:hover {
+      background-color: #033d3d;
+    }
+
+    .mobile-dropdown {
+      display: none;
+      padding-left: 12px;
+      margin-top: 4px;
+      border-left: 2px solid #f1c40f;
+    }
+
+    .mobile-dropdown.active {
+      display: block;
+    }
+
+    .mobile-dropdown a {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .mobile-dropdown h3 {
+      color: #f1c40f;
+      font-size: 12px;
+      margin: 8px 0 4px;
+      padding-left: 4px;
+    }
+
+    .search-container {
+      max-width: 600px;
+      margin: 15px auto;
+      padding: 10px;
+    }
+
+    .search-container input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .search-container input:focus {
+      border-color: #012f47;
+    }
+
+    .top-right-slider {
+      position: sticky;
+      top: 64px;
+      width: 100%;
+      background: #02635e;
+      color: white;
+      padding: 8px 0;
+      text-align: center;
+      overflow: hidden;
+      z-index: 900;
+    }
+
+    .slider-text {
+      display: inline-block;
+      padding-left: 100%;
+      white-space: nowrap;
+      animation: slide-left 35s linear infinite;
+      font-size: 1rem;
+    }
+
+    @keyframes slide-left {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .slider-text b {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: x-large;
+    }
+
+    @media (max-width: 1024px) {
+      .navbar ul { gap: 4px; }
+      .navbar a { font-size: 12px; padding: 5px 7px; }
+      .dropdown { min-width: 200px; }
+      .features-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+      .hamburger-widget .widget-stats { grid-template-columns: repeat(2, 1fr); }
+      .feature-box p { font-size: 12px; }
+      .job-details p { font-size: 13px; line-height: 1.7; }
+      .job-details li { font-size: 12px; }
+      .feature-box { min-width: 240px; }
+      .feature-box-expanded { max-width: 100%; }
+      .job-details { padding: 14px; }
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 8px 12px; }
+      .logo h1 { font-size: 16px; }
+      .navbar { display: none; }
+      .menu-toggle { display: block; }
+      .hamburger-icon { display: none; }
+      .sidebar { width: 100%; max-width: 100%; }
+      .features-container h1 { font-size: 1.4rem; margin-bottom: 12px; }
+      .feature-box h2 { font-size: 1rem; }
+      .feature-box img { height: 140px; }
+      .filter-btn { padding: 5px 10px; font-size: 12px; }
+      .dropdown { position: static; display: none; width: 100%; box-shadow: none; border-radius: 0; }
+      .navbar li:hover .dropdown { display: none; }
+      .hamburger-widget .widget-stats { grid-template-columns: 1fr; gap: 12px; }
+      .main-content, .features-container { padding: 8px; margin: 8px auto; }
+      .feature-box p { font-size: 11px; }
+      .job-details p { font-size: 12px; line-height: 1.6; }
+      .job-details li { font-size: 11px; }
+      .feature-box { min-width: 100%; max-width: 100%; }
+      .feature-box-expanded { max-width: 100%; padding: 12px; }
+      .job-details { padding: 12px; }
+    }
+
+    @media (max-width: 576px) {
+      .logo img { width: 32px; height: 32px; }
+      .logo h1 { font-size: 14px; }
+      .menu-toggle { font-size: 18px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .filter-controls { flex-direction: column; align-items: center; }
+      .footer-columns { grid-template-columns: 1fr; }
+      .feature-box img { height: 120px; }
+      .mobile-nav { top: 52px; }
+      .feature-box p { font-size: 10px; }
+      .job-details p { font-size: 11px; line-height: 1.5; }
+      .job-details li { font-size: 10px; }
+      .feature-box { min-width: 100%; max-width: 100%; }
+      .feature-box-expanded { max-width: 100%; padding: 10px; }
+      .job-details { padding: 10px; }
+    }
+
+    @media (max-width: 480px) {
+      .main-content, .features-container { padding: 8px; margin: 10px auto; }
+      .features-container h1 { font-size: 1.2rem; }
+      .feature-box p { font-size: 9px; }
+      .job-details p { font-size: 10px; line-height: 1.4; }
+      .job-details li { font-size: 9px; }
+      .feature-box { min-width: 100%; max-width: 100%; }
+      .feature-box-expanded { max-width: 100%; padding: 8px; }
+      .job-details { padding: 8px; }
+    }
+
+    #topBtn {
+      display: none;
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      z-index: 99;
+      font-size: 30px;
+      color: rgb(1, 27, 10);
+      border: none;
+      padding: 12px 15px;
+      border-radius: 20%;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    #topBtn:hover {
+      background-color: #bcdf8f;
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== HEADER ===== -->
+  <header class="flex justify-between items-center">
+    <div class="logo flex items-center">
+      <img src="jo.jpeg" alt="j&s Company Logo" class="w-9 h-9 rounded-full border-2 border-yellow-400 mr-2">
+      <h1 class="text-yellow-400 text-lg font-bold">jobandscholarships</h1>
+    </div>
+    
+    <div class="menu-toggle md:hidden" id="menuToggle" aria-label="Toggle mobile navigation">
+      <i class="fas fa-bars"></i>
+    </div>
+    
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav" id="mobileNav">
+      <ul class="flex flex-col">
+        <li><a href="index.html" class="hover:bg-teal-900">Home</a></li>
+        <li>
+          <a href="#" data-toggle="aboutDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle About dropdown">About <i class="fas fa-chevron-down"></i></a>
+          <div class="mobile-dropdown" id="aboutDropdown">
+            <h3 class="text-yellow-400">About TEKINOVA</h3>
+            <a href="About.html">About Us</a>
+            <a href="index.html">Company Background & Vision</a>
+            <a href="index.html">Mission & Goals</a>
+            <a href="index.html">Contacts</a>
+            <h3 class="text-yellow-400">Administrative</h3>
+            <a href="index.html">Team or Founders</a>
+            <a href="index.html">Core Values</a>
+            <a href="index.html">Executive Organ</a>
+            <a href="index.html">Senior Management</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" data-toggle="servicesDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Services dropdown">Services <i class="fas fa-chevron-down"></i></a>
+          <div class="mobile-dropdown" id="servicesDropdown">
+            <a href="services.html">Our Services</a>
+            <a href="index.html">Web Development</a>
+            <a href="index.html">App Development</a>
+            <a href="index.html">Tech Consultancy</a>
+            <a href="index.html">Custom Software</a>
+            <a href="index.html">AI/IoT/Automation Services</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" data-toggle="productsDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Products dropdown">Products <i class="fas fa-chevron-down"></i></a>
+          <div class="mobile-dropdown" id="productsDropdown">
+            <a href="Products.html">Products</a>
+            <a href="index.html">App Development</a>
+            <a href="index.html">Tech Consultancy</a>
+            <a href="index.html">Custom Software</a>
+            <a href="index.html">AI/IoT/Automation Services</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" data-toggle="newsDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Tech News dropdown">Tech News <i class="fas fa-chevron-down"></i></a>
+          <div class="mobile-dropdown" id="newsDropdown">
+            <h3 class="text-yellow-400">Blog</h3>
+            <a href="Blog_Tech_News.html">Blog Tech News</a>
+            <a href="index.html">Articles About Technology Trends</a>
+            <a href="index.html">How-to Guides or Tutorials</a>
+            <a href="index.html">Company Updates</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" data-toggle="careersDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Careers dropdown">Careers <i class="fas fa-chevron-down"></i></a>
+          <div class="mobile-dropdown" id="careersDropdown">
+            <a href="Careers.html">Develop Your Careers</a>
+            <a href="index.html">Articles About Technology Trends</a>
+            <a href="index.html">How-to Guides or Tutorials</a>
+            <a href="index.html">Company Updates</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" data-toggle="jobsDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Jobs dropdown">Jobs <i class="fas fa-chevron-down"></i></a>
+          <div class="mobile-dropdown" id="jobsDropdown">
+            <h3 class="text-yellow-400">Apply Job</h3>
+            <a href="features.html">Go to Jobs & Internships</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" data-toggle="contactDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Contact dropdown">Contact <i class="fas fa-chevron-down"></i></a>
+          <div class="mobile-dropdown" id="contactDropdown">
+            <a href="contact_us.html">Tell Us Anything</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" data-toggle="calendarDropdown" class="hover:bg-teal-900" aria-expanded="false" aria-label="Toggle Working Calendar dropdown">Working Calendar <i class="fas fa-chevron-down"></i></a>
+          <div class="mobile-dropdown" id="calendarDropdown">
+            <a href="amasahayakazi.html">Our Calendar Days</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Desktop Navigation -->
+    <nav class="navbar hidden md:flex">
+      <ul class="flex gap-2">
+        <li><a href="index.html" class="hover:bg-teal-900">Home</a></li>
+        <li>
+          <a href="#" aria-expanded="false" aria-label="Toggle About dropdown">About</a>
+          <div class="dropdown">
+            <h2 class="text-yellow-400">About job&Scholarships</h2>
+            <a href="About.html">About Us</a>
+            <a href="index.html">Company Background & Vision</a>
+            <a href="index.html">Mission & Goals</a>
+            <a href="index.html">Contacts</a>
+            <h2 class="text-yellow-400">Administrative</h2>
+            <a href="index.html">Team or Founders</a>
+            <a href="index.html">Core Values</a>
+            <a href="index.html">Executive Organ</a>
+            <a href="index.html">Senior Management</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" aria-expanded="false" aria-label="Toggle Services dropdown">Services</a>
+          <div class="dropdown">
+            <a href="services.html">Our Services</a>
+            <a href="index.html">Web Development</a>
+            <a href="index.html">App Development</a>
+            <a href="index.html">Tech Consultancy</a>
+            <a href="index.html">Custom Software</a>
+            <a href="index.html">AI/IoT/Automation Services</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" aria-expanded="false" aria-label="Toggle Products dropdown">Products</a>
+          <div class="dropdown">
+            <a href="Products.html">Products</a>
+            <a href="index.html">App Development</a>
+            <a href="index.html">Tech Consultancy</a>
+            <a href="index.html">Custom Software</a>
+            <a href="index.html">AI/IoT Services</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" aria-expanded="false" aria-label="Toggle Tech News dropdown">Tech News</a>
+          <div class="dropdown">
+            <h2 class="text-yellow-400">Blog</h2>
+            <a href="Events.html">Events</a>
+            <a href="index.html">Upcoming Events</a>
+            <a href="index.html">Past Events</a>
+            <a href="index.html">Company Updates</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" aria-expanded="false" aria-label="Toggle Careers dropdown">Careers</a>
+          <div class="dropdown">
+            <a href="Careers.html">Careers</a>
+            <a href="index.html">Career Paths</a>
+            <a href="index.html">Benefits</a>
+            <a href="index.html">Career Updates</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" aria-expanded="false" aria-label="Toggle Jobs dropdown">Jobs</a>
+          <div class="dropdown">
+            <h2 class="text-yellow-400">Apply Now</h2>
+            <a href="features.html">View Jobs & Internships</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" aria-expanded="false" aria-label="Toggle Contact dropdown">Contact</a>
+          <div class="dropdown">
+            <a href="contact_us.html">Contact Us</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="hamburger-icon hidden md:block" id="hamburgerIcon" aria-label="Toggle sidebar menu">
+      <i class="fas fa-bars"></i>
+    </div>
+  </header>
+
+  <div class="top-right-slider">
+    <div class="slider-text"><b>Contact us for assistance with our services at 0771217065</b></div>
+  </div>
+
+  <!-- ===== HAMBURGER MENU SIDEBAR ===== -->
+  <aside class="sidebar" id="hamburgerMenu" aria-hidden="true">
+    <div class="sidebar-header">
+      <span><i class="fas fa-bars"></i> Menu</span>
+      <i class="fas fa-times" id="closeHamburger" aria-label="Close sidebar"></i>
+    </div>
+    <nav class="flex flex-col gap-2">
+      <a href="index.html" class="hover:text-yellow-400"><i class="fas fa-home w-5"></i> Home</a>
+      <a href="About.html" class="hover:text-yellow-400"><i class="fas fa-info-circle w-5"></i> About</a>
+      <a href="services.html" class="hover:text-yellow-400"><i class="fas fa-cogs w-5"></i> Services</a>
+      <a href="Products.html" class="hover:text-yellow-400"><i class="fas fa-box w-5"></i> Products</a>
+      <a href="Blog_Tech_News.html" class="hover:text-yellow-400"><i class="fas fa-blog w-5"></i> Blog</a>
+      <a href="Careers.html" class="hover:text-yellow-400"><i class="fas fa-briefcase w-5"></i> Careers</a>
+      <a href="features.html" class="hover:text-yellow-400"><i class="fas fa-laptop-code w-5"></i> Jobs</a>
+      <a href="contact_us.html" class="hover:text-yellow-400"><i class="fas fa-envelope w-5"></i> Contact</a>
+    </nav>
+    <div class="hamburger-widget">
+      <h3 class="text-yellow-400">Quick Stats</h3>
+      <p>Overview of available opportunities</p>
+      <div class="widget-stats">
+        <div><span>200</span><small>Jobs</small></div>
+        <div><span>100</span><small>Scholarships</small></div>
+        <div><span>50</span><small>Internships</small></div>
+      </div>
+    </div>
+    <div class="hamburger-widget">
+      <h3 class="text-yellow-400">Recent Activity</h3>
+      <p><i class="fas fa-check-circle mr-2"></i> New job postings added</p>
+      <p><i class="fas fa-user-plus mr-2"></i> New scholarships available</p>
+      <p><i class="fas fa-sync-alt mr-2"></i> Platform updated</p>
+    </div>
+  </aside>
+
+  <!-- ===== SEARCH BAR ===== -->
+  <section class="search-container">
+    <input type="text" id="jobSearch" placeholder="Search jobs, internships, or scholarships..." aria-label="Search opportunities">
+  </section>
+
+  <!-- ===== UPLOAD SECTION ===== -->
+  <section class="upload-section">
+    <h1>Upload Your Opportunity</h1>
+    <p>Share new job openings, internships, or scholarships with our community.</p>
+    <ol>
+      <li>Create an account or log in to submit your opportunity.</li>
+      <li>Fill out the opportunity details form.</li>
+      <li>Submit for review, and we'll post it once approved.</li>
+    </ol>
+    <a href="submit.html">Submit Now</a>
+  </section>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="features-container flex-1">
+    <h1 class="text-center text-2xl md:text-3xl">Latest Global Opportunities</h1>
+    <div class="filter-controls flex justify-center gap-2 flex-wrap"></div>
+    <div class="features-grid"></div>
+    <div class="last-updated text-center mt-4 text-gray-600 italic"></div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-teal-900 text-white py-6">
+    <div class="footer-columns max-w-6xl mx-auto">
+      <div class="col">
+        <h3 class="text-yellow-400">Contact</h3>
+        <a href="./contact_us.html" class="underline font-bold">More Info</a>
+        <strong>WhatsApp:</strong>
+        <a href="https://wa.me/+250733253803" target="_blank" class="toto">+250 733 253 803</a>
+        <strong>Email:</strong>
+        <a href="mailto:info@tekinova.com" class="toto">info@tekinova.com</a>
+      </div>
+      <div class="col">
+        <h2 class="text-yellow-400">About job ands cholarships</h2>
+        <a href="About.html" class="underline font-bold">More Info</a>
+        <a href="index.html">Company Background & Vision</a>
+        <a href="index.html">Mission & Goals</a>
+        <a href="index.html">Contacts</a>
+        <h2 class="text-yellow-400">Administrative</h2>
+        <a href="index.html">Team or Founders</a>
+        <a href="index.html">Core Values</a>
+        <a href="index.html">Executive Organ</a>
+        <a href="index.html">Senior Management</a>
+      </div>
+      <div class="col">
+        <h3 class="text-yellow-400">Services</h3>
+        <a href="services.html" class="underline font-bold">More Info</a>
+        <a href="index.html">Web Development</a>
+        <a href="index.html">App Development</a>
+        <a href="index.html">Tech Consultancy</a>
+        <a href="index.html">Custom Software</a>
+        <a href="index.html">AI/IoT/Automation Services</a>
+      </div>
+      <div class="col">
+        <h3 class="text-yellow-400">Products</h3>
+        <a href="Products.html" class="underline font-bold">More Info</a>
+        <a href="index.html">App Development</a>
+        <a href="index.html">Tech Consultancy</a>
+        <a href="index.html">Custom Software</a>
+        <a href="index.html">AI/IoT/Automation Services</a>
+      </div>
+      <div class="col">
+        <h3 class="text-yellow-400">Careers</h3>
+        <a href="Careers.html" class="underline font-bold">More Info</a>
+        <a href="index.html">Articles About Technology Trends</a>
+        <a href="index.html">How-to Guides or Tutorials</a>
+        <a href="index.html">Company Updates</a>
+      </div>
+      <div class="col">
+        <h3 class="text-yellow-400">Jobs & Internships</h3>
+        <a href="features.html" class="underline font-bold">More Info</a>
+      </div>
+    </div>
+    <button onclick="topFunction()" id="topBtn">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Handle image errors globally
+      document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('error', () => {
+          img.src = 'https://via.placeholder.com/300x160?text=Image+Not+Found';
+          img.alt = img.alt || 'Placeholder image';
+          console.log(`Image failed to load at ${img.src}, switched to placeholder`);
+        });
+      });
+
+      // Menu Toggle Logic
+      const hamburgerIcon = document.getElementById('hamburgerIcon');
+      const closeHamburger = document.getElementById('closeHamburger');
+      const menuToggle = document.getElementById('menuToggle');
+
+      if (hamburgerIcon && closeHamburger && menuToggle) {
+        hamburgerIcon.replaceWith(hamburgerIcon.cloneNode(true));
+        closeHamburger.replaceWith(closeHamburger.cloneNode(true));
+        menuToggle.replaceWith(menuToggle.cloneNode(true));
+
+        const newHamburgerIcon = document.getElementById('hamburgerIcon');
+        const newCloseHamburger = document.getElementById('closeHamburger');
+        const newMenuToggle = document.getElementById('menuToggle');
+
+        if (newHamburgerIcon && newCloseHamburger && newMenuToggle) {
+          newHamburgerIcon.addEventListener('click', toggleHamburgerMenu);
+          newCloseHamburger.addEventListener('click', toggleHamburgerMenu);
+          newMenuToggle.addEventListener('click', toggleMobileNav);
+
+          document.querySelectorAll('.mobile-nav a[data-toggle]').forEach(link => {
+            link.addEventListener('click', (event) => {
+              const dropdownId = link.getAttribute('data-toggle');
+              toggleMobileDropdown(event, dropdownId);
+            });
+          });
+        }
+      }
+
+      function toggleHamburgerMenu() {
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        if (hamburgerMenu) {
+          hamburgerMenu.classList.toggle('active');
+          hamburgerMenu.setAttribute('aria-hidden', !hamburgerMenu.classList.contains('active'));
+          if (hamburgerMenu.classList.contains('active')) {
+            hamburgerMenu.scrollTop = 0;
+            const mobileNav = document.getElementById('mobileNav');
+            if (mobileNav) {
+              mobileNav.classList.remove('active');
+            }
+          }
+        }
+      }
+
+      function toggleMobileNav() {
+        const mobileNav = document.getElementById('mobileNav');
+        if (mobileNav) {
+          mobileNav.classList.toggle('active');
+          if (mobileNav.classList.contains('active')) {
+            mobileNav.scrollTop = 0;
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            if (hamburgerMenu) {
+              hamburgerMenu.classList.remove('active');
+            }
+            document.querySelectorAll('.mobile-dropdown').forEach(dd => {
+              dd.classList.remove('active');
+            });
+          }
+        }
+      }
+
+      function toggleMobileDropdown(event, dropdownId) {
+        event.preventDefault();
+        const dropdown = document.getElementById(dropdownId);
+        if (dropdown) {
+          const isOpen = dropdown.classList.contains('active');
+          document.querySelectorAll('.mobile-dropdown').forEach(dd => {
+            dd.classList.remove('active');
+          });
+          if (!isOpen) dropdown.classList.add('active');
+          event.target.setAttribute('aria-expanded', !isOpen);
+          event.stopPropagation();
+        }
+      }
+
+      document.addEventListener('click', (event) => {
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const mobileNav = document.getElementById('mobileNav');
+        const newHamburgerIcon = document.getElementById('hamburgerIcon');
+        const newMenuToggle = document.getElementById('menuToggle');
+        if (hamburgerMenu && hamburgerMenu.classList.contains('active') &&
+            !hamburgerMenu.contains(event.target) &&
+            newHamburgerIcon && !newHamburgerIcon.contains(event.target)) {
+          hamburgerMenu.classList.remove('active');
+          hamburgerMenu.setAttribute('aria-hidden', 'true');
+        }
+        if (mobileNav && mobileNav.classList.contains('active') &&
+            !mobileNav.contains(event.target) &&
+            newMenuToggle && !newMenuToggle.contains(event.target)) {
+          mobileNav.classList.remove('active');
+          document.querySelectorAll('.mobile-dropdown').forEach(dd => {
+            dd.classList.remove('active');
+          });
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const mobileNav = document.getElementById('mobileNav');
+        if (event.key === 'Escape') {
+          if (hamburgerMenu) {
+            hamburgerMenu.classList.remove('active');
+            hamburgerMenu.setAttribute('aria-hidden', 'true');
+          }
+          if (mobileNav) {
+            mobileNav.classList.remove('active');
+            document.querySelectorAll('.mobile-dropdown').forEach(dd => {
+              dd.classList.remove('active');
+            });
+          }
+        }
+      });
+
+      // Countdown Timer
+      function startCountdown(deadline, elementId) {
+        const countdownEl = document.getElementById(elementId);
+        if (!countdownEl) return;
+
+        function updateCountdown() {
+          const now = new Date();
+          const deadlineDate = new Date(deadline);
+          if (isNaN(deadlineDate)) {
+            countdownEl.textContent = 'Invalid Deadline';
+            countdownEl.classList.add('expired');
+            return;
+          }
+
+          const timeLeft = deadlineDate - now;
+          if (timeLeft <= 0) {
+            countdownEl.textContent = 'Application Closed';
+            countdownEl.classList.add('expired');
+            return;
+          }
+
+          const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+          countdownEl.innerHTML = `
+            <span>Closes in: ${days}d ${hours}h ${minutes}m ${seconds}s</span>
+            <div style="margin-top: 4px; font-size: 0.7rem; color: #fff;">
+              Deadline: ${deadlineDate.toLocaleDateString()}
+            </div>
+          `;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+      }
+
+     // Features Data
+      const jobsData = [
+        // ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+        
+    {
+      id: 1,
+      title: "Google Software Engineer",
+      description: "Join Google's engineering team to build scalable systems.",
+      fullDescription: "Develop and maintain large-scale, distributed software systems to enhance Google's product ecosystem.",
+      requirements: ["BS/MS in Computer Science", "5+ years of software development experience", "Proficiency in Python, Java, or C++", "Experience with cloud platforms"],
+      responsibilities: ["Design and implement scalable software solutions", "Collaborate with cross-functional teams", "Optimize system performance", "Conduct code reviews and testing"],
+      image: "assets/images/isina.jpg",
+      link: "https://careers.google.com/",
+      type: "job",
+      location: "Mountain View, CA",
+      posted: "2025-06-01",
+      deadline: "2025-08-15",
+      featured: true
+    },
+    {
+      id: 2,
+      title: "United Nations Programme Officer",
+      description: "Work on global development projects with the UN.",
+      fullDescription: "Coordinate and manage international development programs, focusing on sustainable development goals.",
+      requirements: ["Master’s degree in International Relations or related field", "3+ years in program management", "Fluency in English and French", "Strong analytical skills"],
+      responsibilities: ["Coordinate international programs", "Manage project budgets", "Liaise with stakeholders", "Report on program outcomes"],
+      image: "assets/images/un-job.jpg",
+      link: "https://careers.un.org",
+      type: "job",
+      location: "New York, NY",
+      posted: "2025-05-20",
+      deadline: "2025-08-10",
+      featured: true
+    },
+    {
+      id: 3,
+      title: "Remote UI/UX Designer",
+      description: "Design user-friendly interfaces for a tech startup.",
+      fullDescription: "Create intuitive and visually appealing interfaces for web and mobile applications.",
+      requirements: ["Bachelor’s in Design or related field", "3+ years of UI/UX experience", "Proficiency in Figma or Adobe XD", "Portfolio of past work"],
+      responsibilities: ["Design user interfaces", "Conduct user research", "Create wireframes and prototypes", "Collaborate with developers"],
+      image: "assets/images/uiux-job.jpg",
+      link: "https://remoteok.com/",
+      type: "job",
+      location: "Remote",
+      posted: "2025-05-15",
+      deadline: "2025-08-20",
+      featured: true
+    },
+    {
+      id: 4,
+      title: "AWS Cloud Architect",
+      description: "Design cloud solutions for enterprise clients.",
+      fullDescription: "Architect and deploy scalable cloud infrastructure for enterprise-level applications using AWS services.",
+      requirements: ["AWS Certified Solutions Architect", "5+ years in cloud architecture", "Experience with microservices", "Knowledge of DevOps practices"],
+      responsibilities: ["Architect cloud solutions", "Deploy infrastructure", "Optimize cloud performance", "Ensure security compliance"],
+      image: "assets/images/aws-job.jpg",
+      link: "https://aws.amazon.com/careers/",
+      type: "job",
+      location: "Seattle, WA",
+      posted: "2025-06-02",
+      deadline: "2025-08-25",
+      featured: false
+    },
+    {
+      id: 5,
+      title: "Data Scientist at Microsoft",
+      description: "Analyze data to drive business insights.",
+      fullDescription: "Leverage advanced analytics and machine learning to provide actionable business insights.",
+      requirements: ["PhD in Data Science or related field", "Proficiency in Python and R", "Experience with Azure ML", "Strong statistical knowledge"],
+      responsibilities: ["Analyze large datasets", "Develop ML models", "Present insights to stakeholders", "Optimize data pipelines"],
+      image: "assets/images/microsoft-job.jpg",
+      link: "https://careers.microsoft.com/",
+      type: "job",
+      location: "Redmond, WA",
+      posted: "2025-05-25",
+      deadline: "2025-08-12",
+      featured: false
+    },
+    {
+      id: 6,
+      title: "Cybersecurity Analyst",
+      description: "Protect systems from cyber threats.",
+      fullDescription: "Monitor and secure IT infrastructure against cyber threats and vulnerabilities.",
+      requirements: ["Bachelor’s in Cybersecurity or related field", "3+ years in security analysis", "Knowledge of SIEM tools", "Certifications like CISSP"],
+      responsibilities: ["Monitor security threats", "Respond to incidents", "Implement security measures", "Conduct vulnerability assessments"],
+      image: "assets/images/cybersecurity-job.jpg",
+      link: "https://jobs.cisco.com/",
+      type: "job",
+      location: "San Francisco, CA",
+      posted: "2025-05-10",
+      deadline: "2025-08-18",
+      featured: false
+    },
+    {
+      id: 7,
+      title: "One Acre Fund Internship",
+      description: "About One Acre Fund.",
+      fullDescription: "Founded in 2006, One Acre Fund equips 5.5 million smallholder farmers to make their farms more productive. Across nine countries that together are home to two-thirds of Africa's farmers, we provide high-quality farm supplies, tree seedlings, accessible credit, modern agronomic training, and a wide range of other agricultural services. On average, this model enables any farmer to increase their income and assets on supported land by more than 35 percent, while permanently improving their resilience. This is all made possible by our team of 9,000+ full-time staff, drawn from diverse backgrounds and professions..",
+      requirements: ["Bachelor's degree in IT related field", "6months of experience in IT related work", "Basic Linux skills, including using command line for navigation and file management", "Write and run simple scripts in Bash or Python","Familiarity with DevOps tools and practices (such as version control or CI/CD","Cloud platform exposure (AWS, Azure, or GCP) but not required","Awareness of automation tools and DevOps workflows", "Interest in IT software deployment, and working in teams","<b>Eligibility :<b>This role is only open to citizens or permanent residents of Rwanda"],
+      responsibilities: ["Develop software components", "Assist in testing", "Participate in code reviews", "Collaborate with mentors"],
+      image: "data:image/png;base64,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",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLScNPlRWiMwnPqZWnWP4Q92FYluEKdl5014b4_dHCbGGTkkqHQ/viewform/",
+      type: "internship",
+      location: "Kigali-Rwanda",
+      posted: "2025-05-15",
+      deadline: "2025-11-04",
+      featured: true
+    },
+    {
+      id: 8,
+      title: "Call for Paid Professional Internship Application",
+      description: "New Vision Veterinary Hospital (NVVH).",
+      fullDescription: "<b>Call for Paid professional</b>\n <b> Veterinarian (small animals)</b>\n\n Veterinarian (small animals) \n internship Application  \n New Vision Veterinary Hospital (NVVH) is a private company operating two veterinary clinics and a clinical and research laboratory.  The main clinic is located in Musanze District, Northern Province. It consists of a laboratory and a large animal clinic.   The clinic in Kigali specializes in small animal medicine and offers high international standards of diagnosis and treatment.  Our facilities offer a range of services including internal medicine, major and minor surgery including orthopedics, hospitalization and much more.  NVVH is known for its excellent medical standards and high work ethics.   .",
+      requirements: ["Languages: Excellent knowledge of English, Education: Only individuals who can submit", "a Doctor degree in Veterinary Medicine,", "a RCVD registration certificate and", "a valid work licenses","<b> Internship Information </b>", "Location: Kigali ,\n Position: Full time  ,\nStart date: Immediately , n\Working hours:40 hours per week , \n Closing date for applications: </b>5th Sept 2025</b>   ","<b> will be accepted:</b>","a car or a moto driving license would be an advantage","Ability to multi-task, be stress-resistant and organized ","A general love and compassion for animals (dogs and cats) is an absolute MUST as well as a basic understanding of animal welfare.","Small animal or pets Work related experience: minimum 5 months","Strong interpersonal skills and a good team player\n\nNote: We prefer honest applications rather than those claiming to be able to do everything. However, you should be able to quickly understand the business of the clinic. \n\nAt NVVH we value diversity and are committed to creating an inclusive environment based on mutual respect for all employees. We do not discriminate on the basis of age, gender, disability, religion, ethnic origin, color, race, marital status or any other status or characteristic protected by applicable law.\n<b>Application process:</b>\nQualified candidates are invited to send one PDF of their cover letter, veterinary license, registration certificate and CV (in English) to <span style='color:green;'>office@nvvh.rw</span>  and copy <span style='color:green;'>kigali@nvvh.rw</span>  with “Application paid professional internship for veterinarian” as the subject of their e-mail. Only complete applications will be reviewed and contacted. "],
+      responsibilities: [""],
+      image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAacAAAB3CAMAAACQeH8xAAABsFBMVEX///8YnVv51AoAAAD7/f4AmFMZgMIVgcoWn1kbnFwAerwSoVkAecEZgb8XgccRhMHW1tat0b5ptI/+0wAAlE35+fkXgsL+/vfu7u7k5ORNTU3O3+na2trr6+tAQEDX5/D01g4hesn58sapqanu9forKyu4uLhxcXEAeLOMs9DI5NWKutVnZ2eHh4clJSVUVFTIyMjl8fcUFBQwMDDv22FfoLs8h7y1zd60tLSCgoIYGBhERER2dnaXv9VqpctCkMKamppdXV2Vyqx8rsWkzOUAeK1km8X8+NowhVoAb66bwdBmmcMAgbj//Os6jbj48Lq+094ejlfSuQDX6eC/2O5Ql7p3sJrl47Tm3onr5Fvo5Hj53W3w420ncZ6Wssdzn7Zaj6mn2MGrunDSyS7s2gDz30oAccWSt4uNqS/s0i327qUHgK9PoHo0gDQJeURpq9hPjDLR1yH121N5vOEwiKsviyxantAAZrNzqSl4rbc5nm28xyxhs4lymyjj3CT14oLbwU1anDLqvgDIvCyCx6FqkF3Exmjby4dUmdUmflZPhKPOsh9LlSacwuO32ZLT6cs52kkbAAAgAElEQVR4nO19i1sbV5ZnAUUVFPVQglVGEkjICLgyICQUJPPQA0MpgZRlsbYy6U5sMtt2NnYl8Uzi8e4k08lMd8/ubPd691/ec+6jHlIJSEJ/m/1aJ+BIVXUfdX/3PO+5F0ka05jGNKYxjWlMYxrTmMY0pjGNaUxjGtOYxjSmMY1pTL+Qbo+mX1CBFJQvZATlRJEK+16Bj3IuE0cV/kimMFAmqEQWF+ShZ4FEtYVc0BZtrtc43u13u91+87jR8y+LqiTR53rjGJ/qNDfqOVFvqK/iUpJ/l6Xr0N13L6WPPnpndNm/+/i9ePrNb+9cp+07v33vvU/e+yZU8BP4+RTo4/fpA/UnRFNcwzCI85iXeUos+Eo28N0vHE03Bun0cd3B/5MnT0U7u46ha4rhPBFD1COWC9WSC2jB81zXdYpBrypdAsUV4lQ6hoX3TvBq4aTvEQ3IBNKgB063QZGqOLqCdbPhLpztEkKf0nWdkG7/hLVZ+YwYLiHE1bQiByaHDROtFp4io+mdW9OX0ezE7N+PLPuffzc/OTk/+Qx+o7S8/PwaHPXg02fLgyWxMFT3wwP6RJ2opmXYtq0oFmeGpmbBJZ3itGvnDVtVVUUxVZORrX7+WOrmbUvV3dd8xleIbcAjMJgn7ILc0W3PU/NaTpK7mmFDMdfnNamhmbZn5PUT6UPFVkyTYKmekdeIge0ohgVkG4bruDh5Knm4ahgaHf2z2qkLTwFw+GNbrqG5ddqHGl4EUlXS4Djppm0b5nVxmp64nGbPH40q+1++AJjm6cAODfY1GOrOi7iStMqXksBJsRAm+O2z9ylqbhgny4XXd13LJ1uvSw3dtEzd8uqsljMDRlWB50iTTeWcYSquq+ZbtAkTRlDRGqJXcg0mhmVrrQrgZHCcMp6mAmgwXzQNOM2FTkGVupfDWWAoqmFRnM48okAXoJAJswfghw4ZT+oUJ3wHILjI+5XTTOiYcnM4fTkKqPtf/W5yfnkZkRrC6dOrm/6RIrw8VHh+8sXtYZyMDh3kYxLhJwv4SSMOlUhIxHHqUs7VcFJbXTbwF7ZpGzB4tkEY1zSIpUCVBMer0FFhlE3dE2risWa7hmpCNQFOcl9BjCzX8bqdzpsagAWdyucNAL7i+DhlPKgXcIJHVWA8QAvmkEK8DMdJwclimLqTYTgpMCNuCKeZWaAvR6i6+19/8SwWJ7jyw/tXtfz+C8o6cYU5OzGc6AsCVNpT7MbxAD/ByLx6XK/DD6Ver15BpoPhUBWHCr6cgzLPVkA0cq6xiKvkVYtx6GMdRhmk0RlrEnCz4a7Zh8Y6AqeMhhdVpdsryLIky5VGTdN1VXVhxCu6wElugloCDrEcpwZ2RNch0Adk3Sbg1LIpmwHWat7s4nzJERs6f3M4we/9UTj9wz8uj8Bp+cerWn65PD8fi9My104+TiDWbcViiqI5gJPner2hqnNgbMCUpgwjbRCUQGyUOvSubiBOApmWBjjljT6bjBkCkBh5etPHqa7DRVvVHvst9IrNZrF4fBzGqeKpKsBkkuNMrlKo5DLHBNgKNCwpCJxQZal51d2VKU4A4s3JvYmZifN4oO5//fUXP8RJPSrMrrAkHjyPKcdwEuwkcLJABdiuahJA5NUgP9nGSSVCSYqmDQKRckyhZqLMo6QQlDhFuAnDKSRdxlHQlGCgSh0NTQCNClkfpx6ByQJd2O3loIFCISxfArnXc6FJPp0YnWgg/hT1tEflHrI1AZVkmwo5lqncu0mcgKMmZu/G4nR+/g9g8sVYbcBk8w8vb/ihwHMIp28EO3GcyJtvASiAxwJ5MchPMMJWq9sSBOIG2auuK7auWqgZQGaBEIRRQq7UNlAEGabpupowxeWmDkpF1fv4JWcYnqFaDgXN10+FLkElCfoJ5Rl4Rs3iSabC0ArsiDOYSq6rd4KBl2tQRsmDaUNxAqRParrrofprAFvfKE4I1MzMd3FAAU7nX6AlEcdP8+89iCni0+33hnFapvZfwE4UJ/BkOlLRUWwTvJnXhSF7j5q/riXcJzbE8hvb1nWXvALuAZkF/KRT8Ymj0jtFG8MNLPHMqemC5HPwwoZuw2d7l2Lg85OUe+25wAammgcCdgPvKK/336L+q2g+ToZpuJbvH9EaCPhpKsUJ2RQMmUzNgy4rtlNHnG7MjhBqaua7GKPv/vT5+T/9bn4YKLyy/OxShroTLy2hshC+iJOiuheSfEyAccCYfvMfygBONiprakpRMnXKCieOnTddRU9WCIoehXyLes5G0dnRoALT2A360tQt18xrIIsqKLrgJlN5HYXKKJRjlbN+jRjgvyoUOxONG6LWMmGcGsAvoJ0iOAE2lqUBTl1gYvC5MmAU4oyDal6BsWPdnF3OafpfhvXN/enZ86++iPFVKXKXWxI/xuKE3lgIXsTJVgAnwMS1FBUFlGEN4KRohGh5nZGm/VeKU6ELNhx4Qb0TYCRgtq5cRDPYJBcVB9SEaTPbmFFGsy3wVb2KdEawlM5tCspPCtc3cqX+ttnsdD2HYDtohpoGKMCcHsIJOIWbkaxMSwOfIIqTVHdsVbcN5vbeMD9NzMxNvztknd+fnrt1/tX31LoewAmvvbjENAejPN7FXf4kNB+Y3EO7FuxlxwKPBeScNWCXk0bEjOAhtTPgENVy3yAbWRYYCbmaitxRe4PqXLV2w2/TBKdMtUmx0DXARWbWhhSWe8HDcgHsiFym6aLHSuv1caozJead+c82cAKAvZdhShFwQtl6RuA9DArTjeM0Nxdj9AFOsx/c+m/PhkYcw0kA1Mejm0WjPA6nCDsxnGyKE8xID5SIPYiTbTrDdjl9HBnKxaCTBYNRAXPBZI4Y+jiqWw8/nCMu4GQZ37oWWB9Kh8Pi45T752M0wo8DHsx54I+B/3MSsstzXcokZq3Yq8jgZPWKABxUbIAfB/pJ5fwkyUXdRLXKTNCb1U9zYE3cGoz03b81Nwsa6vuY4aYu7PORDPX+81h2Akb8TVi8hvgJRv61Z6GHP8BPNtnIhUnEo48JOKYgJUHdmPTxDKF6m/pSdjcqHI4dwAkcJAtxcoSF4eNUeQ3ciT7URg4cXbmQe9x10ae1YI4E/CRdEHSo83mdOEDkVIMnQC4T9HNrvtzD5jw6gahWvWH9hP7uoNGHOE2f3/r9DzFsQQN/L+PbHMlOk5MvIsYHxcnkOIEGRj9nUD+BQ1KrcSmCFp3OndGcB0odjTyY+IQGJvpQEGYxhjCcRqQ78LCOrg+Y/qoqmvNxqgMHgDeWByQNq/XmzZuWoWEgyjZRFwV2BHhiquJiYBg1ok0jVTBRDCcziFNhl7ITtXtq11vXuCZOgNLczOyA0Xd/emYOOOqr74f0EzcJRkXNb/8Gbg8ZEnjhvUgJau+ZrjDNHmtUAURxshSwhtHUjdh7cBcmLcbSwR48Za5SHRdBcKXCtl8PTuJj4BYanFNVz5dugb0Hwwy2Pw6scALQb1NRkeVOgzjsia65OHOQiRV4DPplMkchihM4VgIn5cZxmkGjLxnFaRbB++r3L3BtIwzWPIuvLo8wzR/GhtjRiogWAJyALH+CN0A80RgnXRuQdy1bVZjh5PtPiiY0T8aBJ8EoV9UaE2SFjmm7GFs33DNpgCo1lT9sHPsD16SBDA3tvUwXPCGFWtmWW7PoOonTRdbNEeyRSmipep8oIJ2hGcVA2WaaWr/H6lcwhl4TIjXXJQg7gN29WbnH4YrYEoDTzAzorX/6fvnZZCR+NM9QixhvAd3+dIR2mo+yk3T2BBfdnAv/QuNU09HFJMghyb5GPs9rUdJ1P2zT1TUCqkLT+XKG1ICS8EA+f1oZ6tPTU6iVaLrmBPf6NADP7PLC2xoh2BuM8IL5f6q16izMewqN5nWHrxM2Ok+IDpyj51W4rrXEOmFNx74F3kDm9JQ5En8dnCJGH+J0CzTXV6ChkIF8oJYFVvEMdedFvLE3/2Jg1Sr39AwpZNDVzxjR9+3Bh8YAnZ3545yBbw18REzi5Bl9AH6H+1SAR+sDjfVohU95cbnyuPjqzZtOs9NpFhs9HjaCgowEF+JjzWa/8wYf8iOBBdbxegBKjhVr1G9U7gmamQ7ZEhQnYCjqQy0/W34uls+fA1GsYpehbv/IVheHYBrQTr9KkpGu9dTNtvvTcJoBNyoACnBCtQW2+b/9ML+8/E04oPfwGVvxiDHNkZ3icJp8dq2sir9N+ok4gZT7zrcl7k9j5G+aMtSzyRf/Gq73/WfU5oszzV+iSFweCjfNT346xE4yXZaLzk32ld8YJkmSgo/Rh6TQvaFCMXcibfoXhm8PPR7uwvC1wQYue/Zn4oSLHEGkD/gJ3Sq4igz1hz+Gh/nOMkuceDEUNX/wDTMHB3XU/HCcqfJZt9ut1WrhIM+ZV8PVUtLowS2zVcMUBEyMMKgtZvXBXPCwDKNui/2/1aoZNbAEG+COdWtWDX4svI6fLGr+FS7os5ZF/6FU6zS4v9N1W9gR1FQNgydiGB9yZYMeAPQovF7Z8Fqs/qfhjmMlIpWjRldhiqCdkk9fQ/W1Vvc4VN6t1eDHuvB5YhROsyNwmgFB966PE3V/pyfmpkFD/eGPYUjuUDDiGOohDe0N4gRfhuO2chG8/nze9IIoj/zaxridolTqBEN4BnozvpdraC1MfzDQXKeLgS4NYWA4VafLuw1NVejzNjXn0TLmSSwFFkdHj0vhyUt51fWeIhgFgjF33UCcnuoKc8MsjVvwclNXTc3UgvXBioeJSYqZ15wgj6moqboOzdHEI9auTZxmTqr0XfDFFStwvusejf3ZtaD0KJz+9N3c7DBaCMvM7C1u9N3H26CyZqdnzv/tH//wlyg/oTsEv88HGArYaZDoesZ8XJSpQjDPwdCCtTf0inA1rijVNerdAjY8aQRJ/xDeUlNt6kqZdB0cnoBJDB4nwrGBUR50QOm6lcULoddcaFk25hFZaHgzZwqXLwgNAmsqOEUKjaLiajBdygLPqshx0kycIsFkOmb+uaHbbtMXBVBQwfAKxgUNmvGkmJb1ebcCsOInSyGPxTtqro2BzVBMfwRO03cfnc/SpdxBLqOGA0u+RP2Eob/z77786N//+7/+j/AIv//p828++eS9F0Om+cO41V9kvh/jjL0iwfClQoRMkS8Mmm9Vq0h1HYNkMJPRT9F4OEJrydKZZns2piJQnlEUmttng9dDcbJMDN5iIVPjUQztmOGkYIyJZ1Jg6IHyoXOGOJkBTroiQnM2W/aVLxQT14p9nDKeqwNOFrC1FXhMmFxD8ydMhSYCWpaah7mAayOZmkpXnD3KP7muQp+LBJhH4iS9c45SLg6nCR5AemduBr/DN1m+/eBBdJwx+/jB7Y8nlweM7U9j1quoIosN2ubgDWDgNBGSyHg2zneMR9RhwsItq7l70QzoGHFSPFz2cSkbIVehFArjZFivmmGqc5yAM1XwYGkY1XE8FxcvjD9XBnHiGVCK5bIY04Vm2sCuPk5NQpMtgYVNxo8hnFwDaqcONdHUvKq4NNBV1wEyqI8mdPS1POKkRWKQI3CaBSDeQRthiGZQQ01QoBhOE+cfjPYVHi4PMNSdEbmVo1YV3+oKjdFwSb1rgUZS1FZBYvykkP5Q43VQ0P1Ov9/3MMHSBh7rdzofAtUFTqQxWIbhBLAbxce9xyeUmp5Ls8vqQzhRZrNA99HUM/kCl3lVH6eebmKYvItqRzFORZIS56f/OKHVP+71GjXDtjxVxfDlhobAm9quLO+SPMYa9WKke6NwQi/pT3H3ZihQs7hqyOxywGm0e/oQzPOwQLv927hUZaDBUISgiouiy6YJ5TCYnp1XXFt/KwmcjGGckgVOGxpdcm+K78mrcAKrMYjCSnIfcTKh6WGcECYMjRu7BdRPCi6KiAAwmBWYXlnvOaD/DFOsZlGclHAmewM4FurFN5CbDkhjNe9svCUgy11P60Tfa7Tcg8J/Oo8z+2YQq9mPronTfMTexuTK2HywkUsgYL2hMjAq7F3NPMh9GmNmOKlKs4h0zOlp6PXAuDMxBytUG5d7rWKkUE/gZEfW45sshysGJ1t70/Vgzqu208QsNFweFDjhujrIvA+T0q5rqpbNE86AZdB6CONU91zgYSrsJGAjqrU0gkzteqGspctwukWjDvK/jLAG52ZmZ99hOM3NXIrTcpAtjvQyNssZfKeRyUmVrgG+ikJZqALaCoQCU98MJ9AAYBMYfuJyK4RTnaAwIWEBwnCyLILJlxYvpQs7QgGr/KRSyeVy+HuCCSe2fToo91A7Ga8qfd1wDdBnDbkJg+0H6mUDA+u4Ii/1PFO3bBFp5XLvVYU2AE1kWoaJIrIp3hP1IRqmYEl2c1KULsVJevQlW3gaZCtUUed3/3QtnCYnA9P8QVxaBGqsS3JeGpqBXhDyUENHe1dhL17XcSsHukJgftNkU7TTwgu1DYIbInwbJMAJ/B9ci6BpKrhNhtnlLl0ysTyPENT1GnhFhpLHtQiOE/FxMsA8yBG6GKiQkzfUNOQ4QbfA4LZdFGZ9ouB6biPASbFBJhq6rrueg1MFKvb3b3QJ2OZwF9MxB2G6AicEam5uYggnIQApZJfiRMWcz1BgVgxnvQBOo1focQARJwWXVbvo8+AEZwMCYgl4gO43Imicg3mudSMI24arxuBkGWhxocmF6xy64CfbQqlqAexsTctUakpefzpol9u26WKlmZpGnSDuEuh8Aw31n7UNuVCQTxQ0Vk2n4uNkU8eb7rlBCx29dH9hA9wmC/eEmFptOOXjCpykR9/xlNhRdB2cvuEP3P40DqfJSzNekC3QENY6Us+BN7PFCijDSVXeRtY1wvkpI3EyOvDk26Cgr58UdGtwLZLuiVEU1/O8wiicQL9gmpJYSmbxiAYNjoB5AzZmvwWWN/Ar4xi6OUERe4CoYY/TLhRrOcE9eJRDhwfhKpykRx/QWFEczV4TJ3+ZliZXDmeRTQ7GLKIkd2kWPjnZNcCZEongHKcYe+9qnMjT4YeFn4uD7OF2HcxJsbx/Rl6IwekVlul5mAEVxqniKNQXsFGp4rIv3eFTY4EM5CfLZLujVOruKko3zDpFgukckQ4LuhIn6e753Fw8Ttfgp5eTNMjH1nVvs+TK4Wy/kcYeoxPcYKEqLVy7VnyDleFE+oWR5WJxMqhdPgwutSNQsdRqwEQGRjhAVbCwzyicWLiQ40S5AFwBA3PeVbbzkMangKFQsDL9ZEED4GpQRxj4y4woIo5TcbBv0nVwwjS90TjNXMFPNMjHgw1xucpIV20SLXSw+zR6aRt+CInhZFvNZrPT6bxh1Akb4SNxMqw3fSi22+SlznycbJft/shtODjGqlG4FCf5mCgiZIV8nvNMTM1TNKr2dDBIUOOY1AJhOLlNlg7ac6gxr4fltPRUw3jRz8VJvj99BU6XxCN4XhH1dX9cjlsfvCR9TFDPoVvxMGeS+IFNhhOYTHo+T6N8dD9hxN4bhZNC05wxwKspWErY5WAlCz9XvvDAZDF1ungxQj9JIhbB5F4dI0Y2KrfaBmq9YrHR2DBoWrsGvWY4eWIi1QkGm9RamKGe6pi4Tn4mTpL07q1LgAI/9/47lMJFHvzdy48/fvnwPbYTbR7XddEoj9s3fbl2otTChGwMf1pBcBLTvGzcFQrS3nBtFsWOpMMhTlY8P+E+NsVyaRkW7ECc1AAnMNzyKmaBHQucQH2JOGyAExTTA5wyIKBB9YRDPkXNxkxP6DbDKfC6mzrqQzUst4swd34JTsmPpkUINoZmZ2+df/31+fn/DLPV+/8JiTHPMsth/njIfsBFqPnrbLnuOapKFzC0TugaZt27hBg42gwmg0RwcgwMrIZfu0GllGmQ8FEG9IlCX8G1rmAe5DTUUQY61QUHg9mOEcSNAvALfV6LU5d3Cfh6qhladAK4NQOq0WqofIA/wwWJls/ntWYAFEBp/Xy5h0B9h4tRs6P0FPDU+ez5B+ESYV2EaPzmwe3nwzjR7OZrJK/IxzXcjWZZtSCs03tdq8G1WqvGN6i1Wq7bugjHIzy6YrsRqqhRw5VUa4DQ/CtcdPv9Vut10MBbZFar1s/h7g/T6nb7dD2XblXrBhHCXLeF/7W8k0zXNRWv1Q3HrqRj9rzXO3vd9eCpUME/d6Hz3T8HFl+jBm9R68ZEH6+JE/i7mGI+MzcKp9mJudkBnAIZh3A8++3LmF28k6NzMccUoWviJN39bmKk4MPAxMwVOC0/exGjmuDn8m2HY+J0XZzAjZqYG5E1wfImBuTes6E9nfE4/fJcMLmSy+EO8xirUwYLO5PLVWJv/n9F18ZJeud8OB4bpvMP7j6i9OB9IJBysdAM0jeXaadcsVh8Go0F9YobGxvfFoVML2Q2OjVMaDCNWqt5kgvBUegVOy26QG4YoMmadZ4o26Mmc4Qa4lCp3vHGxvEG7nOqg2m9we5+Cz/Y6EYD/j2mNkIFPsJPsRjqWga6BZ17+9MxuA5dHyfp72+NxAjXDmfPwer7+usPvv79H//ylxfR1GS6QzoWtku1U/1UJw5xPguNfhGu6Hm+A0M+aYGFxTbMWuD8E9LxEynOungUh8J2poGtrBHvmMVDCfdCA3KcGotQHDu4+/r0LfhFp4Q/J6K8UAHRXWoPylAHcRxNJ0+CbPSTU0XXXM3+JWiMpp+Ak3R/lME3M0fXeOkJBrO3/tf3y/5OgMtwwmuXZyrXNdW0VTvsABUpLix3oPKZg/Fzm+5HBrZBm9Zh25hzLUITRjByA+4q3/xs4Rr4hobBVrG9g0XGbZWZxxdgKavq52/poiyuQKDlb1h0qRX9JtWm4RAMCEMZeNYNdnfUHdeueVbrF0MSSz8Fp9vvTs9MTI+Kyk7whY65uf/9LDaBfFg7De6jGSQ8L8w1tChO/v6nQkfHXUY0FQ45RqE2Nl1QBO/TpLvSTcoMKvUoVVOvwfT/Nq9gohhNHDMxlYQmebk04aSp0ZXHE9wliqwICFu2zqLimLpl0bNG5D6eo2PQZoPcrRNMX7K1XwFOkvwl2N9zo4HC67Nz0//nvfgA0TBdkfjPzqFSwqkCIZyKeNSXBoAQF0+yUyhatq31cMzo+WCG82GxcXLSKPbpvifXQ1f/VZ5tOePLVvBrIk7WaYaeGmcInEzcsouHkWmuAtXqNL2Mnp1Tp/l2No2jkr7oGcVJ+VXgxJcNL7PPJ2ZnZu8+XOZi7VIa3kczSHTfp5r/MHTpqY9ToUsj1TZxus3i8XG/puE5HIqLhxg1aTIkqYlNK4UTD88UI6SflF597rqY1OVnhXU1/GphGIDh5DRAPxHHIK6H2WEKTYgkjJ70ML/FRpzwEBy6fsno14ST9Oi7mZlLcMLcvonzR3Q98EoakVoZInZujtbq4fmcPfz3cdMQ53zUHRrw83a55Cmc1Cw7b3qKXpCauBCvaJ1Ay+cyj5EyMsg9XHgIB2eAMYFtcQ3D5yf/8NFMH+aFabpFfiFXkE4I4Gy5bx47mHOiijTzXxVO4EZdtrZLIxPnj/iC4FU4Xek7IU4o03BZ1WV6X/X35zY0mineDbCoe66qeKaeg5Gna0BGq9io99CBCvlP3+oY0w4HO+k6sWL2CwKncODmWMlbquoEBnihxVZ6M9KFgwlPgqF+XTiBGzVqkwAVejOzM4DT7U+Wr8YpZh/NAFF+Ytn6NrXcrNB5LEWKUzg2Lb+2ML0BFE2uS+gZoQo/pcXqdpvHPYYoxylYqJKP6ZmW6q4cg5OMOJlhnM4cMCcU90KWMgRPcBQJDr8ynMCNGunvYgRwZg5zae/EJkJEKW4PW5TouTnUrGLbpXGd0A7jZJmRtNGuqVomDXnn+oQeWoh2HU06MHXNwM0R6IG5aMyzU8Zw601NM/CUUD2sn3ySj13TNUPnglQcy7VYTFzu4PSxDPb4/xOcpkfjhNs00FWK2SYwgZFaitPt55N/wB27cSSOAblKO3F+smi6Bx7LkFfx0KkQTjBIbjga3lURJ3rsTaFXdNFwADI0egwoZmFhWhzixFarNIWl/JuGyMWK4ycDWDq0aaaoWyCDmZlXJ9T5Ykd1MJyUvxpOs3F0GU5039Pc3ExcOWZHSHRz5yjLnB4wNj9/NTsx/WTpOnFc3SREd0EB+fy0gdn3FgkljuY8BRNedLH8U8j1TjBE1Oy8weFU2Gpwkfo5Bj8IihEuQCI4TUXYEYIwKRltGf+0gxrbcNPa2Ci+fYVJDuBg0bkCONl/TZxm4uhSnG6jdY5pfRMDpWjYfAb5iW2WHkGTdOfux1evOzF7TzeKGw34eVrcONuo+fxUZ/uetKIAqrLr4Dk1KilImE0e7JqU5UKlCUrGBPYrUJz47iixZK5idjNWczVOTaKwdCH0vbAK5EyavfpX5qe5WLoUJwQKFBEuHEZpBs+ronIPN+jGHLkSsFTMhtBhYufm6GH/KTgnMWfQ41Zs4m3g8b0nTYfgSSimCv5T0XFdEGuGP+BoK4D9ZxqIk43blRQSxPk00mU4jMaJH2WQ0UyeRKTrrksZyLRdA2MZHCcjGuI9u6FA/c/QTxL6u+dxe27oob8T/MDzTydHKCgW/LvGwdncjjCa8fGIJkb/0ApEu91BuwHzMWk+fh0PA8XMrIt6Dpc2Gi0HhZupd5jcAx5ondQDEn9f4Sp+kpt4Ph9m9mFWRl7XNBsz+RU94+OksNNG2BTI650bw2mGLvNF/7tc7kno74IJjiEkXoLSDNrlE0zuoYYaJfloKOJq7eTjtBuPU65r0JwIHDL2NwEwUkoVVqGr4alunqdooNscBxDFw4aorwM4YXptXBLClTjRPA1wnrr9Pq7zf/hhx8HsDBOPfBE4sT9NoLIznu3mTeEUa0bMnl+Bk3T3u3OgoWKzEz4/SS9fjDD4nr149uzKXDAkhpMbxck/dxQPHVJoejfFie7GVMkFZY2Mi2n+GHhgCxsmPcRLw0SIb3XwwdhezyG6Qu4Vupgwa3mfVfyjExRpOJQAAAiCSURBVDcwJqHg5hkh93yifxjk4oZwWrgbT1cq+UcjCgLxzfS378TTwzvvP3x5rZNX2PmwJHSUq3Qc8BNwVPMUz/micVVkLRA2G3xcMt1TPMnIVNjh57g1XiMnePOVDua8PYKfhu1y3IRm8eTxOqHOXLhszqEpoFqXxX5pxJERLrbY5Kb46VdN9SdEiZxDhX+vxtAM4givaanR6bq494IQ1+02T0LJcJnjPvg5nAy3U+yxISs6uGHqSUyKuSRdeOC2ak9Cq7TyhUPjVnQL759p9Ip44WOszp6ghU+c+slp9A/n0CA+uSn99KumAj2gMlcZvJQLXcI/4dTDv9gAz8mDxTO9Hv1rDjR+yqkyWEOI+L1C/CVZnJk51Eesr5KLpb8FnMY0pjGNaUxjGtOYxjSmMY1pTGMa05jGNKYxjWlMYxrTmKK0sJhIhf9e0FJiccn/khz8tJBIJBYXF6SYJ+BmKlwVfvMfTC2GbiwmQi2w68lEuE6xapNKUOJlF9m30IOcEu1ycugikJxKhLsafdXgtH3eBYnW7veMt0a/J/mXFO8ro2RkBBb9m4vxvUymogOdDI1ItOlUIvodqbw9NTW1mfBLbJWmplbbooq1srje5hemduD57eD59aCqe9mpqZ20KJFIw4PZFV7TVla0mmxXoYU98R6Le+x/U2tBRXuL4gNUuA9Ps7JpbHpqamVwANamqlNbgxfxdfd2sAf+95UDKL0u6k61xfU260uSvlpVXOat0a9L0OV9+M76mmJ3plhNyXUKUHJ1k34tww3o8pQYBp8Sm1BsO3R57V7oDZBW+RDIm8MvujK1uZa6d1Di5VPpansxsbW/yYd3Lcs7s8kHory/lkqVD9Ji1O8F41te3SynVtK89qV0+l6qvL4ncEpzYJJHq1uJVLuaTvEWdw7xkTBOi/t7/NPCYmp9tbyYYlP/qLqYSqUWB2fqwtFeciWbGhwXKbWfXVksr7P64e23dtbLiysHOwnRQd7TlSxn6dIm1L6+zztylE2kFoXoSKUS1c0UFzSp0h48KCREcjuNY5Q8YDM2mUrd22+HxQcfyf1tGI/tfX/wk+msf7NcakML6/u8a4fpUNOUEqub+G1xneO0V6K9bIvq1la3aYPtksCJzqK1khjV7ZKAVLpHwV4QQqSEVSRFWz5OK2yalAUHpErVdSiSCuG0VdoJuri16r/xUVWKo4XttrRSHcIpuV7F/iS3OEuX9+mcSWR5h5fSq2U2RgcCpz1a2yGfFQfR+lbF5IEut8PtHFUPFgOcJJxz96RBWkjTibm057/m2mrJZ64yHc+U4KD1o0GU29XF8NeFHd6ZzTR7cq26iqPYrmYjOCWq/lzc2hedSlTTa8EcWDiqtkMSVuC0sM2HaasqJud29igV5qdE6fBgLyi46le5WQV2SkWktujE6pAwlBI70WvrJdbwvSk2a5e2q1X4VM5WIzhJ67yDRwfIvQH8q4fiU6q0hXd8AXGQhhlxBU5rpQFBuJA+2twWr8ZwWhI4HW5Hm4YrBxHk/NESo7OW3a5ugUQ7CnBKoIrhrcLkk9Jpvy8Hper2oah+8Wh1NS341McplW2zC/dW2QyBSVRe3V4I8dNhaaG96k+fEE5Hq9lstro5ONeklX2Y4InFgavlqUTk+0E6+o5L2wfZ9MJCOpuO4FQWb7pZxdb8lwvjhHeyYqomtzcpa16O0xDD35sql3fEc+XSytLS4t4+H61D2vR66EUD9c56wNQmPJllo1Oultulvezm4oHAaTW9vZ3d4d9WQNiXS0GvFtfaB4GmSJXb2zu8aYHTUpqzSpt3PAXTvpzdbvuSNAG8sbDvD0oYp+oK0NAYQNHN9Nr29gB+ibBlArTN1UGZq/il9FaitLm5mtgS+qmaTae3d8SIbGajrYVwWt3EW3waAE7Swmapnb4cp9XoPFrAx7ez3OYsV0tTO6WSEACHB22ofy30QmtMEQmrOJlmBsJilo9mebWcPCylUws+P61uHh5ucTN4YTu7Vr6XPhISgA3DWujbgpDqvn7aY5J2IbvNXxrF02K26uN0uNougzASaEdwGnp9rAleb+EoW00MXF9KU9UrCS9jheGTXOcTCXCC0YNJ5uO0mj48PLwnJu6Qfgpw2m+HriNOYGetVi/FKVFlAyjs9ZXqXrm8LqZ4eXUL+MFvYFg/JTd3VmQwxgUfre1vptCkFuivAUMvgKm9ENVPnOA1wXBe5UOc2ryXBJHIp2tyr72EypuX83FK7acTaLgIRkvtYNOL2zscp8VSCazSkrBbonJv6PUlxGkLTY9hQ+Le1OESalifk7NrqMinfIMUy8E02stG9JPfWjpaXVg/tUPXKU7wuoEIiMNJgiFekOT2DrNSkgclMN73S1xDUf10KCzRGJzA/ylV09XVLd9hypYODvYPhFpZQ5EJ95ZW+bithaT+ApiqoNdT2wds4m7uVNPZnXVuMOyVVtMHpTSHdevA15np/YN0KSvYh4vahTS7kNzMJpag0q0dXnBv38dpezUNlI2KM3ziIJvdSvtK2ad2tXSQ3d8WAKa297MHq1UxAZbQWJGTyOEcp53DcOmjEkj4UGv7IX7KprdBRHLHNn3EWruUn8DuxIHe56PTnlpbWkotrfFJU0ZjbCnNfRV5vQS1pw8iL5osb222QzIjtbIe8L5U5h7wwjqfheWjYN6WjxL8obJf1d49f7jK7fXDFfH0iu/YSkv3Dtf969LSEVfrDJfFTf71qM0LBnbD1jrS5qAHmVzb3FqUEuXh1NPFlfW9tQC+hbW9zbYvDhb2hM3KFXZysx0uPNhacHdh8xDvrLNRSm4JUSPup46GnFykRHvdVxiHPJKwx/zLBG0msc16JLfjX3RMYxrTmMY0pjGNaUxjGtOYxjSmMY1pTGMa05jGNKa/Zfq/PbwYjv93mYwAAAAASUVORK5CYII=",
+      link: "mailto: office@nvvh.rw",
+      type: "internship",
+      location: "Menlo Park, CA",
+      posted: "2025-05-12",
+      deadline: "2025-08-29",
+      featured: true
+    },
+    {
+      id: 9,
+      title: "Amazon Web Services Intern",
+      description: "Learn cloud computing with AWS teams.",
+      fullDescription: "Gain hands-on experience with AWS cloud services and infrastructure.",
+      requirements: ["Current student in CS or related field", "Basic knowledge of cloud computing", "Familiarity with Linux", "Team collaboration skills"],
+      responsibilities: ["Assist in cloud deployments", "Learn AWS services", "Support infrastructure tasks", "Collaborate with engineers"],
+      image: "assets/images/aws-intern.jpg",
+      link: "https://aws.amazon.com/careers/",
+      type: "internship",
+      location: "Seattle, WA",
+      posted: "2025-05-10",
+      deadline: "2025-08-15",
+      featured: false
+    },
+    {
+      id: 10,
+      title: "Microsoft AI Intern",
+      description: "Explore AI technologies with Microsoft.",
+      fullDescription: "Contribute to AI-driven projects using Microsoft’s cutting-edge technologies.",
+      requirements: ["Enrolled in AI-related program", "Experience with machine learning frameworks", "Knowledge of Python", "Interest in AI research"],
+      responsibilities: ["Develop AI prototypes", "Test ML models", "Assist in research projects", "Collaborate with AI teams"],
+      image: "assets/images/microsoft-intern.jpg",
+      link: "https://careers.microsoft.com/",
+      type: "internship",
+      location: "Redmond, WA",
+      posted: "2025-05-08",
+      deadline: "2025-08-20",
+      featured: false
+    },
+    {
+      id: 11,
+      title: "Tesla Engineering Intern",
+      description: "Work on innovative projects at Tesla.",
+      fullDescription: "Support Tesla’s mission by working on engineering projects for electric vehicles and energy solutions.",
+      requirements: ["Engineering student", "Experience with CAD software", "Knowledge of electrical systems", "Passion for sustainable energy"],
+      responsibilities: ["Assist in vehicle design", "Support testing processes", "Work on energy solutions", "Collaborate with engineering teams"],
+      image: "assets/images/tesla-intern.jpg",
+      link: "https://www.tesla.com/careers",
+      type: "internship",
+      location: "Fremont, CA",
+      posted: "2025-05-05",
+      deadline: "2025-08-25",
+      featured: false
+    },
+    {
+      id: 12,
+      title: "IBM Research Intern",
+      description: "Contribute to cutting-edge research at IBM.",
+      fullDescription: "Participate in advanced research projects in AI, quantum computing, or cloud technologies.",
+      requirements: ["Graduate student in CS or related field", "Research experience", "Proficiency in Python or Java", "Strong analytical skills"],
+      responsibilities: ["Conduct research experiments", "Develop prototypes", "Analyze research data", "Collaborate with researchers"],
+      image: "assets/images/ibm-intern.jpg",
+      link: "https://www.ibm.com/careers",
+      type: "internship",
+      location: "Yorktown Heights, NY",
+      posted: "2025-05-03",
+      deadline: "2025-08-10",
+      featured: false
+    },
+    {
+      id: 13,
+      title: "Mastercard Faundation.",
+      description: "Full funding for outstanding minority students.",
+      fullDescription: "Provides comprehensive financial support for minority students pursuing undergraduate or graduate degrees.",
+      requirements: ["Minority student status", "Minimum GPA of 3.3", "Demonstrated leadership", "Financial need"],
+      responsibilities: [],
+      image: "assets/images/mastercard.jpg",
+      link: "https://www.gmsp.org/",
+      type: "scholarship",
+      location: "Global",
+      posted: "2025-06-01",
+      deadline: "2025-03-06",
+      featured: true
+    },
+    {
+      id: 14,
+      title: "2026 <b>Commonwealth</b> Scholarships In The United Kingdom Higher Education Council (HEC)",
+
+      description: "Support for students overcoming adversity.",
+      fullDescription: "PUBLIC ANNOUNCEMENT \n 2026 COMMONWEALTH SCHOLARSHIPS IN THE UNITED KINGDOM \n The Higher Education Council (HEC) wishes to inform the public that the Commonwealth Scholarship Commission (CSC) in the United Kingdom has requested Rwanda to nominate 16 candidates for PhD studies and 14 candidates for Master’s studies for scholarships tenable from September/October 2026. The nomination does not in any way guarantee selection or placement by CSC. Details of the scholarships are available on CSC website: cscuk.fcdo.gov.uk/about-us/scholarships \nThe applicants are requested to choose only one of the six (6) development themes:\n \n  .",
+      requirements: ["The applicants are requested to choose only one of the six (6) development themes:" , "Science and Technology for Development,", "Strengthening Health Systems and Capacity,", "Promoting Global Prosperity,", "Strengthening Global Peace, Security and Governance,", "Strengthening Resilience and Response to Crises,", "Access, Inclusion and Opportunity."],
+      responsibilities: [],
+      image: "assets/images/hec.png",
+      link: "http://mis.hec.gov.rw/system-login/",
+      type: "scholarship",
+      location: "Kigali",
+      posted: "2025-08-15",
+      deadline: "2025-08-30",
+      featured: true
+    },
+    {
+      id: 15,
+      title: "SCHOLARSHIP [BURUSE] KUBANA BA P.6",
+      description: "KIDS FIRST INTERNATIONAL ACADEMY.",
+      fullDescription: "Ubuyobozi bw’ishuri KIDS FIRST INTERNATIONAL ACADEMY buramenyesha ababyeyi bose ko hateganyijwe \n scholarships (buruse) ku bana bose \n 1. kizamini cyo guhitamo abana kizaba ku wa kabiri, tariki ya 26/08/2025, saa mbiri za mu gitondo \n 2. Abana bazatsinda bazakurirwaho amafaranga y’ishuri (school fees) yose. \n 3. Abana bose bazitabira bazajyana indangamanota zabo z’umwaka wa gatanu basoje  .",
+      requirements: ["Kuba ufite amanota nibura 85%", "Kuba urangije umwaka wa gatanu", "Kuzana indangamanota za P.5", ],
+      responsibilities: ["Abana bazatsinda bazakurirwaho amafaranaga y’ishuri (school fees) yose.", "IGIHE IKIZAMINI KIZABERA :" , "Itariki: Kuwa Kabiri,26/08/2025" , "Isaha: Saa mbili za mu gitondo (08:00)"  ],
+      image: "assets/images/kids.jpg",
+      link: "mailto:kidsfirstacademy18@gmail.com/",
+      type: "scholarship",
+      location: "Kanombe – Busanza, Rwanda",
+      posted: "2025-08-22",
+      deadline: "2025-08-26",
+      featured: true
+    },
+    {
+      id: 16,
+      title: "INES-Ruhengeri Scholarship for Women",
+      description: "Sponsorship: Ywca .",
+      fullDescription: " Physics-Economics-Mathematics; Mathematics-Economics-Geography; Mathematics-Chemistry-Biology; Mathematics-Physics-Biology; Mathematics-Computer Science-Economics; Mathematics-Geography; Mathematics-Economy; Mathematics-Computer; Mathematics-Physics; Latin Sciences; Latin-Biochimie; Biochimie, TTC/Science & Math Option; Science and Mathematics Education; Normale Primaire A2./n-Applicants must have achieved the required grades qualifying them for university admission and must have majored in one of the following cluster combinations\nINES-Ruhengeri, in partnership with the Young Women’s Christian Association (YWCA) of Rwanda, is pleased to announce a new scholarship opportunity for eligible female students in STEM, funded by the Scottish Government through Oxfam. Through this collaboration, YWCA will provide support the female students from the following ten Districts where the project is operating Now: Kicukiro, Nyarugenge, Bugesera, Kayonza, Kamonyi, Muhanga, Gicumbi, Musanze, Rubavu, and Ngororero..",
+      requirements: [" Eligibility Criteria in Bachelor of Statistics Applied to Economy:/n Eligibility Criteria in Bachelor in Computer Sciences:\n  -Applicants must have achieved the required grades qualifying them for university admission and must have majored in one of the following cluster combinations\nPhysics-Chemistry–Biology;Physics-Chemistry-Mathematics; Mathematics-Physics-Geography; Mathematics-Physics-Computer Sciences; Physics-Economics-Mathematics; Mathematics-Economics-Geography; Mathematics-Chemistry-Biology; Mathematics-Computer Science-Economics; Mathematics-Physics-Biology; Computer Science; Mathematics-Geography;Mathematics-Economy;Mathematics-Computer; Mathematics-Physics;TTC/Science & Math Option; Science and Mathematics Education, Software Development, Networking, CT and Multimedia; Industrial Electricity, Electronics and Telecommunication, Computer Electronics, Telecommunication , Electronic Services, Solar Energy, Automobile Transmission and Control System Technology, Computer Science and Management;"],
+      responsibilities: [],
+      image: "data:image/jpeg;base64,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",
+      link: "https://digitalcampus.ines.ac.rw/admission/scholarships/YWCA-KH3lXl3Zxc2a198/",
+      type: "scholarship",
+      location: "Global",
+      posted: "2025-05-01",
+      deadline: "2025-08-25",
+      featured: false
+    },
+    {
+      id: 17,
+      title: "Community Volunteer Program",
+      description: "Join our community outreach initiative.",
+      fullDescription: "Participate in community-driven projects to support local development and engagement.",
+      requirements: ["Interest in community service", "Available for 6 months", "Strong communication skills"],
+      responsibilities: ["Organize community events", "Engage with local stakeholders", "Support outreach initiatives", "Report on program impact"],
+      image: "assets/images/community-program.jpg",
+      link: "index.html",
+      type: "other",
+      location: "Global",
+      posted: "2025-07-01",
+      deadline: "2025-09-15",
+      featured: false
+    },
+    {
+      id: 18,
+      title: "UK AI Innovation Internship",
+      description: "Work on AI projects with leading UK tech firms.",
+      fullDescription: "Contribute to cutting-edge AI projects in collaboration with UK-based technology companies.",
+      requirements: ["Current CS/AI student", "Knowledge of machine learning", "Proficiency in Python", "Interest in AI innovation"],
+      responsibilities: ["Develop AI prototypes", "Conduct experiments", "Collaborate with tech teams", "Analyze project data"],
+      image: "assets/images/uk-ai-intern.jpg",
+      link: "https://uktechjobs.org",
+      type: "internship",
+      location: "London, UK",
+      posted: "2025-07-12",
+      deadline: "2025-09-30",
+      featured: false
+    },
+    {
+      id: 19,
+      title: "Canadian Renewable Energy Scholarship",
+      description: "Funding for students in renewable energy studies.",
+      fullDescription: "Supports Canadian students pursuing degrees in renewable energy or sustainable engineering.",
+      requirements: ["Canadian resident", "Enrolled in engineering program", "Minimum GPA of 3.2", "Interest in sustainability"],
+      responsibilities: [],
+      image: "assets/images/canada-energy-scholarship.jpg",
+      link: "https://canadascholarships.org",
+      type: "scholarship",
+      location: "Toronto, Canada",
+      posted: "2025-07-08",
+      deadline: "2025-09-25",
+      featured: false
+    },
+    {
+      id: 20,
+      title: "German Robotics Engineer",
+      description: "Develop robotic systems for German manufacturing.",
+      fullDescription: "Design and implement software for advanced robotic systems in Germany's industrial sector.",
+      requirements: ["BS/MS in Robotics or Computer Science", "3+ years in robotics", "Proficiency in ROS", "Knowledge of German (preferred)"],
+      responsibilities: ["Develop robot software", "Integrate automation systems", "Optimize performance", "Collaborate with engineers"],
+      image: "assets/images/germany-robotics-job.jpg",
+      link: "https://germanroboticsjobs.de",
+      type: "job",
+      location: "Munich, Germany",
+      posted: "2025-07-03",
+      deadline: "2025-09-20",
+      featured: false
+    },
+    {
+      id: 21,
+      title: "Japan Quantum Research Intern",
+      description: "Explore quantum computing with Japanese researchers.",
+      fullDescription: "Work on quantum computing projects with leading research institutions in Japan.",
+      requirements: ["Enrolled in Physics/CS program", "Knowledge of quantum computing", "Proficiency in Python", "Interest in research"],
+      responsibilities: ["Conduct quantum experiments", "Analyze research data", "Develop quantum algorithms", "Collaborate with researchers"],
+      image: "assets/images/japan-quantum-intern.jpg",
+      link: "https://japanresearchjobs.jp",
+      type: "internship",
+      location: "Tokyo, Japan",
+      posted: "2025-07-01",
+      deadline: "2025-09-15",
+      featured: false
+    },
+    {
+      id: 22,
+      title: "Rwanda AI Developer",
+      description: "Develop AI solutions for local tech startups.",
+      fullDescription: "Create AI-driven applications to support Rwanda’s growing tech ecosystem.",
+      requirements: ["BS in Computer Science", "2+ years in AI development", "Proficiency in Python", "Interest in local tech innovation"],
+      responsibilities: ["Develop AI applications", "Collaborate with startups", "Test and deploy solutions", "Support tech training"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://rwandatechjobs.org",
+      type: "job",
+      location: "Kigali, Rwanda",
+      posted: "2025-06-28",
+      deadline: "2025-09-10",
+      featured: false
+    },
+    {
+      id: 23,
+      title: "Nigeria Health Data Analyst",
+      description: "Analyze health data for public health initiatives.",
+      fullDescription: "Use data analytics to improve healthcare outcomes in Nigeria’s public health sector.",
+      requirements: ["BS in Data Science or Health Informatics", "Experience with health data", "Proficiency in R or Python", "Analytical skills"],
+      responsibilities: ["Analyze health datasets", "Support public health campaigns", "Develop data visualizations", "Collaborate with health officials"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://nigeriatechjobs.org",
+      type: "job",
+      location: "Lagos, Nigeria",
+      posted: "2025-06-25",
+      deadline: "2025-09-05",
+      featured: false
+    },
+    {
+      id: 24,
+      title: "Kenya Mobile App Developer",
+      description: "Build mobile apps for Kenya’s digital economy.",
+      fullDescription: "Develop mobile applications to support Kenya’s fintech and e-commerce sectors.",
+      requirements: ["BS in Computer Science", "2+ years in mobile development", "Experience with Flutter or React Native", "Knowledge of APIs"],
+      responsibilities: ["Develop mobile apps", "Integrate APIs", "Test and deploy applications", "Collaborate with product teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://kenyatechjobs.org",
+      type: "job",
+      location: "Nairobi, Kenya",
+      posted: "2025-06-20",
+      deadline: "2025-09-01",
+      featured: false
+    },
+    {
+      id: 25,
+      title: "South Africa Renewable Energy Engineer",
+      description: "Design renewable energy systems for South Africa.",
+      fullDescription: "Work on solar and wind energy projects to support South Africa’s sustainable energy goals.",
+      requirements: ["BS/MS in Engineering", "3+ years in renewable energy", "Knowledge of solar/wind systems", "Project management skills"],
+      responsibilities: ["Design energy systems", "Manage project implementation", "Optimize energy output", "Collaborate with stakeholders"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://satechjobs.org",
+      type: "job",
+      location: "Cape Town, South Africa",
+      posted: "2025-06-15",
+      deadline: "2025-08-30",
+      featured: false
+    },
+    {
+      id: 26,
+      title: "Ghana Cybersecurity Specialist",
+      description: "Protect Ghana’s digital infrastructure.",
+      fullDescription: "Implement security measures to safeguard Ghana’s growing digital economy.",
+      requirements: ["BS in Cybersecurity", "2+ years in security", "Knowledge of network security", "Certifications like CEH"],
+      responsibilities: ["Monitor cyber threats", "Implement security protocols", "Conduct security audits", "Train staff on security"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://ghanatechjobs.org",
+      type: "job",
+      location: "Accra, Ghana",
+      posted: "2025-06-10",
+      deadline: "2025-08-25",
+      featured: false
+    },
+    {
+      id: 27,
+      title: "France Machine Learning Engineer",
+      description: "Develop ML models for French tech firms.",
+      fullDescription: "Create advanced machine learning models for applications in France’s tech industry.",
+      requirements: ["MS in Computer Science or AI", "3+ years in ML", "Proficiency in TensorFlow or PyTorch", "Knowledge of French (preferred)"],
+      responsibilities: ["Develop ML models", "Optimize algorithms", "Collaborate with data scientists", "Deploy models in production"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://francetechjobs.fr",
+      type: "job",
+      location: "Paris, France",
+      posted: "2025-06-05",
+      deadline: "2025-08-20",
+      featured: false
+    },
+    {
+      id: 28,
+      title: "Netherlands Data Engineer",
+      description: "Build data pipelines for Dutch companies.",
+      fullDescription: "Design and maintain data pipelines to support analytics for Netherlands-based businesses.",
+      requirements: ["BS in Computer Science", "3+ years in data engineering", "Experience with Apache Spark", "Knowledge of SQL"],
+      responsibilities: ["Build data pipelines", "Optimize data workflows", "Ensure data quality", "Collaborate with analysts"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://netherlandstechjobs.nl",
+      type: "job",
+      location: "Amsterdam, Netherlands",
+      posted: "2025-06-01",
+      deadline: "2025-08-15",
+      featured: false
+    },
+    {
+      id: 29,
+      title: "Sweden Sustainability Consultant",
+      description: "Advise on sustainable practices in Sweden.",
+      fullDescription: "Provide consulting services to promote sustainability in Swedish businesses and organizations.",
+      requirements: ["MS in Environmental Science", "3+ years in sustainability", "Knowledge of ESG frameworks", "Strong communication skills"],
+      responsibilities: ["Advise on sustainability strategies", "Conduct ESG assessments", "Develop sustainability reports", "Engage with clients"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://swedentechjobs.se",
+      type: "job",
+      location: "Stockholm, Sweden",
+      posted: "2025-05-30",
+      deadline: "2025-08-10",
+      featured: false
+    },
+    {
+      id: 30,
+      title: "Brazil Software Developer",
+      description: "Develop software for Brazil’s tech industry.",
+      fullDescription: "Create software solutions to support Brazil’s growing technology sector.",
+      requirements: ["BS in Computer Science", "2+ years in software development", "Proficiency in Python or Java", "Knowledge of APIs"],
+      responsibilities: ["Develop software applications", "Test and deploy code", "Collaborate with product teams", "Optimize performance"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://braziltechjobs.br",
+      type: "job",
+      location: "São Paulo, Brazil",
+      posted: "2025-05-25",
+      deadline: "2025-08-05",
+      featured: false
+    },
+    {
+      id: 31,
+      title: "Mexico AI Research Scientist",
+      description: "Conduct AI research for Mexican institutions.",
+      fullDescription: "Advance AI technologies through research for Mexico’s academic and tech sectors.",
+      requirements: ["PhD in AI or related field", "Experience in AI research", "Proficiency in Python", "Published research"],
+      responsibilities: ["Conduct AI experiments", "Publish research findings", "Collaborate with universities", "Mentor students"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://mexicotechjobs.mx",
+      type: "job",
+      location: "Mexico City, Mexico",
+      posted: "2025-05-20",
+      deadline: "2025-08-01",
+      featured: false
+    },
+    {
+      id: 32,
+      title: "Rwanda Tech Entrepreneurship Internship",
+      description: "Support tech startups in Rwanda.",
+      fullDescription: "Work with Rwandan tech startups to develop innovative solutions and business strategies.",
+      requirements: ["Current business/CS student", "Interest in entrepreneurship", "Basic coding skills", "Team collaboration skills"],
+      responsibilities: ["Support startup operations", "Assist in product development", "Conduct market research", "Collaborate with founders"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://rwandatechjobs.org",
+      type: "internship",
+      location: "Kigali, Rwanda",
+      posted: "2025-05-15",
+      deadline: "2025-07-30",
+      featured: false
+    },
+    {
+      id: 33,
+      title: "Nigeria Fintech Internship",
+      description: "Work on fintech projects in Nigeria.",
+      fullDescription: "Contribute to financial technology projects in Nigeria’s vibrant fintech ecosystem.",
+      requirements: ["Current CS/finance student", "Knowledge of fintech", "Experience with mobile apps", "Analytical skills"],
+      responsibilities: ["Develop fintech solutions", "Test applications", "Support user testing", "Collaborate with fintech teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://nigeriatechjobs.org",
+      type: "internship",
+      location: "Lagos, Nigeria",
+      posted: "2025-05-10",
+      deadline: "2025-07-25",
+      featured: false
+    },
+    {
+      id: 34,
+      title: "Kenya Health Tech Developer",
+      description: "Develop health tech solutions in Kenya.",
+      fullDescription: "Create applications to improve healthcare access in Kenya’s health sector.",
+      requirements: ["BS in Computer Science or Health Tech", "2+ years in health tech", "Proficiency in Python", "Knowledge of health systems"],
+      responsibilities: ["Develop health tech applications", "Integrate with healthcare systems", "Test and deploy solutions", "Collaborate with health teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://kenyatechjobs.org",
+      type: "job",
+      location: "Nairobi, Kenya",
+      posted: "2025-05-05",
+      deadline: "2025-07-20",
+      featured: false
+    },
+    {
+      id: 35,
+      title: "South Africa AI Developer",
+      description: "Develop AI solutions for South African tech firms.",
+      fullDescription: "Create AI-driven applications to support South Africa’s growing tech ecosystem.",
+      requirements: ["BS/MS in Computer Science or AI", "3+ years in AI development", "Proficiency in Python", "Experience with AI frameworks"],
+      responsibilities: ["Develop AI applications", "Optimize algorithms", "Collaborate with tech teams", "Deploy AI solutions"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://satechjobs.org",
+      type: "job",
+      location: "Johannesburg, South Africa",
+      posted: "2025-05-01",
+      deadline: "2025-07-15",
+      featured: false
+    },
+    {
+      id: 36,
+      title: "Ghana Renewable Energy Engineer",
+      description: "Design renewable energy systems for Ghana.",
+      fullDescription: "Work on solar and wind energy projects to support Ghana’s sustainable energy goals.",
+      requirements: ["BS/MS in Engineering", "3+ years in renewable energy", "Knowledge of solar/wind systems", "Project management skills"],
+      responsibilities: ["Design energy systems", "Manage project implementation", "Optimize energy output", "Collaborate with stakeholders"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://ghanatechjobs.org",
+      type: "job",
+      location: "Accra, Ghana",
+      posted: "2025-04-25",
+      deadline: "2025-07-10",
+      featured: false
+    },
+    {
+      id: 37,
+      title: "France Data Scientist",
+      description: "Analyze data for French tech firms.",
+      fullDescription: "Use advanced analytics to provide insights for France’s technology sector.",
+      requirements: ["PhD in Data Science", "Proficiency in Python or R", "Experience with big data tools", "Strong analytical skills"],
+      responsibilities: ["Analyze large datasets", "Develop predictive models", "Present insights to stakeholders", "Optimize data pipelines"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://francetechjobs.fr",
+      type: "job",
+      location: "Lyon, France",
+      posted: "2025-04-20",
+      deadline: "2025-07-05",
+      featured: false
+    },
+    {
+      id: 38,
+      title: "Netherlands Cybersecurity Specialist",
+      description: "Protect digital infrastructure in the Netherlands.",
+      fullDescription: "Implement security measures to safeguard Dutch businesses and organizations.",
+      requirements: ["BS in Cybersecurity", "3+ years in security", "Knowledge of SIEM tools", "Certifications like CISSP"],
+      responsibilities: ["Monitor cyber threats", "Implement security protocols", "Conduct security audits", "Train staff on security"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://netherlandstechjobs.nl",
+      type: "job",
+      location: "Utrecht, Netherlands",
+      posted: "2025-04-15",
+      deadline: "2025-07-01",
+      featured: false
+    },
+    {
+      id: 39,
+      title: "Sweden AI Research Scientist",
+      description: "Conduct AI research in Sweden.",
+      fullDescription: "Advance AI technologies through research with Swedish universities and tech firms.",
+      requirements: ["PhD in AI or related field", "Experience in AI research", "Proficiency in Python", "Published research"],
+      responsibilities: ["Conduct AI experiments", "Publish research findings", "Collaborate with universities", "Mentor students"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://swedentechjobs.se",
+      type: "job",
+      location: "Gothenburg, Sweden",
+      posted: "2025-04-10",
+      deadline: "2025-06-30",
+      featured: false
+    },
+    {
+      id: 40,
+      title: "AI Assisted Content Creator",
+      description: "Create and edit content for tech solutions.",
+      fullDescription: "Develop and edit high-quality video content for tech solutions, localizing for global audiences.",
+      requirements: ["BS in Media or related field", "Experience with Adobe Premiere Pro or CapCut", "Knowledge of AI tools like Descript", "Team collaboration skills"],
+      responsibilities: ["Edit long-form and short-form videos", "Use AI tools for content creation", "Localize content for audiences", "Optimize content for platforms"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://globaltechjobs.com",
+      type: "job",
+      location: "Remote",
+      posted: "2025-04-05",
+      deadline: "2025-06-25",
+      featured: false
+    },
+    {
+      id: 41,
+      title: "Mexico Renewable Energy Engineer",
+      description: "Design renewable energy systems in Mexico.",
+      fullDescription: "Work on solar and wind energy projects to support Mexico’s sustainable energy goals.",
+      requirements: ["BS/MS in Engineering", "3+ years in renewable energy", "Knowledge of solar/wind systems", "Project management skills"],
+      responsibilities: ["Design energy systems", "Manage project implementation", "Optimize energy output", "Collaborate with stakeholders"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://mexicotechjobs.mx",
+      type: "job",
+      location: "Monterrey, Mexico",
+      posted: "2025-04-01",
+      deadline: "2025-06-20",
+      featured: false
+    },
+    {
+      id: 42,
+      title: "Rwanda STEM Scholarship",
+      description: "Funding for STEM students in Rwanda.",
+      fullDescription: "Supports Rwandan students pursuing degrees in science, technology, engineering, or math.",
+      requirements: ["Rwandan resident", "Enrolled in STEM program", "Minimum GPA of 3.0", "Interest in STEM career"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://rwandascholarships.org",
+      type: "scholarship",
+      location: "Kigali, Rwanda",
+      posted: "2025-03-30",
+      deadline: "2025-06-15",
+      featured: false
+    },
+    {
+      id: 43,
+      title: "Nigeria Women in Tech Scholarship",
+      description: "Support for women in Nigeria’s tech sector.",
+      fullDescription: "Provides funding for Nigerian women pursuing tech-related degrees.",
+      requirements: ["Female Nigerian student", "Enrolled in tech program", "Minimum GPA of 3.0", "Interest in tech career"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://nigeriascholarships.org",
+      type: "scholarship",
+      location: "Abuja, Nigeria",
+      posted: "2025-03-25",
+      deadline: "2025-06-10",
+      featured: false
+    },
+    {
+      id: 44,
+      title: "Kenya Innovation Scholarship",
+      description: "Funding for innovative projects in Kenya.",
+      fullDescription: "Supports Kenyan students working on innovative tech or social impact projects.",
+      requirements: ["Kenyan resident", "Enrolled in any program", "Project proposal", "Minimum GPA of 3.0"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://kenyascholarships.org",
+      type: "scholarship",
+      location: "Nairobi, Kenya",
+      posted: "2025-03-20",
+      deadline: "2025-06-05",
+      featured: false
+    },
+    {
+      id: 45,
+      title: "South Africa Health Scholarship",
+      description: "Funding for health studies in South Africa.",
+      fullDescription: "Supports South African students pursuing degrees in healthcare or medical fields.",
+      requirements: ["South African resident", "Enrolled in health program", "Minimum GPA of 3.0", "Interest in healthcare"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://sascholarships.org",
+      type: "scholarship",
+      location: "Pretoria, South Africa",
+      posted: "2025-03-15",
+      deadline: "2025-06-01",
+      featured: false
+    },
+    {
+      id: 46,
+      title: "Ghana Education Scholarship",
+      description: "Support for education students in Ghana.",
+      fullDescription: "Provides funding for Ghanaian students pursuing degrees in education.",
+      requirements: ["Ghanaian resident", "Enrolled in education program", "Minimum GPA of 3.0", "Interest in teaching"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://ghanascholarships.org",
+      type: "scholarship",
+      location: "Kumasi, Ghana",
+      posted: "2025-03-10",
+      deadline: "2025-05-30",
+      featured: false
+    },
+    {
+      id: 47,
+      title: "France Tech Innovation Scholarship",
+      description: "Funding for tech students in France.",
+      fullDescription: "Supports French students pursuing degrees in technology or innovation.",
+      requirements: ["French resident", "Enrolled in tech program", "Minimum GPA of 3.0", "Interest in tech innovation"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://francescholarships.fr",
+      type: "scholarship",
+      location: "Toulouse, France",
+      posted: "2025-03-05",
+      deadline: "2025-05-25",
+      featured: false
+    },
+    {
+      id: 48,
+      title: "Netherlands Sustainability Scholarship",
+      description: "Funding for sustainability studies in the Netherlands.",
+      fullDescription: "Supports students pursuing degrees in sustainability or environmental science in the Netherlands.",
+      requirements: ["Enrolled in sustainability program", "Minimum GPA of 3.0", "Interest in environmental solutions", "Project proposal"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://netherlandsscholarships.nl",
+      type: "scholarship",
+      location: "Rotterdam, Netherlands",
+      posted: "2025-03-01",
+      deadline: "2025-05-20",
+      featured: false
+    },
+    {
+      id: 49,
+      title: "Sweden Health Tech Scholarship",
+      description: "Funding for health tech students in Sweden.",
+      fullDescription: "Supports Swedish students pursuing degrees in health technology.",
+      requirements: ["Swedish resident", "Enrolled in health tech program", "Minimum GPA of 3.0", "Interest in health tech"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://swedenscholarships.se",
+      type: "scholarship",
+      location: "Malmö, Sweden",
+      posted: "2025-02-25",
+      deadline: "2025-05-15",
+      featured: false
+    },
+    {
+      id: 50,
+      title: "Brazil STEM Scholarship",
+      description: "Funding for STEM students in Brazil.",
+      fullDescription: "Supports Brazilian students pursuing degrees in science, technology, engineering, or math.",
+      requirements: ["Brazilian resident", "Enrolled in STEM program", "Minimum GPA of 3.0", "Interest in STEM career"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://brazilscholarships.br",
+      type: "scholarship",
+      location: "Brasília, Brazil",
+      posted: "2025-02-20",
+      deadline: "2025-05-10",
+      featured: false
+    },
+    {
+      id: 51,
+      title: "Mexico Health Tech Specialist",
+      description: "Develop health technology solutions in Mexico.",
+      fullDescription: "Create and implement health technology solutions to improve healthcare access in Mexico.",
+      requirements: ["BS in Health Tech or related field", "3+ years in health tech", "Proficiency in health tech systems", "Team collaboration skills"],
+      responsibilities: ["Develop health tech solutions", "Integrate systems with healthcare providers", "Test and deploy applications", "Collaborate with health teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://mexicotechjobs.mx",
+      type: "job",
+      location: "Guadalajara, Mexico",
+      posted: "2025-02-15",
+      deadline: "2025-05-05",
+      featured: false
+    },
+    {
+      id: 52,
+      title: "Rwanda Community Development Coordinator",
+      description: "Lead community development projects in Rwanda.",
+      fullDescription: "Coordinate initiatives to promote community development and education in Rwanda.",
+      requirements: ["BS in Social Work or related field", "3+ years in community development", "Strong project management skills", "Cultural sensitivity"],
+      responsibilities: ["Lead community projects", "Engage with local stakeholders", "Develop educational programs", "Report on project impact"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://rwandatechjobs.org",
+      type: "job",
+      location: "Gisenyi, Rwanda",
+      posted: "2025-02-10",
+      deadline: "2025-05-01",
+      featured: false
+    },
+    {
+      id: 53,
+      title: "Nigeria Education Program Manager",
+      description: "Manage educational programs in Nigeria.",
+      fullDescription: "Oversee programs to improve literacy and skills in Nigerian communities.",
+      requirements: ["BS in Education or related field", "3+ years in program management", "Strong communication skills", "Experience in education"],
+      responsibilities: ["Manage educational initiatives", "Support teachers and schools", "Develop training programs", "Collaborate with communities"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://nigeriatechjobs.org",
+      type: "job",
+      location: "Kano, Nigeria",
+      posted: "2025-02-05",
+      deadline: "2025-04-30",
+      featured: false
+    },
+    {
+      id: 54,
+      title: "Kenya Agritech Developer",
+      description: "Develop technology for Kenya’s agriculture sector.",
+      fullDescription: "Create solutions to improve agricultural productivity in Kenya’s farming communities.",
+      requirements: ["BS in Computer Science or Agriculture", "2+ years in tech development", "Knowledge of agritech systems", "Team collaboration skills"],
+      responsibilities: ["Develop agritech applications", "Test and deploy solutions", "Analyze agricultural data", "Collaborate with farmers"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://kenyatechjobs.org",
+      type: "job",
+      location: "Eldoret, Kenya",
+      posted: "2025-02-01",
+      deadline: "2025-04-25",
+      featured: false
+    },
+    {
+      id: 55,
+      title: "Nigeria AI Scholarship",
+      description: "Funding for AI students in Nigeria.",
+      fullDescription: "Supports Nigerian students pursuing degrees in artificial intelligence to drive tech innovation.",
+      requirements: ["Nigerian resident", "Enrolled in AI program", "Minimum GPA of 3.0", "Interest in AI research"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://nigeriascholarships.org",
+      type: "scholarship",
+      location: "Lagos, Nigeria",
+      posted: "2025-01-25",
+      deadline: "2025-04-25",
+      featured: false
+    },
+    {
+      id: 56,
+      title: "Kenya Cybersecurity Scholarship",
+      description: "Funding for cybersecurity students in Kenya.",
+      fullDescription: "Supports Kenyan students pursuing degrees in cybersecurity to protect digital infrastructure.",
+      requirements: ["Kenyan resident", "Enrolled in cybersecurity program", "Minimum GPA of 3.0", "Interest in cybersecurity"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://kenyascholarships.org",
+      type: "scholarship",
+      location: "Nairobi, Kenya",
+      posted: "2025-01-20",
+      deadline: "2025-04-20",
+      featured: false
+    },
+    {
+      id: 57,
+      title: "South Africa Data Science Scholarship",
+      description: "Funding for data science students in South Africa.",
+      fullDescription: "Supports South African students pursuing degrees in data science to drive analytics innovation.",
+      requirements: ["South African resident", "Enrolled in data science program", "Minimum GPA of 3.0", "Interest in data analytics"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://sascholarships.org",
+      type: "scholarship",
+      location: "Cape Town, South Africa",
+      posted: "2025-01-15",
+      deadline: "2025-04-15",
+      featured: false
+    },
+    {
+      id: 58,
+      title: "Ghana Renewable Energy Scholarship",
+      description: "Funding for renewable energy students in Ghana.",
+      fullDescription: "Supports Ghanaian students pursuing degrees in renewable energy to promote sustainability.",
+      requirements: ["Ghanaian resident", "Enrolled in engineering program", "Minimum GPA of 3.0", "Interest in renewable energy"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://ghanascholarships.org",
+      type: "scholarship",
+      location: "Accra, Ghana",
+      posted: "2025-01-10",
+      deadline: "2025-04-10",
+      featured: false
+    },
+    {
+      id: 59,
+      title: "France AI Scholarship",
+      description: "Funding for AI students in France.",
+      fullDescription: "Supports French students pursuing degrees in artificial intelligence to advance tech innovation.",
+      requirements: ["French resident", "Enrolled in AI program", "Minimum GPA of 3.0", "Interest in AI research"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://francescholarships.fr",
+      type: "scholarship",
+      location: "Paris, France",
+      posted: "2025-01-05",
+      deadline: "2025-04-05",
+      featured: false
+    },
+    {
+      id: 60,
+      title: "Netherlands Health Tech Scholarship",
+      description: "Funding for health tech students in the Netherlands.",
+      fullDescription: "Supports students pursuing degrees in health technology to improve healthcare innovation.",
+      requirements: ["Enrolled in health tech program", "Minimum GPA of 3.0", "Interest in health tech", "Project proposal"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://netherlandsscholarships.nl",
+      type: "scholarship",
+      location: "Amsterdam, Netherlands",
+      posted: "2025-01-01",
+      deadline: "2025-03-31",
+      featured: false
+    },
+    {
+      id: 61,
+      title: "Sweden Renewable Energy Scholarship",
+      description: "Funding for renewable energy students in Sweden.",
+      fullDescription: "Supports Swedish students pursuing degrees in renewable energy to promote sustainability.",
+      requirements: ["Swedish resident", "Enrolled in engineering program", "Minimum GPA of 3.0", "Interest in renewable energy"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://swedenscholarships.se",
+      type: "scholarship",
+      location: "Stockholm, Sweden",
+      posted: "2024-12-25",
+      deadline: "2025-03-25",
+      featured: false
+    },
+    {
+      id: 62,
+      title: "Brazil AI Scholarship",
+      description: "Funding for AI students in Brazil.",
+      fullDescription: "Supports Brazilian students pursuing degrees in artificial intelligence to drive tech innovation.",
+      requirements: ["Brazilian resident", "Enrolled in AI program", "Minimum GPA of 3.0", "Interest in AI research"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://brazilscholarships.br",
+      type: "scholarship",
+      location: "São Paulo, Brazil",
+      posted: "2024-12-20",
+      deadline: "2025-03-20",
+      featured: false
+    },
+    {
+      id: 63,
+      title: "Mexico Cybersecurity Scholarship",
+      description: "Funding for cybersecurity students in Mexico.",
+      fullDescription: "Supports Mexican students pursuing degrees in cybersecurity to protect digital infrastructure.",
+      requirements: ["Mexican resident", "Enrolled in cybersecurity program", "Minimum GPA of 3.0", "Interest in cybersecurity"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://mexicoscholarships.mx",
+      type: "scholarship",
+      location: "Mexico City, Mexico",
+      posted: "2024-12-15",
+      deadline: "2025-03-15",
+      featured: false
+    },
+    {
+      id: 64,
+      title: "Rwanda Health Tech Scholarship",
+      description: "Funding for health tech students in Rwanda.",
+      fullDescription: "Supports Rwandan students pursuing degrees in health technology to improve healthcare access.",
+      requirements: ["Rwandan resident", "Enrolled in health tech program", "Minimum GPA of 3.0", "Interest in health tech"],
+      responsibilities: [],
+      image: "assets/images/placeholder.jpg",
+      link: "https://rwandascholarships.org",
+      type: "scholarship",
+      location: "Kigali, Rwanda",
+      posted: "2024-12-10",
+      deadline: "2025-03-10",
+      featured: false
+    },
+    {
+      id: 65,
+      title: "Nigeria Mobile Developer",
+      description: "Develop mobile apps for Nigeria’s digital economy.",
+      fullDescription: "Create mobile applications to support Nigeria’s fintech and e-commerce sectors.",
+      requirements: ["BS in Computer Science", "2+ years in mobile development", "Experience with Flutter or React Native", "Knowledge of APIs"],
+      responsibilities: ["Develop mobile apps", "Integrate APIs", "Test and deploy applications", "Collaborate with product teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://nigeriatechjobs.org",
+      type: "job",
+      location: "Abuja, Nigeria",
+      posted: "2024-12-05",
+      deadline: "2025-03-05",
+      featured: false
+    },
+    {
+      id: 66,
+      title: "Kenya Data Analyst",
+      description: "Analyze data for Kenyan businesses.",
+      fullDescription: "Use data analytics to provide insights for Kenya’s business sector.",
+      requirements: ["BS in Data Science", "2+ years in data analysis", "Proficiency in Python or R", "Analytical skills"],
+      responsibilities: ["Analyze datasets", "Develop data visualizations", "Support business decisions", "Collaborate with teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://kenyatechjobs.org",
+      type: "job",
+      location: "Nairobi, Kenya",
+      posted: "2024-12-01",
+      deadline: "2025-03-01",
+      featured: false
+    },
+    {
+      id: 67,
+      title: "South Africa Fintech Developer",
+      description: "Develop fintech solutions for South Africa.",
+      fullDescription: "Create financial technology applications to support South Africa’s digital economy.",
+      requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+      responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://satechjobs.org",
+      type: "job",
+      location: "Johannesburg, South Africa",
+      posted: "2024-11-25",
+      deadline: "2025-02-25",
+      featured: false
+    },
+    {
+      id: 68,
+      title: "Ghana Health Tech Developer",
+      description: "Develop health tech solutions in Ghana.",
+      fullDescription: "Create applications to improve healthcare access in Ghana’s health sector.",
+      requirements: ["BS in Computer Science or Health Tech", "2+ years in health tech", "Proficiency in Python", "Knowledge of health systems"],
+      responsibilities: ["Develop health tech applications", "Integrate with healthcare systems", "Test and deploy solutions", "Collaborate with health teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://ghanatechjobs.org",
+      type: "job",
+      location: "Kumasi, Ghana",
+      posted: "2024-11-20",
+      deadline: "2025-02-20",
+      featured: false
+    },
+    {
+      id: 69,
+      title: "France Cybersecurity Engineer",
+      description: "Protect digital infrastructure in France.",
+      fullDescription: "Implement cybersecurity solutions to safeguard France’s tech ecosystem.",
+      requirements: ["BS in Cybersecurity", "3+ years in security", "Knowledge of SIEM tools", "Certifications like CISSP"],
+      responsibilities: ["Monitor cyber threats", "Implement security measures", "Conduct security audits", "Train staff on security"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://francetechjobs.fr",
+      type: "job",
+      location: "Toulouse, France",
+      posted: "2024-11-15",
+      deadline: "2025-02-15",
+      featured: false
+    },
+    {
+      id: 70,
+      title: "Netherlands AI Developer",
+      description: "Develop AI solutions for Dutch tech firms.",
+      fullDescription: "Create AI-driven applications for Netherlands-based technology companies.",
+      requirements: ["BS/MS in Computer Science or AI", "3+ years in AI development", "Proficiency in Python", "Experience with AI frameworks"],
+      responsibilities: ["Develop AI applications", "Optimize algorithms", "Collaborate with tech teams", "Deploy AI solutions"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://netherlandstechjobs.nl",
+      type: "job",
+      location: "Rotterdam, Netherlands",
+      posted: "2024-11-10",
+      deadline: "2025-02-10",
+      featured: false
+    },
+    {
+      id: 71,
+      title: "Sweden Data Engineer",
+      description: "Build data pipelines for Swedish companies.",
+      fullDescription: "Design and maintain data pipelines to support analytics for Swedish businesses.",
+      requirements: ["BS in Computer Science", "3+ years in data engineering", "Experience with Apache Spark", "Knowledge of SQL"],
+      responsibilities: ["Build data pipelines", "Optimize data workflows", "Ensure data quality", "Collaborate with analysts"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://swedentechjobs.se",
+      type: "job",
+      location: "Malmö, Sweden",
+      posted: "2024-11-05",
+      deadline: "2025-02-05",
+      featured: false
+    },
+    {
+      id: 72,
+      title: "Brazil Fintech Developer",
+      description: "Develop fintech solutions for Brazil’s digital economy.",
+      fullDescription: "Create financial technology applications to support Brazil’s fintech sector.",
+      requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+      responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://braziltechjobs.br",
+      type: "job",
+      location: "Rio de Janeiro, Brazil",
+      posted: "2024-11-01",
+      deadline: "2025-02-01",
+      featured: false
+    },
+    {
+      id: 73,
+      title: "Mexico Data Scientist",
+      description: "Analyze data for Mexican businesses.",
+      fullDescription: "Use advanced analytics to provide insights for Mexico’s business sector.",
+      requirements: ["PhD in Data Science", "Proficiency in Python or R", "Experience with big data tools", "Strong analytical skills"],
+      responsibilities: ["Analyze large datasets", "Develop predictive models", "Present insights to stakeholders", "Optimize data pipelines"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://mexicotechjobs.mx",
+      type: "job",
+      location: "Guadalajara, Mexico",
+      posted: "2024-10-25",
+      deadline: "2025-01-25",
+      featured: false
+    },
+    {
+      id: 74,
+      title: "Rwanda Mobile Developer",
+      description: "Develop mobile apps for Rwanda’s digital economy.",
+      fullDescription: "Create mobile applications to support Rwanda’s fintech and e-commerce sectors.",
+      requirements: ["BS in Computer Science", "2+ years in mobile development", "Experience with Flutter or React Native", "Knowledge of APIs"],
+      responsibilities: ["Develop mobile apps", "Integrate APIs", "Test and deploy applications", "Collaborate with product teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://rwandatechjobs.org",
+      type: "job",
+      location: "Kigali, Rwanda",
+      posted: "2024-10-20",
+      deadline: "2025-01-20",
+      featured: false
+    },
+    {
+      id: 75,
+      title: "Nigeria Cybersecurity Specialist",
+      description: "Protect Nigeria’s digital infrastructure.",
+      fullDescription: "Implement security measures to safeguard Nigeria’s growing digital economy.",
+      requirements: ["BS in Cybersecurity", "3+ years in security", "Knowledge of SIEM tools", "Certifications like CISSP"],
+      responsibilities: ["Monitor cyber threats", "Implement security measures", "Conduct security audits", "Train staff on security"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://nigeriatechjobs.org",
+      type: "job",
+      location: "Lagos, Nigeria",
+      posted: "2024-10-15",
+      deadline: "2025-01-15",
+      featured: false
+    },
+    {
+      id: 76,
+      title: "Kenya AI Developer",
+      description: "Develop AI solutions for Kenyan tech firms.",
+      fullDescription: "Create AI-driven applications to support Kenya’s growing tech ecosystem.",
+      requirements: ["BS/MS in Computer Science or AI", "3+ years in AI development", "Proficiency in Python", "Experience with AI frameworks"],
+      responsibilities: ["Develop AI applications", "Optimize algorithms", "Collaborate with tech teams", "Deploy AI solutions"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://kenyatechjobs.org",
+      type: "job",
+      location: "Nairobi, Kenya",
+      posted: "2024-10-10",
+      deadline: "2025-01-10",
+      featured: false
+    },
+    {
+      id: 77,
+      title: "South Africa Health Tech Developer",
+      description: "Develop health tech solutions in South Africa.",
+      fullDescription: "Create applications to improve healthcare access in South Africa’s health sector.",
+      requirements: ["BS in Computer Science or Health Tech", "2+ years in health tech", "Proficiency in Python", "Knowledge of health systems"],
+      responsibilities: ["Develop health tech applications", "Integrate with healthcare systems", "Test and deploy solutions", "Collaborate with health teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://satechjobs.org",
+      type: "job",
+      location: "Cape Town, South Africa",
+      posted: "2024-10-05",
+      deadline: "2025-01-05",
+      featured: false
+    },
+    {
+      id: 78,
+      title: "Ghana Data Analyst",
+      description: "Analyze data for Ghanaian businesses.",
+      fullDescription: "Use data analytics to provide insights for Ghana’s business sector.",
+      requirements: ["BS in Data Science", "2+ years in data analysis", "Proficiency in Python or R", "Analytical skills"],
+      responsibilities: ["Analyze datasets", "Develop data visualizations", "Support business decisions", "Collaborate with teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://ghanatechjobs.org",
+      type: "job",
+      location: "Accra, Ghana",
+      posted: "2024-10-01",
+      deadline: "2025-01-01",
+      featured: false
+    },
+    {
+      id: 79,
+      title: "France Fintech Developer",
+      description: "Develop fintech solutions for French startups.",
+      fullDescription: "Create financial technology applications to support France’s digital economy.",
+      requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+      responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://francetechjobs.fr",
+      type: "job",
+      location: "Paris, France",
+      posted: "2024-09-25",
+      deadline: "2024-12-25",
+      featured: false
+    },
+    {
+      id: 80,
+      title: "Netherlands Renewable Energy Engineer",
+      description: "Design renewable energy systems in the Netherlands.",
+      fullDescription: "Work on solar and wind energy projects to support the Netherlands’ sustainability goals.",
+      requirements: ["BS/MS in Engineering", "3+ years in renewable energy", "Knowledge of solar/wind systems", "Project management skills"],
+      responsibilities: ["Design energy systems", "Manage project implementation", "Optimize energy output", "Collaborate with stakeholders"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://netherlandstechjobs.nl",
+      type: "job",
+      location: "Amsterdam, Netherlands",
+      posted: "2024-09-20",
+      deadline: "2024-12-20",
+      featured: false
+    },
+    {
+      id: 81,
+      title: "Sweden Cybersecurity Engineer",
+      description: "Protect digital infrastructure in Sweden.",
+      fullDescription: "Implement cybersecurity solutions to safeguard Sweden’s tech ecosystem.",
+      requirements: ["BS in Cybersecurity", "3+ years in security", "Knowledge of SIEM tools", "Certifications like CISSP"],
+      responsibilities: ["Monitor cyber threats", "Implement security measures", "Conduct security audits", "Train staff on security"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://swedentechjobs.se",
+      type: "job",
+      location: "Stockholm, Sweden",
+      posted: "2024-09-15",
+      deadline: "2024-12-15",
+      featured: false
+    },
+    {
+      id: 82,
+      title: "Brazil Data Engineer",
+      description: "Build data pipelines for Brazilian companies.",
+      fullDescription: "Design and maintain data pipelines to support analytics for Brazilian businesses.",
+      requirements: ["BS in Computer Science", "3+ years in data engineering", "Experience with Apache Spark", "Knowledge of SQL"],
+      responsibilities: ["Build data pipelines", "Optimize data workflows", "Ensure data quality", "Collaborate with analysts"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://braziltechjobs.br",
+      type: "job",
+      location: "São Paulo, Brazil",
+      posted: "2024-09-10",
+      deadline: "2024-12-10",
+      featured: false
+    },
+    {
+      id: 83,
+      title: "Mexico Health Tech Developer",
+      description: "Develop health tech solutions in Mexico.",
+      fullDescription: "Create applications to improve healthcare access in Mexico’s health sector.",
+      requirements: ["BS in Computer Science or Health Tech", "2+ years in health tech", "Proficiency in Python", "Knowledge of health systems"],
+      responsibilities: ["Develop health tech applications", "Integrate with healthcare systems", "Test and deploy solutions", "Collaborate with health teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://mexicotechjobs.mx",
+      type: "job",
+      location: "Monterrey, Mexico",
+      posted: "2024-09-05",
+      deadline: "2024-12-05",
+      featured: false
+    },
+    {
+      id: 84,
+      title: "Rwanda Fintech Developer",
+      description: "Develop fintech solutions for Rwanda’s digital economy.",
+      fullDescription: "Create financial technology applications to support Rwanda’s fintech sector.",
+      requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+      responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://rwandatechjobs.org",
+      type: "job",
+      location: "Kigali, Rwanda",
+      posted: "2024-09-01",
+      deadline: "2024-12-01",
+      featured: false
+    },
+    {
+      id: 85,
+      title: "Nigeria Data Analyst",
+      description: "Analyze data for Nigerian businesses.",
+      fullDescription: "Use data analytics to provide insights for Nigeria’s business sector.",
+      requirements: ["BS in Data Science", "2+ years in data analysis", "Proficiency in Python or R", "Analytical skills"],
+      responsibilities: ["Analyze datasets", "Develop data visualizations", "Support business decisions", "Collaborate with teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://nigeriatechjobs.org",
+      type: "job",
+      location: "Lagos, Nigeria",
+      posted: "2024-08-25",
+      deadline: "2024-11-25",
+      featured: false
+    },
+    {
+      id: 86,
+      title: "Kenya Renewable Energy Engineer",
+      description: "Design renewable energy systems in Kenya.",
+      fullDescription: "Work on solar and wind energy projects to support Kenya’s sustainability goals.",
+      requirements: ["BS/MS in Engineering", "3+ years in renewable energy", "Knowledge of solar/wind systems", "Project management skills"],
+      responsibilities: ["Design energy systems", "Manage project implementation", "Optimize energy output", "Collaborate with stakeholders"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://kenyatechjobs.org",
+      type: "job",
+      location: "Nairobi, Kenya",
+      posted: "2024-08-20",
+      deadline: "2024-11-20",
+      featured: false
+    },
+    {
+      id: 87,
+      title: "South Africa AI Developer",
+      description: "Develop AI solutions for South African tech firms.",
+      fullDescription: "Create AI-driven applications to support South Africa’s growing tech ecosystem.",
+      requirements: ["BS/MS in Computer Science or AI", "3+ years in AI development", "Proficiency in Python", "Experience with AI frameworks"],
+      responsibilities: ["Develop AI applications", "Optimize algorithms", "Collaborate with tech teams", "Deploy AI solutions"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://satechjobs.org",
+      type: "job",
+      location: "Cape Town, South Africa",
+      posted: "2024-08-15",
+      deadline: "2024-11-15",
+      featured: false
+    },
+    {
+      id: 88,
+      title: "Ghana Fintech Developer",
+      description: "Develop fintech solutions for Ghana’s digital economy.",
+      fullDescription: "Create financial technology applications to support Ghana’s fintech sector.",
+      requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+      responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://ghanatechjobs.org",
+      type: "job",
+      location: "Accra, Ghana",
+      posted: "2024-08-10",
+      deadline: "2024-11-10",
+      featured: false
+    },
+    {
+      id: 89,
+      title: "France Data Analyst",
+      description: "Analyze data for French businesses.",
+      fullDescription: "Use data analytics to provide insights for France’s business sector.",
+      requirements: ["BS in Data Science", "2+ years in data analysis", "Proficiency in Python or R", "Analytical skills"],
+      responsibilities: ["Analyze datasets", "Develop data visualizations", "Support business decisions", "Collaborate with teams"],
+      image: "assets/images/placeholder.jpg",
+      link: "https://francetechjobs.fr",
+      type: "job",
+      location: "Lyon, France",
+      posted: "2024-08-05",
+      deadline: "2024-11-05",
+      featured: false
+    },
+    {
+    id: 90,
+    title: "Rwanda Blockchain Developer",
+    description: "Develop blockchain solutions for Rwanda’s fintech sector.",
+    fullDescription: "Create secure blockchain-based applications to support Rwanda’s growing financial technology ecosystem.",
+    requirements: ["BS in Computer Science", "2+ years in blockchain development", "Experience with Ethereum or Hyperledger", "Knowledge of smart contracts"],
+    responsibilities: ["Develop blockchain applications", "Integrate with fintech platforms", "Test and deploy solutions", "Collaborate with fintech teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://rwandatechjobs.org",
+    type: "job",
+    location: "Kigali, Rwanda",
+    posted: "2024-08-01",
+    deadline: "2024-11-01",
+    featured: false
+  },
+  {
+    id: 91,
+    title: "Nigeria AI Research Scientist",
+    description: "Conduct AI research for Nigerian institutions.",
+    fullDescription: "Advance AI technologies through research for Nigeria’s academic and tech sectors.",
+    requirements: ["PhD in AI or related field", "Experience in AI research", "Proficiency in Python", "Published research"],
+    responsibilities: ["Conduct AI experiments", "Publish research findings", "Collaborate with universities", "Mentor students"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://nigeriatechjobs.org",
+    type: "job",
+    location: "Abuja, Nigeria",
+    posted: "2024-07-25",
+    deadline: "2024-10-25",
+    featured: false
+  },
+  {
+    id: 92,
+    title: "Kenya Cloud Engineer",
+    description: "Design cloud infrastructure for Kenyan startups.",
+    fullDescription: "Architect and deploy scalable cloud solutions for Kenya’s tech ecosystem.",
+    requirements: ["BS in Computer Science", "3+ years in cloud engineering", "Experience with AWS or Azure", "Knowledge of DevOps practices"],
+    responsibilities: ["Design cloud architecture", "Deploy infrastructure", "Optimize cloud performance", "Ensure security compliance"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://kenyatechjobs.org",
+    type: "job",
+    location: "Nairobi, Kenya",
+    posted: "2024-07-20",
+    deadline: "2024-10-20",
+    featured: false
+  },
+  {
+    id: 93,
+    title: "South Africa Machine Learning Engineer",
+    description: "Develop ML models for South African tech firms.",
+    fullDescription: "Create advanced machine learning models for applications in South Africa’s tech industry.",
+    requirements: ["MS in Computer Science or AI", "3+ years in ML", "Proficiency in TensorFlow or PyTorch", "Strong analytical skills"],
+    responsibilities: ["Develop ML models", "Optimize algorithms", "Collaborate with data scientists", "Deploy models in production"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://satechjobs.org",
+    type: "job",
+    location: "Pretoria, South Africa",
+    posted: "2024-07-15",
+    deadline: "2024-10-15",
+    featured: false
+  },
+  {
+    id: 94,
+    title: "Ghana Mobile Developer",
+    description: "Develop mobile apps for Ghana’s digital economy.",
+    fullDescription: "Create mobile applications to support Ghana’s fintech and e-commerce sectors.",
+    requirements: ["BS in Computer Science", "2+ years in mobile development", "Experience with Flutter or React Native", "Knowledge of APIs"],
+    responsibilities: ["Develop mobile apps", "Integrate APIs", "Test and deploy applications", "Collaborate with product teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://ghanatechjobs.org",
+    type: "job",
+    location: "Kumasi, Ghana",
+    posted: "2024-07-10",
+    deadline: "2024-10-10",
+    featured: false
+  },
+  {
+    id: 95,
+    title: "France Renewable Energy Consultant",
+    description: "Advise on renewable energy projects in France.",
+    fullDescription: "Provide consulting services to promote renewable energy adoption in France’s energy sector.",
+    requirements: ["MS in Environmental Science or Engineering", "3+ years in renewable energy", "Knowledge of solar/wind systems", "Strong communication skills"],
+    responsibilities: ["Advise on energy strategies", "Conduct feasibility studies", "Develop project reports", "Engage with clients"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://francetechjobs.fr",
+    type: "job",
+    location: "Toulouse, France",
+    posted: "2024-07-05",
+    deadline: "2024-10-05",
+    featured: false
+  },
+  {
+    id: 96,
+    title: "Netherlands Data Scientist",
+    description: "Analyze data for Dutch businesses.",
+    fullDescription: "Use advanced analytics to provide insights for Netherlands-based companies.",
+    requirements: ["PhD in Data Science", "Proficiency in Python or R", "Experience with big data tools", "Strong analytical skills"],
+    responsibilities: ["Analyze large datasets", "Develop predictive models", "Present insights to stakeholders", "Optimize data pipelines"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://netherlandstechjobs.nl",
+    type: "job",
+    location: "Utrecht, Netherlands",
+    posted: "2024-07-01",
+    deadline: "2024-10-01",
+    featured: false
+  },
+  {
+    id: 97,
+    title: "Sweden Fintech Developer",
+    description: "Develop fintech solutions for Sweden’s digital economy.",
+    fullDescription: "Create financial technology applications to support Sweden’s fintech sector.",
+    requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+    responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://swedentechjobs.se",
+    type: "job",
+    location: "Gothenburg, Sweden",
+    posted: "2024-06-25",
+    deadline: "2024-09-25",
+    featured: false
+  },
+  {
+    id: 98,
+    title: "Brazil Cybersecurity Specialist",
+    description: "Protect Brazil’s digital infrastructure.",
+    fullDescription: "Implement security measures to safeguard Brazil’s growing digital economy.",
+    requirements: ["BS in Cybersecurity", "3+ years in security", "Knowledge of SIEM tools", "Certifications like CISSP"],
+    responsibilities: ["Monitor cyber threats", "Implement security measures", "Conduct security audits", "Train staff on security"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://braziltechjobs.br",
+    type: "job",
+    location: "Brasília, Brazil",
+    posted: "2024-06-20",
+    deadline: "2024-09-20",
+    featured: false
+  },
+  {
+    id: 99,
+    title: "Mexico AI Developer",
+    description: "Develop AI solutions for Mexican tech firms.",
+    fullDescription: "Create AI-driven applications to support Mexico’s growing tech ecosystem.",
+    requirements: ["BS/MS in Computer Science or AI", "3+ years in AI development", "Proficiency in Python", "Experience with AI frameworks"],
+    responsibilities: ["Develop AI applications", "Optimize algorithms", "Collaborate with tech teams", "Deploy AI solutions"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://mexicotechjobs.mx",
+    type: "job",
+    location: "Guadalajara, Mexico",
+    posted: "2024-06-15",
+    deadline: "2024-09-15",
+    featured: false
+  },
+  {
+    id: 100,
+    title: "Rwanda Data Engineer",
+    description: "Build data pipelines for Rwandan companies.",
+    fullDescription: "Design and maintain data pipelines to support analytics for Rwanda’s businesses.",
+    requirements: ["BS in Computer Science", "3+ years in data engineering", "Experience with Apache Spark", "Knowledge of SQL"],
+    responsibilities: ["Build data pipelines", "Optimize data workflows", "Ensure data quality", "Collaborate with analysts"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://rwandatechjobs.org",
+    type: "job",
+    location: "Gisenyi, Rwanda",
+    posted: "2024-06-10",
+    deadline: "2024-09-10",
+    featured: false
+  },
+  {
+    id: 101,
+    title: "Nigeria Health Tech Developer",
+    description: "Develop health tech solutions in Nigeria.",
+    fullDescription: "Create applications to improve healthcare access in Nigeria’s health sector.",
+    requirements: ["BS in Computer Science or Health Tech", "2+ years in health tech", "Proficiency in Python", "Knowledge of health systems"],
+    responsibilities: ["Develop health tech applications", "Integrate with healthcare systems", "Test and deploy solutions", "Collaborate with health teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://nigeriatechjobs.org",
+    type: "job",
+    location: "Kano, Nigeria",
+    posted: "2024-06-05",
+    deadline: "2024-09-05",
+    featured: false
+  },
+  {
+    id: 102,
+    title: "Kenya Fintech Developer",
+    description: "Develop fintech solutions for Kenya’s digital economy.",
+    fullDescription: "Create financial technology applications to support Kenya’s fintech sector.",
+    requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+    responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://kenyatechjobs.org",
+    type: "job",
+    location: "Mombasa, Kenya",
+    posted: "2024-06-01",
+    deadline: "2024-09-01",
+    featured: false
+  },
+  {
+    id: 103,
+    title: "South Africa Cloud Architect",
+    description: "Design cloud infrastructure for South African firms.",
+    fullDescription: "Architect and deploy scalable cloud solutions for South Africa’s tech ecosystem.",
+    requirements: ["BS in Computer Science", "3+ years in cloud architecture", "Experience with AWS or Azure", "Knowledge of DevOps practices"],
+    responsibilities: ["Design cloud architecture", "Deploy infrastructure", "Optimize cloud performance", "Ensure security compliance"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://satechjobs.org",
+    type: "job",
+    location: "Johannesburg, South Africa",
+    posted: "2024-05-25",
+    deadline: "2024-08-25",
+    featured: false
+  },
+  {
+    id: 104,
+    title: "Ghana AI Developer",
+    description: "Develop AI solutions for Ghanaian tech firms.",
+    fullDescription: "Create AI-driven applications to support Ghana’s growing tech ecosystem.",
+    requirements: ["BS/MS in Computer Science or AI", "3+ years in AI development", "Proficiency in Python", "Experience with AI frameworks"],
+    responsibilities: ["Develop AI applications", "Optimize algorithms", "Collaborate with tech teams", "Deploy AI solutions"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://ghanatechjobs.org",
+    type: "job",
+    location: "Accra, Ghana",
+    posted: "2024-05-20",
+    deadline: "2024-08-20",
+    featured: false
+  },
+  {
+    id: 105,
+    title: "France Blockchain Developer",
+    description: "Develop blockchain solutions for French startups.",
+    fullDescription: "Create secure blockchain-based applications for France’s fintech and tech sectors.",
+    requirements: ["BS in Computer Science", "2+ years in blockchain development", "Experience with Ethereum or Hyperledger", "Knowledge of smart contracts"],
+    responsibilities: ["Develop blockchain applications", "Integrate with platforms", "Test and deploy solutions", "Collaborate with teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://francetechjobs.fr",
+    type: "job",
+    location: "Lyon, France",
+    posted: "2024-05-15",
+    deadline: "2024-08-15",
+    featured: false
+  },
+  {
+    id: 106,
+    title: "Netherlands Cybersecurity Engineer",
+    description: "Protect digital infrastructure in the Netherlands.",
+    fullDescription: "Implement cybersecurity solutions to safeguard the Netherlands’ tech ecosystem.",
+    requirements: ["BS in Cybersecurity", "3+ years in security", "Knowledge of SIEM tools", "Certifications like CISSP"],
+    responsibilities: ["Monitor cyber threats", "Implement security measures", "Conduct security audits", "Train staff on security"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://netherlandstechjobs.nl",
+    type: "job",
+    location: "Rotterdam, Netherlands",
+    posted: "2024-05-10",
+    deadline: "2024-08-10",
+    featured: false
+  },
+  {
+    id: 107,
+    title: "Sweden Health Tech Developer",
+    description: "Develop health tech solutions in Sweden.",
+    fullDescription: "Create applications to improve healthcare access in Sweden’s health sector.",
+    requirements: ["BS in Computer Science or Health Tech", "2+ years in health tech", "Proficiency in Python", "Knowledge of health systems"],
+    responsibilities: ["Develop health tech applications", "Integrate with healthcare systems", "Test and deploy solutions", "Collaborate with health teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://swedentechjobs.se",
+    type: "job",
+    location: "Malmö, Sweden",
+    posted: "2024-05-05",
+    deadline: "2024-08-05",
+    featured: false
+  },
+  {
+    id: 108,
+    title: "Brazil Data Analyst",
+    description: "Analyze data for Brazilian businesses.",
+    fullDescription: "Use data analytics to provide insights for Brazil’s business sector.",
+    requirements: ["BS in Data Science", "2+ years in data analysis", "Proficiency in Python or R", "Analytical skills"],
+    responsibilities: ["Analyze datasets", "Develop data visualizations", "Support business decisions", "Collaborate with teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://braziltechjobs.br",
+    type: "job",
+    location: "Rio de Janeiro, Brazil",
+    posted: "2024-05-01",
+    deadline: "2024-08-01",
+    featured: false
+  },
+  {
+    id: 109,
+    title: "Mexico Fintech Developer",
+    description: "Develop fintech solutions for Mexico’s digital economy.",
+    fullDescription: "Create financial technology applications to support Mexico’s fintech sector.",
+    requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+    responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://mexicotechjobs.mx",
+    type: "job",
+    location: "Monterrey, Mexico",
+    posted: "2024-04-25",
+    deadline: "2024-07-25",
+    featured: false
+  },
+  {
+    id: 110,
+    title: "Rwanda Renewable Energy Engineer",
+    description: "Design renewable energy systems in Rwanda.",
+    fullDescription: "Work on solar and wind energy projects to support Rwanda’s sustainability goals.",
+    requirements: ["BS/MS in Engineering", "3+ years in renewable energy", "Knowledge of solar/wind systems", "Project management skills"],
+    responsibilities: ["Design energy systems", "Manage project implementation", "Optimize energy output", "Collaborate with stakeholders"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://rwandatechjobs.org",
+    type: "job",
+    location: "Kigali, Rwanda",
+    posted: "2024-04-20",
+    deadline: "2024-07-20",
+    featured: false
+  },
+  {
+    id: 111,
+    title: "Nigeria Cloud Engineer",
+    description: "Design cloud infrastructure for Nigerian startups.",
+    fullDescription: "Architect and deploy scalable cloud solutions for Nigeria’s tech ecosystem.",
+    requirements: ["BS in Computer Science", "3+ years in cloud engineering", "Experience with AWS or Azure", "Knowledge of DevOps practices"],
+    responsibilities: ["Design cloud architecture", "Deploy infrastructure", "Optimize cloud performance", "Ensure security compliance"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://nigeriatechjobs.org",
+    type: "job",
+    location: "Lagos, Nigeria",
+    posted: "2024-04-15",
+    deadline: "2024-07-15",
+    featured: false
+  },
+  {
+    id: 112,
+    title: "Kenya Data Scientist",
+    description: "Analyze data for Kenyan businesses.",
+    fullDescription: "Use advanced analytics to provide insights for Kenya’s business sector.",
+    requirements: ["PhD in Data Science", "Proficiency in Python or R", "Experience with big data tools", "Strong analytical skills"],
+    responsibilities: ["Analyze large datasets", "Develop predictive models", "Present insights to stakeholders", "Optimize data pipelines"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://kenyatechjobs.org",
+    type: "job",
+    location: "Nairobi, Kenya",
+    posted: "2024-04-10",
+    deadline: "2024-07-10",
+    featured: false
+  },
+  {
+    id: 113,
+    title: "South Africa Blockchain Developer",
+    description: "Develop blockchain solutions for South African fintech.",
+    fullDescription: "Create secure blockchain-based applications for South Africa’s financial technology sector.",
+    requirements: ["BS in Computer Science", "2+ years in blockchain development", "Experience with Ethereum or Hyperledger", "Knowledge of smart contracts"],
+    responsibilities: ["Develop blockchain applications", "Integrate with fintech platforms", "Test and deploy solutions", "Collaborate with fintech teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://satechjobs.org",
+    type: "job",
+    location: "Cape Town, South Africa",
+    posted: "2024-04-05",
+    deadline: "2024-07-05",
+    featured: false
+  },
+  {
+    id: 114,
+    title: "Ghana Cybersecurity Specialist",
+    description: "Protect Ghana’s digital infrastructure.",
+    fullDescription: "Implement security measures to safeguard Ghana’s growing digital economy.",
+    requirements: ["BS in Cybersecurity", "3+ years in security", "Knowledge of SIEM tools", "Certifications like CISSP"],
+    responsibilities: ["Monitor cyber threats", "Implement security measures", "Conduct security audits", "Train staff on security"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://ghanatechjobs.org",
+    type: "job",
+    location: "Kumasi, Ghana",
+    posted: "2024-04-01",
+    deadline: "2024-07-01",
+    featured: false
+  },
+  {
+    id: 115,
+    title: "France AI Research Scientist",
+    description: "Conduct AI research for French institutions.",
+    fullDescription: "Advance AI technologies through research for France’s academic and tech sectors.",
+    requirements: ["PhD in AI or related field", "Experience in AI research", "Proficiency in Python", "Published research"],
+    responsibilities: ["Conduct AI experiments", "Publish research findings", "Collaborate with universities", "Mentor students"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://francetechjobs.fr",
+    type: "job",
+    location: "Paris, France",
+    posted: "2024-03-25",
+    deadline: "2024-06-25",
+    featured: false
+  },
+  {
+    id: 116,
+    title: "Netherlands Mobile Developer",
+    description: "Develop mobile apps for Dutch startups.",
+    fullDescription: "Create mobile applications to support Netherlands’ tech and e-commerce sectors.",
+    requirements: ["BS in Computer Science", "2+ years in mobile development", "Experience with Flutter or React Native", "Knowledge of APIs"],
+    responsibilities: ["Develop mobile apps", "Integrate APIs", "Test and deploy applications", "Collaborate with product teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://netherlandstechjobs.nl",
+    type: "job",
+    location: "Amsterdam, Netherlands",
+    posted: "2024-03-20",
+    deadline: "2024-06-20",
+    featured: false
+  },
+  {
+    id: 117,
+    title: "Sweden Renewable Energy Engineer",
+    description: "Design renewable energy systems in Sweden.",
+    fullDescription: "Work on solar and wind energy projects to support Sweden’s sustainability goals.",
+    requirements: ["BS/MS in Engineering", "3+ years in renewable energy", "Knowledge of solar/wind systems", "Project management skills"],
+    responsibilities: ["Design energy systems", "Manage project implementation", "Optimize energy output", "Collaborate with stakeholders"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://swedentechjobs.se",
+    type: "job",
+    location: "Stockholm, Sweden",
+    posted: "2024-03-15",
+    deadline: "2024-06-15",
+    featured: false
+  },
+  {
+    id: 118,
+    title: "Brazil Health Tech Developer",
+    description: "Develop health tech solutions in Brazil.",
+    fullDescription: "Create applications to improve healthcare access in Brazil’s health sector.",
+    requirements: ["BS in Computer Science or Health Tech", "2+ years in health tech", "Proficiency in Python", "Knowledge of health systems"],
+    responsibilities: ["Develop health tech applications", "Integrate with healthcare systems", "Test and deploy solutions", "Collaborate with health teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://braziltechjobs.br",
+    type: "job",
+    location: "São Paulo, Brazil",
+    posted: "2024-03-10",
+    deadline: "2024-06-10",
+    featured: false
+  },
+  {
+    id: 119,
+    title: "Mexico Cloud Architect",
+    description: "Design cloud infrastructure for Mexican firms.",
+    fullDescription: "Architect and deploy scalable cloud solutions for Mexico’s tech ecosystem.",
+    requirements: ["BS in Computer Science", "3+ years in cloud architecture", "Experience with AWS or Azure", "Knowledge of DevOps practices"],
+    responsibilities: ["Design cloud architecture", "Deploy infrastructure", "Optimize cloud performance", "Ensure security compliance"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://mexicotechjobs.mx",
+    type: "job",
+    location: "Mexico City, Mexico",
+    posted: "2024-03-05",
+    deadline: "2024-06-05",
+    featured: false
+  },
+  {
+    id: 120,
+    title: "Brazil Health Tech Developer",
+    description: "Develop health tech solutions in Brazil.",
+    fullDescription: "Create applications to improve healthcare access in Brazil’s health sector.",
+    requirements: ["BS in Computer Science or Health Tech", "2+ years in health tech", "Proficiency in Python", "Knowledge of health systems"],
+    responsibilities: ["Develop health tech applications", "Integrate with healthcare systems", "Test and deploy solutions", "Collaborate with health teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://braziltechjobs.br",
+    type: "job",
+    location: "São Paulo, Brazil",
+    posted: "2024-03-10",
+    deadline: "2024-06-10",
+    featured: false
+  },
+  {
+    id: 121,
+    title: "Mexico Cloud Architect",
+    description: "Design cloud infrastructure for Mexican firms.",
+    fullDescription: "Architect and deploy scalable cloud solutions for Mexico’s tech ecosystem.",
+    requirements: ["BS in Computer Science", "3+ years in cloud architecture", "Experience with AWS or Azure", "Knowledge of DevOps practices"],
+    responsibilities: ["Design cloud architecture", "Deploy infrastructure", "Optimize cloud performance", "Ensure security compliance"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://mexicotechjobs.mx",
+    type: "job",
+    location: "Mexico City, Mexico",
+    posted: "2024-03-05",
+    deadline: "2024-06-05",
+    featured: false
+  },
+  {
+    id: 122,
+    title: "Rwanda Machine Learning Engineer",
+    description: "Develop ML models for Rwandan tech firms.",
+    fullDescription: "Create advanced machine learning models for applications in Rwanda’s tech industry.",
+    requirements: ["MS in Computer Science or AI", "3+ years in ML", "Proficiency in TensorFlow or PyTorch", "Strong analytical skills"],
+    responsibilities: ["Develop ML models", "Optimize algorithms", "Collaborate with data scientists", "Deploy models in production"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://rwandatechjobs.org",
+    type: "job",
+    location: "Kigali, Rwanda",
+    posted: "2024-03-01",
+    deadline: "2024-06-01",
+    featured: false
+  },
+  {
+    id: 123,
+    title: "Nigeria Mobile Developer",
+    description: "Develop mobile apps for Nigeria’s digital economy.",
+    fullDescription: "Create mobile applications to support Nigeria’s fintech and e-commerce sectors.",
+    requirements: ["BS in Computer Science", "2+ years in mobile development", "Experience with Flutter or React Native", "Knowledge of APIs"],
+    responsibilities: ["Develop mobile apps", "Integrate APIs", "Test and deploy applications", "Collaborate with product teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://nigeriatechjobs.org",
+    type: "job",
+    location: "Lagos, Nigeria",
+    posted: "2024-02-25",
+    deadline: "2024-05-25",
+    featured: false
+  },
+  {
+    id: 124,
+    title: "Kenya Cybersecurity Engineer",
+    description: "Protect Kenya’s digital infrastructure.",
+    fullDescription: "Implement cybersecurity solutions to safeguard Kenya’s tech ecosystem.",
+    requirements: ["BS in Cybersecurity", "3+ years in security", "Knowledge of SIEM tools", "Certifications like CISSP"],
+    responsibilities: ["Monitor cyber threats", "Implement security measures", "Conduct security audits", "Train staff on security"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://kenyatechjobs.org",
+    type: "job",
+    location: "Nairobi, Kenya",
+    posted: "2024-02-20",
+    deadline: "2024-05-20",
+    featured: false
+  },
+  {
+    id: 125,
+    title: "South Africa Data Analyst",
+    description: "Analyze data for South African businesses.",
+    fullDescription: "Use data analytics to provide insights for South Africa’s business sector.",
+    requirements: ["BS in Data Science", "2+ years in data analysis", "Proficiency in Python or R", "Analytical skills"],
+    responsibilities: ["Analyze datasets", "Develop data visualizations", "Support business decisions", "Collaborate with teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://satechjobs.org",
+    type: "job",
+    location: "Johannesburg, South Africa",
+    posted: "2024-02-15",
+    deadline: "2024-05-15",
+    featured: false
+  },
+  {
+    id: 126,
+    title: "Ghana Fintech Developer",
+    description: "Develop fintech solutions for Ghana’s digital economy.",
+    fullDescription: "Create financial technology applications to support Ghana’s fintech sector.",
+    requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+    responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://ghanatechjobs.org",
+    type: "job",
+    location: "Accra, Ghana",
+    posted: "2024-02-10",
+    deadline: "2024-05-10",
+    featured: false
+  },
+  {
+    id: 127,
+    title: "France Health Tech Developer",
+    description: "Develop health tech solutions in France.",
+    fullDescription: "Create applications to improve healthcare access in France’s health sector.",
+    requirements: ["BS in Computer Science or Health Tech", "2+ years in health tech", "Proficiency in Python", "Knowledge of health systems"],
+    responsibilities: ["Develop health tech applications", "Integrate with healthcare systems", "Test and deploy solutions", "Collaborate with health teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://francetechjobs.fr",
+    type: "job",
+    location: "Paris, France",
+    posted: "2024-02-05",
+    deadline: "2024-05-05",
+    featured: false
+  },
+  {
+    id: 128,
+    title: "Netherlands AI Developer",
+    description: "Develop AI solutions for Dutch tech firms.",
+    fullDescription: "Create AI-driven applications to support the Netherlands’ growing tech ecosystem.",
+    requirements: ["BS/MS in Computer Science or AI", "3+ years in AI development", "Proficiency in Python", "Experience with AI frameworks"],
+    responsibilities: ["Develop AI applications", "Optimize algorithms", "Collaborate with tech teams", "Deploy AI solutions"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://netherlandstechjobs.nl",
+    type: "job",
+    location: "Amsterdam, Netherlands",
+    posted: "2024-02-01",
+    deadline: "2024-05-01",
+    featured: false
+  },
+  {
+    id: 129,
+    title: "Sweden Cloud Engineer",
+    description: "Design cloud infrastructure for Swedish startups.",
+    fullDescription: "Architect and deploy scalable cloud solutions for Sweden’s tech ecosystem.",
+    requirements: ["BS in Computer Science", "3+ years in cloud engineering", "Experience with AWS or Azure", "Knowledge of DevOps practices"],
+    responsibilities: ["Design cloud architecture", "Deploy infrastructure", "Optimize cloud performance", "Ensure security compliance"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://swedentechjobs.se",
+    type: "job",
+    location: "Stockholm, Sweden",
+    posted: "2024-01-25",
+    deadline: "2024-04-25",
+    featured: false
+  },
+  {
+    id: 130,
+    title: "Brazil Blockchain Developer",
+    description: "Develop blockchain solutions for Brazilian fintech.",
+    fullDescription: "Create secure blockchain-based applications for Brazil’s financial technology sector.",
+    requirements: ["BS in Computer Science", "2+ years in blockchain development", "Experience with Ethereum or Hyperledger", "Knowledge of smart contracts"],
+    responsibilities: ["Develop blockchain applications", "Integrate with fintech platforms", "Test and deploy solutions", "Collaborate with fintech teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://braziltechjobs.br",
+    type: "job",
+    location: "Rio de Janeiro, Brazil",
+    posted: "2024-01-20",
+    deadline: "2024-04-20",
+    featured: false
+  },
+  {
+    id: 131,
+    title: "Mexico Data Scientist",
+    description: "Analyze data for Mexican businesses.",
+    fullDescription: "Use advanced analytics to provide insights for Mexico’s business sector.",
+    requirements: ["PhD in Data Science", "Proficiency in Python or R", "Experience with big data tools", "Strong analytical skills"],
+    responsibilities: ["Analyze large datasets", "Develop predictive models", "Present insights to stakeholders", "Optimize data pipelines"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://mexicotechjobs.mx",
+    type: "job",
+    location: "Guadalajara, Mexico",
+    posted: "2024-01-15",
+    deadline: "2024-04-15",
+    featured: false
+  },
+  {
+    id: 132,
+    title: "Rwanda Fintech Developer",
+    description: "Develop fintech solutions for Rwanda’s digital economy.",
+    fullDescription: "Create financial technology applications to support Rwanda’s fintech sector.",
+    requirements: ["BS in Computer Science", "2+ years in fintech development", "Proficiency in JavaScript", "Knowledge of APIs"],
+    responsibilities: ["Develop fintech applications", "Integrate payment systems", "Test and deploy solutions", "Collaborate with teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://rwandatechjobs.org",
+    type: "job",
+    location: "Gisenyi, Rwanda",
+    posted: "2024-01-10",
+    deadline: "2024-04-10",
+    featured: false
+  },
+  {
+    id: 133,
+    title: "Nigeria Renewable Energy Engineer",
+    description: "Design renewable energy systems in Nigeria.",
+    fullDescription: "Work on solar and wind energy projects to support Nigeria’s sustainability goals.",
+    requirements: ["BS/MS in Engineering", "3+ years in renewable energy", "Knowledge of solar/wind systems", "Project management skills"],
+    responsibilities: ["Design energy systems", "Manage project implementation", "Optimize energy output", "Collaborate with stakeholders"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://nigeriatechjobs.org",
+    type: "job",
+    location: "Abuja, Nigeria",
+    posted: "2024-01-05",
+    deadline: "2024-04-05",
+    featured: false
+  },
+  {
+    id: 134,
+    title: "Kenya AI Research Scientist",
+    description: "Conduct AI research for Kenyan institutions.",
+    fullDescription: "Advance AI technologies through research for Kenya’s academic and tech sectors.",
+    requirements: ["PhD in AI or related field", "Experience in AI research", "Proficiency in Python", "Published research"],
+    responsibilities: ["Conduct AI experiments", "Publish research findings", "Collaborate with universities", "Mentor students"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://kenyatechjobs.org",
+    type: "job",
+    location: "Nairobi, Kenya",
+    posted: "2024-01-01",
+    deadline: "2024-04-01",
+    featured: false
+  },
+  {
+    id: 135,
+    title: "Kenya Health Tech Internship",
+    description: "Work on health tech projects in Kenya.",
+    fullDescription: "Contribute to health technology projects to improve healthcare access in Kenya.",
+    requirements: ["Current student in CS or Health Tech", "Basic coding skills in Python", "Interest in health tech", "Team collaboration skills"],
+    responsibilities: ["Assist in developing health tech applications", "Support testing processes", "Analyze health data", "Collaborate with health teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://kenyatechjobs.org",
+    type: "internship",
+    location: "Nairobi, Kenya",
+    posted: "2023-12-25",
+    deadline: "2024-03-25",
+    featured: false
+  },
+  {
+    id: 136,
+    title: "South Africa AI Internship",
+    description: "Explore AI technologies in South Africa.",
+    fullDescription: "Work on AI-driven projects with South African tech companies.",
+    requirements: ["Current student in CS or AI", "Knowledge of machine learning", "Proficiency in Python", "Interest in AI research"],
+    responsibilities: ["Develop AI prototypes", "Test ML models", "Assist in research projects", "Collaborate with AI teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://satechjobs.org",
+    type: "internship",
+    location: "Cape Town, South Africa",
+    posted: "2023-12-20",
+    deadline: "2024-03-20",
+    featured: false
+  },
+  {
+    id: 137,
+    title: "Brazil Fintech Internship",
+    description: "Work on fintech projects in Brazil.",
+    fullDescription: "Contribute to financial technology projects in Brazil’s vibrant fintech ecosystem.",
+    requirements: ["Current student in CS or finance", "Knowledge of fintech", "Experience with mobile apps", "Analytical skills"],
+    responsibilities: ["Develop fintech solutions", "Test applications", "Support user testing", "Collaborate with fintech teams"],
+    image: "assets/images/placeholder.jpg",
+    link: "https://braziltechjobs.br",
+    type: "internship",
+    location: "São Paulo, Brazil",
+    posted: "2023-12-15",
+    deadline: "2024-03-15",
+    featured: false
+  },
+  {
+    id: 138,
+    title: "Rwanda AI Scholarship",
+    description: "Funding for AI students in Rwanda.",
+    fullDescription: "Supports Rwandan students pursuing degrees in artificial intelligence to drive tech innovation.",
+    requirements: ["Rwandan resident", "Enrolled in AI program", "Minimum GPA of 3.0", "Interest in AI research"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://rwandascholarships.org",
+    type: "scholarship",
+    location: "Kigali, Rwanda",
+    posted: "2023-12-10",
+    deadline: "2024-03-10",
+    featured: false
+  },
+  {
+    id: 139,
+    title: "Nigeria Health Tech Scholarship",
+    description: "Funding for health tech students in Nigeria.",
+    fullDescription: "Supports Nigerian students pursuing degrees in health technology to improve healthcare access.",
+    requirements: ["Nigerian resident", "Enrolled in health tech program", "Minimum GPA of 3.0", "Interest in health tech"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://nigeriascholarships.org",
+    type: "scholarship",
+    location: "Lagos, Nigeria",
+    posted: "2023-12-05",
+    deadline: "2024-03-05",
+    featured: false
+  },
+  {
+    id: 140,
+    title: "Kenya Renewable Energy Scholarship",
+    description: "Funding for renewable energy students in Kenya.",
+    fullDescription: "Supports Kenyan students pursuing degrees in renewable energy to promote sustainability.",
+    requirements: ["Kenyan resident", "Enrolled in engineering program", "Minimum GPA of 3.0", "Interest in renewable energy"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://kenyascholarships.org",
+    type: "scholarship",
+    location: "Nairobi, Kenya",
+    posted: "2023-12-01",
+    deadline: "2024-03-01",
+    featured: false
+  },
+  {
+    id: 141,
+    title: "South Africa Cybersecurity Scholarship",
+    description: "Funding for cybersecurity students in South Africa.",
+    fullDescription: "Supports South African students pursuing degrees in cybersecurity to protect digital infrastructure.",
+    requirements: ["South African resident", "Enrolled in cybersecurity program", "Minimum GPA of 3.0", "Interest in cybersecurity"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://sascholarships.org",
+    type: "scholarship",
+    location: "Pretoria, South Africa",
+    posted: "2023-11-25",
+    deadline: "2024-02-25",
+    featured: false
+  },
+  {
+    id: 142,
+    title: "Ghana Data Science Scholarship",
+    description: "Funding for data science students in Ghana.",
+    fullDescription: "Supports Ghanaian students pursuing degrees in data science to drive analytics innovation.",
+    requirements: ["Ghanaian resident", "Enrolled in data science program", "Minimum GPA of 3.0", "Interest in data analytics"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://ghanascholarships.org",
+    type: "scholarship",
+    location: "Accra, Ghana",
+    posted: "2023-11-20",
+    deadline: "2024-02-20",
+    featured: false
+  },
+  {
+    id: 143,
+    title: "France Blockchain Scholarship",
+    description: "Funding for blockchain students in France.",
+    fullDescription: "Supports French students pursuing degrees in blockchain technology to advance fintech innovation.",
+    requirements: ["French resident", "Enrolled in blockchain or CS program", "Minimum GPA of 3.0", "Interest in blockchain"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://francescholarships.fr",
+    type: "scholarship",
+    location: "Toulouse, France",
+    posted: "2023-11-15",
+    deadline: "2024-02-15",
+    featured: false
+  },
+  {
+    id: 144,
+    title: "Netherlands AI Scholarship",
+    description: "Funding for AI students in the Netherlands.",
+    fullDescription: "Supports students pursuing degrees in artificial intelligence to advance tech innovation in the Netherlands.",
+    requirements: ["Enrolled in AI program", "Minimum GPA of 3.0", "Interest in AI research", "Project proposal"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://netherlandsscholarships.nl",
+    type: "scholarship",
+    location: "Rotterdam, Netherlands",
+    posted: "2023-11-10",
+    deadline: "2024-02-10",
+    featured: false
+  },
+  {
+    id: 145,
+    title: "Sweden Data Science Scholarship",
+    description: "Funding for data science students in Sweden.",
+    fullDescription: "Supports Swedish students pursuing degrees in data science to drive analytics innovation.",
+    requirements: ["Swedish resident", "Enrolled in data science program", "Minimum GPA of 3.0", "Interest in data analytics"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://swedenscholarships.se",
+    type: "scholarship",
+    location: "Malmö, Sweden",
+    posted: "2023-11-05",
+    deadline: "2024-02-05",
+    featured: false
+  },
+  {
+    id: 146,
+    title: "Brazil Renewable Energy Scholarship",
+    description: "Funding for renewable energy students in Brazil.",
+    fullDescription: "Supports Brazilian students pursuing degrees in renewable energy to promote sustainability.",
+    requirements: ["Brazilian resident", "Enrolled in engineering program", "Minimum GPA of 3.0", "Interest in renewable energy"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://brazilscholarships.br",
+    type: "scholarship",
+    location: "Brasília, Brazil",
+    posted: "2023-11-01",
+    deadline: "2024-02-01",
+    featured: false
+  },
+  {
+    id: 147,
+    title: "Mexico Health Tech Scholarship",
+    description: "Funding for health tech students in Mexico.",
+    fullDescription: "Supports Mexican students pursuing degrees in health technology to improve healthcare access.",
+    requirements: ["Mexican resident", "Enrolled in health tech program", "Minimum GPA of 3.0", "Interest in health tech"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://mexicoscholarships.mx",
+    type: "scholarship",
+    location: "Monterrey, Mexico",
+    posted: "2023-10-25",
+    deadline: "2024-01-25",
+    featured: false
+  },
+  {
+    id: 148,
+    title: "Rwanda Cybersecurity Scholarship",
+    description: "Funding for cybersecurity students in Rwanda.",
+    fullDescription: "Supports Rwandan students pursuing degrees in cybersecurity to protect digital infrastructure.",
+    requirements: ["Rwandan resident", "Enrolled in cybersecurity program", "Minimum GPA of 3.0", "Interest in cybersecurity"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://rwandascholarships.org",
+    type: "scholarship",
+    location: "Gisenyi, Rwanda",
+    posted: "2023-10-20",
+    deadline: "2024-01-20",
+    featured: false
+  },
+  {
+    id: 149,
+    title: "Nigeria Blockchain Scholarship",
+    description: "Funding for blockchain students in Nigeria.",
+    fullDescription: "Supports Nigerian students pursuing degrees in blockchain technology to advance fintech innovation.",
+    requirements: ["Nigerian resident", "Enrolled in blockchain or CS program", "Minimum GPA of 3.0", "Interest in blockchain"],
+    responsibilities: [],
+    image: "assets/images/placeholder.jpg",
+    link: "https://nigeriascholarships.org",
+    type: "scholarship",
+    location: "Kano, Nigeria",
+    posted: "2023-10-15",
+    deadline: "2024-01-15",
+    featured: false
+  }
+]
+
+      const featuresGrid = document.querySelector('.features-grid');
+      const filterControls = document.querySelector('.filter-controls');
+      const lastUpdatedEl = document.querySelector('.last-updated');
+      const jobSearch = document.getElementById('jobSearch');
+
+      // Filter out overdue jobs
+      const now = new Date();
+      const activeJobs = jobsData.filter(job => {
+        const deadlineDate = new Date(job.deadline);
+        return !isNaN(deadlineDate) && deadlineDate >= now;
+      });
+
+      // Validate jobsData
+      activeJobs.forEach(job => {
+        if (!['job', 'internship', 'scholarship', 'other'].includes(job.type)) {
+          job.type = 'other';
+        }
+        if (!job.image || job.image === '') {
+          job.image = 'https://via.placeholder.com/300x160?text=Default+Image';
+        }
+        if (!job.deadline || isNaN(new Date(job.deadline))) {
+          job.deadline = '2030-12-31';
+        }
+      });
+
+      renderJobs(activeJobs);
+      renderFilters();
+      updateLastUpdated();
+
+      // Search functionality
+      if (jobSearch) {
+        jobSearch.addEventListener('input', (e) => {
+          const searchTerm = e.target.value.replace(/[<>]/g, '').toLowerCase();
+          const filteredJobs = activeJobs.filter(job =>
+            job.title.toLowerCase().includes(searchTerm) ||
+            job.description.toLowerCase().includes(searchTerm) ||
+            job.fullDescription.toLowerCase().includes(searchTerm) ||
+            job.location.toLowerCase().includes(searchTerm)
+          );
+          renderJobs(filteredJobs);
+        });
+      }
+
+      if (filterControls) {
+        filterControls.addEventListener('click', (e) => {
+          if (e.target.classList.contains('filter-btn')) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            e.target.classList.add('active');
+            const filter = e.target.dataset.filter;
+            const filteredJobs = filter === 'all' ? activeJobs : activeJobs.filter(job => job.type === filter);
+            renderJobs(filteredJobs);
+            const featuresContainer = document.querySelector('.features-container');
+            if (featuresContainer) {
+              featuresContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        });
+      }
+
+      function renderJobs(jobs) {
+        if (!featuresGrid) return;
+        featuresGrid.innerHTML = '';
+        jobs.forEach(job => {
+          const jobEl = document.createElement('div');
+          jobEl.className = 'feature-box';
+          const applyLink = job.type === 'other' ? 'index.html' : job.link;
+          jobEl.innerHTML = `
+            <img src="${job.image}" alt="${job.title} image" class="w-full h-40 object-cover object-center border-b-4 border-teal-900" loading="lazy">
+            <div class="job-type">${job.type.charAt(0).toUpperCase() + job.type.slice(1)}</div>
+            <div class="feature-content">
+              <h2 class="text-teal-900 text-lg">${job.title}</h2>
+              <p class="text-gray-600">${job.description}</p>
+              <div class="countdown" id="countdown-${job.id}"></div>
+              <button class="view-details-btn" data-job-id="${job.id}" aria-label="Toggle details for ${job.title}" aria-expanded="false">View Details</button>
+              <div class="job-details" id="details-${job.id}">
+                <h3>${job.type.charAt(0).toUpperCase() + job.type.slice(1)} Description</h3>
+                <p class="text-gray-600">${job.fullDescription}</p>
+                <h3>Requirements</h3>
+                <ul>
+                  ${job.requirements.map(req => `<li>${req}</li>`).join('')}
+                </ul>
+                <h3>Responsibilities</h3>
+                <ul>
+                  ${job.responsibilities.length > 0 ? job.responsibilities.map(res => `<li>${res}</li>`).join('') : '<li>No specific responsibilities listed</li>'}
+                </ul>
+                <a class="apply-btn" href="${applyLink}" ${job.type === 'other' ? '' : 'target="_blank"'} aria-label="Apply for ${job.title}">Apply Now</a>
+                <button class="back-btn" data-job-id="${job.id}" aria-label="Back to opportunities list">Back</button>
+              </div>
+              <div class="job-meta flex justify-between flex-wrap text-xs text-gray-500">
+                <span>📍 ${job.location}</span>
+                <span>📅 Posted: ${formatDate(job.posted)}</span>
+              </div>
+            </div>
+          `;
+          featuresGrid.appendChild(jobEl);
+          startCountdown(job.deadline, `countdown-${job.id}`);
+        });
+
+        // Event listeners for View Details and Back buttons
+        document.querySelectorAll('.view-details-btn').forEach(button => {
+          button.addEventListener('click', () => {
+            const jobId = button.dataset.jobId;
+            const details = document.getElementById(`details-${jobId}`);
+            const applyBtn = details.querySelector('.apply-btn');
+            const backBtn = details.querySelector('.back-btn');
+            const featureBox = button.closest('.feature-box');
+            const allFeatureBoxes = document.querySelectorAll('.feature-box');
+
+            const isActive = details.classList.contains('active');
+            details.classList.toggle('active');
+            featureBox.classList.toggle('feature-box-expanded', !isActive);
+            button.textContent = details.classList.contains('active') ? 'Hide Details' : 'View Details';
+            button.setAttribute('aria-expanded', details.classList.contains('active'));
+
+            allFeatureBoxes.forEach(box => {
+              if (box !== featureBox) {
+                box.style.display = details.classList.contains('active') ? 'none' : 'block';
+              }
+            });
+
+            if (details.classList.contains('active')) {
+              applyBtn.style.display = 'inline-block';
+              backBtn.style.display = 'inline-block';
+              setTimeout(() => {
+                details.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }, 100);
+            } else {
+              applyBtn.style.display = 'none';
+              backBtn.style.display = 'none';
+            }
+          });
+        });
+
+        document.querySelectorAll('.back-btn').forEach(button => {
+          button.addEventListener('click', () => {
+            const jobId = button.dataset.jobId;
+            const details = document.getElementById(`details-${jobId}`);
+            const viewDetailsBtn = document.querySelector(`.view-details-btn[data-job-id="${jobId}"]`);
+            const applyBtn = details.querySelector('.apply-btn');
+            const backBtn = details.querySelector('.back-btn');
+            const featureBox = button.closest('.feature-box');
+            const allFeatureBoxes = document.querySelectorAll('.feature-box');
+
+            details.classList.remove('active');
+            featureBox.classList.remove('feature-box-expanded');
+            viewDetailsBtn.textContent = 'View Details';
+            viewDetailsBtn.setAttribute('aria-expanded', 'false');
+            applyBtn.style.display = 'none';
+            backBtn.style.display = 'none';
+
+            allFeatureBoxes.forEach(box => {
+              box.style.display = 'block';
+            });
+
+            const featuresContainer = document.querySelector('.features-container');
+            if (featuresContainer) {
+              featuresContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+          });
+        });
+      }
+
+      function renderFilters() {
+        if (!filterControls) return;
+        const filters = [
+          { name: 'All', value: 'all' },
+          { name: 'Jobs', value: 'job' },
+          { name: 'Internships', value: 'internship' },
+          { name: 'Scholarships', value: 'scholarship' },
+          { name: 'Other', value: 'other' }
+        ];
+
+        filters.forEach(filter => {
+          const btn = document.createElement('button');
+          btn.className = `filter-btn ${filter.value === 'all' ? 'active' : ''} px-3 py-1 bg-gray-200 rounded-full text-sm hover:bg-gray-300`;
+          btn.textContent = filter.name;
+          btn.dataset.filter = filter.value;
+          btn.setAttribute('aria-label', `Filter by ${filter.name}`);
+          filterControls.appendChild(btn);
+        });
+      }
+
+      function updateLastUpdated() {
+        if (lastUpdatedEl) {
+          const now = new Date();
+          lastUpdatedEl.textContent = `Last updated: ${now.toLocaleString()}`;
+        }
+      }
+
+      function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+      }
+
+      setInterval(updateLastUpdated, 86400000);
+    });
+
+    let mybutton = document.getElementById("topBtn");
+
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        mybutton.style.display = "block";
+      } else {
+        mybutton.style.display = "none";
+      }
+    }
+
+    function topFunction() {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+  </script>
+</body>
+</html>
