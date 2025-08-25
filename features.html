@@ -340,6 +340,7 @@
       object-position: center;
       border-bottom: 3px solid #012f47;
       display: block;
+      order: -1;
     }
 
     .feature-box-expanded img {
@@ -353,6 +354,7 @@
       position: relative;
       z-index: 9;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      order: -1;
     }
 
     .feature-content {
@@ -368,6 +370,7 @@
       color: #012f47;
       margin-bottom: 8px;
       font-size: 1.1rem;
+      order: -2;
     }
 
     .feature-box p {
@@ -1248,7 +1251,7 @@
       }
 
       // Features Data
-       // Features Data
+     // Features Data
       const jobsData = [
         // ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
         
@@ -3569,11 +3572,12 @@
           jobEl.className = 'feature-box';
           const applyLink = job.type === 'other' ? 'index.html' : job.link;
           const shareUrl = `${window.location.origin}${window.location.pathname}#job-${job.id}`;
+          const shareText = `jobandscholarships\n${job.title}\n${shareUrl}`;
           jobEl.innerHTML = `
+            <h2 class="text-teal-900 text-lg">${job.title}</h2>
             <img src="${job.image}" alt="${job.title} image" class="w-full h-40 object-cover object-center border-b-4 border-teal-900" loading="lazy">
             <div class="job-type">${job.type.charAt(0).toUpperCase() + job.type.slice(1)}</div>
             <div class="feature-content">
-              <h2 class="text-teal-900 text-lg">${job.title}</h2>
               <p class="text-gray-600">${job.description}</p>
               <div class="countdown" id="countdown-${job.id}"></div>
               <button class="view-details-btn" data-job-id="${job.id}" aria-label="Toggle details for ${job.title}" aria-expanded="false">View Details</button>
@@ -3591,7 +3595,7 @@
                 <a class="apply-btn" href="${applyLink}" ${job.type === 'other' ? '' : 'target="_blank"'} aria-label="Apply for ${job.title}">Apply Now</a>
                 <button class="back-btn" data-job-id="${job.id}" aria-label="Back to opportunities list">Back</button>
                 <div class="share-buttons">
-                  <a class="share-btn" href="https://wa.me/?text=${encodeURIComponent(`jobandscholarships: ${job.title} at ${shareUrl}\nImage: ${job.image}`)}" target="_blank" aria-label="Share ${job.title} on WhatsApp"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
+                  <a class="share-btn" href="https://wa.me/?text=${encodeURIComponent(shareText)}" target="_blank" aria-label="Share ${job.title} on WhatsApp"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
                   <a class="share-btn" href="https://x.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(`jobandscholarships: ${job.title}`)}" target="_blank" aria-label="Share ${job.title} on X"><i class="fab fa-x-twitter"></i> Share on X</a>
                   <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}" target="_blank" aria-label="Share ${job.title} on Facebook"><i class="fab fa-facebook"></i> Share on Facebook</a>
                 </div>
@@ -3653,10 +3657,40 @@
             button.textContent = details.classList.contains('active') ? 'Hide Details' : 'View Details';
             button.setAttribute('aria-expanded', details.classList.contains('active'));
 
-            // Update URL hash when expanding details
+            // Update meta tags dynamically for the specific job
             if (details.classList.contains('active')) {
+              const job = jobs.find(j => j.id == jobId);
+              if (job) {
+                // Remove existing job-specific meta tags
+                document.querySelectorAll('meta[data-job-id]').forEach(meta => meta.remove());
+                
+                // Add new job-specific meta tags
+                const metaTags = [
+                  { property: 'og:title', content: `jobandscholarships: ${job.title}` },
+                  { property: 'og:description', content: job.fullDescription.substring(0, 200) + (job.fullDescription.length > 200 ? '...' : '') },
+                  { property: 'og:image', content: job.image },
+                  { property: 'og:url', content: `${window.location.origin}${window.location.pathname}#job-${job.id}` },
+                  { property: 'og:type', content: 'article' },
+                  { name: 'twitter:card', content: 'summary_large_image' },
+                  { name: 'twitter:title', content: `jobandscholarships: ${job.title}` },
+                  { name: 'twitter:description', content: job.fullDescription.substring(0, 200) + (job.fullDescription.length > 200 ? '...' : '') },
+                  { name: 'twitter:image', content: job.image }
+                ];
+
+                metaTags.forEach(tag => {
+                  const meta = document.createElement('meta');
+                  if (tag.property) meta.setAttribute('property', tag.property);
+                  if (tag.name) meta.setAttribute('name', tag.name);
+                  meta.setAttribute('content', tag.content);
+                  meta.setAttribute('data-job-id', jobId); // Mark for easy removal
+                  document.head.appendChild(meta);
+                });
+              }
+
               window.location.hash = `job-${jobId}`;
             } else {
+              // Revert meta tags to default
+              document.querySelectorAll('meta[data-job-id]').forEach(meta => meta.remove());
               window.location.hash = '';
             }
 
@@ -3700,6 +3734,9 @@
             backBtn.style.display = 'none';
             shareButtons.style.display = 'none';
             window.location.hash = '';
+
+            // Revert meta tags to default
+            document.querySelectorAll('meta[data-job-id]').forEach(meta => meta.remove());
 
             allFeatureBoxes.forEach(box => {
               box.style.display = 'block';
