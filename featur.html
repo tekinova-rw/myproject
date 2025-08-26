@@ -1251,6 +1251,7 @@
       }
 
       // Features Data
+     
      // Features Data
       const jobsData = [
         // ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
@@ -3664,16 +3665,16 @@
                 // Remove existing job-specific meta tags
                 document.querySelectorAll('meta[data-job-id]').forEach(meta => meta.remove());
                 
-                // Add new job-specific meta tags
+                // Add job-specific meta tags
                 const metaTags = [
                   { property: 'og:title', content: `jobandscholarships: ${job.title}` },
-                  { property: 'og:description', content: job.fullDescription.substring(0, 200) + (job.fullDescription.length > 200 ? '...' : '') },
+                  { property: 'og:description', content: job.description },
                   { property: 'og:image', content: job.image },
                   { property: 'og:url', content: `${window.location.origin}${window.location.pathname}#job-${job.id}` },
                   { property: 'og:type', content: 'article' },
                   { name: 'twitter:card', content: 'summary_large_image' },
                   { name: 'twitter:title', content: `jobandscholarships: ${job.title}` },
-                  { name: 'twitter:description', content: job.fullDescription.substring(0, 200) + (job.fullDescription.length > 200 ? '...' : '') },
+                  { name: 'twitter:description', content: job.description },
                   { name: 'twitter:image', content: job.image }
                 ];
 
@@ -3682,7 +3683,7 @@
                   if (tag.property) meta.setAttribute('property', tag.property);
                   if (tag.name) meta.setAttribute('name', tag.name);
                   meta.setAttribute('content', tag.content);
-                  meta.setAttribute('data-job-id', jobId); // Mark for easy removal
+                  meta.setAttribute('data-job-id', jobId);
                   document.head.appendChild(meta);
                 });
               }
