@@ -76,12 +76,12 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      border: 2px solid #f1c40f;
+      border: 2px solid white;
       margin-right: 8px;
     }
 
     .logo h1 {
-      color: #f1c40f;
+      color: white;
       font-size: 18px;
       font-weight: 700;
       white-space: nowrap;
@@ -801,7 +801,7 @@
   <!-- ===== HEADER ===== -->
   <header class="flex justify-between items-center">
     <div class="logo flex items-center">
-      <img src="https://via.placeholder.com/36x36?text=Logo" alt="jobandscholarships Company Logo" class="w-9 h-9 rounded-full border-2 border-yellow-400 mr-2">
+      <img src="https://jobandscholarships.netlify.app/jo.jpeg" alt="jobandscholarships Company Logo" class="w-9 h-9 rounded-full border-2 border-yellow-400 mr-2">
       <h1 class="text-yellow-400 text-lg font-bold">jobandscholarships</h1>
     </div>
     
@@ -1251,7 +1251,6 @@
       }
 
       // Features Data
-     
      // Features Data
       const jobsData = [
         // ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
@@ -1266,24 +1265,24 @@
       image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdkJmHkBy6Hu2K6lyyZvCKXh3ifCcUBZ9MAQ&s",
       link: "https://careers.google.com/",
       type: "job",
-      location: "Mountain View, CA",
-      posted: "2025-06-01",
+      location: "Rwanda,",
+      posted: "2025-08-22",
       deadline: "2025-08-30",
       featured: true
     },
     {
       id: 2,
-      title: "United Nations Programme Officer",
-      description: "Work on global development projects with the UN.",
-      fullDescription: "Coordinate and manage international development programs, focusing on sustainable development goals.",
-      requirements: ["Master’s degree in International Relations or related field", "3+ years in program management", "Fluency in English and French", "Strong analytical skills"],
-      responsibilities: ["Coordinate international programs", "Manage project budgets", "Liaise with stakeholders", "Report on program outcomes"],
-      image: "assets/images/un-job.jpg",
-      link: "https://careers.un.org",
+      title: " Several (15 Positions) in RDB",
+      description: "In the context of Rwanda, RDB stands for Rwanda Development Board.",
+      fullDescription: "Rwanda Development Board (RDB), is a government department that integrates all government agencies responsible for the attraction, retention and facilitation of investments in the national economy.",
+      requirements: ["click apply button below"],
+      responsibilities: ["click apply below "],
+      image: "assets/images/download.jpg",
+      link: "https://recruitment.mifotra.gov.rw/",
       type: "job",
-      location: "New York, NY",
-      posted: "2025-05-20",
-      deadline: "2025-08-10",
+      location: "Kigali-Rwanda",
+      posted: "2025-08-25",
+      deadline: "2025-09-01",
       featured: true
     },
     {
@@ -1348,7 +1347,7 @@
     },
     {
       id: 7,
-      title: "One Acre Fund Internship",
+      title: "One Acre Fund, Internship",
       description: "About One Acre Fund.",
       fullDescription: "Founded in 2006, One Acre Fund equips 5.5 million smallholder farmers to make their farms more productive. Across nine countries that together are home to two-thirds of Africa's farmers, we provide high-quality farm supplies, tree seedlings, accessible credit, modern agronomic training, and a wide range of other agricultural services. On average, this model enables any farmer to increase their income and assets on supported land by more than 35 percent, while permanently improving their resilience. This is all made possible by our team of 9,000+ full-time staff, drawn from diverse backgrounds and professions..",
       requirements: ["Bachelor's degree in IT related field", "6months of experience in IT related work", "Basic Linux skills, including using command line for navigation and file management", "Write and run simple scripts in Bash or Python","Familiarity with DevOps tools and practices (such as version control or CI/CD","Cloud platform exposure (AWS, Azure, or GCP) but not required","Awareness of automation tools and DevOps workflows", "Interest in IT software deployment, and working in teams","<b>Eligibility :<b>This role is only open to citizens or permanent residents of Rwanda"],
@@ -1357,8 +1356,8 @@
       link: "https://docs.google.com/forms/d/e/1FAIpQLScNPlRWiMwnPqZWnWP4Q92FYluEKdl5014b4_dHCbGGTkkqHQ/viewform/",
       type: "internship",
       location: "Kigali-Rwanda",
-      posted: "2025-05-15",
-      deadline: "2025-11-04",
+      posted: "2025-07-15",
+      deadline: "2025-08-30",
       featured: true
     },
     {
@@ -1493,7 +1492,7 @@
       link: "https://digitalcampus.ines.ac.rw/admission/scholarships/YWCA-KH3lXl3Zxc2a198/",
       type: "scholarship",
       location: "Global",
-      posted: "2025-05-01",
+      posted: "2025-07-15",
       deadline: "2025-08-25",
       featured: false
     },
@@ -1524,7 +1523,7 @@
       type: "internship",
       location: "London, UK",
       posted: "2025-07-12",
-      deadline: "2025-09-30",
+      deadline: "2025-05-30",
       featured: false
     },
     {
@@ -3665,16 +3664,16 @@
                 // Remove existing job-specific meta tags
                 document.querySelectorAll('meta[data-job-id]').forEach(meta => meta.remove());
                 
-                // Add job-specific meta tags
+                // Add new job-specific meta tags
                 const metaTags = [
                   { property: 'og:title', content: `jobandscholarships: ${job.title}` },
-                  { property: 'og:description', content: job.description },
+                  { property: 'og:description', content: job.fullDescription.substring(0, 200) + (job.fullDescription.length > 200 ? '...' : '') },
                   { property: 'og:image', content: job.image },
                   { property: 'og:url', content: `${window.location.origin}${window.location.pathname}#job-${job.id}` },
                   { property: 'og:type', content: 'article' },
                   { name: 'twitter:card', content: 'summary_large_image' },
                   { name: 'twitter:title', content: `jobandscholarships: ${job.title}` },
-                  { name: 'twitter:description', content: job.description },
+                  { name: 'twitter:description', content: job.fullDescription.substring(0, 200) + (job.fullDescription.length > 200 ? '...' : '') },
                   { name: 'twitter:image', content: job.image }
                 ];
 
@@ -3683,7 +3682,7 @@
                   if (tag.property) meta.setAttribute('property', tag.property);
                   if (tag.name) meta.setAttribute('name', tag.name);
                   meta.setAttribute('content', tag.content);
-                  meta.setAttribute('data-job-id', jobId);
+                  meta.setAttribute('data-job-id', jobId); // Mark for easy removal
                   document.head.appendChild(meta);
                 });
               }
