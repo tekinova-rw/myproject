@@ -220,14 +220,21 @@ const slides = document.querySelectorAll('.slide, .pdf-container');
 const dots = document.querySelectorAll('.dot');
 const totalSlides = slides.length;
 
+// Fungura slide ya mbere
+showSlide(slideIndex);
+
 function showSlide(index){
-  slides.forEach(s=>{ s.classList.remove('active'); s.querySelector('img')?.style.removeProperty('transform'); s.querySelector('iframe')?.style.removeProperty('transform'); });
+  slides.forEach((s,i)=>{
+    s.style.display = (i === index) ? 'block' : 'none';
+    s.querySelector('img')?.style.removeProperty('transform');
+    s.querySelector('iframe')?.style.removeProperty('transform');
+  });
   dots.forEach(d=>d.classList.remove('active'));
-  slides[index].classList.add('active');
-  dots[index].classList.add('active');
+  if(dots[index]) dots[index].classList.add('active');
   scale = 1;
 }
 
+// Zoom controls
 function zoomIn() {
   scale += 0.1;
   const el = slides[slideIndex].querySelector('img') || slides[slideIndex].querySelector('iframe');
@@ -240,22 +247,29 @@ function zoomOut() {
 }
 
 // Auto slide
-let slideInterval = setInterval(()=>{
-  slideIndex=(slideIndex+1)%totalSlides;
-  showSlide(slideIndex);
-},15000);
+let slideInterval = setInterval(nextSlide, 15000);
 
 // Navigation
-document.querySelector('.prev').addEventListener('click', ()=>{
-  slideIndex=(slideIndex-1+totalSlides)%totalSlides;
+function nextSlide(){
+  slideIndex++;
+  if(slideIndex >= totalSlides){
+    // Niba ari slide ya nyuma, ohereza user kuri homepage
+    window.location.href = "index.html";
+    return;
+  }
   showSlide(slideIndex);
   resetInterval();
-});
-document.querySelector('.next').addEventListener('click', ()=>{
-  slideIndex=(slideIndex+1)%totalSlides;
+}
+
+function prevSlide(){
+  slideIndex--;
+  if(slideIndex < 0) slideIndex = 0;
   showSlide(slideIndex);
   resetInterval();
-});
+}
+
+document.querySelector('.prev').addEventListener('click', prevSlide);
+document.querySelector('.next').addEventListener('click', nextSlide);
 
 // Dots click
 dots.forEach((dot,i)=>{
@@ -269,10 +283,7 @@ dots.forEach((dot,i)=>{
 // Reset interval
 function resetInterval(){
   clearInterval(slideInterval);
-  slideInterval=setInterval(()=>{
-    slideIndex=(slideIndex+1)%totalSlides;
-    showSlide(slideIndex);
-  },15000);
+  slideInterval=setInterval(nextSlide,15000);
 }
 
 // Share function
@@ -291,10 +302,11 @@ container.addEventListener('touchstart', e=>{ startX=e.touches[0].clientX; });
 container.addEventListener('touchend', e=>{
   endX=e.changedTouches[0].clientX;
   const dist=endX-startX;
-  if(dist>threshold){ slideIndex=(slideIndex-1+totalSlides)%totalSlides; showSlide(slideIndex); resetInterval(); }
-  else if(dist<-threshold){ slideIndex=(slideIndex+1)%totalSlides; showSlide(slideIndex); resetInterval(); }
+  if(dist>threshold){ prevSlide(); }
+  else if(dist<-threshold){ nextSlide(); }
 });
 </script>
+
 
 </body>
 </html>
