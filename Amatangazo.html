@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job and Scholarships - Slideshow Amafoto & Amatangazo</title>
+<style>
+body {
+  margin:0;
+  background:#000;
+  overflow:hidden;
+  font-family:sans-serif;
+}
+h1 {
+  position:absolute; top:10px; width:100%; text-align:center;
+  color:white; z-index:10; font-size:2rem;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+  pointer-events:none;
+}
+
+.slideshow-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Slides - images & pdf containers */
+.slide, .pdf-container {
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  display:none;
+  z-index:1;
+}
+
+.slide.active, .pdf-container.active { display:block; z-index:5; }
+
+/* Image slides */
+.slide img {
+  max-width: 100%;
+  max-height: 80%;
+  object-fit: contain;
+  margin:auto;
+  display:block;
+  position:absolute;
+  top:50%; left:50%;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.2s ease;
+}
+
+/* Slide overlay */
+.slide-overlay {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.6);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 6px;
+  z-index: 10;
+  font-size: 1rem;
+  text-align: center;
+}
+.share-btn {
+  margin-left:10px;
+  background:#0487d8;
+  border:none;
+  color:white;
+  padding:8px 10px;
+  cursor:pointer;
+  border-radius:5px;
+  font-size:0.9rem;
+}
+
+/* PDF slides */
+/* PDF slides */
+.pdf-container iframe {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.2s ease;
+  border: none;
+}
+
+/* PDF title overlay */
+.pdf-title {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.6);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 6px;
+  z-index: 10;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Fullscreen disabled - user can zoom */
+.fullscreen-btn { display:none; }
+
+/* Navigation buttons */
+.prev, .next {
+  position:absolute; top:50%;
+  transform:translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color:white;
+  font-size:2rem;
+  padding:10px 15px;
+  border-radius:50%;
+  border:none;
+  cursor:pointer;
+  z-index:10;
+}
+.prev { left:15px; } .next { right:15px; }
+.prev:hover, .next:hover { background: rgba(0,0,0,0.7); }
+
+/* Dots */
+.dots {
+  position:absolute; bottom:20px; width:100%; text-align:center; z-index:10;
+}
+.dot {
+  height:12px; width:12px; margin:0 5px;
+  display:inline-block; background:#bbb; border-radius:50%;
+  cursor:pointer; transition:0.3s;
+}
+.dot.active { background:#fff; }
+
+/* Zoom controls */
+.zoom-controls {
+  position:absolute;
+  bottom:20px; right:20px;
+  z-index:10;
+}
+.zoom-controls button {
+  padding:5px 10px;
+  margin-left:5px;
+  font-size:1rem;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+  background:#0f1011;
+  color:rgb(239, 241, 241);
+}
+
+/* Responsive text/buttons */
+@media(max-width:600px){
+  h1 { font-size:1.5rem; }
+  .slide-overlay { font-size:0.8rem; padding:6px 10px; }
+  .share-btn { font-size:0.7rem; padding:3px 6px; }
+  .prev, .next { font-size:1.5rem; padding:8px 12px; }
+  .zoom-controls button { font-size:0.8rem; padding:3px 6px; }
+  .dot { height:10px; width:10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- <h1 style="color: white;">Amatangazo yakazi ,Amashuri abanza nayisumbuye  ndetse na Kaminuza </h1> -->
+
+<div class="slideshow-container">
+  <!-- Image slides -->
+  <div class="slide active">
+    <img src="GALILEAMATANGAZO/Free-Digital-Agency-Social-Media-Banner-Template.png" alt="Foto 1">
+    <div class="slide-overlay">
+      
+      <button class="share-btn" onclick="shareSlide('Foto 1 - Job Opportunities')">Share</button>
+    </div>
+  </div>
+  <div class="slide">
+    <img src="GALILEAMATANGAZO/abstract-blue-wavy-background.jpg" alt="Foto 2">
+    <div class="slide-overlay">
+      TWANDIKIRE TUGUKORERE NANNER KURI MAKE
+      <button class="share-btn" onclick="shareSlide('Foto 2 - Scholarships')">Share</button>
+    </div>
+  </div>
+  <div class="slide">
+    <img src="GALILEAMATANGAZO/Professional-business-card-design-Template-scaled.png" alt="Foto 2">
+    <div class="slide-overlay">
+      TWANDIKIRE TUGUKORERE BUSINESS CARD KURI MAKE
+      <button class="share-btn" onclick="shareSlide('Foto 2 - Scholarships')">Share</button>
+    </div>
+  </div>
+  <div class="slide">
+    <img src="GALILEAMATANGAZO/business-id-card-design-template-40cc2959960c9374749dbda93dc4116a_screen.jpg" alt="Foto 2">
+    <div class="slide-overlay">
+      TWANDIKIRE TUGUKORERE BUSINESS ID KURI MAKE
+      <button class="share-btn" onclick="shareSlide('Foto 2 - Scholarships')">Share</button>
+    </div>
+  </div>
+
+  <!-- PDF slides -->
+<!-- <div class="pdf-container">
+  <div class="pdf-title">Scholarship Opportunities in RTB</div>
+  <iframe src="documents/Announcement_TVET_Scholarships.pdf"></iframe>
+  <button class="share-btn" onclick="shareSlide('Scholarship Opportunities in RTB')">Share</button>
+</div> -->
+
+<!-- <div class="pdf-container">
+  <div class="pdf-title">Itangazo rya kabiri</div>
+  <iframe src="documents/itangazo2.pdf"></iframe>
+</div> -->
+
+
+  <!-- Navigation -->
+  <button class="prev">&#10094;</button>
+  <button class="next">&#10095;</button>
+
+  <!-- Zoom controls -->
+  <div class="zoom-controls">
+    <button onclick="zoomOut()">-</button>
+    <button onclick="zoomIn()">+</button>
+  </div>
+</div>
+
+<!-- Dots -->
+<div class="dots">
+  <span class="dot active"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+</div>
+
+<script>
+let slideIndex = 0;
+let scale = 1;
+const slides = document.querySelectorAll('.slide, .pdf-container');
+const dots = document.querySelectorAll('.dot');
+const totalSlides = slides.length;
+
+// Fungura slide ya mbere
+showSlide(slideIndex);
+
+function showSlide(index){
+  slides.forEach((s,i)=>{
+    s.style.display = (i === index) ? 'block' : 'none';
+    s.querySelector('img')?.style.removeProperty('transform');
+    s.querySelector('iframe')?.style.removeProperty('transform');
+  });
+  dots.forEach(d=>d.classList.remove('active'));
+  if(dots[index]) dots[index].classList.add('active');
+  scale = 1;
+}
+
+// Zoom controls
+function zoomIn() {
+  scale += 0.1;
+  const el = slides[slideIndex].querySelector('img') || slides[slideIndex].querySelector('iframe');
+  if(el) el.style.transform = `translate(-50%, -50%) scale(${scale})`;
+}
+function zoomOut() {
+  scale = Math.max(0.5, scale-0.1);
+  const el = slides[slideIndex].querySelector('img') || slides[slideIndex].querySelector('iframe');
+  if(el) el.style.transform = `translate(-50%, -50%) scale(${scale})`;
+}
+
+// Auto slide
+let slideInterval = setInterval(nextSlide, 15000);
+
+// Navigation
+function nextSlide(){
+  slideIndex++;
+  if(slideIndex >= totalSlides){
+    // Niba ari slide ya nyuma, ohereza user kuri homepage
+    window.location.href = "index.html";
+    return;
+  }
+  showSlide(slideIndex);
+  resetInterval();
+}
+
+function prevSlide(){
+  slideIndex--;
+  if(slideIndex < 0) slideIndex = 0;
+  showSlide(slideIndex);
+  resetInterval();
+}
+
+document.querySelector('.prev').addEventListener('click', prevSlide);
+document.querySelector('.next').addEventListener('click', nextSlide);
+
+// Dots click
+dots.forEach((dot,i)=>{
+  dot.addEventListener('click', ()=>{
+    slideIndex=i;
+    showSlide(slideIndex);
+    resetInterval();
+  });
+});
+
+// Reset interval
+function resetInterval(){
+  clearInterval(slideInterval);
+  slideInterval=setInterval(nextSlide,15000);
+}
+
+// Share function
+function shareSlide(title){
+  const url = window.location.href;
+  if(navigator.share){
+    navigator.share({title,url}).catch(console.log);
+  } else { prompt("Copy link:", url); }
+}
+
+// Swipe gestures
+let startX=0, endX=0;
+const threshold=50;
+const container=document.querySelector('.slideshow-container');
+container.addEventListener('touchstart', e=>{ startX=e.touches[0].clientX; });
+container.addEventListener('touchend', e=>{
+  endX=e.changedTouches[0].clientX;
+  const dist=endX-startX;
+  if(dist>threshold){ prevSlide(); }
+  else if(dist<-threshold){ nextSlide(); }
+});
+</script>
+
+
+</body>
+</html>
