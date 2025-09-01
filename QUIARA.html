@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Business QR (High Quality SVG/PNG)</title>
+<style>
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f6f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+.card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 360px;
+  position: relative;
+}
+h2 { margin-bottom: 15px; color: #007bff; }
+input {
+  width: 95%;
+  padding: 10px;
+  margin: 6px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+}
+button:hover { opacity: 0.85; }
+#generateBtn { background: #007bff; }
+#downloadBtn { background: #28a745; }
+#downloadPNGBtn { background: #17a2b8; }
+#qrcode {
+  width: 250px;
+  height: 250px;
+  margin: 15px auto 0;
+}
+</style>
+</head>
+<body>
+<div class="card">
+  <h2>Smart Business QR</h2>
+
+  <input type="text" id="name" placeholder="Amazina">
+  <input type="text" id="position" placeholder="Umwanya / Position">
+  <input type="text" id="company" placeholder="Company Name">
+  <input type="text" id="location" placeholder="Location">
+  <input type="email" id="email" placeholder="Email">
+  <input type="tel" id="phone" placeholder="Telephone">
+  <input type="url" id="website" placeholder="Website (https://)">
+
+  <button id="generateBtn">Generate</button>
+  <button id="downloadBtn">Download SVG</button>
+  <button id="downloadPNGBtn">Download PNG</button>
+
+  <div id="qrcode"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+<script>
+let currentSVG = "";
+
+document.getElementById("generateBtn").onclick = async () => {
+  const name = document.getElementById("name").value.trim();
+  const position = document.getElementById("position").value.trim();
+  const company = document.getElementById("company").value.trim();
+  const location = document.getElementById("location").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const website = document.getElementById("website").value.trim();
+
+  if (!name || !phone) {
+    alert("Andika byibura amazina na telephone!");
+    return;
+  }
+
+  const vcard =
+`BEGIN:VCARD
+VERSION:3.0
+FN:${name}
+${company ? `ORG:${company}` : ""}
+${position ? `TITLE:${position}` : ""}
+${email ? `EMAIL:${email}` : ""}
+TEL:${phone}
+${location ? `ADR:${location}` : ""}
+${website ? `URL:${website}` : ""}
+END:VCARD`;
+
+  // Generate SVG
+  currentSVG = await QRCode.toString(vcard, { type: 'svg', errorCorrectionLevel: 'H', margin: 1 });
+  document.getElementById("qrcode").innerHTML = currentSVG;
+};
+
+document.getElementById("downloadBtn").onclick = () => {
+  if (!currentSVG) return alert("Banza ukore QR Code mbere!");
+  const blob = new Blob([currentSVG], { type: "image/svg+xml" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "high_quality_qr.svg";
+  a.click();
+};
+
+document.getElementById("downloadPNGBtn").onclick = () => {
+  if (!currentSVG) return alert("Banza ukore QR Code mbere!");
+  const img = new Image();
+  const svgBlob = new Blob([currentSVG], {type: "image/svg+xml;charset=utf-8"});
+  const url = URL.createObjectURL(svgBlob);
+  img.onload = function() {
+    const canvas = document.createElement("canvas");
+    const scale = 4; // upscale for high quality
+    canvas.width = img.width * scale;
+    canvas.height = img.height * scale;
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    const pngUrl = canvas.toDataURL("image/png");
+    const a = document.createElement("a");
+    a.href = pngUrl;
+    a.download = "high_quality_qr.png";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+  img.src = url;
+};
+</script>
+</body>
+</html>
