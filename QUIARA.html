@@ -1,73 +1,178 @@
 <!DOCTYPE html>
 <html lang="rw">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smart Business QR (High Quality SVG/PNG)</title>
-<style>
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #f4f6f9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-}
-.card {
-  background: #fff;
-  padding: 25px;
-  border-radius: 16px;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.1);
-  text-align: center;
-  width: 360px;
-  position: relative;
-}
-h2 { margin-bottom: 15px; color: #007bff; }
-input {
-  width: 95%;
-  padding: 10px;
-  margin: 6px 0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  color: #fff;
-  cursor: pointer;
-  transition: 0.2s;
-}
-button:hover { opacity: 0.85; }
-#generateBtn { background: #007bff; }
-#downloadBtn { background: #28a745; }
-#downloadPNGBtn { background: #17a2b8; }
-#qrcode {
-  width: 250px;
-  height: 250px;
-  margin: 15px auto 0;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ikarita y'Ubucuruzi - Smart QR</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Ikarita y'Ubucuruzi ifite QR Code ihuza contact, email, telephone, na website mu buryo bworoshye.">
+  <meta name="keywords" content="QR Code, Business Card, Ikarita y'Ubucuruzi, Smart QR, Contact vCard, Rwanda">
+  <meta name="author" content="Smart Business QR">
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Simple navigation */
+    nav {
+      background: #007bff;
+      color: #fff;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 15px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 420px;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+    }
+    .info h2 {
+      margin: 0;
+      font-size: 22px;
+      color: #007bff;
+    }
+    .info p {
+      margin: 6px 0;
+      font-size: 14px;
+      color: #444;
+      word-wrap: break-word;
+    }
+    .inputs {
+      margin-top: 12px;
+      width: 100%;
+    }
+    .inputs input {
+      width: 100%;
+      padding: 10px;
+      margin: 6px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      width: 100%;
+      max-width: 220px;
+    }
+    #generateBtn { background: #007bff; }
+    #downloadBtn { background: #28a745; }
+    #downloadPNGBtn { background: #17a2b8; }
+
+    .qr-box {
+      margin-top: 20px;
+      width: 220px;
+      height: 220px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #qrcode svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      .card {
+        padding: 15px;
+      }
+      .info h2 {
+        font-size: 18px;
+      }
+      .info p {
+        font-size: 13px;
+      }
+      button {
+        font-size: 13px;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="card">
-  <h2>Smart Business QR</h2>
 
-  <input type="text" id="name" placeholder="Amazina">
-  <input type="text" id="position" placeholder="Umwanya / Position">
-  <input type="text" id="company" placeholder="Company Name">
-  <input type="text" id="location" placeholder="Location">
-  <input type="email" id="email" placeholder="Email">
-  <input type="tel" id="phone" placeholder="Telephone">
-  <input type="url" id="website" placeholder="Website (https://)">
+<nav>
+  <a href="#info">Amakuru</a>
+  <a href="#inputs">Injiza</a>
+  <a href="#qr">QR Code</a>
+  <a href="#downloads">Download</a>
+</nav>
 
-  <button id="generateBtn">Generate</button>
-  <button id="downloadBtn">Download SVG</button>
-  <button id="downloadPNGBtn">Download PNG</button>
+<div class="container">
+  <div class="card">
+    <!-- Section: Info -->
+    <div id="info" class="info">
+      <h2 id="displayName">Amazina</h2>
+      <p id="displayPosition">Umwanya</p>
+      <p id="displayCompany">Company</p>
+      <p id="displayEmail">Email</p>
+      <p id="displayPhone">Tel</p>
+      <p id="displayLocation">Location</p>
+      <p id="displayWebsite">Website</p>
+    </div>
 
-  <div id="qrcode"></div>
+    <!-- Section: Inputs -->
+    <div id="inputs" class="inputs">
+      <input type="text" id="name" placeholder="Amazina">
+      <input type="text" id="position" placeholder="Umwanya / Position">
+      <input type="text" id="company" placeholder="Company">
+      <input type="email" id="email" placeholder="Email">
+      <input type="tel" id="phone" placeholder="Telephone">
+      <input type="text" id="location" placeholder="Location">
+      <input type="url" id="website" placeholder="Website (https://)">
+      
+      <button id="generateBtn">Generate QR</button>
+    </div>
+
+    <!-- Section: QR Code -->
+    <div id="qr" class="qr-box">
+      <div id="qrcode"></div>
+    </div>
+
+    <!-- Section: Downloads -->
+    <div id="downloads">
+      <button id="downloadBtn">Download SVG</button>
+      <button id="downloadPNGBtn">Download PNG</button>
+    </div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
@@ -78,15 +183,24 @@ document.getElementById("generateBtn").onclick = async () => {
   const name = document.getElementById("name").value.trim();
   const position = document.getElementById("position").value.trim();
   const company = document.getElementById("company").value.trim();
-  const location = document.getElementById("location").value.trim();
   const email = document.getElementById("email").value.trim();
   const phone = document.getElementById("phone").value.trim();
+  const location = document.getElementById("location").value.trim();
   const website = document.getElementById("website").value.trim();
 
   if (!name || !phone) {
     alert("Andika byibura amazina na telephone!");
     return;
   }
+
+  // Update visible card info
+  document.getElementById("displayName").textContent = name;
+  document.getElementById("displayPosition").textContent = position;
+  document.getElementById("displayCompany").textContent = company;
+  document.getElementById("displayEmail").textContent = email;
+  document.getElementById("displayPhone").textContent = phone;
+  document.getElementById("displayLocation").textContent = location;
+  document.getElementById("displayWebsite").textContent = website;
 
   const vcard =
 `BEGIN:VCARD
@@ -100,8 +214,12 @@ ${location ? `ADR:${location}` : ""}
 ${website ? `URL:${website}` : ""}
 END:VCARD`;
 
-  // Generate SVG
-  currentSVG = await QRCode.toString(vcard, { type: 'svg', errorCorrectionLevel: 'H', margin: 1 });
+  currentSVG = await QRCode.toString(vcard, { 
+    type: 'svg', 
+    errorCorrectionLevel: 'H', 
+    margin: 0, 
+    width: 220 
+  });
   document.getElementById("qrcode").innerHTML = currentSVG;
 };
 
@@ -110,7 +228,7 @@ document.getElementById("downloadBtn").onclick = () => {
   const blob = new Blob([currentSVG], { type: "image/svg+xml" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = "high_quality_qr.svg";
+  a.download = "business_card_qr.svg";
   a.click();
 };
 
@@ -121,9 +239,9 @@ document.getElementById("downloadPNGBtn").onclick = () => {
   const url = URL.createObjectURL(svgBlob);
   img.onload = function() {
     const canvas = document.createElement("canvas");
-    const scale = 4; // upscale for high quality
-    canvas.width = img.width * scale;
-    canvas.height = img.height * scale;
+    const size = 600; // high quality PNG export
+    canvas.width = size;
+    canvas.height = size;
     const ctx = canvas.getContext("2d");
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -131,7 +249,7 @@ document.getElementById("downloadPNGBtn").onclick = () => {
     const pngUrl = canvas.toDataURL("image/png");
     const a = document.createElement("a");
     a.href = pngUrl;
-    a.download = "high_quality_qr.png";
+    a.download = "business_card_qr.png";
     a.click();
     URL.revokeObjectURL(url);
   };
