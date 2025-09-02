@@ -1,176 +1,180 @@
 <!DOCTYPE html>
-<html lang="rw">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ikarita y'Ubucuruzi - Smart QR</title>
-
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Ikarita y'Ubucuruzi ifite QR Code ihuza contact, email, telephone, na website mu buryo bworoshye.">
-  <meta name="keywords" content="QR Code, Business Card, Ikarita y'Ubucuruzi, Smart QR, Contact vCard, Rwanda">
-  <meta name="author" content="Smart Business QR">
-
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f6f9;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* Simple navigation */
-    nav {
-      background: #007bff;
-      color: #fff;
-      padding: 10px;
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: bold;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 15px;
-    }
-    .card {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      max-width: 420px;
-      width: 100%;
-      padding: 20px;
-      text-align: center;
-    }
-    .info h2 {
-      margin: 0;
-      font-size: 22px;
-      color: #007bff;
-    }
-    .info p {
-      margin: 6px 0;
-      font-size: 14px;
-      color: #444;
-      word-wrap: break-word;
-    }
-    .inputs {
-      margin-top: 12px;
-      width: 100%;
-    }
-    .inputs input {
-      width: 100%;
-      padding: 10px;
-      margin: 6px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
-    }
-    button {
-      margin-top: 10px;
-      padding: 10px 18px;
-      border: none;
-      border-radius: 8px;
-      color: #fff;
-      cursor: pointer;
-      font-size: 14px;
-      width: 100%;
-      max-width: 220px;
-    }
-    #generateBtn { background: #007bff; }
-    #downloadBtn { background: #28a745; }
-    #downloadPNGBtn { background: #17a2b8; }
-
-    .qr-box {
-      margin-top: 20px;
-      width: 220px;
-      height: 220px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    #qrcode svg {
-      width: 100%;
-      height: 100%;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 480px) {
-      .card {
-        padding: 15px;
-      }
-      .info h2 {
-        font-size: 18px;
-      }
-      .info p {
-        font-size: 13px;
-      }
-      button {
-        font-size: 13px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Card Builder - Business / ID</title>
+<style>
+body { 
+  font-family: 'Segoe UI', Arial, 'Noto Sans', sans-serif; 
+  background: #f0f2f5; 
+  padding: 20px; 
+  direction: ltr;
+}
+h2 { margin-top: 0; }
+.container { display: flex; flex-wrap: wrap; gap: 20px; }
+.controls { flex: 1; min-width: 320px; }
+.preview { flex: 1; min-width: 350px; }
+.card-preview {
+  width: 350px; height: 200px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  position: relative; display: flex; padding: 15px; overflow: hidden; margin-bottom: 15px;
+  flex-direction: column; background: linear-gradient(135deg, #1e3c72, #2a5298); /* Blue gradient */
+  transition: all 0.3s ease;
+}
+.card-preview.vertical { height: 350px; }
+.card-preview.rtl { direction: rtl; }
+.info-section { 
+  flex: 1; display: flex; flex-direction: column; justify-content: space-between; 
+  padding: 10px; color: #ffffff; /* White text for contrast */
+}
+.info-section.rtl { padding-right: 0; padding-left: 10px; }
+.logo { 
+  width: 50px; height: 50px; border-radius: 50%; object-fit: cover; 
+  margin-bottom: 10px; align-self: flex-start;
+}
+.company-name { font-size: 18px; font-weight: bold; margin-bottom: 5px; }
+.contact-details { font-size: 12px; line-height: 1.5; }
+.contact-details p { margin: 2px 0; }
+.qr-section { 
+  position: absolute; bottom: 15px; right: 15px; width: 80px; height: 80px; 
+  display: flex; justify-content: center; align-items: center;
+}
+.qr-section svg { width: 100%; height: 100%; }
+.card-watermark {
+  position: absolute; top: 50%; left: 50%; font-size: 50px; color: rgba(0,0,0,0.05);
+  transform: translate(-50%, -50%) rotate(-30deg); pointer-events: none; white-space: nowrap; user-select: none;
+}
+input, select, textarea { 
+  width: 100%; margin: 5px 0; padding: 6px; border-radius: 6px; border: 1px solid #ccc; 
+  font-family: inherit; 
+}
+button { 
+  padding: 10px; border-radius: 6px; border: none; background: #007bff; color: #fff; 
+  cursor: pointer; margin-top: 5px; width: 100%; 
+}
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+td, th { border: 1px solid #ccc; padding: 5px; }
+#profilePic { 
+  width: 60px; height: 60px; border-radius: 50%; object-fit: cover; margin-bottom: 5px; display: none; 
+}
+.gradient-btn { padding: 5px 10px; margin: 2px; border: none; border-radius: 5px; cursor: pointer; }
+.cmyk-values { margin-top: 10px; background: #eee; padding: 5px; border-radius: 5px; }
+.field-group { margin-bottom: 10px; }
+</style>
 </head>
 <body>
-
-<nav>
-  <a href="#info">Amakuru</a>
-  <a href="#inputs">Injiza</a>
-  <a href="#qr">QR Code</a>
-  <a href="#downloads">Download</a>
-</nav>
-
+<h2 id="title">Interactive Card Builder - Business / ID</h2>
 <div class="container">
-  <div class="card">
-    <!-- Section: Info -->
-    <div id="info" class="info">
-      <h2 id="displayName">Amazina</h2>
-      <p id="displayPosition">Umwanya</p>
-      <p id="displayCompany">Company</p>
-      <p id="displayEmail">Email</p>
-      <p id="displayPhone">Tel</p>
-      <p id="displayLocation">Location</p>
-      <p id="displayWebsite">Website</p>
+  <div class="controls">
+    <div class="field-group">
+      <label for="language">Language:</label>
+      <select id="language">
+        <option value="en">English</option>
+        <option value="ar">Arabic</option>
+        <option value="zh">Chinese</option>
+        <option value="es">Spanish</option>
+        <option value="hi">Hindi</option>
+      </select>
     </div>
-
-    <!-- Section: Inputs -->
-    <div id="inputs" class="inputs">
-      <input type="text" id="name" placeholder="Amazina">
-      <input type="text" id="position" placeholder="Umwanya / Position">
-      <input type="text" id="company" placeholder="Company">
-      <input type="email" id="email" placeholder="Email">
-      <input type="tel" id="phone" placeholder="Telephone">
-      <input type="text" id="location" placeholder="Location">
-      <input type="url" id="website" placeholder="Website (https://)">
-      
-      <button id="generateBtn">Generate QR</button>
+    <div class="field-group">
+      <label id="cardTypeLabel">Card Type:</label>
+      <select id="cardType">
+        <option value="business">Business Card</option>
+        <option value="id">ID Card</option>
+      </select>
     </div>
-
-    <!-- Section: QR Code -->
-    <div id="qr" class="qr-box">
-      <div id="qrcode"></div>
+    <div class="field-group">
+      <label id="orientationLabel">Card Orientation:</label>
+      <select id="cardOrientation">
+        <option value="horizontal">Horizontal</option>
+        <option value="vertical">Vertical</option>
+      </select>
     </div>
-
-    <!-- Section: Downloads -->
-    <div id="downloads">
-      <button id="downloadBtn">Download SVG</button>
-      <button id="downloadPNGBtn">Download PNG</button>
+    <div class="field-group">
+      <label id="widthLabel">Card Width (px):</label>
+      <input type="number" id="cardWidth" value="350" min="100">
+      <label id="heightLabel">Card Height (px):</label>
+      <input type="number" id="cardHeight" value="200" min="100">
+    </div>
+    <div class="field-group">
+      <label id="colorModeLabel">Color Mode:</label>
+      <select id="colorMode">
+        <option value="RGB">RGB (Screen)</option>
+        <option value="CMYK">CMYK (Print)</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label id="bgColorLabel">Card Background Color:</label>
+      <input type="color" id="cardColor" value="#1e3c72">
+      <label id="textColorLabel">Text Color:</label>
+      <input type="color" id="textColor" value="#ffffff">
+    </div>
+    <div class="field-group">
+      <label id="fontLabel">Font Style:</label>
+      <select id="fontStyle">
+        <option value="Segoe UI">Segoe UI</option>
+        <option value="Arial">Arial</option>
+        <option value="Verdana">Verdana</option>
+        <option value="Tahoma">Tahoma</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Noto Sans Arabic">Noto Sans Arabic</option>
+        <option value="Noto Sans SC">Noto Sans Chinese</option>
+        <option value="Noto Sans Devanagari">Noto Sans Hindi</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label id="logoLabel">Upload Logo:</label>
+      <input type="file" id="logoImg" accept="image/*">
+    </div>
+    <div class="field-group">
+      <label id="photoLabel">Upload Photo / Logo:</label>
+      <input type="file" id="profileImg" accept="image/*">
+    </div>
+    <div class="field-group">
+      <label id="borderRadiusLabel">Border Radius (px):</label>
+      <input type="number" id="borderRadius" value="15" min="0">
+      <label id="shadowLabel">Shadow Intensity (0-1):</label>
+      <input type="number" id="shadowIntensity" step="0.05" value="0.15" min="0" max="1">
+    </div>
+    <div class="field-group">
+      <label id="gradientLabel">Gradient Presets:</label>
+      <div>
+        <button class="gradient-btn" data-grad="linear-gradient(135deg, #1e3c72, #2a5298)">Blue Wave</button>
+        <button class="gradient-btn" data-grad="linear-gradient(to right,#ff9a9e,#fad0c4)">Pink</button>
+        <button class="gradient-btn" data-grad="linear-gradient(to right,#a1c4fd,#c2e9fb)">Blue</button>
+        <button class="gradient-btn" data-grad="linear-gradient(to right,#fbc2eb,#a6c1ee)">Purple</button>
+        <button class="gradient-btn" data-grad="">None</button>
+      </div>
+      <label id="gradStartLabel">Gradient Start:</label><input type="color" id="gradStart" value="#1e3c72">
+      <label id="gradEndLabel">Gradient End:</label><input type="color" id="gradEnd" value="#2a5298">
+      <button id="applyGrad">Apply Gradient</button>
+    </div>
+    <div class="field-group">
+      <label id="bgImageLabel">Background Image URL (optional):</label>
+      <input type="url" id="bgImage" placeholder="Paste image URL here">
+    </div>
+    <div class="field-group" id="fieldsContainer"></div>
+    <div class="cmyk-values" id="cmykValues" style="display:none;"></div>
+    <button id="generateBtn">Generate QR & Preview</button>
+    <button id="downloadPNGBtn">Download High-Res PNG</button>
+  </div>
+  <div class="preview">
+    <div id="cardPreview" class="card-preview">
+      <div class="info-section" id="infoSection">
+        <img id="logo" src="" alt="Logo" class="logo">
+        <div class="company-name" id="companyName">Company</div>
+        <div class="contact-details" id="contactDetails">
+          <h2 id="displayMain">Name</h2>
+          <p id="position">Position</p>
+          <p id="email">Email</p>
+          <p id="phone">Phone</p>
+          <p id="website">Website</p>
+        </div>
+      </div>
+      <div class="qr-section" id="qrContainer">
+        <div id="qrcode" style="width:80px;height:80px;"></div>
+      </div>
+      <div id="watermark" class="card-watermark" style="display:none;">CONFIDENTIAL</div>
     </div>
   </div>
 </div>
@@ -179,82 +183,515 @@
 <script>
 let currentSVG = "";
 
-document.getElementById("generateBtn").onclick = async () => {
-  const name = document.getElementById("name").value.trim();
-  const position = document.getElementById("position").value.trim();
-  const company = document.getElementById("company").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const location = document.getElementById("location").value.trim();
-  const website = document.getElementById("website").value.trim();
+const translations = {
+  en: {
+    title: "Interactive Card Builder - Business / ID",
+    cardTypeLabel: "Card Type:",
+    orientationLabel: "Card Orientation:",
+    widthLabel: "Card Width (px):",
+    heightLabel: "Card Height (px):",
+    colorModeLabel: "Color Mode:",
+    bgColorLabel: "Card Background Color:",
+    textColorLabel: "Text Color:",
+    fontLabel: "Font Style:",
+    logoLabel: "Upload Logo:",
+    photoLabel: "Upload Photo / Logo:",
+    borderRadiusLabel: "Border Radius (px):",
+    shadowLabel: "Shadow Intensity (0-1):",
+    gradientLabel: "Gradient Presets:",
+    gradStartLabel: "Gradient Start:",
+    gradEndLabel: "Gradient End:",
+    bgImageLabel: "Background Image URL (optional):",
+    fields: {
+      business: ["Name", "Position", "Company", "Email", "Phone", "Website", "Currency"],
+      id: ["Name", "ID Number", "Department", "Validity"]
+    },
+    watermark: "CONFIDENTIAL"
+  },
+  ar: {
+    title: "منشئ البطاقات التفاعلية - الأعمال / الهوية",
+    cardTypeLabel: "نوع البطاقة:",
+    orientationLabel: "اتجاه البطاقة:",
+    widthLabel: "عرض البطاقة (بكسل):",
+    heightLabel: "ارتفاع البطاقة (بكسل):",
+    colorModeLabel: "وضع الألوان:",
+    bgColorLabel: "لون خلفية البطاقة:",
+    textColorLabel: "لون النص:",
+    fontLabel: "نمط الخط:",
+    logoLabel: "رفع الشعار:",
+    photoLabel: "رفع صورة / شعار:",
+    borderRadiusLabel: "نصف قطر الحدود (بكسل):",
+    shadowLabel: "شدة الظل (0-1):",
+    gradientLabel: "إعدادات التدرج اللوني:",
+    gradStartLabel: "بداية التدرج:",
+    gradEndLabel: "نهاية التدرج:",
+    bgImageLabel: "رابط صورة الخلفية (اختياري):",
+    fields: {
+      business: ["الاسم", "المنصب", "الشركة", "البريد الإلكتروني", "الهاتف", "الموقع الإلكتروني", "العملة"],
+      id: ["الاسم", "رقم الهوية", "القسم", "الصلاحية"]
+    },
+    watermark: "سري"
+  },
+  zh: {
+    title: "交互式卡片生成器 - 商务 / 身份",
+    cardTypeLabel: "卡片类型:",
+    orientationLabel: "卡片方向:",
+    widthLabel: "卡片宽度（像素）:",
+    heightLabel: "卡片高度（像素）:",
+    colorModeLabel: "颜色模式:",
+    bgColorLabel: "卡片背景颜色:",
+    textColorLabel: "文本颜色:",
+    fontLabel: "字体样式:",
+    logoLabel: "上传标志:",
+    photoLabel: "上传照片/标志:",
+    borderRadiusLabel: "边框半径（像素）:",
+    shadowLabel: "阴影强度（0-1）:",
+    gradientLabel: "渐变预设:",
+    gradStartLabel: "渐变起点:",
+    gradEndLabel: "渐变终点:",
+    bgImageLabel: "背景图片URL（可选）:",
+    fields: {
+      business: ["姓名", "职位", "公司", "电子邮件", "电话", "网站", "货币"],
+      id: ["姓名", "身份证号", "部门", "有效期"]
+    },
+    watermark: "机密"
+  },
+  es: {
+    title: "Creador de Tarjetas Interactivas - Negocios / Identificación",
+    cardTypeLabel: "Tipo de Tarjeta:",
+    orientationLabel: "Orientación de la Tarjeta:",
+    widthLabel: "Ancho de la Tarjeta (px):",
+    heightLabel: "Alto de la Tarjeta (px):",
+    colorModeLabel: "Modo de Color:",
+    bgColorLabel: "Color de Fondo de la Tarjeta:",
+    textColorLabel: "Color del Texto:",
+    fontLabel: "Estilo de Fuente:",
+    logoLabel: "Subir Logotipo:",
+    photoLabel: "Subir Foto / Logotipo:",
+    borderRadiusLabel: "Radio del Borde (px):",
+    shadowLabel: "Intensidad de la Sombra (0-1):",
+    gradientLabel: "Preajustes de Gradiente:",
+    gradStartLabel: "Inicio del Gradiente:",
+    gradEndLabel: "Fin del Gradiente:",
+    bgImageLabel: "URL de Imagen de Fondo (opcional):",
+    fields: {
+      business: ["Nombre", "Puesto", "Compañía", "Correo Electrónico", "Teléfono", "Sitio Web", "Moneda"],
+      id: ["Nombre", "Número de Identificación", "Departamento", "Validez"]
+    },
+    watermark: "CONFIDENCIAL"
+  },
+  hi: {
+    title: "इंटरैक्टिव कार्ड बिल्डर - व्यवसाय / पहचान",
+    cardTypeLabel: "कार्ड का प्रकार:",
+    orientationLabel: "कार्ड का अभिविन्यास:",
+    widthLabel: "कार्ड की चौड़ाई (पिक्सेल):",
+    heightLabel: "कार्ड की ऊंचाई (पिक्सेल):",
+    colorModeLabel: "रंग मोड:",
+    bgColorLabel: "कार्ड का पृष्ठभूमि रंग:",
+    textColorLabel: "टेक्स्ट का रंग:",
+    fontLabel: "फ़ॉन्ट शैली:",
+    logoLabel: "लोगो अपलोड करें:",
+    photoLabel: "फोटो / लोगो अपलोड करें:",
+    borderRadiusLabel: "बॉर्डर रेडियस (पिक्सेल):",
+    shadowLabel: "छाया की तीव्रता (0-1):",
+    gradientLabel: "ग्रेडिएंट प्रीसेट:",
+    gradStartLabel: "ग्रेडिएंट शुरू:",
+    gradEndLabel: "ग्रेडिएंट अंत:",
+    bgImageLabel: "पृष्ठभूमि छवि URL (वैकल्पिक):",
+    fields: {
+      business: ["नाम", "पद", "कंपनी", "ईमेल", "फोन", "वेबसाइट", "मुद्रा"],
+      id: ["नाम", "पहचान संख्या", "विभाग", "वैधता"]
+    },
+    watermark: "गोपनीय"
+  }
+};
 
-  if (!name || !phone) {
-    alert("Andika byibura amazina na telephone!");
-    return;
+// Gradient presets
+document.querySelectorAll('.gradient-btn').forEach(btn => {
+  btn.onclick = () => { 
+    const card = document.getElementById('cardPreview');
+    if (card) {
+      card.style.background = btn.dataset.grad || `linear-gradient(135deg, ${document.getElementById('gradStart').value}, ${document.getElementById('gradEnd').value})`; 
+    }
+  };
+});
+
+// Apply custom gradient
+document.getElementById("applyGrad").onclick = () => {
+  const start = document.getElementById("gradStart")?.value;
+  const end = document.getElementById("gradEnd")?.value;
+  const card = document.getElementById('cardPreview');
+  if (card && start && end) {
+    card.style.background = `linear-gradient(135deg, ${start}, ${end})`;
+  }
+};
+
+// RGB <-> CMYK functions
+function rgbToCmyk(r, g, b) {
+  let r1 = r / 255, g1 = g / 255, b1 = b / 255;
+  let k = 1 - Math.max(r1, g1, b1);
+  if (k === 1) return { c: 0, m: 0, y: 0, k: 1 };
+  let c = (1 - r1 - k) / (1 - k);
+  let m = (1 - g1 - k) / (1 - k);
+  let y = (1 - b1 - k) / (1 - k);
+  return { c, m, y, k };
+}
+function cmykToRgb(c, m, y, k) {
+  let r = 255 * (1 - c) * (1 - k);
+  let g = 255 * (1 - m) * (1 - k);
+  let b = 255 * (1 - y) * (1 - k);
+  return { r: Math.round(r), g: Math.round(g), b: Math.round(b) };
+}
+
+// Update card color
+function updateCardColor() {
+  const card = document.getElementById("cardPreview");
+  const mode = document.getElementById("colorMode")?.value;
+  const hex = document.getElementById("cardColor")?.value || "#1e3c72";
+  const cmykDiv = document.getElementById("cmykValues");
+  if (!card || !cmykDiv) return;
+
+  const r = parseInt(hex.substr(1, 2), 16);
+  const g = parseInt(hex.substr(3, 2), 16);
+  const b = parseInt(hex.substr(5, 2), 16);
+
+  if (mode === "RGB") {
+    card.style.background = hex;
+    cmykDiv.style.display = "none";
+  } else {
+    const cmyk = rgbToCmyk(r, g, b);
+    const rgbPreview = cmykToRgb(cmyk.c, cmyk.m, cmyk.y, cmyk.k);
+    card.style.background = `rgb(${rgbPreview.r},${rgbPreview.g},${rgbPreview.b})`;
+    cmykDiv.style.display = "block";
+    cmykDiv.innerHTML = `C: ${Math.round(cmyk.c * 100)}% | M: ${Math.round(cmyk.m * 100)}% | Y: ${Math.round(cmyk.y * 100)}% | K: ${Math.round(cmyk.k * 100)}%`;
+  }
+}
+
+// Update text color
+function updateTextColor() {
+  const infoSection = document.getElementById("infoSection");
+  const textColor = document.getElementById("textColor")?.value || "#ffffff";
+  if (infoSection) {
+    infoSection.style.color = textColor;
+  }
+}
+
+// Update font style
+function updateFontStyle() {
+  const font = document.getElementById("fontStyle")?.value || "Segoe UI";
+  const infoSection = document.getElementById("infoSection");
+  if (infoSection) {
+    infoSection.style.fontFamily = font;
+  }
+}
+
+// Update card dimensions and border
+function updateCardDimensions() {
+  const card = document.getElementById("cardPreview");
+  if (!card) return;
+  const width = parseInt(document.getElementById("cardWidth")?.value) || 350;
+  const height = parseInt(document.getElementById("cardHeight")?.value) || 200;
+  const borderRadius = parseInt(document.getElementById("borderRadius")?.value) || 15;
+  const shadowIntensity = parseFloat(document.getElementById("shadowIntensity")?.value) || 0.15;
+  card.style.width = `${width}px`;
+  card.style.height = `${height}px`;
+  card.style.borderRadius = `${borderRadius}px`;
+  card.style.boxShadow = `0 8px 20px rgba(0,0,0,${shadowIntensity})`;
+}
+
+// Update background image
+function updateBackgroundImage() {
+  const bgImage = document.getElementById("bgImage")?.value;
+  const card = document.getElementById("cardPreview");
+  if (!card) return;
+  if (bgImage) {
+    card.style.backgroundImage = `url(${bgImage})`;
+    card.style.backgroundSize = "cover";
+  } else {
+    card.style.backgroundImage = "none";
+  }
+}
+
+// QR position
+function updateQRPosition(size) {
+  const qrContainer = document.getElementById("qrContainer");
+  if (!qrContainer) return;
+  qrContainer.style.position = "absolute";
+  qrContainer.style.bottom = "15px";
+  qrContainer.style.right = "15px";
+  qrContainer.style.width = size + "px";
+  qrContainer.style.height = size + "px";
+}
+
+// Dynamic fields based on card type
+function renderFields() {
+  const type = document.getElementById("cardType")?.value || "business";
+  const lang = document.getElementById("language")?.value || "en";
+  const container = document.getElementById("fieldsContainer");
+  if (!container) return;
+  container.innerHTML = "";
+  const fields = translations[lang].fields[type];
+  fields.forEach(f => {
+    const div = document.createElement("div");
+    div.className = "field-group";
+    div.innerHTML = `<label>${f}:</label><input type="text" id="field_${f.replace(/\s+/g, '')}">`;
+    container.appendChild(div);
+  });
+}
+
+// Auto orientation based on type
+function autoOrientation() {
+  const type = document.getElementById("cardType")?.value || "business";
+  const orientation = document.getElementById("cardOrientation");
+  if (orientation) {
+    if (type === "business") orientation.value = "horizontal";
+    else orientation.value = "vertical";
+  }
+  updatePreview();
+}
+
+// Update watermark for ID
+function updateWatermark() {
+  const type = document.getElementById("cardType")?.value || "business";
+  const lang = document.getElementById("language")?.value || "en";
+  const wm = document.getElementById("watermark");
+  if (!wm) return;
+  if (type === "id") {
+    wm.style.display = "block";
+    wm.innerText = translations[lang].watermark;
+  } else {
+    wm.style.display = "none";
+  }
+}
+
+// Update language and direction
+function updateLanguage() {
+  const lang = document.getElementById("language")?.value || "en";
+  const isRtl = lang === "ar";
+  document.documentElement.lang = lang;
+  document.body.style.direction = isRtl ? "rtl" : "ltr";
+  const cardPreview = document.getElementById("cardPreview");
+  const infoSection = document.getElementById("infoSection");
+  if (cardPreview) cardPreview.classList.toggle("rtl", isRtl);
+  if (infoSection) infoSection.classList.toggle("rtl", isRtl);
+  const title = document.getElementById("title");
+  if (title) title.innerText = translations[lang].title;
+  document.getElementById("cardTypeLabel").innerText = translations[lang].cardTypeLabel;
+  document.getElementById("orientationLabel").innerText = translations[lang].orientationLabel;
+  document.getElementById("widthLabel").innerText = translations[lang].widthLabel;
+  document.getElementById("heightLabel").innerText = translations[lang].heightLabel;
+  document.getElementById("colorModeLabel").innerText = translations[lang].colorModeLabel;
+  document.getElementById("bgColorLabel").innerText = translations[lang].bgColorLabel;
+  document.getElementById("textColorLabel").innerText = translations[lang].textColorLabel;
+  document.getElementById("fontLabel").innerText = translations[lang].fontLabel;
+  document.getElementById("logoLabel").innerText = translations[lang].logoLabel;
+  document.getElementById("photoLabel").innerText = translations[lang].photoLabel;
+  document.getElementById("borderRadiusLabel").innerText = translations[lang].borderRadiusLabel;
+  document.getElementById("shadowLabel").innerText = translations[lang].shadowLabel;
+  document.getElementById("gradientLabel").innerText = translations[lang].gradientLabel;
+  document.getElementById("gradStartLabel").innerText = translations[lang].gradStartLabel;
+  document.getElementById("gradEndLabel").innerText = translations[lang].gradEndLabel;
+  document.getElementById("bgImageLabel").innerText = translations[lang].bgImageLabel;
+  renderFields();
+  updatePreview();
+}
+
+// Update preview
+function updatePreview() {
+  const type = document.getElementById("cardType")?.value || "business";
+  const lang = document.getElementById("language")?.value || "en";
+  const card = document.getElementById("cardPreview");
+  const orientation = document.getElementById("cardOrientation")?.value || "horizontal";
+  if (!card) return;
+  card.classList.toggle("vertical", orientation === "vertical");
+
+  const infoSection = document.getElementById("infoSection");
+  const profile = document.getElementById("profilePic");
+  const logo = document.getElementById("logo");
+  const companyName = document.getElementById("companyName");
+  const contactDetails = document.getElementById("contactDetails");
+  const displayMain = document.getElementById("displayMain");
+  const position = document.getElementById("position");
+  const email = document.getElementById("email");
+  const phone = document.getElementById("phone");
+  const website = document.getElementById("website");
+  if (!infoSection || !profile || !logo || !companyName || !contactDetails || !displayMain || !position || !email || !phone || !website) return;
+  infoSection.innerHTML = "";
+  profile.style.display = "none";
+  logo.style.display = "none";
+
+  const fields = translations[lang].fields[type];
+  const fieldValues = fields.map(f => {
+    const field = document.getElementById(`field_${f.replace(/\s+/g, '')}`);
+    return field ? field.value : f;
+  });
+  
+  if (type === "business") {
+    let currency = document.getElementById("field_Currency")?.value || "USD";
+    let formatter;
+    try {
+      formatter = new Intl.NumberFormat(lang, { style: 'currency', currency });
+    } catch (e) {
+      currency = "USD";
+      formatter = new Intl.NumberFormat(lang, { style: 'currency', currency });
+    }
+    companyName.textContent = fieldValues[2] || "Company";
+    displayMain.textContent = fieldValues[0] || "Name";
+    position.textContent = fieldValues[1] || "Position";
+    email.textContent = fieldValues[3] || "Email";
+    phone.textContent = fieldValues[4] || "Phone";
+    website.textContent = fieldValues[5] || "Website";
+    infoSection.appendChild(logo);
+    infoSection.appendChild(companyName);
+    contactDetails.appendChild(displayMain);
+    contactDetails.appendChild(position);
+    contactDetails.appendChild(email);
+    contactDetails.appendChild(phone);
+    contactDetails.appendChild(website);
+    infoSection.appendChild(contactDetails);
+    if (document.getElementById("logoImg")?.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        logo.src = e.target.result;
+        logo.style.display = "block";
+      };
+      reader.readAsDataURL(document.getElementById("logoImg").files[0]);
+    }
+    if (document.getElementById("profileImg")?.files[0]) profile.style.display = "block";
+  } else {
+    infoSection.innerHTML = `
+      <h2 id="displayMain">${fieldValues[0] || "Name"}</h2>
+      <p>${fieldValues[1] || "ID Number"}</p>
+      <p>${fieldValues[2] || "Department"}</p>
+      <p>${fieldValues[3] || "Validity"}</p>
+    `;
+    if (document.getElementById("profileImg")?.files[0]) profile.style.display = "block";
   }
 
-  // Update visible card info
-  document.getElementById("displayName").textContent = name;
-  document.getElementById("displayPosition").textContent = position;
-  document.getElementById("displayCompany").textContent = company;
-  document.getElementById("displayEmail").textContent = email;
-  document.getElementById("displayPhone").textContent = phone;
-  document.getElementById("displayLocation").textContent = location;
-  document.getElementById("displayWebsite").textContent = website;
+  updateCardColor();
+  updateTextColor();
+  updateFontStyle();
+  updateCardDimensions();
+  updateBackgroundImage();
+  updateWatermark();
+}
 
-  const vcard =
-`BEGIN:VCARD
+// Event listeners
+document.getElementById("language").onchange = updateLanguage;
+document.getElementById("colorMode").onchange = updateCardColor;
+document.getElementById("cardColor").oninput = updateCardColor;
+document.getElementById("textColor").oninput = updateTextColor;
+document.getElementById("fontStyle").onchange = updateFontStyle;
+document.getElementById("cardWidth").oninput = updateCardDimensions;
+document.getElementById("cardHeight").oninput = updateCardDimensions;
+document.getElementById("borderRadius").oninput = updateCardDimensions;
+document.getElementById("shadowIntensity").oninput = updateCardDimensions;
+document.getElementById("bgImage").oninput = updateBackgroundImage;
+document.getElementById("cardType").onchange = () => {
+  renderFields();
+  autoOrientation();
+};
+
+// Generate QR & Preview
+document.getElementById("generateBtn").onclick = async () => {
+  renderFields();
+  updatePreview();
+  updateQRPosition(80);
+  if (document.getElementById("cardType")?.value === "business") {
+    const name = document.getElementById("field_Name")?.value || "";
+    const position = document.getElementById("field_Position")?.value || "";
+    const company = document.getElementById("field_Company")?.value || "";
+    const email = document.getElementById("field_Email")?.value || "";
+    const phone = document.getElementById("field_Phone")?.value || "";
+    const website = document.getElementById("field_Website")?.value || "";
+    const vcard = `BEGIN:VCARD
 VERSION:3.0
 FN:${name}
 ${company ? `ORG:${company}` : ""}
 ${position ? `TITLE:${position}` : ""}
 ${email ? `EMAIL:${email}` : ""}
 TEL:${phone}
-${location ? `ADR:${location}` : ""}
 ${website ? `URL:${website}` : ""}
 END:VCARD`;
-
-  currentSVG = await QRCode.toString(vcard, { 
-    type: 'svg', 
-    errorCorrectionLevel: 'H', 
-    margin: 0, 
-    width: 220 
-  });
-  document.getElementById("qrcode").innerHTML = currentSVG;
+    currentSVG = await QRCode.toString(vcard, { type: 'svg', width: 80, color: { dark: "#000000", light: "#ffffff" } });
+    const qrCode = document.getElementById("qrcode");
+    if (qrCode) qrCode.innerHTML = currentSVG;
+  } else {
+    const qrCode = document.getElementById("qrcode");
+    if (qrCode) qrCode.innerHTML = "";
+  }
 };
 
-document.getElementById("downloadBtn").onclick = () => {
-  if (!currentSVG) return alert("Banza ukore QR Code mbere!");
-  const blob = new Blob([currentSVG], { type: "image/svg+xml" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "business_card_qr.svg";
-  a.click();
+// Logo image upload
+document.getElementById("logoImg").onchange = function () {
+  const file = this.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const logo = document.getElementById("logo");
+      if (logo) {
+        logo.src = e.target.result;
+        logo.style.display = "block";
+        updatePreview();
+      }
+    };
+    reader.readAsDataURL(file);
+  }
 };
 
+// Profile image upload
+document.getElementById("profileImg").onchange = function () {
+  const file = this.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const img = document.getElementById("profilePic");
+      if (img) {
+        img.src = e.target.result;
+        img.style.display = "block";
+        updatePreview();
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+};
+
+// Download PNG
 document.getElementById("downloadPNGBtn").onclick = () => {
-  if (!currentSVG) return alert("Banza ukore QR Code mbere!");
-  const img = new Image();
-  const svgBlob = new Blob([currentSVG], {type: "image/svg+xml;charset=utf-8"});
+  const cardPreview = document.getElementById("cardPreview");
+  if (!cardPreview) return;
+  const width = parseInt(document.getElementById("cardWidth")?.value) || 350;
+  const height = parseInt(document.getElementById("cardHeight")?.value) || 200;
+  const svgBlob = new Blob([cardPreview.outerHTML], { type: "image/svg+xml;charset=utf-8" });
   const url = URL.createObjectURL(svgBlob);
-  img.onload = function() {
+  const img = new Image();
+  img.onload = function () {
     const canvas = document.createElement("canvas");
-    const size = 600; // high quality PNG export
-    canvas.width = size;
-    canvas.height = size;
+    canvas.width = width * 3;
+    canvas.height = height * 3;
     const ctx = canvas.getContext("2d");
-    ctx.fillStyle = "#fff";
+    if (!ctx) return;
+    ctx.fillStyle = document.getElementById("cardColor")?.value || "#1e3c72";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     const pngUrl = canvas.toDataURL("image/png");
     const a = document.createElement("a");
     a.href = pngUrl;
-    a.download = "business_card_qr.png";
+    a.download = "custom_card.png";
     a.click();
+    URL.revokeObjectURL(url);
+  };
+  img.onerror = () => {
+    console.error("Failed to load SVG for PNG conversion");
     URL.revokeObjectURL(url);
   };
   img.src = url;
 };
+
+// Initialize
+renderFields();
+updateLanguage();
+autoOrientation();
 </script>
 </body>
 </html>
