@@ -3,7 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interactive Card Builder - Business / ID</title>
+<title>Interactive Card Builder - Business & ID Cards</title>
+<meta name="description" content="Create customized business or ID cards with QR codes containing phone and website details. Personalize with logos, colors, and multilingual support. Download high-resolution PNGs.">
+<meta name="keywords" content="business card, ID card, QR code, card builder, customizable cards, multilingual card creator">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Card Builder Team">
+<meta property="og:title" content="Interactive Card Builder - Business & ID Cards">
+<meta property="og:description" content="Design and download professional business or ID cards with QR codes containing phone and website details, supporting multiple languages.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://example.com/card-preview.jpg">
+<meta property="og:url" content="https://example.com/card-builder">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Interactive Card Builder - Business & ID Cards">
+<meta name="twitter:description" content="Design professional business or ID cards with QR codes and download them in high resolution.">
+<meta name="twitter:image" content="https://example.com/card-preview.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Interactive Card Builder",
+  "description": "A web tool to create and customize business and ID cards with QR codes containing phone and website details, with multilingual support.",
+  "applicationCategory": "Productivity",
+  "operatingSystem": "All",
+  "browserRequirements": "Modern web browser",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
 <style>
 body { 
   font-family: 'Segoe UI', Arial, 'Noto Sans', sans-serif; 
@@ -18,26 +47,28 @@ h2 { margin-top: 0; }
 .card-preview {
   width: 350px; height: 200px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   position: relative; display: flex; padding: 15px; overflow: hidden; margin-bottom: 15px;
-  flex-direction: column; background: linear-gradient(135deg, #1e3c72, #2a5298); /* Blue gradient */
+  flex-direction: column; background: linear-gradient(135deg, #1e3c72, #2a5298);
   transition: all 0.3s ease;
 }
 .card-preview.vertical { height: 350px; }
 .card-preview.rtl { direction: rtl; }
 .info-section { 
-  flex: 1; display: flex; flex-direction: column; justify-content: space-between; 
-  padding: 10px; color: #ffffff; /* White text for contrast */
+  flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; 
+  padding: 15px; color: #ffffff;
 }
-.info-section.rtl { padding-right: 0; padding-left: 10px; }
+.info-section.rtl { padding-right: 0; padding-left: 15px; }
 .logo { 
   width: 50px; height: 50px; border-radius: 50%; object-fit: cover; 
   margin-bottom: 10px; align-self: flex-start;
 }
-.company-name { font-size: 18px; font-weight: bold; margin-bottom: 5px; }
-.contact-details { font-size: 12px; line-height: 1.5; }
-.contact-details p { margin: 2px 0; }
+.company-name { font-size: 18px; font-weight: bold; margin-bottom: 5px; word-wrap: break-word; }
+.contact-details { font-size: 12px; line-height: 1.6; margin: 5px 0; }
+.contact-details p { margin: 3px 0; font-size: 12px; word-wrap: break-word; }
+.contact-details h2 { font-size: 16px; margin: 3px 0; }
 .qr-section { 
-  position: absolute; bottom: 15px; right: 15px; width: 80px; height: 80px; 
+  position: absolute; bottom: 15px; right: 15px; width: 100px; height: 100px; 
   display: flex; justify-content: center; align-items: center;
+  background: #ffffff; padding: 5px; border-radius: 5px;
 }
 .qr-section svg { width: 100%; height: 100%; }
 .card-watermark {
@@ -60,15 +91,24 @@ td, th { border: 1px solid #ccc; padding: 5px; }
 .gradient-btn { padding: 5px 10px; margin: 2px; border: none; border-radius: 5px; cursor: pointer; }
 .cmyk-values { margin-top: 10px; background: #eee; padding: 5px; border-radius: 5px; }
 .field-group { margin-bottom: 10px; }
+.info-section p::before {
+  content: attr(data-label) ": ";
+}
+#qrInfo {
+  font-size: 14px; color: #333; margin-bottom: 10px; padding: 10px;
+  background: #fff; border-radius: 5px;
+}
+.custom-field-container { display: flex; gap: 5px; align-items: center; }
+.custom-field-container input { width: 45%; }
 </style>
 </head>
 <body>
-<h2 id="title">Interactive Card Builder - Business / ID</h2>
+<h2 id="title" aria-label="Interactive Card Builder for Business and ID Cards">Interactive Card Builder - Business / ID</h2>
 <div class="container">
-  <div class="controls">
+  <div class="controls" role="region" aria-label="Card customization controls">
     <div class="field-group">
       <label for="language">Language:</label>
-      <select id="language">
+      <select id="language" aria-label="Select language for card">
         <option value="en">English</option>
         <option value="ar">Arabic</option>
         <option value="zh">Chinese</option>
@@ -77,41 +117,41 @@ td, th { border: 1px solid #ccc; padding: 5px; }
       </select>
     </div>
     <div class="field-group">
-      <label id="cardTypeLabel">Card Type:</label>
-      <select id="cardType">
+      <label id="cardTypeLabel" for="cardType">Card Type:</label>
+      <select id="cardType" aria-label="Select card type">
         <option value="business">Business Card</option>
         <option value="id">ID Card</option>
       </select>
     </div>
     <div class="field-group">
-      <label id="orientationLabel">Card Orientation:</label>
-      <select id="cardOrientation">
+      <label id="orientationLabel" for="cardOrientation">Card Orientation:</label>
+      <select id="cardOrientation" aria-label="Select card orientation">
         <option value="horizontal">Horizontal</option>
         <option value="vertical">Vertical</option>
       </select>
     </div>
     <div class="field-group">
-      <label id="widthLabel">Card Width (px):</label>
-      <input type="number" id="cardWidth" value="350" min="100">
-      <label id="heightLabel">Card Height (px):</label>
-      <input type="number" id="cardHeight" value="200" min="100">
+      <label id="widthLabel" for="cardWidth">Card Width (px):</label>
+      <input type="number" id="cardWidth" value="350" min="100" aria-label="Set card width in pixels">
+      <label id="heightLabel" for="cardHeight">Card Height (px):</label>
+      <input type="number" id="cardHeight" value="200" min="100" aria-label="Set card height in pixels">
     </div>
     <div class="field-group">
-      <label id="colorModeLabel">Color Mode:</label>
-      <select id="colorMode">
+      <label id="colorModeLabel" for="colorMode">Color Mode:</label>
+      <select id="colorMode" aria-label="Select color mode">
         <option value="RGB">RGB (Screen)</option>
         <option value="CMYK">CMYK (Print)</option>
       </select>
     </div>
     <div class="field-group">
-      <label id="bgColorLabel">Card Background Color:</label>
-      <input type="color" id="cardColor" value="#1e3c72">
-      <label id="textColorLabel">Text Color:</label>
-      <input type="color" id="textColor" value="#ffffff">
+      <label id="bgColorLabel" for="cardColor">Card Background Color:</label>
+      <input type="color" id="cardColor" value="#1e3c72" aria-label="Select card background color">
+      <label id="textColorLabel" for="textColor">Text Color:</label>
+      <input type="color" id="textColor" value="#ffffff" aria-label="Select text color">
     </div>
     <div class="field-group">
-      <label id="fontLabel">Font Style:</label>
-      <select id="fontStyle">
+      <label id="fontLabel" for="fontStyle">Font Style:</label>
+      <select id="fontStyle" aria-label="Select font style">
         <option value="Segoe UI">Segoe UI</option>
         <option value="Arial">Arial</option>
         <option value="Verdana">Verdana</option>
@@ -123,56 +163,61 @@ td, th { border: 1px solid #ccc; padding: 5px; }
       </select>
     </div>
     <div class="field-group">
-      <label id="logoLabel">Upload Logo:</label>
-      <input type="file" id="logoImg" accept="image/*">
+      <label id="logoLabel" for="logoImg">Upload Logo:</label>
+      <input type="file" id="logoImg" accept="image/*" aria-label="Upload logo image">
     </div>
     <div class="field-group">
-      <label id="photoLabel">Upload Photo / Logo:</label>
-      <input type="file" id="profileImg" accept="image/*">
+      <label id="photoLabel" for="profileImg">Upload Photo / Logo:</label>
+      <input type="file" id="profileImg" accept="image/*" aria-label="Upload profile photo or logo">
     </div>
     <div class="field-group">
-      <label id="borderRadiusLabel">Border Radius (px):</label>
-      <input type="number" id="borderRadius" value="15" min="0">
-      <label id="shadowLabel">Shadow Intensity (0-1):</label>
-      <input type="number" id="shadowIntensity" step="0.05" value="0.15" min="0" max="1">
+      <label id="borderRadiusLabel" for="borderRadius">Border Radius (px):</label>
+      <input type="number" id="borderRadius" value="15" min="0" aria-label="Set border radius in pixels">
+      <label id="shadowLabel" for="shadowIntensity">Shadow Intensity (0-1):</label>
+      <input type="number" id="shadowIntensity" step="0.05" value="0.15" min="0" max="1" aria-label="Set shadow intensity">
     </div>
     <div class="field-group">
       <label id="gradientLabel">Gradient Presets:</label>
       <div>
-        <button class="gradient-btn" data-grad="linear-gradient(135deg, #1e3c72, #2a5298)">Blue Wave</button>
-        <button class="gradient-btn" data-grad="linear-gradient(to right,#ff9a9e,#fad0c4)">Pink</button>
-        <button class="gradient-btn" data-grad="linear-gradient(to right,#a1c4fd,#c2e9fb)">Blue</button>
-        <button class="gradient-btn" data-grad="linear-gradient(to right,#fbc2eb,#a6c1ee)">Purple</button>
-        <button class="gradient-btn" data-grad="">None</button>
+        <button class="gradient-btn" data-grad="linear-gradient(135deg, #1e3c72, #2a5298)" aria-label="Apply Blue Wave gradient">Blue Wave</button>
+        <button class="gradient-btn" data-grad="linear-gradient(to right,#ff9a9e,#fad0c4)" aria-label="Apply Pink gradient">Pink</button>
+        <button class="gradient-btn" data-grad="linear-gradient(to right,#a1c4fd,#c2e9fb)" aria-label="Apply Blue gradient">Blue</button>
+        <button class="gradient-btn" data-grad="linear-gradient(to right,#fbc2eb,#a6c1ee)" aria-label="Apply Purple gradient">Purple</button>
+        <button class="gradient-btn" data-grad="" aria-label="Remove gradient">None</button>
       </div>
-      <label id="gradStartLabel">Gradient Start:</label><input type="color" id="gradStart" value="#1e3c72">
-      <label id="gradEndLabel">Gradient End:</label><input type="color" id="gradEnd" value="#2a5298">
-      <button id="applyGrad">Apply Gradient</button>
+      <label id="gradStartLabel" for="gradStart">Gradient Start:</label>
+      <input type="color" id="gradStart" value="#1e3c72" aria-label="Select gradient start color">
+      <label id="gradEndLabel" for="gradEnd">Gradient End:</label>
+      <input type="color" id="gradEnd" value="#2a5298" aria-label="Select gradient end color">
+      <button id="applyGrad" aria-label="Apply custom gradient">Apply Gradient</button>
     </div>
     <div class="field-group">
-      <label id="bgImageLabel">Background Image URL (optional):</label>
-      <input type="url" id="bgImage" placeholder="Paste image URL here">
+      <label id="bgImageLabel" for="bgImage">Background Image URL (optional):</label>
+      <input type="url" id="bgImage" placeholder="Paste image URL here" aria-label="Enter background image URL">
     </div>
     <div class="field-group" id="fieldsContainer"></div>
+    <div class="field-group">
+      <label>Add Custom Field:</label>
+      <div class="custom-field-container">
+        <input type="text" id="customFieldLabel" placeholder="Field Name (e.g., LinkedIn)" aria-label="Enter custom field label">
+        <input type="text" id="customFieldValue" placeholder="Field Value" aria-label="Enter custom field value">
+        <button id="addCustomField" aria-label="Add custom field to card">Add</button>
+      </div>
+    </div>
     <div class="cmyk-values" id="cmykValues" style="display:none;"></div>
-    <button id="generateBtn">Generate QR & Preview</button>
-    <button id="downloadPNGBtn">Download High-Res PNG</button>
+    <button id="generateBtn" aria-label="Generate QR code and preview card">Generate QR & Preview</button>
+    <button id="downloadPNGBtn" aria-label="Download card as high-resolution PNG">Download High-Res PNG</button>
   </div>
-  <div class="preview">
+  <div class="preview" role="region" aria-label="Card preview">
+    <p id="qrInfo">The QR code will contain only your phone number and website (business cards) or no information (ID cards).</p>
     <div id="cardPreview" class="card-preview">
       <div class="info-section" id="infoSection">
-        <img id="logo" src="" alt="Logo" class="logo">
-        <div class="company-name" id="companyName">Company</div>
-        <div class="contact-details" id="contactDetails">
-          <h2 id="displayMain">Name</h2>
-          <p id="position">Position</p>
-          <p id="email">Email</p>
-          <p id="phone">Phone</p>
-          <p id="website">Website</p>
-        </div>
+        <img id="logo" src="" alt="Company or personal logo" class="logo">
+        <div class="company-name" id="companyName"></div>
+        <div class="contact-details" id="contactDetails"></div>
       </div>
       <div class="qr-section" id="qrContainer">
-        <div id="qrcode" style="width:80px;height:80px;"></div>
+        <div id="qrcode" style="width:100px;height:100px;"></div>
       </div>
       <div id="watermark" class="card-watermark" style="display:none;">CONFIDENTIAL</div>
     </div>
@@ -182,6 +227,7 @@ td, th { border: 1px solid #ccc; padding: 5px; }
 <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 <script>
 let currentSVG = "";
+let customFields = { business: {}, id: {} }; // Store custom fields by card type and language
 
 const translations = {
   en: {
@@ -206,7 +252,11 @@ const translations = {
       business: ["Name", "Position", "Company", "Email", "Phone", "Website", "Currency"],
       id: ["Name", "ID Number", "Department", "Validity"]
     },
-    watermark: "CONFIDENTIAL"
+    watermark: "CONFIDENTIAL",
+    qrInfo: {
+      business: "The QR code contains only your phone number and website.",
+      id: "No QR code is generated for ID cards."
+    }
   },
   ar: {
     title: "منشئ البطاقات التفاعلية - الأعمال / الهوية",
@@ -230,7 +280,11 @@ const translations = {
       business: ["الاسم", "المنصب", "الشركة", "البريد الإلكتروني", "الهاتف", "الموقع الإلكتروني", "العملة"],
       id: ["الاسم", "رقم الهوية", "القسم", "الصلاحية"]
     },
-    watermark: "سري"
+    watermark: "سري",
+    qrInfo: {
+      business: "رمز الاستجابة السريعة يحتوي فقط على رقم هاتفك وموقعك الإلكتروني.",
+      id: "لا يتم إنشاء رمز الاستجابة السريعة لبطاقات الهوية."
+    }
   },
   zh: {
     title: "交互式卡片生成器 - 商务 / 身份",
@@ -245,7 +299,7 @@ const translations = {
     logoLabel: "上传标志:",
     photoLabel: "上传照片/标志:",
     borderRadiusLabel: "边框半径（像素）:",
-    shadowLabel: "阴影强度（0-1）:",
+    shadowLabel: "阴影强度（0-1):",
     gradientLabel: "渐变预设:",
     gradStartLabel: "渐变起点:",
     gradEndLabel: "渐变终点:",
@@ -254,7 +308,11 @@ const translations = {
       business: ["姓名", "职位", "公司", "电子邮件", "电话", "网站", "货币"],
       id: ["姓名", "身份证号", "部门", "有效期"]
     },
-    watermark: "机密"
+    watermark: "机密",
+    qrInfo: {
+      business: "二维码仅包含您的电话号码和网站。",
+      id: "身份证不生成二维码。"
+    }
   },
   es: {
     title: "Creador de Tarjetas Interactivas - Negocios / Identificación",
@@ -278,7 +336,11 @@ const translations = {
       business: ["Nombre", "Puesto", "Compañía", "Correo Electrónico", "Teléfono", "Sitio Web", "Moneda"],
       id: ["Nombre", "Número de Identificación", "Departamento", "Validez"]
     },
-    watermark: "CONFIDENCIAL"
+    watermark: "CONFIDENCIAL",
+    qrInfo: {
+      business: "El código QR contiene solo su número de teléfono y sitio web.",
+      id: "No se genera un código QR para las tarjetas de identificación."
+    }
   },
   hi: {
     title: "इंटरैक्टिव कार्ड बिल्डर - व्यवसाय / पहचान",
@@ -302,7 +364,11 @@ const translations = {
       business: ["नाम", "पद", "कंपनी", "ईमेल", "फोन", "वेबसाइट", "मुद्रा"],
       id: ["नाम", "पहचान संख्या", "विभाग", "वैधता"]
     },
-    watermark: "गोपनीय"
+    watermark: "गोपनीय",
+    qrInfo: {
+      business: "क्यूआर कोड में केवल आपका फोन नंबर और वेबसाइट शामिल है।",
+      id: "पहचान पत्र के लिए कोई क्यूआर कोड उत्पन्न नहीं किया जाता है।"
+    }
   }
 };
 
@@ -423,6 +489,23 @@ function updateQRPosition(size) {
   qrContainer.style.height = size + "px";
 }
 
+// Add custom field
+function addCustomField() {
+  const type = document.getElementById("cardType")?.value || "business";
+  const lang = document.getElementById("language")?.value || "en";
+  const customLabel = document.getElementById("customFieldLabel")?.value.trim();
+  const customValue = document.getElementById("customFieldValue")?.value.trim();
+  if (!customLabel || !customValue) {
+    alert("Please enter both a field name and value.");
+    return;
+  }
+  if (!customFields[type][lang]) customFields[type][lang] = [];
+  customFields[type][lang].push({ label: customLabel, value: customValue });
+  document.getElementById("customFieldLabel").value = "";
+  document.getElementById("customFieldValue").value = "";
+  renderFields();
+}
+
 // Dynamic fields based on card type
 function renderFields() {
   const type = document.getElementById("cardType")?.value || "business";
@@ -434,9 +517,21 @@ function renderFields() {
   fields.forEach(f => {
     const div = document.createElement("div");
     div.className = "field-group";
-    div.innerHTML = `<label>${f}:</label><input type="text" id="field_${f.replace(/\s+/g, '')}">`;
+    div.innerHTML = `<label>${f}:</label><input type="text" id="field_${f.replace(/\s+/g, '')}" aria-label="${f}">`;
     container.appendChild(div);
+    div.querySelector("input").oninput = updatePreview; // Add real-time update for all fields
   });
+  // Render custom fields
+  if (customFields[type][lang]) {
+    customFields[type][lang].forEach((cf, index) => {
+      const div = document.createElement("div");
+      div.className = "field-group";
+      div.innerHTML = `<label>${cf.label}:</label><input type="text" id="field_custom_${index}" value="${cf.value}" aria-label="${cf.label}">`;
+      container.appendChild(div);
+      div.querySelector("input").oninput = updatePreview; // Add real-time update for custom fields
+    });
+  }
+  updatePreview();
 }
 
 // Auto orientation based on type
@@ -461,6 +556,16 @@ function updateWatermark() {
     wm.innerText = translations[lang].watermark;
   } else {
     wm.style.display = "none";
+  }
+}
+
+// Update QR info message
+function updateQRInfo() {
+  const type = document.getElementById("cardType")?.value || "business";
+  const lang = document.getElementById("language")?.value || "en";
+  const qrInfo = document.getElementById("qrInfo");
+  if (qrInfo) {
+    qrInfo.textContent = translations[lang].qrInfo[type];
   }
 }
 
@@ -493,7 +598,7 @@ function updateLanguage() {
   document.getElementById("gradEndLabel").innerText = translations[lang].gradEndLabel;
   document.getElementById("bgImageLabel").innerText = translations[lang].bgImageLabel;
   renderFields();
-  updatePreview();
+  updateQRInfo();
 }
 
 // Update preview
@@ -510,12 +615,7 @@ function updatePreview() {
   const logo = document.getElementById("logo");
   const companyName = document.getElementById("companyName");
   const contactDetails = document.getElementById("contactDetails");
-  const displayMain = document.getElementById("displayMain");
-  const position = document.getElementById("position");
-  const email = document.getElementById("email");
-  const phone = document.getElementById("phone");
-  const website = document.getElementById("website");
-  if (!infoSection || !profile || !logo || !companyName || !contactDetails || !displayMain || !position || !email || !phone || !website) return;
+  if (!infoSection || !profile || !logo || !companyName || !contactDetails) return;
   infoSection.innerHTML = "";
   profile.style.display = "none";
   logo.style.display = "none";
@@ -523,31 +623,30 @@ function updatePreview() {
   const fields = translations[lang].fields[type];
   const fieldValues = fields.map(f => {
     const field = document.getElementById(`field_${f.replace(/\s+/g, '')}`);
-    return field ? field.value : f;
+    return field ? field.value || "" : "";
   });
-  
+
   if (type === "business") {
-    let currency = document.getElementById("field_Currency")?.value || "USD";
-    let formatter;
-    try {
-      formatter = new Intl.NumberFormat(lang, { style: 'currency', currency });
-    } catch (e) {
-      currency = "USD";
-      formatter = new Intl.NumberFormat(lang, { style: 'currency', currency });
+    companyName.textContent = fieldValues[2];
+    let detailsHTML = `
+      <h2 id="displayMain">${fieldValues[0]}</h2> <!-- Name -->
+      <p data-label="${translations[lang].fields.business[1]}">${fieldValues[1]}</p>
+      <p data-label="${translations[lang].fields.business[3]}">${fieldValues[3]}</p>
+      <p data-label="${translations[lang].fields.business[4]}">${fieldValues[4]}</p>
+      <p data-label="${translations[lang].fields.business[5]}">${fieldValues[5]}</p>
+      <p data-label="${translations[lang].fields.business[6]}">${fieldValues[6]}</p>
+    `;
+    // Add custom fields
+    if (customFields[type][lang]) {
+      customFields[type][lang].forEach((cf, index) => {
+        const field = document.getElementById(`field_custom_${index}`);
+        const value = field ? field.value || "" : cf.value;
+        detailsHTML += `<p data-label="${cf.label}">${value}</p>`;
+      });
     }
-    companyName.textContent = fieldValues[2] || "Company";
-    displayMain.textContent = fieldValues[0] || "Name";
-    position.textContent = fieldValues[1] || "Position";
-    email.textContent = fieldValues[3] || "Email";
-    phone.textContent = fieldValues[4] || "Phone";
-    website.textContent = fieldValues[5] || "Website";
+    contactDetails.innerHTML = detailsHTML;
     infoSection.appendChild(logo);
     infoSection.appendChild(companyName);
-    contactDetails.appendChild(displayMain);
-    contactDetails.appendChild(position);
-    contactDetails.appendChild(email);
-    contactDetails.appendChild(phone);
-    contactDetails.appendChild(website);
     infoSection.appendChild(contactDetails);
     if (document.getElementById("logoImg")?.files[0]) {
       const reader = new FileReader();
@@ -559,12 +658,22 @@ function updatePreview() {
     }
     if (document.getElementById("profileImg")?.files[0]) profile.style.display = "block";
   } else {
-    infoSection.innerHTML = `
-      <h2 id="displayMain">${fieldValues[0] || "Name"}</h2>
-      <p>${fieldValues[1] || "ID Number"}</p>
-      <p>${fieldValues[2] || "Department"}</p>
-      <p>${fieldValues[3] || "Validity"}</p>
+    let detailsHTML = `
+      <h2 id="displayMain">${fieldValues[0]}</h2> <!-- Name -->
+      <p data-label="${translations[lang].fields.id[1]}">${fieldValues[1]}</p> <!-- ID Number -->
+      <p data-label="${translations[lang].fields.id[2]}">${fieldValues[2]}</p> <!-- Department -->
+      <p data-label="${translations[lang].fields.id[3]}">${fieldValues[3]}</p> <!-- Validity -->
     `;
+    // Add custom fields
+    if (customFields[type][lang]) {
+      customFields[type][lang].forEach((cf, index) => {
+        const field = document.getElementById(`field_custom_${index}`);
+        const value = field ? field.value || "" : cf.value;
+        detailsHTML += `<p data-label="${cf.label}">${value}</p>`;
+      });
+    }
+    contactDetails.innerHTML = detailsHTML;
+    infoSection.appendChild(contactDetails);
     if (document.getElementById("profileImg")?.files[0]) profile.style.display = "block";
   }
 
@@ -578,6 +687,11 @@ function updatePreview() {
 
 // Event listeners
 document.getElementById("language").onchange = updateLanguage;
+document.getElementById("cardType").onchange = () => {
+  renderFields();
+  autoOrientation();
+  updateQRInfo();
+};
 document.getElementById("colorMode").onchange = updateCardColor;
 document.getElementById("cardColor").oninput = updateCardColor;
 document.getElementById("textColor").oninput = updateTextColor;
@@ -587,38 +701,32 @@ document.getElementById("cardHeight").oninput = updateCardDimensions;
 document.getElementById("borderRadius").oninput = updateCardDimensions;
 document.getElementById("shadowIntensity").oninput = updateCardDimensions;
 document.getElementById("bgImage").oninput = updateBackgroundImage;
-document.getElementById("cardType").onchange = () => {
-  renderFields();
-  autoOrientation();
-};
+document.getElementById("addCustomField").onclick = addCustomField;
 
 // Generate QR & Preview
 document.getElementById("generateBtn").onclick = async () => {
-  renderFields();
-  updatePreview();
-  updateQRPosition(80);
-  if (document.getElementById("cardType")?.value === "business") {
-    const name = document.getElementById("field_Name")?.value || "";
-    const position = document.getElementById("field_Position")?.value || "";
-    const company = document.getElementById("field_Company")?.value || "";
-    const email = document.getElementById("field_Email")?.value || "";
+  const type = document.getElementById("cardType")?.value || "business";
+  const lang = document.getElementById("language")?.value || "en";
+  const qrCode = document.getElementById("qrcode");
+  if (!qrCode) return;
+
+  updateQRPosition(100);
+
+  if (type === "business") {
     const phone = document.getElementById("field_Phone")?.value || "";
     const website = document.getElementById("field_Website")?.value || "";
     const vcard = `BEGIN:VCARD
 VERSION:3.0
-FN:${name}
-${company ? `ORG:${company}` : ""}
-${position ? `TITLE:${position}` : ""}
-${email ? `EMAIL:${email}` : ""}
-TEL:${phone}
+${phone ? `TEL:${phone}` : ""}
 ${website ? `URL:${website}` : ""}
 END:VCARD`;
-    currentSVG = await QRCode.toString(vcard, { type: 'svg', width: 80, color: { dark: "#000000", light: "#ffffff" } });
-    const qrCode = document.getElementById("qrcode");
-    if (qrCode) qrCode.innerHTML = currentSVG;
+    currentSVG = await QRCode.toString(vcard, { type: 'svg', width: 100, color: { dark: "#000000", light: "#ffffff" } });
+    qrCode.innerHTML = currentSVG;
+    alert(translations[lang].qrInfo.business);
   } else {
-    const qrCode = document.getElementById("qrcode");
-    if (qrCode) qrCode.innerHTML = "";
+    qrCode.innerHTML = "";
+    currentSVG = "";
+    alert(translations[lang].qrInfo.id);
   }
 };
 
@@ -657,28 +765,53 @@ document.getElementById("profileImg").onchange = function () {
 };
 
 // Download PNG
-document.getElementById("downloadPNGBtn").onclick = () => {
+document.getElementById("downloadPNGBtn").onclick = async () => {
   const cardPreview = document.getElementById("cardPreview");
   if (!cardPreview) return;
   const width = parseInt(document.getElementById("cardWidth")?.value) || 350;
   const height = parseInt(document.getElementById("cardHeight")?.value) || 200;
+  const scale = 4;
+
   const svgBlob = new Blob([cardPreview.outerHTML], { type: "image/svg+xml;charset=utf-8" });
   const url = URL.createObjectURL(svgBlob);
   const img = new Image();
-  img.onload = function () {
+  img.onload = async function () {
     const canvas = document.createElement("canvas");
-    canvas.width = width * 3;
-    canvas.height = height * 3;
+    canvas.width = width * scale;
+    canvas.height = height * scale;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     ctx.fillStyle = document.getElementById("cardColor")?.value || "#1e3c72";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    const pngUrl = canvas.toDataURL("image/png");
-    const a = document.createElement("a");
-    a.href = pngUrl;
-    a.download = "custom_card.png";
-    a.click();
+
+    const qrCodeElement = document.getElementById("qrcode");
+    if (qrCodeElement && currentSVG) {
+      const qrBlob = new Blob([currentSVG], { type: "image/svg+xml;charset=utf-8" });
+      const qrURL = URL.createObjectURL(qrBlob);
+      const qrImg = new Image();
+      qrImg.onload = function () {
+        const qrSize = 100 * scale;
+        ctx.drawImage(qrImg, canvas.width - qrSize - (15 * scale), canvas.height - qrSize - (15 * scale), qrSize, qrSize);
+        const pngUrl = canvas.toDataURL("image/png");
+        const a = document.createElement("a");
+        a.href = pngUrl;
+        a.download = "custom_card.png";
+        a.click();
+        URL.revokeObjectURL(qrURL);
+      };
+      qrImg.onerror = () => {
+        console.error("Failed to load QR SVG");
+        URL.revokeObjectURL(qrURL);
+      };
+      qrImg.src = qrURL;
+    } else {
+      const pngUrl = canvas.toDataURL("image/png");
+      const a = document.createElement("a");
+      a.href = pngUrl;
+      a.download = "custom_card.png";
+      a.click();
+    }
     URL.revokeObjectURL(url);
   };
   img.onerror = () => {
@@ -692,6 +825,7 @@ document.getElementById("downloadPNGBtn").onclick = () => {
 renderFields();
 updateLanguage();
 autoOrientation();
+updateQRInfo();
 </script>
 </body>
 </html>
