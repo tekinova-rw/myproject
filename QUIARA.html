@@ -5,23 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="description" content="Jobs and Scholarships - Discover Opportunities and Tools for Success"/>
-  <meta name="keywords" content="Jobs, Scholarships, Career Opportunities, Resume Builder, Card Builder, QR code"/>
+  <meta name="description" content="Card Builder - Create Custom Business and ID Cards"/>
+  <meta name="keywords" content="Card Builder, Business Card, ID Card, QR code"/>
   <meta name="author" content="Jobs and Scholarships Team"/>
-  <title>Jobs and Scholarships</title>
+  <title>Card Builder</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="strict-origin-when-cross-origin"/>
   <style>
     /* Fallback if Font Awesome fails */
     .fa, .fas { font-family: sans-serif; }
     .fa-home::before { content: "\2302"; }
-    .fa-info-circle::before { content: "\24D8"; }
     .fa-cogs::before { content: "\2699"; }
-    .fa-box::before { content: "\2610"; }
-    .fa-blog::before { content: "\270D"; }
-    .fa-briefcase::before { content: "\1F4BC"; }
-    .fa-envelope::before { content: "\2709"; }
-    .fa-laptop-code::before { content: "\1F4BB"; }
-    .fa-chart-line::before { content: "\1F4C8"; }
     .fa-bars::before { content: "\2630"; }
     .fa-times::before { content: "\2715"; }
     .fa-check-circle::before { content: "\2713"; }
@@ -591,12 +584,6 @@
       font-size: 16px;
     }
 
-    .footer-columns .col h2 {
-      color: gold;
-      margin: 12px 0 8px;
-      font-size: 15px;
-    }
-
     .footer-columns .col a {
       display: block;
       color: white;
@@ -609,61 +596,6 @@
     .footer-columns .col a:hover {
       color: #d4af37;
       padding-left: 5px;
-    }
-
-    /* Navigation Dropdowns */
-    .navbar ul {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    .navbar li {
-      position: relative;
-    }
-
-    .navbar a {
-      display: block;
-      padding: 14px 18px;
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-      font-size: 16px;
-    }
-
-    .dropdown {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #002366;
-      min-width: 240px;
-      border-radius: 0 0 5px 5px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      z-index: 100;
-      padding: 10px;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .dropdown h2 {
-      color: gold;
-      font-size: 15px;
-      padding: 10px 16px;
-      margin: 0;
-    }
-
-    .dropdown a {
-      padding: 12px 16px;
-      font-size: 14px;
-    }
-
-    .navbar li:hover .dropdown {
-      display: block;
     }
 
     /* Responsive Design */
@@ -773,69 +705,12 @@
   <!-- Header -->
   <header>
     <div class="logo" id="logo">
-      <img src="https://via.placeholder.com/48" alt="Jobs and Scholarships Logo">
-      <h1>Jobs and Scholarships</h1>
+      <img src="https://via.placeholder.com/48" alt="Card Builder Logo">
+      <h1>Card Builder</h1>
     </div>
     <nav class="navbar">
       <ul id="main-nav" role="navigation" aria-label="Main navigation">
-        <li><a href="index.html">Home</a></li>
-        <li>
-          <a href="#" aria-haspopup="true" aria-expanded="false">About</a>
-          <div class="dropdown">
-            <h2>About Jobs and Scholarships</h2>
-            <a href="About.html">About Us</a>
-            <a href="#">Mission & Vision</a>
-            <a href="#">Our Goals</a>
-            <a href="#">Contacts</a>
-            <h2>Team</h2>
-            <a href="#">Our Team</a>
-            <a href="#">Core Values</a>
-            <a href="#">Leadership</a>
-          </div>
-        </li>
-        <li>
-          <a href="#" aria-haspopup="true" aria-expanded="false">Tools</a>
-          <div class="dropdown">
-            <a href="tools.html">Our Tools</a>
-            <a href="#">Resume Builder</a>
-            <a href="#">Card Builder</a>
-            <a href="#">Photo Editor</a>
-            <a href="#">Document Scanner</a>
-          </div>
-        </li>
-        <li>
-          <a href="#" aria-haspopup="true" aria-expanded="false">Opportunities</a>
-          <div class="dropdown">
-            <a href="opportunities.html">All Opportunities</a>
-            <a href="#">Job Listings</a>
-            <a href="#">Scholarships</a>
-            <a href="#">Internships</a>
-          </div>
-        </li>
-        <li>
-          <a href="#" aria-haspopup="true" aria-expanded="false">Resources</a>
-          <div class="dropdown">
-            <h2>Learn & Grow</h2>
-            <a href="resources.html">Career Resources</a>
-            <a href="#">Career Tips</a>
-            <a href="#">Scholarship Guides</a>
-            <a href="#">Interview Prep</a>
-          </div>
-        </li>
-        <li>
-          <a href="#" aria-haspopup="true" aria-expanded="false">Careers</a>
-          <div class="dropdown">
-            <a href="Careers.html">Join Our Team</a>
-            <a href="#">Career Opportunities</a>
-            <a href="#">Internships</a>
-          </div>
-        </li>
-        <li>
-          <a href="#" aria-haspopup="true" aria-expanded="false">Contact</a>
-          <div class="dropdown">
-            <a href="contact_us.html">Get in Touch</a>
-          </div>
-        </li>
+        <li><a href="index.html" class="active">Card Builder</a></li>
       </ul>
     </nav>
     <div class="dashboard-icon" id="dashboard-icon" role="button" aria-label="Toggle dashboard menu" tabindex="0">
@@ -849,17 +724,11 @@
   <!-- Sidebar (Dashboard) -->
   <aside class="sidebar" id="dashboard" role="navigation" aria-label="Dashboard menu">
     <div class="sidebar-header">
-      <span><i class="fas fa-chart-line"></i> Dashboard</span>
+      <span><i class="fas fa-cogs"></i> Dashboard</span>
       <i class="fas fa-times" id="close-dashboard" role="button" aria-label="Close dashboard menu" tabindex="0"></i>
     </div>
     <nav>
-      <a href="index.html"><i class="fas fa-home"></i> Home</a>
-      <a href="About.html"><i class="fas fa-info-circle"></i> About</a>
-      <a href="tools.html"><i class="fas fa-cogs"></i> Tools</a>
-      <a href="opportunities.html"><i class="fas fa-briefcase"></i> Opportunities</a>
-      <a href="resources.html"><i class="fas fa-file-alt"></i> Resources</a>
-      <a href="Careers.html"><i class="fas fa-laptop-code"></i> Careers</a>
-      <a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a>
+      <a href="index.html"><i class="fas fa-cogs"></i> Card Builder</a>
     </nav>
     <div class="dashboard-widget">
       <h3>Quick Stats</h3>
@@ -871,30 +740,30 @@
         </div>
         <div>
           <span>24</span>
-          <small>Opportunities</small>
+          <small>Cards Generated</small>
         </div>
         <div>
           <span>18</span>
-          <small>Applications</small>
+          <small>Downloads</small>
         </div>
       </div>
     </div>
     <div class="dashboard-widget">
       <h3>Recent Activity</h3>
-      <p><i class="fas fa-check-circle"></i> New job applied</p>
+      <p><i class="fas fa-check-circle"></i> New card generated</p>
       <p><i class="fas fa-user-plus"></i> Profile updated</p>
-      <p><i class="fas fa-sync-alt"></i> Resume generated</p>
+      <p><i class="fas fa-sync-alt"></i> Card downloaded</p>
     </div>
   </aside>
 
   <!-- Main Content -->
   <main class="main-content">
-    <h1>Discover Opportunities and Tools for Success</h1>
+    <h1>Create Your Custom Card</h1>
     <div class="sliding-gallery">
       <div class="gallery-track">
-        <img src="career1.jpg" alt="Career opportunities">
-        <img src="scholarship1.jpg" alt="Scholarship programs">
-        <img src="tools1.jpg" alt="Resume and card builder">
+        <img src="business_card.jpg" alt="Business card example">
+        <img src="id_card.jpg" alt="ID card example">
+        <img src="resume_card.jpg" alt="Resume card example">
       </div>
     </div>
     <div class="card-container">
@@ -932,6 +801,23 @@
           <select id="colorMode" aria-label="Select color mode">
             <option value="RGB">RGB (Icyerekezo / Screen)</option>
             <option value="CMYK">CMYK (Gucapa / Print)</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label><input type="checkbox" id="useGradient" aria-label="Enable gradient background"> Use Gradient Background</label>
+        </div>
+        <div class="field-group" id="gradientControls" style="display: none;">
+          <label for="gradientColor1">Gradient Color 1:</label>
+          <input type="color" id="gradientColor1" value="#012f47" aria-label="Select first gradient color">
+          <label for="gradientColor2">Gradient Color 2:</label>
+          <input type="color" id="gradientColor2" value="#002240" aria-label="Select second gradient color">
+          <label for="gradientDirection">Gradient Direction:</label>
+          <select id="gradientDirection" aria-label="Select gradient direction">
+            <option value="to right">To Right</option>
+            <option value="to left">To Left</option>
+            <option value="to bottom">To Bottom</option>
+            <option value="to top">To Top</option>
+            <option value="135deg">Diagonal (135deg)</option>
           </select>
         </div>
         <div class="field-group">
@@ -986,48 +872,12 @@
     <div class="footer-columns">
       <div class="col">
         <h3>Contact</h3>
-        <a href="contact_us.html" style="text-decoration: underline;"><b>Get in Touch</b></a>
         <p><strong>WhatsApp:</strong> <a href="https://wa.me/+250733253803" target="_blank" rel="noopener noreferrer">+250 733 253 803</a></p>
         <p><strong>Email:</strong> <a href="mailto:info@jobsandscholarships.com" rel="noopener noreferrer">info@jobsandscholarships.com</a></p>
       </div>
       <div class="col">
-        <h3>About Us</h3>
-        <a href="About.html">About</a>
-        <a href="#">Mission & Vision</a>
-        <a href="#">Our Goals</a>
-        <a href="#">Contacts</a>
-        <h2>Team</h2>
-        <a href="#">Our Team</a>
-        <a href="#">Core Values</a>
-        <a href="#">Leadership</a>
-      </div>
-      <div class="col">
-        <h3>Tools</h3>
-        <a href="tools.html">Our Tools</a>
-        <a href="#">Resume Builder</a>
-        <a href="#">Card Builder</a>
-        <a href="#">Photo Editor</a>
-        <a href="#">Document Scanner</a>
-      </div>
-      <div class="col">
-        <h3>Opportunities</h3>
-        <a href="opportunities.html">All Opportunities</a>
-        <a href="#">Job Listings</a>
-        <a href="#">Scholarships</a>
-        <a href="#">Internships</a>
-      </div>
-      <div class="col">
-        <h3>Resources</h3>
-        <a href="resources.html">Career Resources</a>
-        <a href="#">Career Tips</a>
-        <a href="#">Scholarship Guides</a>
-        <a href="#">Interview Prep</a>
-      </div>
-      <div class="col">
-        <h3>Careers</h3>
-        <a href="Careers.html">Join Our Team</a>
-        <a href="#">Career Opportunities</a>
-        <a href="#">Internships</a>
+        <h3>Card Builder</h3>
+        <a href="index.html">Create Your Card</a>
       </div>
     </div>
   </footer>
@@ -1215,27 +1065,36 @@
       return { r: Math.round(r), g: Math.round(g), b: Math.round(b) };
     }
 
-    // Update card color
+    // Update card color with gradient support
     function updateCardColor() {
       const card = document.getElementById("cardPreview");
       const mode = document.getElementById("colorMode")?.value;
-      const hex = document.getElementById("cardColor")?.value || "#012f47";
+      const useGradient = document.getElementById("useGradient")?.checked;
       const cmykDiv = document.getElementById("cmykValues");
       if (!card || !cmykDiv) return;
 
-      const r = parseInt(hex.substr(1, 2), 16);
-      const g = parseInt(hex.substr(3, 2), 16);
-      const b = parseInt(hex.substr(5, 2), 16);
-
-      if (mode === "RGB") {
-        card.style.background = hex;
+      if (useGradient) {
+        const color1 = document.getElementById("gradientColor1")?.value || "#012f47";
+        const color2 = document.getElementById("gradientColor2")?.value || "#002240";
+        const direction = document.getElementById("gradientDirection")?.value || "to right";
+        card.style.background = `linear-gradient(${direction}, ${color1}, ${color2})`;
         cmykDiv.style.display = "none";
       } else {
-        const cmyk = rgbToCmyk(r, g, b);
-        const rgbPreview = cmykToRgb(cmyk.c, cmyk.m, cmyk.y, cmyk.k);
-        card.style.background = `rgb(${rgbPreview.r},${rgbPreview.g},${rgbPreview.b})`;
-        cmykDiv.style.display = "block";
-        cmykDiv.innerHTML = `C: ${Math.round(cmyk.c * 100)}% | M: ${Math.round(cmyk.m * 100)}% | Y: ${Math.round(cmyk.y * 100)}% | K: ${Math.round(cmyk.k * 100)}%`;
+        const hex = document.getElementById("cardColor")?.value || "#012f47";
+        const r = parseInt(hex.substr(1, 2), 16);
+        const g = parseInt(hex.substr(3, 2), 16);
+        const b = parseInt(hex.substr(5, 2), 16);
+
+        if (mode === "RGB") {
+          card.style.background = hex;
+          cmykDiv.style.display = "none";
+        } else {
+          const cmyk = rgbToCmyk(r, g, b);
+          const rgbPreview = cmykToRgb(cmyk.c, cmyk.m, cmyk.y, cmyk.k);
+          card.style.background = `rgb(${rgbPreview.r},${rgbPreview.g},${rgbPreview.b})`;
+          cmykDiv.style.display = "block";
+          cmykDiv.innerHTML = `C: ${Math.round(cmyk.c * 100)}% | M: ${Math.round(cmyk.m * 100)}% | Y: ${Math.round(cmyk.y * 100)}% | K: ${Math.round(cmyk.k * 100)}%`;
+        }
       }
     }
 
@@ -1468,6 +1327,14 @@
     document.getElementById("logoImg").onchange = function () {
       updatePreview();
     };
+    document.getElementById("useGradient").onchange = function () {
+      const gradientControls = document.getElementById("gradientControls");
+      gradientControls.style.display = this.checked ? "block" : "none";
+      updateCardColor();
+    };
+    document.getElementById("gradientColor1").oninput = updateCardColor;
+    document.getElementById("gradientColor2").oninput = updateCardColor;
+    document.getElementById("gradientDirection").onchange = updateCardColor;
 
     // Generate QR & Preview
     document.getElementById("generateBtn").onclick = async () => {
@@ -1519,8 +1386,30 @@ END:VCARD`;
       if (!ctx) return;
 
       // Draw background
-      const bgColor = document.getElementById("cardColor")?.value || "#012f47";
-      ctx.fillStyle = bgColor;
+      const useGradient = document.getElementById("useGradient")?.checked;
+      if (useGradient) {
+        const color1 = document.getElementById("gradientColor1")?.value || "#012f47";
+        const color2 = document.getElementById("gradientColor2")?.value || "#002240";
+        const direction = document.getElementById("gradientDirection")?.value || "to right";
+        let gradient;
+        if (direction === "to right") {
+          gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+        } else if (direction === "to left") {
+          gradient = ctx.createLinearGradient(canvas.width, 0, 0, 0);
+        } else if (direction === "to bottom") {
+          gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        } else if (direction === "to top") {
+          gradient = ctx.createLinearGradient(0, canvas.height, 0, 0);
+        } else {
+          gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        }
+        gradient.addColorStop(0, color1);
+        gradient.addColorStop(1, color2);
+        ctx.fillStyle = gradient;
+      } else {
+        const bgColor = document.getElementById("cardColor")?.value || "#012f47";
+        ctx.fillStyle = bgColor;
+      }
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Draw logo
@@ -1576,7 +1465,7 @@ END:VCARD`;
       const pngUrl = canvas.toDataURL("image/png");
       const a = document.createElement("a");
       a.href = pngUrl;
-      a.download = "jobsandscholarships_card.png";
+      a.download = "card_builder.png";
       a.click();
     };
 
