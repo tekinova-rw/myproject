@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gusubiramo Ibisubizo</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 850px; margin:0 auto; padding:20px; background:#f2f2f2; color:#2c3e50; }
+    h1,h2 { text-align:center; }
+    .question-block { background:#fff; padding:15px; margin-bottom:15px; border:1px solid #ccc; border-radius:6px; }
+    .correct { color:green; font-weight:bold; }
+    .wrong { color:red; font-weight:bold; }
+    img { display:block; max-width:280px; margin:10px auto; border-radius:6px; border:1px solid #ccc; }
+    button { padding:10px 20px; margin-top:15px; cursor:pointer; border:none; border-radius:6px; background:#007bff; color:white; transition:0.3s; }
+    button:hover { background:#0056b3; display:block; margin:auto; }
+  </style>
+</head>
+<body class="review-page">
+  <h1>Gusubiramo Ibisubizo</h1>
+  <div id="review-container"></div>
+  <button id="back-btn">Garuka Ahabanza</button>
+
+  <script>
+    const container = document.getElementById('review-container');
+    const backBtn = document.getElementById('back-btn');
+
+    const selectedQuestions = JSON.parse(localStorage.getItem('reviewSelectedQuestions')) || [];
+    const userAnswers = JSON.parse(localStorage.getItem('reviewUserAnswers')) || {};
+
+    if(selectedQuestions.length === 0){
+      container.innerHTML = '<p>Nta bisubizo bibonetse. Subira ku ntangiriro.</p>';
+    } else {
+      selectedQuestions.forEach((q, idx) => {
+        const userAnswer = userAnswers[idx] || 'Nta gisubizo';
+        const isCorrect = userAnswer === q.answer;
+        const div = document.createElement('div');
+        div.className = 'question-block';
+        div.innerHTML = `
+          <p><strong>Ikibazo ${idx+1}:</strong> ${q.question}</p>
+          ${q.image ? `<img src="images/${q.image}" alt="Icyapa" />` : ''}
+          <p>A: ${q.a}</p>
+          <p>B: ${q.b}</p>
+          <p>C: ${q.c}</p>
+          <p>D: ${q.d}</p>
+          <p><strong>Igisubizo cyawe:</strong> <span class="${isCorrect?'correct':'wrong'}">${userAnswer}</span></p>
+          <p><strong>Ibisubizo nyakuri:</strong> <span class="correct">${q.answer}</span></p>
+          ${q.explanation ? `<p><em>${q.explanation}</em></p>` : ''}
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    backBtn.addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

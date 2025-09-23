@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ikizamini cyo Gutwara Ibinyabiziga</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #2c3e50;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      min-height: 100vh;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Card style wrapper */
+    #home-screen, #quiz-screen, #result-screen, #review-screen {
+      background: rgba(255, 255, 255, 0.96);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      margin-top: 40px;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(15px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    #image-container {
+      margin: 15px 0;
+      text-align: center;
+    }
+
+    .question-img {
+      display: block;
+      margin: 0 auto;
+      max-width: 250px;
+      border: 2px solid #ddd;
+      padding: 8px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+    }
+
+    .question-img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #1e3c72;
+    }
+
+    h1 {
+      font-size: 2.4em;
+      margin-bottom: 10px;
+    }
+
+    /* OPTION STYLE */
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 15px;
+      margin-bottom: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      cursor: pointer;
+      background: #fff;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .option-label:hover {
+      background-color: #f1f7ff;
+      border-color: #007bff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0,123,255,0.25);
+    }
+
+    .option-label.selected {
+      background-color: #e3f2fd;
+      border-color: #2196f3;
+      box-shadow: 0 6px 15px rgba(33,150,243,0.3);
+      transform: translateY(-1px);
+    }
+
+    .option-label input {
+      display: none;
+    }
+
+    .option-circle {
+      width: 32px;
+      height: 32px;
+      border: 2px solid #007bff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #007bff;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .option-label input:checked + .option-circle {
+      background-color: #007bff;
+      color: #fff;
+      border-color: #0056b3;
+    }
+
+    .option-text {
+      flex: 1;
+      line-height: 1.4;
+      color: #2c3e50;
+      font-size: 15px;
+    }
+
+    #timer {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 15px 0 25px 0;
+      color: #e74c3c;
+      text-align: center;
+      background: rgba(231, 76, 60, 0.12);
+      padding: 10px 20px;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    button {
+      margin: 8px 4px;
+      padding: 12px 28px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      color: white;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0,123,255,0.3);
+    }
+
+    button:hover:not(:disabled) {
+      background: linear-gradient(135deg, #0056b3, #00408d);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 6px 15px rgba(0,123,255,0.4);
+    }
+
+    button:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+      opacity: 0.6;
+      box-shadow: none;
+    }
+
+    #nav-buttons {
+      text-align: center;
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    #review-container .question-block {
+      background: #fff;
+      padding: 25px;
+      margin-bottom: 25px;
+      border-radius: 12px;
+      border: 1px solid #e0e0e0;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+
+    /* Responsive */
+    @media (max-width: 500px) {
+      body {
+        padding: 15px;
+      }
+
+      .question-img {
+        max-width: 100%;
+      }
+
+      button {
+        width: 100%;
+        margin: 8px 0;
+      }
+
+      #nav-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+
+    /* Result screen styling */
+    #result-screen {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    #score {
+      font-size: 4.5em;
+      color: #28a745;
+      margin: 20px 0;
+      font-weight: bold;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+    }
+
+    #pass-message {
+      font-size: 1.6em;
+      margin: 25px 0;
+      font-weight: bold;
+      padding: 15px 25px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+
+    #pass-message:where([style*="color: green"]) {
+      background: rgba(40, 167, 69, 0.12);
+      color: #28a745;
+      border: 2px solid rgba(40, 167, 69, 0.3);
+    }
+
+    #pass-message:where([style*="color: red"]) {
+      background: rgba(220, 53, 69, 0.12);
+      color: #dc3545;
+      border: 2px solid rgba(220, 53, 69, 0.3);
+    }
+    /* buto yokwishyura */
+     section {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50vh;
+    }
+
+    /* Buto yo kwishyura */
+    #payBtn {
+      background: linear-gradient(135deg, #4CAF50, #2e7d32);
+      color: white;
+      padding: 10px 20px;
+      font-size: 22px;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.25);
+      transition: all 0.3s ease;
+    }
+
+    #payBtn:hover {
+      background: linear-gradient(135deg, #43a047, #1b5e20);
+      transform: scale(1.05);
+    }
+
+    /* Animation yo kunyeganyiga */
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      50% { transform: translateX(6px); }
+      75% { transform: translateX(-6px); }
+      100% { transform: translateX(0); }
+    }
+
+    .shake {
+      animation: shake 0.4s;
+    }
+
+    /* PAGE ya code */
+    .code-page {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 70vh;
+      background: linear-gradient(135deg, #f1f8e9, #c8e6c9);
+      text-align: center;
+    }
+
+    .code-page h1 {
+      color: #2e7d32;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .code-box {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
+      font-size: 22px;
+      font-weight: bold;
+      color: #1b5e20;
+    }
+
+    .back-btn {
+      margin-top: 25px;
+      padding: 12px 25px;
+      background: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #1b5e20;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HOME SCREEN -->
+  <div id="home-screen">
+    <h1>Ikizamini cya Provisional – Provizwari</h1>
+    <p>Murakaza neza. Mugiye gukora ikizamini cya <strong>amasomo y'ibinyabiziga</strong>. Iyi ni <strong>verisiyo y'igerageza</strong>.</p>
+    <ul>
+      <li>Ibibazo <strong>20</strong> bitoranywa muri <em>bank</em> nini.</li>
+      <li>Igihe: <strong>iminota 20</strong>. Nimara kurangira, ikizamini <strong>cyoherezwaho</strong> ako kanya.</li>
+      <li>Hitamo igisubizo <strong>kimwe</strong> (A–D), ukande <strong>"Komeza"</strong> kugira ngo ujye ku kibazo gikurikira.</li>
+      <li>Nyuma yo kohereza: mubona <strong>Amanota</strong> na <strong>Reba Ibisubizo</strong>.</li>
+    </ul>
+    <section>
+
+  <!-- PAGE ya mbere (button) -->
+  <div id="mainPage">
+    <button id="payBtn">💳 KWISHYURA</button>
+  </div>
+
+  <!-- PAGE ya kabiri (code) -->
+  <div id="codePage" class="code-page">
+    <h1>Koresha iyi code kuri telefoni yawe:</h1>
+    <div class="code-box">*182*8*1*814570*3050#</div>
+    <button class="back-btn" id="backBtn">◀ Garuka</button>
+  </div>
+<!-- kwishuya buton -->
+</section>
+    <div style="text-align: center;">
+      <button id="start-btn">🚗 Tangiza Ikizamini</button>
+    </div>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div id="quiz-screen" class="hidden">
+    <div id="timer">20:00</div>
+    <h2 id="question-text"></h2>
+    <div id="image-container"></div>
+
+    <!-- Options -->
+    <form id="options-form">
+      <label class="option-label" id="label-a">
+        <input type="radio" name="option" value="a" />
+        <span class="option-circle">A</span>
+        <span id="option-a" class="option-text"></span>
+      </label>
+      
+      <label class="option-label" id="label-b">
+        <input type="radio" name="option" value="b" />
+        <span class="option-circle">B</span>
+        <span id="option-b" class="option-text"></span>
+      </label>
+      
+      <label class="option-label" id="label-c">
+        <input type="radio" name="option" value="c" />
+        <span class="option-circle">C</span>
+        <span id="option-c" class="option-text"></span>
+      </label>
+      
+      <label class="option-label" id="label-d">
+        <input type="radio" name="option" value="d" />
+        <span class="option-circle">D</span>
+        <span id="option-d" class="option-text"></span>
+      </label>
+    </form>
+
+    <div id="nav-buttons">
+      <button id="prev-btn" disabled>⬅️ Subira Inyuma</button>
+      <button id="next-btn" disabled>➡️ Gukomeza</button>
+      <button id="submit-btn" class="hidden" style="background: linear-gradient(135deg,#28a745,#1e7e34);">✅ Ohereza Ibisubizo</button>
+    </div>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div id="result-screen" class="hidden">
+    <h2>📊 Watsindiye amanota:</h2>
+    <h1 id="score"></h1>
+    <p id="pass-message"></p>
+    <div style="text-align:center; margin-top: 30px; gap: 15px; display: flex; flex-direction: column; align-items: center;">
+      <button id="review-btn">🔍 Reba Ibisubizo</button>
+      <button id="restart-btn" style="background: linear-gradient(135deg,#28a745,#1e7e34);">🔄 Garuka Ahabanza</button>
+    </div>
+  </div>
+
+  <!-- REVIEW SCREEN -->
+  <div id="review-screen" class="hidden">
+    <h2>📖 Gusubiramo Ibisubizo</h2>
+    <div id="review-container"></div>
+    <div style="text-align:center; margin-top: 25px;">
+      <button id="finish-btn" style="background: linear-gradient(135deg,#28a745,#1e7e34);">🏠 Garuka Ahabanza</button>
+    </div>
+  </div>
+  <script>
+    const payBtn = document.getElementById("payBtn");
+    const mainPage = document.getElementById("mainPage");
+    const codePage = document.getElementById("codePage");
+    const backBtn = document.getElementById("backBtn");
+
+    // Kunyeganyiga buri masagonda 3
+    setInterval(() => {
+      payBtn.classList.add("shake");
+      setTimeout(() => {
+        payBtn.classList.remove("shake");
+      }, 500);
+    }, 3000);
+
+    // Iyo ukande buto → werekwa code
+    payBtn.addEventListener("click", () => {
+      mainPage.style.display = "none";
+      codePage.style.display = "flex";
+    });
+
+    // Garuka kuri buto
+    backBtn.addEventListener("click", () => {
+      codePage.style.display = "none";
+      mainPage.style.display = "flex";
+    });
+  </script>
+
+  <script src="app.js"></script>
+</body>
+</html>
