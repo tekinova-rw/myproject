@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ikizamini cyo Gutwara Ibinyabiziga</title>
-<style>
+  <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       max-width: 900px;
@@ -433,7 +433,6 @@
         font-size: 15px;
       }
 
-      /* Hano nahinduye: Next izajya hejuru ya Previous */
       #nav-buttons {
         flex-direction: column-reverse;
         gap: 8px;
@@ -521,8 +520,7 @@
         padding: 10px 12px;
       }
     }
-</style>
-
+  </style>
 </head>
 <body>
   <!-- HOME SCREEN -->
@@ -534,13 +532,13 @@
       <li>Igihe: <strong>iminota 20</strong>. Nimara kurangira, ikizamini <strong>cyoherezwaho</strong> ako kanya.</li>
       <li>Hitamo igisubizo <strong>kimwe</strong> (A–D), ukande <strong>"Komeza"</strong> kugira ngo ujye ku kibazo gikurikira.</li>
       <li>Nyuma yo kohereza: mubona <strong>Amanota</strong> na <strong>Reba Ibisubizo</strong>.</li>
-      <li><strong>(iminsi 30)</strong>Uhabwa ingana n'ukwezi  kose wimenyereza ntankomyi</li>
-      <li><strong>Ishyura 3050  </strong>mbere yuko utangira ikizamini</li>
+      <li><strong>(iminsi 30)</strong> Uhabwa ingana n'ukwezi kose wimenyereza ntankomyi</li>
+      <li><strong>Ishyura 3050</strong> mbere yuko utangira ikizamini</li>
     </ul>
     <section>
       <!-- PAGE ya mbere (button) -->
       <div id="mainPage">
-        <input type="number" id="amountInput" placeholder="Shyiramo amafaranga" aria-label="Enter payment amount" min="3050" />
+        <input type="number" id="amountInput" placeholder="Amafaranga 3050" aria-label="Enter payment amount 3050" min="3050" />
         <button id="payBtn" aria-label="Make payment">💳 KWISHYURA</button>
         <div id="messageBox" role="alert" aria-live="polite"></div>
       </div>
@@ -548,7 +546,7 @@
       <div id="codePage" class="code-page">
         <h1>Koresha iyi code kuri telefoni yawe:</h1>
         <div class="code-box" id="ussdCode">*182*8*1*814570*3050#</div>
-        <button class="back-btn" id="backBtn" aria-label="Return to main page">◀ Garuka</button>
+        <button class="back-btn" id="backBtn" aria-label="Return to main page">◄ Garuka</button>
       </div>
     </section>
     <div style="text-align: center;">
@@ -631,6 +629,17 @@
       }, 500);
     }, 3000);
 
+    // Restrict amount input to 3050 only
+    amountInput.addEventListener("input", () => {
+      const value = amountInput.value.trim();
+      if (value !== "" && value !== "3050") {
+        amountInput.value = "";
+        messageBox.textContent = "Amafaranga agomba kuba 3050 gusa.";
+      } else {
+        messageBox.textContent = "";
+      }
+    });
+
     // Handle payment button click
     payBtn.addEventListener("click", () => {
       if (isDialing) return; // Prevent multiple clicks
@@ -639,28 +648,18 @@
 
       // Validate the amount
       if (!amount) {
-        messageBox.textContent = "Nyamuneka shyiramo amafaranga.";
+        messageBox.textContent = "Nyamuneka shyiramo amafaranga 3050.";
         amountInput.focus();
         return;
       }
-      if (isNaN(amount) || amount <= 0) {
-        messageBox.textContent = "Shyiramo umubare w'amafaranga usobanutse.";
-        amountInput.focus();
-        return;
-      }
-      if (amount < 3050) {
-        messageBox.textContent = "Amafaranga ntarengana ni 3050.";
-        amountInput.focus();
-        return;
-      }
-      if (!Number.isInteger(Number(amount))) {
-        messageBox.textContent = "Shyiramo umubare wuzuye, nta koma.";
+      if (amount !== "3050") {
+        messageBox.textContent = "Amafaranga agomba kuba 3050 gusa.";
         amountInput.focus();
         return;
       }
 
-      // Generate USSD code dynamically
-      const ussdCode = `*182*8*1*814570*${amount}#`;
+      // Generate USSD code with fixed amount
+      const ussdCode = `*182*8*1*814570*3050#`;
       ussdCodeDisplay.textContent = ussdCode;
 
       // Check if the user is on a mobile device
@@ -688,11 +687,6 @@
       mainPage.style.display = "flex";
       messageBox.textContent = ""; // Clear message
       amountInput.value = ""; // Clear amount input
-    });
-
-    // Clear message when amount input changes
-    amountInput.addEventListener("input", () => {
-      messageBox.textContent = "";
     });
   </script>
 

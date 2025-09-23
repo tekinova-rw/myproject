@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ikizamini cyo Gutwara Ibinyabiziga</title>
-  <style>
+<style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       max-width: 900px;
@@ -213,7 +213,7 @@
       max-width: 400px;
     }
 
-    #amountInput, #pinInput {
+    #amountInput {
       padding: 12px;
       font-size: 16px;
       border-radius: 8px;
@@ -224,7 +224,7 @@
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    #amountInput:focus, #pinInput:focus {
+    #amountInput:focus {
       outline: none;
       border-color: #007bff;
       box-shadow: 0 0 5px rgba(0,123,255,0.3);
@@ -388,7 +388,7 @@
         max-width: 100%;
       }
 
-      #payBtn, .back-btn, #amountInput, #pinInput {
+      #payBtn, .back-btn, #amountInput {
         max-width: 100%;
       }
 
@@ -433,8 +433,9 @@
         font-size: 15px;
       }
 
+      /* Hano nahinduye: Next izajya hejuru ya Previous */
       #nav-buttons {
-        flex-direction: column;
+        flex-direction: column-reverse;
         gap: 8px;
       }
 
@@ -467,7 +468,7 @@
         font-size: 14px;
       }
 
-      #amountInput, #pinInput {
+      #amountInput {
         padding: 12px;
         font-size: 15px;
       }
@@ -506,7 +507,7 @@
         font-size: 1.6em;
       }
 
-      #amountInput, #pinInput, #payBtn, .back-btn {
+      #amountInput, #payBtn, .back-btn {
         padding: 10px;
         font-size: 14px;
       }
@@ -520,31 +521,33 @@
         padding: 10px 12px;
       }
     }
-  </style>
+</style>
+
 </head>
 <body>
   <!-- HOME SCREEN -->
   <div id="home-screen">
-    <h1>Ikizamini cya Provisional – Provizwari</h1>
-    <p>Murakaza neza. Mugiye gukora ikizamini cya <strong>amasomo y'ibinyabiziga</strong>. Iyi ni <strong>verisiyo y'igerageza</strong>.</p>
+    <h1>Ikizamini cya Provizwari</h1>
+    <p>Murakaza neza. Mugiye gukora ikizamini cya <strong>amasomo y'ibinyabiziga</strong>. Iri ni <strong>isuzumama bumenyi</strong>.</p>
     <ul>
       <li>Ibibazo <strong>20</strong> bitoranywa muri <em>bank</em> nini.</li>
       <li>Igihe: <strong>iminota 20</strong>. Nimara kurangira, ikizamini <strong>cyoherezwaho</strong> ako kanya.</li>
       <li>Hitamo igisubizo <strong>kimwe</strong> (A–D), ukande <strong>"Komeza"</strong> kugira ngo ujye ku kibazo gikurikira.</li>
       <li>Nyuma yo kohereza: mubona <strong>Amanota</strong> na <strong>Reba Ibisubizo</strong>.</li>
+      <li><strong>(iminsi 30)</strong>Uhabwa ingana n'ukwezi  kose wimenyereza ntankomyi</li>
+      <li><strong>Ishyura 3050  </strong>mbere yuko utangira ikizamini</li>
     </ul>
     <section>
       <!-- PAGE ya mbere (button) -->
       <div id="mainPage">
-        <input type="number" id="amountInput" placeholder="Shyiramo amafaranga" aria-label="Enter payment amount" min="1000" />
-        <input type="text" id="pinInput" placeholder="Shyiramo PIN (4-digit)" aria-label="Enter payment PIN" maxlength="4" />
+        <input type="number" id="amountInput" placeholder="Shyiramo amafaranga" aria-label="Enter payment amount" min="3050" />
         <button id="payBtn" aria-label="Make payment">💳 KWISHYURA</button>
         <div id="messageBox" role="alert" aria-live="polite"></div>
       </div>
       <!-- PAGE ya kabiri (code) -->
       <div id="codePage" class="code-page">
         <h1>Koresha iyi code kuri telefoni yawe:</h1>
-        <div class="code-box" id="ussdCode">*182*8*1*1000*1234#</div>
+        <div class="code-box" id="ussdCode">*182*8*1*814570*3050#</div>
         <button class="back-btn" id="backBtn" aria-label="Return to main page">◀ Garuka</button>
       </div>
     </section>
@@ -615,7 +618,6 @@
     const backBtn = document.getElementById("backBtn");
     const messageBox = document.getElementById("messageBox");
     const amountInput = document.getElementById("amountInput");
-    const pinInput = document.getElementById("pinInput");
     const ussdCodeDisplay = document.getElementById("ussdCode");
 
     // Prevent multiple dial pad triggers
@@ -634,7 +636,6 @@
       if (isDialing) return; // Prevent multiple clicks
 
       const amount = amountInput.value.trim();
-      const pin = pinInput.value.trim();
 
       // Validate the amount
       if (!amount) {
@@ -658,20 +659,8 @@
         return;
       }
 
-      // Validate the PIN
-      if (!pin) {
-        messageBox.textContent = "Nyamuneka shyiramo PIN.";
-        pinInput.focus();
-        return;
-      }
-      if (!/^\d{5}$/.test(pin)) {
-        messageBox.textContent = "PIN igomba kuba imibare 5 gusa.";
-        pinInput.focus();
-        return;
-      }
-
       // Generate USSD code dynamically
-      const ussdCode = `*182*8*1*814570${amount}*${pin}#`;
+      const ussdCode = `*182*8*1*814570*${amount}#`;
       ussdCodeDisplay.textContent = ussdCode;
 
       // Check if the user is on a mobile device
@@ -699,14 +688,10 @@
       mainPage.style.display = "flex";
       messageBox.textContent = ""; // Clear message
       amountInput.value = ""; // Clear amount input
-      pinInput.value = ""; // Clear PIN input
     });
 
-    // Clear message when either input changes
+    // Clear message when amount input changes
     amountInput.addEventListener("input", () => {
-      messageBox.textContent = "";
-    });
-    pinInput.addEventListener("input", () => {
       messageBox.textContent = "";
     });
   </script>
