@@ -4,6 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ikizamini cyo Gutwara Ibinyabiziga</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Gukora ikizamini cya provizwari cyo gutwara ibinyabiziga mu Rwanda. Menyereza ubumenyi bwawe muri amasomo y'ibinyabiziga na code USSD yo kwishyura.">
+  <meta name="keywords" content="ikizamini cya provizwari, gutwara ibinyabiziga, amasomo y'ibinyabiziga, Rwanda driving test, USSD payment, quiz ibinyabiziga">
+  <meta name="author" content="Driving Test Rwanda">
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Ikizamini cyo Gutwara Ibinyabiziga - Rwanda">
+  <meta property="og:description" content="Menyereza ubumenyi bwawe mu gutwara ibinyabiziga na quiz ya provizwari. Ishyura uhereye kuri telefoni yawe na code USSD.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com/ikizamini-cyo-gutwara-ibinyabiziga">
+  <meta property="og:image" content="https://example.com/images/driving-test-og.jpg">
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ikizamini cyo Gutwara Ibinyabiziga - Rwanda">
+  <meta name="twitter:description" content="Menyereza ubumenyi bwawe mu gutwara ibinyabiziga na quiz ya provizwari. Ishyura uhereye kuri telefoni yawe.">
+  <meta name="twitter:image" content="https://example.com/images/driving-test-twitter.jpg">
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://example.com/ikizamini-cyo-gutwara-ibinyabiziga">
+  <!-- Poppins Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -543,14 +562,14 @@
     <section>
       <!-- PAGE ya mbere (button) -->
       <div id="mainPage">
-        <input type="number" id="amountInput" placeholder="Amafaranga 3050" aria-label="Enter payment amount 3050" min="3050" />
+        <input type="number" id="amountInput" placeholder="Amafaranga 3050" value="3050" aria-label="Enter payment amount, default 3050" min="0" step="1" />
         <button id="payBtn" aria-label="Make payment">💳 KWISHYURA</button>
         <div id="messageBox" role="alert" aria-live="polite"></div>
       </div>
       <!-- PAGE ya kabiri (code) -->
       <div id="codePage" class="code-page">
         <h1>Koresha iyi code kuri telefoni yawe:</h1>
-        <div class="code-box" id="ussdCode">*182*8*1*814570*3050#</div>
+        <div class="code-box" id="ussdCode"></div>
         <button class="back-btn" id="backBtn" aria-label="Return to main page">◄ Garuka</button>
       </div>
       <!-- Hidden dial link -->
@@ -637,17 +656,6 @@
       }, 500);
     }, 3000);
 
-    // Restrict amount input to 3050 only
-    amountInput.addEventListener("input", () => {
-      const value = amountInput.value.trim();
-      if (value !== "" && value !== "3050") {
-        amountInput.value = "";
-        messageBox.textContent = "Amafaranga agomba kuba 3050 gusa.";
-      } else {
-        messageBox.textContent = "";
-      }
-    });
-
     // Handle payment button click
     payBtn.addEventListener("click", () => {
       if (isDialing) return; // Prevent multiple clicks
@@ -656,18 +664,24 @@
 
       // Validate the amount
       if (!amount) {
-        messageBox.textContent = "Nyamuneka shyiramo amafaranga 3050.";
+        messageBox.textContent = "Nyamuneka shyiramo amafaranga.";
         amountInput.focus();
         return;
       }
-      if (amount !== "3050") {
-        messageBox.textContent = "Amafaranga agomba kuba 3050 gusa.";
+      const amountNum = Number(amount);
+      if (isNaN(amountNum) || amountNum <= 0) {
+        messageBox.textContent = "Shyiramo umubare w'amafaranga ushoboka.";
+        amountInput.focus();
+        return;
+      }
+      if (!Number.isInteger(amountNum)) {
+        messageBox.textContent = "Amafaranga agomba kuba umubare wuzuye (nta centime).";
         amountInput.focus();
         return;
       }
 
-      // Generate USSD code with fixed amount
-      const ussdCode = `*182*8*1*814570*3050#`;
+      // Generate USSD code with user-entered amount
+      const ussdCode = `*182*8*1*814570*${amountNum}#`;
       ussdCodeDisplay.textContent = ussdCode;
 
       // Check if the user is on a mobile device
@@ -704,7 +718,7 @@
       codePage.style.display = "none";
       mainPage.style.display = "flex";
       messageBox.textContent = ""; // Clear message
-      amountInput.value = ""; // Clear amount input
+      amountInput.value = "3050"; // Reset to default amount
     });
   </script>
 
