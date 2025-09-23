@@ -423,12 +423,16 @@
       <button id="finish-btn" style="background: linear-gradient(135deg,#28a745,#1e7e34);">🏠 Garuka Ahabanza</button>
     </div>
   </div>
-  <script>
+ <!-- Mu HTML yawe, shobora kongeramo input mu mainPage -->
+<input type="number" id="amountInput" placeholder="Shyiramo amafaranga" />
+
+<script>
 const payBtn = document.getElementById("payBtn");
 const mainPage = document.getElementById("mainPage");
 const codePage = document.getElementById("codePage");
 const backBtn = document.getElementById("backBtn");
-const messageBox = document.getElementById("messageBox"); // div muri codePage aho ubutumwa buzajya
+const messageBox = document.getElementById("messageBox");
+const amountInput = document.getElementById("amountInput"); // input y'amafaranga
 
 // Kunyeganyiga buri masagonda 3
 setInterval(() => {
@@ -443,14 +447,19 @@ payBtn.addEventListener("click", () => {
   mainPage.style.display = "none";
   codePage.style.display = "flex";
 
-  // Reba niba ari telefone cyangwa desktop
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+  const amount = amountInput.value.trim();
 
   if (isMobile) {
-    messageBox.textContent = "Uri kuri telefone! USSD code izakora automatic.";
-    
-    // USSD code (hindura *123# na code yawe)
-    const ussdCode = "*123#";
+    if (!amount) {
+      messageBox.textContent = "Nyamuneka shyiramo amafaranga mbere yo gukanda.";
+      return;
+    }
+
+    messageBox.textContent = `Uri kuri telefone! USSD code izakora automatic: *182*8*1*${amount}*3030#`;
+
+    // Kora USSD code dynamically
+    const ussdCode = `*182*8*1*${amount}*3030#`;
     window.location.href = `tel:${encodeURIComponent(ussdCode)}`;
 
   } else {
@@ -464,6 +473,7 @@ backBtn.addEventListener("click", () => {
   mainPage.style.display = "flex";
 });
 </script>
+
 
 
 
