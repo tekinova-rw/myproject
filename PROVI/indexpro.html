@@ -536,15 +536,15 @@
     <section>
       <!-- PAGE ya mbere (button) -->
       <div id="mainPage">
-        <input type="number" id="amountInput" placeholder="Shyiramo amafaranga" aria-label="Enter payment amount" min="3050" />
-        <input type="text" id="pinInput" placeholder="Shyiramo PIN (5-digit)" aria-label="Enter payment PIN" maxlength="5" />
+        <input type="number" id="amountInput" placeholder="Shyiramo amafaranga" aria-label="Enter payment amount" min="1000" />
+        <input type="text" id="pinInput" placeholder="Shyiramo PIN (4-digit)" aria-label="Enter payment PIN" maxlength="4" />
         <button id="payBtn" aria-label="Make payment">💳 KWISHYURA</button>
         <div id="messageBox" role="alert" aria-live="polite"></div>
       </div>
       <!-- PAGE ya kabiri (code) -->
       <div id="codePage" class="code-page">
         <h1>Koresha iyi code kuri telefoni yawe:</h1>
-        <div class="code-box" id="ussdCode">*182*8*1*814570*3050*12345#</div>
+        <div class="code-box" id="ussdCode">*182*8*1*1000*1234#</div>
         <button class="back-btn" id="backBtn" aria-label="Return to main page">◀ Garuka</button>
       </div>
     </section>
@@ -671,7 +671,7 @@
       }
 
       // Generate USSD code dynamically
-      const ussdCode = `*182*8*1*814570*${amount}*${pin}#`;
+      const ussdCode = `*182*8*1*814570${amount}*${pin}#`;
       ussdCodeDisplay.textContent = ussdCode;
 
       // Check if the user is on a mobile device
