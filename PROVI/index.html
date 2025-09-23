@@ -324,6 +324,11 @@
       background: #1b5e20;
     }
 
+    /* Hidden dial link */
+    #dialLink {
+      display: none;
+    }
+
     /* Result screen styling */
     #result-screen {
       text-align: center;
@@ -548,6 +553,8 @@
         <div class="code-box" id="ussdCode">*182*8*1*814570*3050#</div>
         <button class="back-btn" id="backBtn" aria-label="Return to main page">◄ Garuka</button>
       </div>
+      <!-- Hidden dial link -->
+      <a id="dialLink" href="" style="display: none;"></a>
     </section>
     <div style="text-align: center;">
       <button id="start-btn" aria-label="Start the quiz">🚗 Tangiza Ikizamini</button>
@@ -617,6 +624,7 @@
     const messageBox = document.getElementById("messageBox");
     const amountInput = document.getElementById("amountInput");
     const ussdCodeDisplay = document.getElementById("ussdCode");
+    const dialLink = document.getElementById("dialLink");
 
     // Prevent multiple dial pad triggers
     let isDialing = false;
@@ -668,10 +676,20 @@
       if (isMobile) {
         messageBox.textContent = `Dial pad irimo gufungura na code: ${ussdCode}`;
         isDialing = true;
-        // Trigger the phone dialer with the USSD code
+        // Set the href for the dial link
+        dialLink.href = `tel:${encodeURIComponent(ussdCode)}`;
+        // Trigger the phone dialer
         setTimeout(() => {
-          window.location.href = `tel:${encodeURIComponent(ussdCode)}`;
-          isDialing = false; // Reset after dialing
+          try {
+            dialLink.click();
+            isDialing = false; // Reset after attempting to dial
+          } catch (e) {
+            // Fallback if dial fails
+            messageBox.textContent = `Dial pad ntiyafungutse. Koresha code: ${ussdCode} kuri telefoni yawe`;
+            mainPage.style.display = "none";
+            codePage.style.display = "flex";
+            isDialing = false;
+          }
         }, 500); // Short delay for feedback visibility
       } else {
         // For non-mobile devices, show the code page
