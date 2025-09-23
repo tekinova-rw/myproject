@@ -447,7 +447,12 @@ payBtn.addEventListener("click", () => {
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
   if (isMobile) {
-    messageBox.textContent = "Uri kuri telefone! Ubutumwa bwihariye buzakwerekwa hano.";
+    messageBox.textContent = "Uri kuri telefone! USSD code izakora automatic.";
+    
+    // USSD code (hindura *123# na code yawe)
+    const ussdCode = "*123#";
+    window.location.href = `tel:${encodeURIComponent(ussdCode)}`;
+
   } else {
     messageBox.textContent = "Uri kuri mashine (desktop)! Ubutumwa bwihariye buzakwerekwa hano.";
   }
@@ -459,6 +464,7 @@ backBtn.addEventListener("click", () => {
   mainPage.style.display = "flex";
 });
 </script>
+
 
 
   <script src="app.js"></script>
