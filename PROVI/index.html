@@ -424,31 +424,42 @@
     </div>
   </div>
   <script>
-    const payBtn = document.getElementById("payBtn");
-    const mainPage = document.getElementById("mainPage");
-    const codePage = document.getElementById("codePage");
-    const backBtn = document.getElementById("backBtn");
+const payBtn = document.getElementById("payBtn");
+const mainPage = document.getElementById("mainPage");
+const codePage = document.getElementById("codePage");
+const backBtn = document.getElementById("backBtn");
+const messageBox = document.getElementById("messageBox"); // div muri codePage aho ubutumwa buzajya
 
-    // Kunyeganyiga buri masagonda 3
-    setInterval(() => {
-      payBtn.classList.add("shake");
-      setTimeout(() => {
-        payBtn.classList.remove("shake");
-      }, 500);
-    }, 3000);
+// Kunyeganyiga buri masagonda 3
+setInterval(() => {
+  payBtn.classList.add("shake");
+  setTimeout(() => {
+    payBtn.classList.remove("shake");
+  }, 500);
+}, 3000);
 
-    // Iyo ukande buto → werekwa code
-    payBtn.addEventListener("click", () => {
-      mainPage.style.display = "none";
-      codePage.style.display = "flex";
-    });
+// Fungura ubutumwa bitewe na device
+payBtn.addEventListener("click", () => {
+  mainPage.style.display = "none";
+  codePage.style.display = "flex";
 
-    // Garuka kuri buto
-    backBtn.addEventListener("click", () => {
-      codePage.style.display = "none";
-      mainPage.style.display = "flex";
-    });
-  </script>
+  // Reba niba ari telefone cyangwa desktop
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    messageBox.textContent = "Uri kuri telefone! Ubutumwa bwihariye buzakwerekwa hano.";
+  } else {
+    messageBox.textContent = "Uri kuri mashine (desktop)! Ubutumwa bwihariye buzakwerekwa hano.";
+  }
+});
+
+// Garuka kuri buto
+backBtn.addEventListener("click", () => {
+  codePage.style.display = "none";
+  mainPage.style.display = "flex";
+});
+</script>
+
 
   <script src="app.js"></script>
 </body>
