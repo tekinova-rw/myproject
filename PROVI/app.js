@@ -70,6 +70,17 @@ loadQuestions();
 // =================== TIMER ===================
 function startTimer() {
   if (!timerEl) return;
+
+  // check if we already have end time
+  const savedEnd = localStorage.getItem("quizEndTime");
+  if (savedEnd) {
+    const diff = Math.floor((new Date(savedEnd).getTime() - Date.now()) / 1000);
+    timeLeft = diff > 0 ? diff : 0;
+  } else {
+    const endTime = new Date(Date.now() + timeLeft * 1000);
+    localStorage.setItem("quizEndTime", endTime.toISOString());
+  }
+
   updateTimerDisplay();
   timerId = setInterval(() => {
     if (timeLeft <= 0) {
@@ -194,6 +205,7 @@ function prevQuestion() {
 // =================== END QUIZ ===================
 function endQuiz() {
   clearInterval(timerId);
+  localStorage.removeItem("quizEndTime"); // clear timer persistence
   if (quizScreen && resultScreen) {
     quizScreen.classList.add('hidden');
     resultScreen.classList.remove('hidden');

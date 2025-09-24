@@ -10,7 +10,7 @@
   <meta name="author" content="Driving Test Rwanda">
   <!-- Open Graph Tags -->
   <meta property="og:title" content="Ikizamini cyo Gutwara Ibinyabiziga - Rwanda">
-  <meta property="og:description" content="Menyereza ubumenyi bwawe mu gutwara ibinyabiziga na quiz ya provizwari. Ishyura uhereye kuri telefoni yawe na code USSD.">
+  <meta property="og:description" content="Menyereza ubumenyi bwawe mu gutwara ibinyabiziga nikizamini cya provizwari. Ishyura uhereye kuri telefoni yawe na code USSD.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://example.com/ikizamini-cyo-gutwara-ibinyabiziga">
   <meta property="og:image" content="https://example.com/images/driving-test-og.jpg">
@@ -555,15 +555,15 @@
       <li>Ibibazo <strong>20</strong> bitoranywa muri <em>bank</em> nini.</li>
       <li>Igihe: <strong>iminota 20</strong>. Nimara kurangira, ikizamini <strong>cyoherezwaho</strong> ako kanya.</li>
       <li>Hitamo igisubizo <strong>kimwe</strong> (A–D), ukande <strong>"Komeza"</strong> kugira ngo ujye ku kibazo gikurikira.</li>
-      <li>Nyuma yo kohereza: mubona <strong>Amanota</strong> na <strong>Reba Ibisubizo</strong>.</li>
+      <li>Nyuma yo kohereza: mubona <strong>Amanota</strong> ukanabona <strong> Ibisubizo</strong>wakabaye wahisemo.</li>
       <li><strong>(iminsi 30)</strong> Uhabwa ingana n'ukwezi kose wimenyereza ntankomyi</li>
-      <li><strong>Ishyura 3050</strong> mbere yuko utangira ikizamini.</li>
+      <li><strong>Ishyura 3050 kuri Pacifique</strong> mbere yuko utangira ikizamini.</li>
     </ul>
     <section>
       <!-- PAGE ya mbere (button) -->
       <div id="mainPage">
         <input type="number" id="amountInput" placeholder="Amafaranga 3050" value="3050" aria-label="Enter payment amount, default 3050" min="0" step="1" />
-        <button id="payBtn" aria-label="Make payment">💳 KWISHYURA</button>
+        <button id="payBtn" aria-label="Make payment">💳KANDAWISHYURE</button>
         <div id="messageBox" role="alert" aria-live="polite"></div>
       </div>
       <!-- PAGE ya kabiri (code) -->
@@ -576,7 +576,7 @@
       <a id="dialLink" href="" style="display: none;"></a>
     </section>
     <div style="text-align: center;">
-      <button id="start-btn" aria-label="Start the quiz">🚗 Tangiza Ikizamini</button>
+      <button id="start-btn" aria-label="Start the quiz">🚗 Tangira Ikizamini</button>
     </div>
   </div>
 
@@ -609,7 +609,7 @@
       </label>
     </form>
     <div id="nav-buttons">
-      <button id="prev-btn" disabled aria-label="Previous question">⬅️ Subira Inyuma</button>
+      <button id="prev-btn" disabled aria-label="Previous question">⬅️ Gusubira Inyuma</button>
       <button id="next-btn" disabled aria-label="Next question">➡️ Gukomeza</button>
       <button id="submit-btn" class="hidden" style="background: linear-gradient(135deg,#28a745,#1e7e34);" aria-label="Submit answers">✅ Ohereza Ibisubizo</button>
     </div>
@@ -617,11 +617,11 @@
 
   <!-- RESULT SCREEN -->
   <div id="result-screen" class="hidden">
-    <h2>📊 Watsindiye amanota:</h2>
+    <h2>📊 Ugize amanota:</h2>
     <h1 id="score"></h1>
     <p id="pass-message" role="alert" aria-live="polite"></p>
     <div style="text-align:center; margin-top: 30px; gap: 15px; display: flex; flex-direction: column; align-items: center;">
-      <button id="review-btn" aria-label="Review answers">🔍 Reba Ibisubizo</button>
+      <button id="review-btn" aria-label="Review answers">🔍 Reba Ibisubizo wakabaye uhitamo</button>
       <button id="restart-btn" style="background: linear-gradient(135deg,#28a745,#1e7e34);" aria-label="Restart quiz">🔄 Garuka Ahabanza</button>
     </div>
   </div>
