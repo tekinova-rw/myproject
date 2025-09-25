@@ -1639,22 +1639,22 @@
   },
   {
     "id": 213,
-    "question": "Ni iki wakora igihe usanze mu bimenyetso bimurika harimo ibara ry’umuhondo?",
-    "image": "Q214 - Copy.jpg",
-    "a": "Kongera umuvuduko",
-    "b": "Kugumana umuvuduko wari uriho.",
-    "c": "Kwitegura guhagarara.",
-    "d": "Gufata feri cyane.",
-    "answer": "c"
-  },
-  {
-    "id": 214,
     "question": "Mugihe ukurikiranye na romoruki, n’ukubera iki ugomba gusiga umwanya uhagije hagati yawe na yo?",
     "a": "Bituma ubasha gukata ikorosi vuba.",
     "b": "Bifasha umuyobozi wa romoruki kukurebera mu ndorerwamo.",
     "c": "Bifasha romoruki guhagarara byoroshye.",
     "d": "Bikurinda umuyaga.",
     "answer": "b"
+  },
+  {
+    "id": 214,
+    "question": "Ni iki wakora igihe usanze mu bimenyetso bimurika harimo ibara ry’umuhondo?",
+    "image": "Q214.jpg",
+    "a": "Kongera umuvuduko",
+    "b": "Kugumana umuvuduko wari uriho.",
+    "c": "Kwitegura guhagarara.",
+    "d": "Gufata feri cyane.",
+    "answer": "c"
   },
   {
     "id": 217,
@@ -1731,7 +1731,7 @@
 {
   "id": 225,
   "question": "Uri hafi kunyura k’umuyobozi w’ikinyamitende. Muri ibi byapa bikurikira ni ikihe wakwitondera?",
-  "image": "q224.png",
+  "image": "Q214.jpg",
   "a": "",
   "b": "",
   "c": "",
@@ -1777,7 +1777,7 @@
 {
   "id": 229,
   "question": "Iki cyapa cyivuga iki?",
-  "image": "Q229-copy.JPg",
+  "image": "Q229.JPg",
   "a": "Umuvuduko ntarengwa 30 km/h",
   "b": "Iherezo ry’umuvuduko muke ntarengwa utegetswe",
   "c": "Umuvuduko uri hejuru ya 30 km/h",
@@ -1787,7 +1787,7 @@
 {
   "id": 230,
   "question": "Icyapa gikurikira kivuze iki?",
-  "image": "Q230-copy.JPg",
+  "image": "Q230.JPg",
   "a": "Ntihanyurwa",
   "b": "Birabujijwe guhagarara umwanya munini",
   "c": "Umuvuduko utarengeje",
