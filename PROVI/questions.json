@@ -1732,10 +1732,10 @@
   "id": 225,
   "question": "Uri hafi kunyura k’umuyobozi w’ikinyamitende. Muri ibi byapa bikurikira ni ikihe wakwitondera?",
   "image": "Q214.jpg",
-  "a": "",
-  "b": "",
-  "c": "",
-  "d": "",
+  "a": "a",
+  "b": "b",
+  "c": "c",
+  "d": "d",
   "answer": "c"
 },
 {
@@ -1758,15 +1758,6 @@
 },
 {
   "id": 228,
-  "question": "Niyihe mpamvu ituma tugomba kugabanya umuvuduko mugihe hari ibihu?",
-  "a": "Igihe feri idakora",
-  "b": "Igihe uhumishijwe n’amatara yo kubisikana",
-  "c": "Igihe moteri imara ngo izime",
-  "d": "Nuko biba bitoroshye kubona ikiri imbere",
-  "answer": "d"
-},
-{
-  "id": 229,
   "question": "Niki ugomba gukora igihe uhagaze ku muhanda igihe cy’ibihu?",
   "a": "Kureka amatara ndanga akaguma yaka",
   "b": "Kureka amatara yo kubisikana na kamena-bihu akaguma yaka",
@@ -3733,5 +3724,14 @@
     "c": "Umuyobozi w’ikinyabiziga yemerewe kunyuranaho",
     "d": "Abayobozi b’ibinyamitende gusa bemerewe kunyuranaho barenze umurongo wera udacagaguye",
     "answer": "b"
-  }
+  },
+  {
+  "id": 434,
+  "question": "Niyihe mpamvu ituma tugomba kugabanya umuvuduko mugihe hari ibihu?",
+  "a": "Igihe feri idakora",
+  "b": "Igihe uhumishijwe n’amatara yo kubisikana",
+  "c": "Igihe moteri imara ngo izime",
+  "d": "Nuko biba bitoroshye kubona ikiri imbere",
+  "answer": "d"
+}
 ]
