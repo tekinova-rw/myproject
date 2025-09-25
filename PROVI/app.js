@@ -29,7 +29,7 @@ let timerId = null;
 let timeLeft = 20 * 60; // 20 minutes
 let warnedLastMinute = false;
 const answerMap = { a: 0, b: 1, c: 2, d: 3 };
-const authorizedPassword = 'TekiNova2025'; // Password to start quiz
+const authorizedPassword = ''; // Password to start quiz
 
 // =================== SECURITY ===================
 // Disable right-click and F12 / inspect
@@ -206,7 +206,7 @@ function endQuiz() {
 
   if (scoreEl) scoreEl.textContent = `${score}/${questions.length}`;
   if (passMessage) {
-    passMessage.textContent = score >= questions.length * 0.6 ? "Watsinze 🎉" : "Waratsinzwe ❌";
+    passMessage.textContent = score >= questions.length * 0.6 ? "Watsinze 🎉" : "Watsinzwe ❌";
     passMessage.style.color = score >= questions.length * 0.6 ? "green" : "red";
   }
 
