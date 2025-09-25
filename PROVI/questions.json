@@ -3129,5 +3129,261 @@
     "c": "Ishusho mpandeshatu, ubuso umweru",
     "d": "nta gisubizo cy’ukuri kirimo",
     "answer": "c"
+  },
+  {
+    "id": 371,
+    "question": "Iki cyapa kivuga:",
+    "image": "Q317.jpg",
+    "a": "Ifungana ry’umuhanda iburyo",
+    "b": "Ifungana ry’umuhanda w’akayira gasatira umuhanda ibumoso",
+    "c": "Akayira gato",
+    "d": "Nta gisubizo cy’ukuri",
+    "answer": "b"
+  },
+  {
+    "id": 372,
+    "question": "Umuyobozi ubonye ko hari undi umukurikiye ashaka kumunyuraho agomba kubahiriza ibi bikurikira :",
+    "a": "Kwegara i ruhande rw’iburyo bw’umuhanda",
+    "b": "Kongera umuvuduko",
+    "c": "Guhagarara",
+    "d": "a na c ni byo bisubizo by’ukuri",
+    "answer": "a"
+  },
+  {
+    "id": 373,
+    "question": "Iki cyapa cyerekana :",
+    "image": "Q373.jpg",
+    "a": "Ifungana ry’umuhanda",
+    "b": "Ifungana ry’umuhanda n’akayira gasatira umuhanda i bumoso",
+    "c": "Umuhanda utaringaniye",
+    "d": "Nta gisubizo cy’ukuri kirimo",
+    "answer": "d"
+  },
+  {
+    "id": 374,
+    "question": "Icyi cyapa gisobanura :",
+    "image": "Q374.jpg",
+    "a": "Ntihanyurwa mu byerekezo byombi",
+    "b": "Ntihanyurwa n’abandi uretse abahatuye",
+    "c": "Hanyurwa mu cyerekezo kimwe gusa",
+    "d": "Nta gisubizo cy’ukuri kirimo",
+    "answer": "a"
+  },
+  {
+    "id": 375,
+    "question": "Icyi cyapa cyerekana :",
+    "image": "Q375.jpg",
+    "a": "Ifungana ry’umuhanda",
+    "b": "Umuhanda unyerera",
+    "c": "Umuhanda utaringaniye",
+    "d": "Nta gisubizo cy’ukuri kirimo",
+    "answer": "d"
+  },
+  {
+    "id": 376,
+    "question": "Iki cyapa kivuga:",
+    "image": "Q376.jpg",
+    "a": "Ikoni iburyo",
+    "b": "Akazamuko gashinze cyane",
+    "c": "Akamanuko gashobora gutera ibyago",
+    "d": "b na c byose ni ukuri",
+    "answer": "a"
+  },
+  {
+    "id": 377,
+    "question": "Iyo umuhanda ugabanijemo ibisate bibiri kandi ugendwamo mu byerekezo byombi umuyobozi abujijwe :",
+    "a": "Kugendera mu gisate cy’iburyo",
+    "b": "Kunyuranaho",
+    "c": "Kugendera mu gisate cy’ibumoso",
+    "d": "Ibisubizo byose ni byo",
+    "answer": "c"
+  },
+  {
+    "id": 378,
+    "question": "Icyapa kimenyesha kugendera mu muhanda ubisikanirwamo gifite:",
+    "a": "Ishusho y’uruziga mu ibara ritukura, ubuso bwera n’ikirango cy’umukara",
+    "b": "Ishusho ya mpandeshatu mu ibara ritukura, ubuso bwera n’ikirango cy’umukara",
+    "c": "Ishusho ya mpandeshatu mu ibara ritukura, ubuso bw’ubururu n’ikirango cy’umukara",
+    "d": "Ishusho y’uruziga mu ibara ritukura, ubuso bw’ubururu n’ikirango cy’umukara",
+    "answer": "b"
+  },
+  {
+    "id": 379,
+    "question": "Icyapa cyerekana inzira y’amatungo itegetswe giteye:",
+    "a": "Uruziga mu buso bw’ubururu, ishusho y’inka mu ibara ry’umukara",
+    "b": "Uruziga mu ibara ryera, ishusho y’inka mu ibara ry’ubururu",
+    "c": "Uruziga mu buso bw’ibara ry’ubururu, ishusho y’inka mu ibara ryera n’ikirango cy’umukara",
+    "d": "Mpande eshatu mu buso bw’ibara ry’umweru n’ishusho y’inka mu ibara ry’umukara",
+    "answer": "d"
+  },
+  {
+    "id": 380,
+    "question": "Icyapa cyerekana ko bibujijwe kuvuza amahoni kirangwa na :",
+    "a": "Ishusho y’uruziga, ubuso bw’ubururu, ikiranga cy’umukara",
+    "b": "Ishusho y’uruziga, ubuso bw’ubururu, ikiranga cy’umweru",
+    "c": "Ishusho y’uruziga, ubuso bw’umweru, ikiranga cy’umukara",
+    "d": "Nta gisubizo cy’ukuri kirimo",
+    "answer": "c"
+  },
+  {
+    "id": 381,
+    "question": "Ibyapa biburira n’ibyo gutambuka mbere birangwa:",
+    "a": "Ishusho mpandeshatu mu ibara ritukura, ubuso bwera n’ikiranga mu ibara ry’umukara",
+    "b": "Ishusho mpandeshatu mu ibara ritukura, ubuso bw’ubururu n’ikiranga mu ibara ry’umukara",
+    "c": "Ishusho y’uruziga mu ibara ritukura, ubuso bw’ubururu n’ikiranga mu ibara ry’umukara",
+    "d": "Ishusho y’uruziga mu ibara ritukura, ubuso bwera n’ikiranga mu ibara ry’umukara",
+    "answer": "a"
+  },
+  {
+    "id": 382,
+    "question": "Ibyapa bibuza n’ibitegeka bikurikizwa gusa :",
+    "a": "Mu masangano",
+    "b": "Mu bimenyetso bimurika",
+    "c": "a na b ni ibisubizo by’ukuri",
+    "d": "Nta gisubizo cy’ukuri kirimo",
+    "answer": "d"
+  },
+  {
+    "id": 383,
+    "question": "Ibyapa biburira bibereyeho kumenyesha umugenzi :",
+    "a": "Ko hari icyago",
+    "b": "Icyago kidasobanuye ukundi",
+    "c": "Imiterere y’icyago gitunguranye",
+    "d": "Nta gisubizo cy’ukuri kirimo",
+    "answer": "a"
+  },
+  {
+    "id": 384,
+    "question": "Ibyapa by’inyongera bishobora kumenyesha:",
+    "a": "Ibitegetswe byihariye gusa",
+    "b": "Ubugererwa cyangwa amarengamategeko rusange cyangwa ibibujijwe ndetse n’ibitegetswe byihariye",
+    "c": "a na b ni ibisubizo by’ukuri",
+    "d": "Nta gisubizo cy’ukuri kirimo",
+    "answer": "b"
+  },
+  {
+    "id": 385,
+    "question": "Ishusho y’icyapa kivuga 'ugukikira' bitegetswe ni :",
+    "a": "Mpandeshatu",
+    "b": "Uruziga",
+    "c": "Urukiramende",
+    "d": "Nta gisubizo cy’ukuri kirimo",
+    "answer": "b"
+  },
+  {
+    "id": 386,
+    "question": "Icyapa kivuga 'icyerekezo gitegetswe' kigizwe n’ikirango cy’ibara :",
+    "a": "Umweru",
+    "b": "Umutuku",
+    "c": "Ubururu n’ikirango cy’umweru",
+    "d": "Umuka",
+    "answer": "c"
+  },
+  {
+    "id": 387,
+    "question": "Iki kimenyetso gitanzwe n’umukozi ubifitiye ububasha cyo guhagarara :",
+    "image": "Q387.jpg",
+    "a": "Ku bakoresha umuhanda bamuturutse imbere",
+    "b": "Ku bakoresha umuhanda bose bamuturutse imbere n’inyuma",
+    "c": "Ku bakoresha umuhanda bose bamuturutse inyuma",
+    "d": "Nta gisubizo cy’ukuri kirimo",
+    "answer": "b"
+  },
+  {
+    "id": 388,
+    "question": "Ibi byapa byo mu muhanda birambuza kunyuranaho ibumoso ?",
+    "a": "Yego",
+    "b": "Yego, iyo ufite umuvuduko wa 90km/h",
+    "c": "Oya",
+    "d": "Nta gisubizo cy’ukuri",
+    "answer": "a"
+  },
+  {
+    "id": 390,
+    "question": "Umuhanda urombereje w’ibice byinshi. Ndashaka kunyura kuri izi kamyo ebyiri mu gihe gito ibumoso icyarimwe, biremewe ?",
+    "a": "Yego",
+    "b": "Oya",
+    "c": "Yego bikorewe ibumoso",
+    "d": "Nta gisubizo cy’ukuri",
+    "answer": "b"
+  },
+  {
+    "id": 391,
+    "question": "K’umuyobozi w’ivatiri, iki cyapa kivuze iki ?",
+    "image": "Q391.jpg",
+    "a": "Kirambuza gutwara ku muvuduko utarengeje 5km/h",
+    "b": "Ntaburenganzira kimpa, mugihe gikurikizwa ku binyabiziga bifite hejuru ya toni 5",
+    "c": "Ntacyo bindebaho mugihe bireba gusa zipima toni 5 no kurengaho",
+    "d": "Nta gisubizo cy’ukuri kirimo",
+    "answer": "c"
+  },
+  {
+    "id": 392,
+    "question": "Ndashaka gukata iburyo. Biremewe ?",
+    "a": "Yego",
+    "b": "Yego, ariko nyuma yo guhagarara",
+    "c": "Ntabwo byemewe",
+    "d": "Nta gisubizo cy’ukuri kirimo",
+    "answer": "c"
+  },
+  {
+    "id": 393,
+    "question": "Umuhanda wambukiranya inzira ya gariyamoshi:",
+    "a": "Nshobora gukomeza nkambuka umuhanda kubera ko uruzitiro rufunguye",
+    "b": "Ngomba guhagarara munsi y’itara ry’umutuku rimyatsa",
+    "c": "Ntabwo nakomeza urugendo rwanjye. Ngomba guhita mpagarara",
+    "d": "Nta gisubizo cy’ukuri",
+    "answer": "b"
+  },
+  {
+    "id": 394,
+    "question": "Kuri iki cyapa cyo mu muhanda cya mbere kintegeka ?",
+    "image": "Q394.jpg",
+    "a": "Kugendera k’umuvuduko uri hejuru ya 30km/h",
+    "b": "Kutarenza umuvuduko wa 30km/h",
+    "c": "Birabujijwe kugendera ku muvuduko uri hejuru ya 30km/h",
+    "d": "Nta gisubizo cy’ukuri",
+    "answer": "c"
+  },
+  {
+    "id": 395,
+    "question": "Mpagaze mu murongo wo guhagarara umwanya muto",
+    "image": "Q395.jpg",
+    "a": "Nshobora gukata iburyo",
+    "b": "Nshobora gukata ibumoso",
+    "c": "Nshobora gukata ibumoso cyangwa iburyo",
+    "d": "Nta gisubizo cy’ukuri kirimo",
+    "answer": "a"
+  },
+  {
+    "id": 396,
+    "question": "Ngomba :",
+    "image": "Q396.jpg",
+    "a": "Guhagarara igihe gito kuri iki cyapa cy’umuhanda",
+    "b": "Guhagarara ngatanga inzira kuri metero 100 ntaragera kuri iki cyapa",
+    "c": "Gutanga inzira nkanahagarara iyo ari ngombwa muri m 100 ntaragera kuri iki cyapa",
+    "d": "Nta gisubizo cy’ukuri",
+    "answer": "b"
+  },
+  {
+    "id": 397,
+    "question": "Ndashaka kugata ibumoso. Imodoka y’icyatsi yaje irahagarara. Ninde ufite uburenganzira bwo gutambuka mbere?",
+    "image": "Q397.jpg",
+    "a": "Mfite uburenganzira bwo gutambuka mbere",
+    "b": "Imodoka y’icyatsi ifite uburenganzira bwo gutambuka mbere",
+    "c": "Twembi nta burenganzira bwo gutambuka mbere, gusa tugomba gutambukana ubwitonzi",
+    "d": "Nta gisubizo na kimwe kirimo",
+    "answer": "b"
+  },
+  {
+    "id": 398,
+    "question": "Mfite uburenganzira bwo gutambuka muri iri sangano ?",
+    "image": "Q398.jpg",
+    "a": "Yego, niba ukata ibumoso",
+    "b": "Oya, niba ukata iburyo",
+    "c": "Yego, bitewe n’aho ngana",
+    "d": "Nta gisubizo cy’ukuri",
+    "answer": "c"
   }
+
 ]

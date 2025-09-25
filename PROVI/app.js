@@ -116,18 +116,6 @@ function shuffleArray(array) {
   return arr;
 }
 
-// =================== SHUFFLE ANSWERS ===================
-function shuffleAnswers(q) {
-  const keys = ['a','b','c','d'];
-  const vals = keys.map(k => q[k]);
-  const correct = q.answer;
-  const shuffled = shuffleArray(vals);
-  const newAnswer = keys[shuffled.indexOf(q[correct])];
-  keys.forEach((k,i) => q[k] = shuffled[i]);
-  q.answer = newAnswer;
-  return q;
-}
-
 // =================== PROGRESS ===================
 function updateProgress() {
   if (!progressBar || questions.length === 0) return;
@@ -282,7 +270,8 @@ async function startQuiz() {
     }
   }
 
-  questions = shuffleArray([...questionsPool]).slice(0, 20).map(shuffleAnswers);
+  // only shuffle questions, not answers
+  questions = shuffleArray([...questionsPool]).slice(0, 20);
   selectedAnswers = new Array(questions.length).fill(null);
   currentIndex = 0;
   timeLeft = 20 * 60;
