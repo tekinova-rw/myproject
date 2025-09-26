@@ -2132,7 +2132,7 @@
 {
   "id": 266,
   "question": "Umuyobozi w’ikinyabiziga cy’ikoreye ibintu bishobora gufata inkongi, n’ikihe cyapa cyerekana ko ibyo atwaye biturika cyangwa bifata inkongi?",
-  "image": "Q266.png",
+  "image": "Q266.jpg",
   "a": "a)",
   "b": "b)",
   "c": "c)",
@@ -2361,7 +2361,6 @@
 {
   "id": 289,
   "question": "Mugihe ikinyabiziga cyacu bakinyuzeho",
-  "image": "Q289.jpg",
   "a": "Tugomba kugabanya umuvuduko",
   "b": "Tugomba kongera umuvuduko",
   "c": "Tugomba kongera umuvuduko n’ubwitonzi",
