@@ -1,4 +1,4 @@
-/* Complete app.js for Netlify (no backend) with client-side 60-minute question no-reuse per IP using localStorage, fixed options (a, b, c, d) in original order, and random selection of 20 questions. Optimized for 2000+ questions. Removed attempt limit to allow unlimited quizzes. */
+/* Complete app.js for Netlify (no backend) with client-side 60-minute question no-reuse per IP using localStorage, fixed options (a, b, c, d) in original order, random selection of 20 questions with 2-3 image questions, and home button on review screen. Optimized for 2000+ questions. Ensures unlimited quiz attempts. */
 
 // =================== DOM ELEMENTS ===================
 const homeScreen = document.getElementById('home-screen');
@@ -12,6 +12,7 @@ const nextBtn = document.getElementById('next-btn');
 const submitBtn = document.getElementById('submit-btn');
 const restartBtn = document.getElementById('restart-btn');
 const reviewBtn = document.getElementById('review-btn');
+const homeBtn = document.getElementById('home-btn'); // New home button
 
 const timerEl = document.getElementById('timer');
 const questionText = document.getElementById('question-text');
@@ -295,8 +296,13 @@ async function loadQuestions() {
       throw new Error(`Insufficient questions in questions.json: ${questionsPool.length}/20 required`);
     }
 
+    const imageQuestionsCount = questionsPool.filter(q => q.image).length;
+    if (imageQuestionsCount < 2) {
+      throw new Error(`Insufficient image questions in questions.json: ${imageQuestionsCount}/2 required`);
+    }
+
     safeElementAccess(startBtn).disabled = false;
-    console.log(`Loaded ${questionsPool.length} valid questions.`);
+    console.log(`Loaded ${questionsPool.length} valid questions, ${imageQuestionsCount} with images.`);
   } catch (err) {
     console.error('Failed to load questions:', err);
     alert('Error: Questions could not be loaded. Check console.');
@@ -306,7 +312,7 @@ async function loadQuestions() {
 loadQuestions();
 
 // =================== QUESTION HISTORY (60 min cache) ===================
-async function getExamSet(allQuestions, count = 20, maxImages = 3, ip) {
+async function getExamSet(allQuestions, count = 20, ip) {
   const used = getUsedQuestionsForIP(ip);
   let available = allQuestions.filter(q => !used.has(q.id));
 
@@ -318,22 +324,31 @@ async function getExamSet(allQuestions, count = 20, maxImages = 3, ip) {
   const imageQuestions = available.filter(q => q.image);
   const noImageQuestions = available.filter(q => !q.image);
 
+  if (imageQuestions.length < 2) {
+    alert(`Nta bibazo bihagije bishya by'amashusho bihari (${imageQuestions.length}/2). Gerageza nyuma y'amasaha 1.`);
+    return [];
+  }
+
   let selected = [];
 
-  // Select 0–3 image questions randomly
-  let numImages = 0;
-  if (imageQuestions.length > 0) {
-    const maxPossible = Math.min(maxImages, imageQuestions.length, count);
-    numImages = Math.floor(Math.random() * (maxPossible + 1));
-    if (numImages > 0) {
-      const shuffledImages = shuffleArray(imageQuestions);
-      selected = selected.concat(shuffledImages.slice(0, numImages));
-    }
+  // Select exactly 2 or 3 image questions randomly
+  const numImages = Math.random() < 0.5 ? 2 : 3;
+  const maxPossibleImages = Math.min(numImages, imageQuestions.length);
+  if (maxPossibleImages >= 2) {
+    const shuffledImages = shuffleArray(imageQuestions);
+    selected = selected.concat(shuffledImages.slice(0, maxPossibleImages));
+  } else {
+    alert(`Nta bibazo bihagije bishya by'amashusho bihari (${imageQuestions.length}/${numImages}). Gerageza nyuma y'amasaha 1.`);
+    return [];
   }
 
   // Fill remaining with non-image questions
   let remainingCount = count - selected.length;
   if (remainingCount > 0) {
+    if (noImageQuestions.length < remainingCount) {
+      alert(`Nta bibazo bihagije bishya bidafite amashusho bihari (${noImageQuestions.length}/${remainingCount}). Gerageza nyuma y'amasaha 1.`);
+      return [];
+    }
     const shuffledNoImages = shuffleArray(noImageQuestions);
     selected = selected.concat(shuffledNoImages.slice(0, remainingCount));
   }
@@ -605,6 +620,29 @@ function reviewAnswers() {
   safeReviewContainer.appendChild(fragment);
 }
 
+// =================== RETURN TO HOME ===================
+function returnToHome() {
+  const safeReviewScreen = safeElementAccess(reviewScreen);
+  const safeHomeScreen = safeElementAccess(homeScreen);
+  safeReviewScreen.classList.add('hidden');
+  safeHomeScreen.classList.remove('hidden');
+
+  // Reset quiz state
+  questions = [];
+  selectedAnswers = [];
+  currentIndex = 0;
+  timeLeft = 20 * 60;
+  warnedLastMinute = false;
+  quizEndTime = null;
+  devToolsDetected = false;
+  hiddenTabWarned = false;
+  inactivityWarned = false;
+  lastActivity = Date.now();
+  safeLocalStorage('quizEndTime', 'set', null);
+
+  window.onpopstate = null; // Clear history restriction
+}
+
 // =================== START QUIZ ===================
 async function startQuiz() {
   const pwd = prompt('Shyiramo ijambo ry\'ibanga kugirango utangire ikizamini:');
@@ -624,7 +662,7 @@ async function startQuiz() {
   currentIP = await getIP();
   console.log(`Detected IP: ${currentIP}`);
 
-  questions = await getExamSet(questionsPool, 20, 3, currentIP);
+  questions = await getExamSet(questionsPool, 20, currentIP);
   if (!questions || questions.length === 0) {
     return;
   }
@@ -667,7 +705,7 @@ attachEventListener(prevBtn, 'click', prevQuestion);
 attachEventListener(submitBtn, 'click', endQuiz);
 attachEventListener(restartBtn, 'click', () => location.reload());
 attachEventListener(reviewBtn, 'click', reviewAnswers);
-
+attachEventListener(homeBtn, 'click', returnToHome);
 window.addEventListener('beforeunload', () => {
   stopTimer();
   exitFullscreen();
