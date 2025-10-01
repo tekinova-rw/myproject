@@ -31,12 +31,86 @@ let warnedLastMinute = false;
 const answerMap = { a: 0, b: 1, c: 2, d: 3 };
 const authorizedPassword = ''; // Password to start quiz
 
+// =================== UTILITY FUNCTIONS ===================
+function safeLocalStorage(key, operation = 'get', value = null) {
+  try {
+    if (operation === 'set') {
+      localStorage.setItem(key, JSON.stringify(value));
+      return true;
+    } else {
+      const data = localStorage.getItem(key);
+      return data ? JSON.parse(data) : null;
+    }
+  } catch (err) {
+    console.error(`LocalStorage error for ${key}:`, err);
+    // Fallback: clear or ignore as needed
+    if (operation === 'set') return false;
+    return null;
+  }
+}
+
+function safeElementAccess(el, fallback = null) {
+  return el || { textContent: '', innerHTML: '', classList: { add: () => {}, remove: () => {}, toggle: () => {} }, style: {}, disabled: false };
+}
+
 // =================== SECURITY ===================
 // Disable right-click and F12 / inspect
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('keydown', e => {
   if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) e.preventDefault();
 });
+
+// Enhanced security: Disable text selection, copy/paste/print, and screenshot keys
+document.addEventListener('selectstart', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  const forbiddenKeys = [
+    // Copy, cut, paste
+    (e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'x' || e.key === 'v' || e.key === 'a'),
+    // Print
+    (e.ctrlKey || e.metaKey) && e.key === 'p',
+    // Screenshot
+    e.key === 'PrintScreen' || (e.ctrlKey && e.shiftKey && e.key === 'I') // Also block Ctrl+Shift+I again for emphasis
+  ];
+  if (forbiddenKeys.some(condition => condition)) {
+    e.preventDefault();
+    return false;
+  }
+});
+
+// Disable drag and drop
+document.addEventListener('dragstart', e => e.preventDefault());
+document.addEventListener('drop', e => e.preventDefault());
+
+// Prevent page caching to avoid back-button exploits
+window.addEventListener('pageshow', e => {
+  if (e.persisted) {
+    window.location.reload();
+  }
+});
+
+// Basic dev tools detection (poll every 500ms during quiz)
+let devToolsDetected = false;
+function detectDevTools() {
+  if (!quizScreen || quizScreen.classList.contains('hidden')) return;
+  const threshold = 100;
+  if (window.outerHeight - window.innerHeight > threshold || window.outerWidth - window.innerWidth > threshold) {
+    if (!devToolsDetected) {
+      devToolsDetected = true;
+      alert('Ibikoresho bya developer byabonye. Ikizamini ryangiriye!');
+      endQuiz();
+    }
+  }
+}
+let devPollId = null;
+function startDevPoll() {
+  devPollId = setInterval(detectDevTools, 500);
+}
+function stopDevPoll() {
+  if (devPollId) {
+    clearInterval(devPollId);
+    devPollId = null;
+  }
+}
 
 // =================== LOAD QUESTIONS ===================
 async function loadQuestions() {
@@ -48,86 +122,152 @@ async function loadQuestions() {
       throw new Error('questions.json is empty or not an array');
     }
 
-    // Map questions and keep their original id field (important for usedQuestions)
-    questionsPool = externalQuestions.map(q => ({
-      id: q.id, // keep id
-      question: q.question,
-      image: q.image ? `images/${q.image}` : null,
-      a: q.a,
-      b: q.b,
-      c: q.c,
-      d: q.d,
-      answer: (q.answer || '').toLowerCase()
-    }));
+    // Validate and map questions
+    questionsPool = externalQuestions
+      .filter(q => q.id && q.question && ['a', 'b', 'c', 'd'].every(key => q[key]) && ['a', 'b', 'c', 'd'].includes((q.answer || '').toLowerCase()))
+      .map(q => ({
+        id: q.id,
+        question: q.question,
+        image: q.image ? `images/${q.image}` : null,
+        a: q.a,
+        b: q.b,
+        c: q.c,
+        d: q.d,
+        answer: (q.answer || '').toLowerCase()
+      }));
 
-    startBtn.disabled = false;
-    console.log(`Loaded ${questionsPool.length} questions.`);
+    if (questionsPool.length === 0) {
+      throw new Error('No valid questions found in questions.json');
+    }
+
+    safeElementAccess(startBtn).disabled = false;
+    console.log(`Loaded ${questionsPool.length} valid questions.`);
   } catch (err) {
     console.error('Failed to load questions:', err);
     alert('Error: Questions could not be loaded. Check console.');
+    safeElementAccess(startBtn).disabled = true;
   }
 }
 loadQuestions();
 
 // =================== QUESTION HISTORY (60 min cache) ===================
-// Stores used question IDs with timestamp in localStorage under "usedQuestions"
-// Format: [{ id: 287, time: 169... }, ...]
+// Strictly enforce no repeats within 60 minutes - already implemented, but added stricter validation
 function getUsedQuestions() {
-  const data = JSON.parse(localStorage.getItem("usedQuestions")) || [];
+  const data = safeLocalStorage("usedQuestions", 'get') || [];
   const now = Date.now();
 
-  // Keep only those used within last 60 minutes (3600000 ms)
-  const fresh = data.filter(q => now - q.time < 3600000);
+  // Keep only those used within last 60 minutes (3600000 ms) - strict filter
+  const fresh = data.filter(q => now - q.time < 3600000 && q.id); // Also filter invalid entries
 
   // Update storage to remove expired entries
-  localStorage.setItem("usedQuestions", JSON.stringify(fresh));
+  safeLocalStorage("usedQuestions", 'set', fresh);
 
-  return fresh.map(q => q.id);
+  return [...new Set(fresh.map(q => q.id))]; // Dedupe IDs if somehow duplicated
 }
 
 function saveUsedQuestion(questionId) {
-  const data = JSON.parse(localStorage.getItem("usedQuestions")) || [];
-  data.push({ id: questionId, time: Date.now() });
-  localStorage.setItem("usedQuestions", JSON.stringify(data));
+  if (!questionId) return; // Strict: ignore invalid IDs
+  const data = safeLocalStorage("usedQuestions", 'get') || [];
+  const now = Date.now();
+  // Prevent duplicates in current session
+  if (!data.some(q => q.id === questionId && now - q.time < 60000)) { // Within 1 min to avoid spam
+    data.push({ id: questionId, time: now });
+    safeLocalStorage("usedQuestions", 'set', data);
+  }
 }
 
 // Build an exam set of `count` questions avoiding ones used in last 60 minutes on this device
-function getExamSet(allQuestions, count = 20) {
+// Now with max 3 image questions (not mandatory, random inclusion up to 3), and final shuffle for no order
+function getExamSet(allQuestions, count = 20, maxImages = 3) {
   const used = getUsedQuestions();
-  const available = allQuestions.filter(q => !used.includes(q.id));
+  let available = allQuestions.filter(q => !used.includes(q.id));
 
   if (available.length < count) {
-    // Not enough fresh questions to guarantee uniqueness
     alert("Nta bibazo bihagije bishya bihari kuri iyi device. Gerageza nyuma y'amasaha 1.");
     return [];
   }
 
-  const shuffled = shuffleArray([...available]).slice(0, count);
+  // Separate image and non-image questions
+  const imageQuestions = available.filter(q => q.image);
+  const noImageQuestions = available.filter(q => !q.image);
 
-  // Save each selected question as used now
-  shuffled.forEach(q => saveUsedQuestion(q.id));
+  let selected = [];
 
-  return shuffled;
+  // Optionally select up to maxImages from image questions (not mandatory, but can include randomly)
+  let numImages = 0;
+  if (imageQuestions.length > 0) {
+    // Randomly decide how many images to include (0 to min(maxImages, available, count))
+    const maxPossible = Math.min(maxImages, imageQuestions.length, count);
+    numImages = Math.floor(Math.random() * (maxPossible + 1)); // 0 to maxPossible inclusive
+    if (numImages > 0) {
+      const shuffledImages = shuffleArray(imageQuestions);
+      selected = selected.concat(shuffledImages.slice(0, numImages));
+    }
+  }
+
+  // Select remaining from no-image questions (prioritize, but if short, can add more images if needed)
+  let remainingCount = count - selected.length;
+  const shuffledNoImages = shuffleArray(noImageQuestions);
+  selected = selected.concat(shuffledNoImages.slice(0, remainingCount));
+
+  // If still short (use remaining images or available, but respect maxImages)
+  if (selected.length < count) {
+    const needed = count - selected.length;
+    // First, try remaining no-image if any
+    const remainingNoImages = shuffledNoImages.slice(remainingCount);
+    let extraNoImages = remainingNoImages.slice(0, needed);
+    selected = selected.concat(extraNoImages);
+    let stillNeeded = needed - extraNoImages.length;
+
+    // If still needed, add from remaining images (but don't exceed maxImages)
+    if (stillNeeded > 0 && numImages < maxImages) {
+      const additionalImages = Math.min(stillNeeded, maxImages - numImages);
+      const remainingImages = imageQuestions.filter(img => !selected.some(s => s.id === img.id));
+      const shuffledRemainingImages = shuffleArray(remainingImages);
+      const extraImages = shuffledRemainingImages.slice(0, additionalImages);
+      selected = selected.concat(extraImages);
+      numImages += extraImages.length;
+      stillNeeded -= extraImages.length;
+    }
+
+    // Absolute fallback: any remaining available (rare, but ensures count)
+    if (stillNeeded > 0) {
+      const allExtra = available.filter(q => !selected.some(s => s.id === q.id));
+      const shuffledExtra = shuffleArray(allExtra);
+      const finalExtra = shuffledExtra.slice(0, stillNeeded);
+      selected = selected.concat(finalExtra);
+    }
+  }
+
+  // Final shuffle to ensure random order (no specific image ordering)
+  const finalShuffled = shuffleArray(selected);
+
+  // Save each selected question as used now - strict
+  finalShuffled.forEach(q => saveUsedQuestion(q.id));
+
+  return finalShuffled;
 }
 
 // =================== TIMER ===================
 function startTimer() {
-  if (!timerEl) return;
+  const safeTimerEl = safeElementAccess(timerEl);
+  if (!safeTimerEl) return;
 
   // check if we already have end time
-  const savedEnd = localStorage.getItem("quizEndTime");
+  const savedEnd = safeLocalStorage("quizEndTime", 'get');
   if (savedEnd) {
     const diff = Math.floor((new Date(savedEnd).getTime() - Date.now()) / 1000);
-    timeLeft = diff > 0 ? diff : 0;
+    timeLeft = Math.max(diff, 0);
   } else {
     const endTime = new Date(Date.now() + timeLeft * 1000);
-    localStorage.setItem("quizEndTime", endTime.toISOString());
+    safeLocalStorage("quizEndTime", 'set', endTime.toISOString());
   }
 
   updateTimerDisplay();
   timerId = setInterval(() => {
     if (timeLeft <= 0) {
       clearInterval(timerId);
+      timerId = null;
       endQuiz();
       return;
     }
@@ -143,14 +283,24 @@ function startTimer() {
 }
 
 function updateTimerDisplay() {
-  if (!timerEl) return;
+  const safeTimerEl = safeElementAccess(timerEl);
+  if (!safeTimerEl) return;
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
-  timerEl.textContent = `Igihe: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  safeTimerEl.textContent = `Igihe: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+function stopTimer() {
+  if (timerId) {
+    clearInterval(timerId);
+    timerId = null;
+  }
+  stopDevPoll();
 }
 
 // =================== SHUFFLE ===================
 function shuffleArray(array) {
+  if (!Array.isArray(array) || array.length === 0) return [];
   const arr = [...array];
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -161,62 +311,79 @@ function shuffleArray(array) {
 
 // =================== PROGRESS ===================
 function updateProgress() {
-  if (!progressBar || questions.length === 0) return;
+  const safeProgressBar = safeElementAccess(progressBar);
+  if (!safeProgressBar || questions.length === 0) return;
   const prog = ((currentIndex + 1) / questions.length) * 100;
-  progressBar.style.width = `${prog}%`;
-  progressBar.textContent = `${currentIndex + 1}/${questions.length}`;
+  safeProgressBar.style.width = `${prog}%`;
+  safeProgressBar.textContent = `${currentIndex + 1}/${questions.length}`;
 }
 
 // =================== SHOW QUESTION ===================
 function showQuestion() {
-  if (questions.length === 0 || currentIndex >= questions.length) return;
+  if (questions.length === 0 || currentIndex >= questions.length || currentIndex < 0) {
+    console.error('Invalid question index:', currentIndex);
+    return;
+  }
   const q = questions[currentIndex];
+  const safeQuestionText = safeElementAccess(questionText);
+  const safeImageContainer = safeElementAccess(imageContainer);
+  const safeOptionsForm = safeElementAccess(optionsForm);
+  const safePrevBtn = safeElementAccess(prevBtn);
+  const safeNextBtn = safeElementAccess(nextBtn);
+  const safeSubmitBtn = safeElementAccess(submitBtn);
 
-  if (questionText) questionText.textContent = `${currentIndex + 1}. ${q.question}`;
+  safeQuestionText.textContent = `${currentIndex + 1}. ${q.question}`;
 
-  if (imageContainer) {
-    imageContainer.innerHTML = q.image ? `<img src="${q.image}" class="question-img" alt="Question image" loading="lazy">` : "";
+  safeImageContainer.innerHTML = q.image ? `<img src="${q.image}" class="question-img" alt="Question image" loading="lazy" onerror="this.style.display='none'">` : "";
+
+  const keys = ['a', 'b', 'c', 'd'];
+  const inputs = safeOptionsForm.querySelectorAll("input[type='radio']");
+  if (inputs.length !== 4) {
+    console.error('Expected 4 radio inputs in options form');
+    return;
   }
 
-  const keys = ['a','b','c','d'];
-  if (optionsForm) {
-    // assumes optionsForm has 4 input elements in order and labels with ids option-a..option-d
-    const inputs = optionsForm.querySelectorAll("input");
-    inputs.forEach((input, idx) => {
-      const optionText = document.getElementById(`option-${keys[idx]}`);
-      if (optionText) {
-        optionText.textContent = q[keys[idx]];
-        input.checked = selectedAnswers[currentIndex] === idx;
-        optionText.style.backgroundColor = selectedAnswers[currentIndex] === idx ? "#e0e0e0" : "";
-      }
-    });
-  }
+  inputs.forEach((input, idx) => {
+    const optionText = document.getElementById(`option-${keys[idx]}`);
+    const safeOptionText = safeElementAccess(optionText, { textContent: '' });
+    safeOptionText.textContent = q[keys[idx]] || '';
+    input.checked = selectedAnswers[currentIndex] === idx;
+    safeOptionText.style.backgroundColor = selectedAnswers[currentIndex] === idx ? "#e0e0e0" : "";
+  });
 
-  if (prevBtn) prevBtn.disabled = currentIndex === 0;
-  if (nextBtn) nextBtn.disabled = false;
+  safePrevBtn.disabled = currentIndex === 0;
+  safeNextBtn.disabled = false;
 
   if (currentIndex === questions.length - 1) {
-    nextBtn.classList.add("hidden");
-    submitBtn.classList.remove("hidden");
+    safeNextBtn.classList.add("hidden");
+    safeSubmitBtn.classList.remove("hidden");
   } else {
-    nextBtn.classList.remove("hidden");
-    submitBtn.classList.add("hidden");
+    safeNextBtn.classList.remove("hidden");
+    safeSubmitBtn.classList.add("hidden");
   }
 
   updateProgress();
 }
 
 // =================== SELECT OPTION ===================
-if (optionsForm) {
-  optionsForm.querySelectorAll("input").forEach((input, idx) => {
+function setupOptionListeners() {
+  const safeOptionsForm = safeElementAccess(optionsForm);
+  if (!safeOptionsForm) return;
+
+  const inputs = safeOptionsForm.querySelectorAll("input[type='radio']");
+  inputs.forEach((input, idx) => {
     input.addEventListener("change", () => {
-      selectedAnswers[currentIndex] = idx;
-      optionsForm.querySelectorAll("label").forEach((label, i) => {
-        label.style.backgroundColor = i === idx ? "#e0e0e0" : "";
-      });
+      if (currentIndex >= 0 && currentIndex < selectedAnswers.length) {
+        selectedAnswers[currentIndex] = idx;
+        const labels = safeOptionsForm.querySelectorAll("label");
+        labels.forEach((label, i) => {
+          label.style.backgroundColor = i === idx ? "#e0e0e0" : "";
+        });
+      }
     });
   });
 }
+setupOptionListeners(); // Setup on load
 
 // =================== NAVIGATION ===================
 function nextQuestion() {
@@ -237,46 +404,61 @@ function prevQuestion() {
 
 // =================== END QUIZ ===================
 function endQuiz() {
-  clearInterval(timerId);
-  localStorage.removeItem("quizEndTime"); // clear timer persistence
-  if (quizScreen && resultScreen) {
-    quizScreen.classList.add('hidden');
-    resultScreen.classList.remove('hidden');
+  stopTimer();
+  safeLocalStorage("quizEndTime", 'set', null); // clear timer persistence
+  const safeQuizScreen = safeElementAccess(quizScreen);
+  const safeResultScreen = safeElementAccess(resultScreen);
+  safeQuizScreen.classList.add('hidden');
+  safeResultScreen.classList.remove('hidden');
+
+  let score = 0;
+  if (selectedAnswers.length === questions.length) {
+    score = selectedAnswers.reduce((acc, ans, idx) => {
+      const q = questions[idx];
+      if (!q || !q.answer) return acc;
+      const correctIdx = answerMap[q.answer];
+      return acc + (ans === correctIdx ? 1 : 0);
+    }, 0);
   }
 
-  const score = selectedAnswers.reduce((acc, ans, idx) => {
-    const correctIdx = answerMap[questions[idx].answer];
-    return acc + (ans === correctIdx ? 1 : 0);
-  }, 0);
-
-  if (scoreEl) scoreEl.textContent = `${score}/${questions.length}`;
-  if (passMessage) {
-    passMessage.textContent = score >= questions.length * 0.6 ? "Watsinze 🎉" : "Watsinzwe ❌";
-    passMessage.style.color = score >= questions.length * 0.6 ? "green" : "red";
-  }
+  const safeScoreEl = safeElementAccess(scoreEl);
+  safeScoreEl.textContent = `${score}/${questions.length}`;
+  const safePassMessage = safeElementAccess(passMessage);
+  const passed = score >= questions.length * 0.6;
+  safePassMessage.textContent = passed ? "Watsinze 🎉" : "Watsinzwe ❌";
+  safePassMessage.style.color = passed ? "green" : "red";
 
   // Block going back
-  window.onpopstate = e => { if (resultScreen && !resultScreen.classList.contains('hidden')) history.go(1); };
+  window.onpopstate = e => { 
+    if (!safeResultScreen.classList.contains('hidden')) {
+      history.go(1); 
+    }
+  };
 }
 
 // =================== REVIEW ===================
 function reviewAnswers() {
-  if (resultScreen && reviewScreen) {
-    resultScreen.classList.add('hidden');
-    reviewScreen.classList.remove('hidden');
-  }
-  if (reviewContainer) reviewContainer.innerHTML = "";
+  const safeResultScreen = safeElementAccess(resultScreen);
+  const safeReviewScreen = safeElementAccess(reviewScreen);
+  safeResultScreen.classList.add('hidden');
+  safeReviewScreen.classList.remove('hidden');
+  
+  const safeReviewContainer = safeElementAccess(reviewContainer);
+  if (!safeReviewContainer) return;
+  safeReviewContainer.innerHTML = "";
 
   const fragment = document.createDocumentFragment();
   
   questions.forEach((q, idx) => {
+    if (!q) return;
     const block = document.createElement("div");
     block.className = "question-block";
     
     block.innerHTML = `<h3>${idx + 1}. ${q.question}</h3>` + 
-      (q.image ? `<img src="${q.image}" class="question-img" alt="Review image" loading="lazy">` : '');
+      (q.image ? `<img src="${q.image}" class="question-img" alt="Review image" loading="lazy" onerror="this.style.display='none'">` : '');
 
     ['a','b','c','d'].forEach((key, i) => {
+      if (!q[key]) return;
       const correctIdx = answerMap[q.answer];
       let style = "";
       let mark = "";
@@ -296,7 +478,7 @@ function reviewAnswers() {
     fragment.appendChild(block);
   });
 
-  reviewContainer.appendChild(fragment);
+  safeReviewContainer.appendChild(fragment);
 }
 
 // =================== START QUIZ ===================
@@ -315,10 +497,9 @@ async function startQuiz() {
     }
   }
 
-  // Use 60-minute-safe exam set instead of naive shuffle
-  questions = getExamSet(questionsPool, 20);
+  // Use 60-minute-safe exam set with max 3 images (optional, random number up to 3)
+  questions = getExamSet(questionsPool, 20, 3);
   if (!questions || questions.length === 0) {
-    // getExamSet already alerts user if not enough fresh questions
     return;
   }
 
@@ -326,20 +507,34 @@ async function startQuiz() {
   currentIndex = 0;
   timeLeft = 20 * 60;
   warnedLastMinute = false;
+  devToolsDetected = false;
 
-  if (homeScreen && quizScreen) {
-    homeScreen.classList.add('hidden');
-    quizScreen.classList.remove('hidden');
-  }
+  const safeHomeScreen = safeElementAccess(homeScreen);
+  const safeQuizScreen = safeElementAccess(quizScreen);
+  safeHomeScreen.classList.add('hidden');
+  safeQuizScreen.classList.remove('hidden');
 
   showQuestion();
   startTimer();
+  startDevPoll(); // Start dev tools detection
 }
 
 // =================== EVENT LISTENERS ===================
-if (startBtn) startBtn.addEventListener('click', startQuiz);
-if (nextBtn) nextBtn.addEventListener('click', nextQuestion);
-if (prevBtn) prevBtn.addEventListener('click', prevQuestion);
-if (submitBtn) submitBtn.addEventListener('click', endQuiz);
-if (restartBtn) restartBtn.addEventListener('click', () => location.reload());
-if (reviewBtn) reviewBtn.addEventListener('click', reviewAnswers);
+function attachEventListener(el, event, handler) {
+  const safeEl = safeElementAccess(el);
+  if (safeEl && safeEl.addEventListener) {
+    safeEl.addEventListener(event, handler);
+  }
+}
+
+attachEventListener(startBtn, 'click', startQuiz);
+attachEventListener(nextBtn, 'click', nextQuestion);
+attachEventListener(prevBtn, 'click', prevQuestion);
+attachEventListener(submitBtn, 'click', endQuiz);
+attachEventListener(restartBtn, 'click', () => location.reload());
+attachEventListener(reviewBtn, 'click', reviewAnswers);
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', () => {
+  stopTimer();
+});
