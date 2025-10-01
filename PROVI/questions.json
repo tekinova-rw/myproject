@@ -1816,7 +1816,7 @@
   {
     "id": 234,
     "question": "Iki cyapa gisobanura iki?",
-    "image": "Q234.JPg",
+    "image": "Q234.jpg",
     "a": "Iherezo ry’ibibuzwa byose mu karere ku binyabiziga bigenda",
     "b": "Ntihemerewe kuhahagarara",
     "c": "Umuvuduko ntarengwa wemewe",
@@ -2151,7 +2151,7 @@
 {
   "id": 268,
   "question": "Uhuye n’ingorane utwaye ikinyabiziga, mu muhanda ufite ibyerekezo bibiri, ufite ikimenyetso kiburira cya mpandeshatu. Wakishyira mu ntera ingana iki uvuye aho ikinyabiziga cyahagaze?",
-  "image": "Q268.png",
+  "image": "Q268.jpg",
   "a": "Metero 5",
   "b": "Metero 25",
   "c": "Metero 45",
