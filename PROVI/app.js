@@ -1,6 +1,3 @@
-/* Complete app.js for Netlify (no backend) with client-side 60-minute question no-reuse per IP using localStorage, fixed options (a, b, c, d) in original order, random selection of 20 questions with 2-3 image questions, and home button on review screen. Optimized for 2000+ questions. Ensures unlimited quiz attempts. */
-
-// =================== DOM ELEMENTS ===================
 const homeScreen = document.getElementById('home-screen');
 const quizScreen = document.getElementById('quiz-screen');
 const resultScreen = document.getElementById('result-screen');
@@ -12,7 +9,7 @@ const nextBtn = document.getElementById('next-btn');
 const submitBtn = document.getElementById('submit-btn');
 const restartBtn = document.getElementById('restart-btn');
 const reviewBtn = document.getElementById('review-btn');
-const homeBtn = document.getElementById('home-btn'); // New home button
+const homeBtn = document.getElementById('home-btn');
 
 const timerEl = document.getElementById('timer');
 const questionText = document.getElementById('question-text');
@@ -23,23 +20,22 @@ const passMessage = document.getElementById('pass-message');
 const reviewContainer = document.getElementById('review-container');
 const progressBar = document.getElementById('progress-bar');
 
-// =================== STATE ===================
 let questionsPool = [];
 let questions = [];
 let currentIndex = 0;
 let selectedAnswers = [];
 let timerId = null;
-let timeLeft = 20 * 60; // 20 minutes
+let timeLeft = 20 * 60; // 20 minutes in seconds
 let warnedLastMinute = false;
-let quizEndTime = null; // Fixed end time
-let lastActivity = Date.now(); // For inactivity detection
+let quizEndTime = null;
+let lastActivity = Date.now();
 let inactivityWarned = false;
 let fullscreenEnabled = false;
-let currentIP = null; // Detected IP address
-const authorizedPassword = ''; // Password to start quiz
-const ENCRYPTION_KEY = 'quiz_secure_key_2025'; // Key for localStorage obfuscation
+let currentIP = null;
+const authorizedPassword = 'exam2025'; // Password required to start quiz
+const ENCRYPTION_KEY = 'quiz_secure_key_2025';
+const MIN_QUESTIONS_REQUIRED = 20;
 
-// =================== UTILITY FUNCTIONS ===================
 async function getIP() {
   try {
     const res = await fetch('https://api.ipify.org?format=json');
@@ -48,21 +44,33 @@ async function getIP() {
     safeLocalStorage('fallbackIP', 'set', data.ip);
     return data.ip;
   } catch (err) {
-    console.error('IP detection failed:', err);
-    const fallback = safeLocalStorage('fallbackIP', 'get') || 'fallback_' + Math.random().toString(36).slice(2);
+    console.warn('IP detection via ipify failed, using deterministic fallback. Error:', err);
+    const existing = safeLocalStorage('fallbackIP', 'get');
+    if (existing) return existing;
+    const seed = (navigator.userAgent || '') + '|' + Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const fallback = 'fallback_' + simpleHash(seed);
     safeLocalStorage('fallbackIP', 'set', fallback);
     return fallback;
   }
 }
 
+function simpleHash(str) {
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return (h >>> 0).toString(36);
+}
+
 function getUsedQuestionsForIP(ip) {
   const data = safeLocalStorage('usedQuestionsByIP', 'get') || {};
-  const ipData = data[ip] || [];
+  const ipData = Array.isArray(data[ip]) ? data[ip] : [];
   const now = Date.now();
-  const fresh = ipData.filter(q => now - q.time < 3600000 && q.id);
+  const fresh = ipData.filter(q => q && q.id && (now - q.time) < 3600000);
   data[ip] = fresh;
   safeLocalStorage('usedQuestionsByIP', 'set', data);
-  return new Set(fresh.map(q => q.id)); // Use Set for O(1) lookup
+  return new Set(fresh.map(q => q.id));
 }
 
 function saveUsedQuestionForIP(ip, questionId) {
@@ -71,7 +79,7 @@ function saveUsedQuestionForIP(ip, questionId) {
   if (!data[ip]) data[ip] = [];
   const now = Date.now();
   const ipData = data[ip];
-  if (!ipData.some(q => q.id === questionId && now - q.time < 3600000)) {
+  if (!ipData.some(q => q.id === questionId && (now - q.time) < 3600000)) {
     ipData.push({ id: questionId, time: now });
     data[ip] = ipData;
     safeLocalStorage('usedQuestionsByIP', 'set', data);
@@ -82,8 +90,13 @@ function safeLocalStorage(key, operation = 'get', value = null) {
   try {
     const obfuscatedKey = btoa(key + ENCRYPTION_KEY);
     if (operation === 'set') {
-      localStorage.setItem(obfuscatedKey, btoa(JSON.stringify(value)));
-      return true;
+      if (value === null || typeof value === 'undefined') {
+        localStorage.removeItem(obfuscatedKey);
+        return true;
+      } else {
+        localStorage.setItem(obfuscatedKey, btoa(JSON.stringify(value)));
+        return true;
+      }
     } else {
       const data = localStorage.getItem(obfuscatedKey);
       return data ? JSON.parse(atob(data)) : null;
@@ -98,18 +111,20 @@ function safeElementAccess(el, fallback = null) {
   return el || { textContent: '', innerHTML: '', classList: { add: () => {}, remove: () => {}, toggle: () => {} }, style: {}, disabled: false };
 }
 
-// Periodic cleanup of localStorage
 setInterval(() => {
-  const now = Date.now();
-  const usedData = safeLocalStorage('usedQuestionsByIP', 'get') || {};
-  Object.keys(usedData).forEach(ip => {
-    usedData[ip] = usedData[ip].filter(q => now - q.time < 3600000 && q.id);
-    if (usedData[ip].length === 0) delete usedData[ip];
-  });
-  safeLocalStorage('usedQuestionsByIP', 'set', usedData);
-}, 600000); // Every 10 minutes
+  try {
+    const now = Date.now();
+    const usedData = safeLocalStorage('usedQuestionsByIP', 'get') || {};
+    Object.keys(usedData).forEach(ip => {
+      usedData[ip] = (usedData[ip] || []).filter(q => q && q.id && (now - q.time) < 3600000);
+      if (usedData[ip].length === 0) delete usedData[ip];
+    });
+    safeLocalStorage('usedQuestionsByIP', 'set', usedData);
+  } catch (err) {
+    console.error('Periodic cleanup error:', err);
+  }
+}, 600000);
 
-// =================== SECURITY ===================
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('keydown', e => {
   if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) e.preventDefault();
@@ -145,13 +160,14 @@ function detectDevTools() {
     if (!devToolsDetected) {
       devToolsDetected = true;
       console.log('Dev tools detected, ending quiz');
-      alert('Ibikoresho bya developer byabonye. Ikizamini ryangiriye!');
+      alert('Ibikoresho bya developer byabonye. Ikizamini kirangiye!');
       endQuiz();
     }
   }
 }
 let devPollId = null;
 function startDevPoll() {
+  if (devPollId) return;
   devPollId = setInterval(detectDevTools, 500);
 }
 function stopDevPoll() {
@@ -196,28 +212,28 @@ function exitFullscreen() {
 document.addEventListener('fullscreenchange', () => {
   if (!document.fullscreenElement && fullscreenEnabled) {
     console.log('Fullscreen exited, ending quiz');
-    alert('Ntushobora gusohoka kuri fullscreen. Ikizamini ryangiriye!');
+    alert('Ntushobora gusohoka kuri fullscreen. Ikizamini kirangiye!');
     endQuiz();
   }
 });
 document.addEventListener('webkitfullscreenchange', () => {
   if (!document.webkitFullscreenElement && fullscreenEnabled) {
     console.log('Fullscreen exited (webkit), ending quiz');
-    alert('Ntushobora gusohoka kuri fullscreen. Ikizamini ryangiriye!');
+    alert('Ntushobora gusohoka kuri fullscreen. Ikizamini kirangiye!');
     endQuiz();
   }
 });
 document.addEventListener('mozfullscreenchange', () => {
   if (!document.mozFullScreenElement && fullscreenEnabled) {
     console.log('Fullscreen exited (moz), ending quiz');
-    alert('Ntushobora gusohoka kuri fullscreen. Ikizamini ryangiriye!');
+    alert('Ntushobora gusohoka kuri fullscreen. Ikizamini kirangiye!');
     endQuiz();
   }
 });
 document.addEventListener('MSFullscreenChange', () => {
   if (!document.msFullscreenElement && fullscreenEnabled) {
     console.log('Fullscreen exited (ms), ending quiz');
-    alert('Ntushobora gusohoka kuri fullscreen. Ikizamini ryangiriye!');
+    alert('Ntushobora gusohoka kuri fullscreen. Ikizamini kirangiye!');
     endQuiz();
   }
 });
@@ -269,7 +285,6 @@ function playAlertSound() {
   }
 }
 
-// =================== LOAD QUESTIONS ===================
 async function loadQuestions() {
   try {
     const res = await fetch('questions.json');
@@ -280,9 +295,9 @@ async function loadQuestions() {
     }
 
     questionsPool = externalQuestions
-      .filter(q => q.id && q.question && ['a', 'b', 'c', 'd'].every(key => q[key]) && ['a', 'b', 'c', 'd'].includes((q.answer || '').toLowerCase()))
+      .filter(q => q && q.id && q.question && ['a', 'b', 'c', 'd'].every(key => q[key]) && ['a', 'b', 'c', 'd'].includes((q.answer || '').toLowerCase()))
       .map(q => ({
-        id: q.id,
+        id: String(q.id),
         question: q.question,
         image: q.image ? `images/${q.image}` : null,
         a: q.a,
@@ -292,13 +307,15 @@ async function loadQuestions() {
         answer: (q.answer || '').toLowerCase()
       }));
 
-    if (questionsPool.length < 20) {
-      throw new Error(`Insufficient questions in questions.json: ${questionsPool.length}/20 required`);
+    if (questionsPool.length < MIN_QUESTIONS_REQUIRED) {
+      throw new Error(`Insufficient questions in questions.json: ${questionsPool.length}/${MIN_QUESTIONS_REQUIRED} required`);
     }
 
     const imageQuestionsCount = questionsPool.filter(q => q.image).length;
-    if (imageQuestionsCount < 2) {
-      throw new Error(`Insufficient image questions in questions.json: ${imageQuestionsCount}/2 required`);
+    if (imageQuestionsCount === 0) {
+      console.warn('No image questions loaded. Proceeding with text-only questions.');
+    } else if (imageQuestionsCount < 2) {
+      console.warn(`Only ${imageQuestionsCount} image questions loaded, less than maximum 2. Proceeding.`);
     }
 
     safeElementAccess(startBtn).disabled = false;
@@ -311,8 +328,7 @@ async function loadQuestions() {
 }
 loadQuestions();
 
-// =================== QUESTION HISTORY (60 min cache) ===================
-async function getExamSet(allQuestions, count = 20, ip) {
+async function getExamSet(allQuestions, count = 20, ip, iteration = 0) {
   const used = getUsedQuestionsForIP(ip);
   let available = allQuestions.filter(q => !used.has(q.id));
 
@@ -324,41 +340,30 @@ async function getExamSet(allQuestions, count = 20, ip) {
   const imageQuestions = available.filter(q => q.image);
   const noImageQuestions = available.filter(q => !q.image);
 
-  if (imageQuestions.length < 2) {
-    alert(`Nta bibazo bihagije bishya by'amashusho bihari (${imageQuestions.length}/2). Gerageza nyuma y'amasaha 1.`);
-    return [];
-  }
-
   let selected = [];
+  const mod = iteration % 4;
+  const maxImages = (mod === 1 || mod === 3) ? 0 : 2;
+  const numImages = Math.floor(Math.random() * (maxImages + 1));
+  const actualNumImages = Math.min(numImages, imageQuestions.length);
+  console.log(`Iteration ${iteration} (mod ${mod}): Selecting up to ${actualNumImages} image questions (max ${maxImages}).`);
 
-  // Select exactly 2 or 3 image questions randomly
-  const numImages = Math.random() < 0.5 ? 2 : 3;
-  const maxPossibleImages = Math.min(numImages, imageQuestions.length);
-  if (maxPossibleImages >= 2) {
-    const shuffledImages = shuffleArray(imageQuestions);
-    selected = selected.concat(shuffledImages.slice(0, maxPossibleImages));
-  } else {
-    alert(`Nta bibazo bihagije bishya by'amashusho bihari (${imageQuestions.length}/${numImages}). Gerageza nyuma y'amasaha 1.`);
-    return [];
+  if (actualNumImages > 0) {
+    selected = selected.concat(reservoirSample(imageQuestions, actualNumImages));
   }
 
-  // Fill remaining with non-image questions
   let remainingCount = count - selected.length;
   if (remainingCount > 0) {
     if (noImageQuestions.length < remainingCount) {
       alert(`Nta bibazo bihagije bishya bidafite amashusho bihari (${noImageQuestions.length}/${remainingCount}). Gerageza nyuma y'amasaha 1.`);
       return [];
     }
-    const shuffledNoImages = shuffleArray(noImageQuestions);
-    selected = selected.concat(shuffledNoImages.slice(0, remainingCount));
+    selected = selected.concat(reservoirSample(noImageQuestions, remainingCount));
   }
 
-  // Ensure exactly 20 questions
   if (selected.length < count) {
     const needed = count - selected.length;
     const remainingAvailable = available.filter(q => !selected.some(s => s.id === q.id));
-    const shuffledRemaining = shuffleArray(remainingAvailable);
-    selected = selected.concat(shuffledRemaining.slice(0, needed));
+    selected = selected.concat(reservoirSample(remainingAvailable, needed));
   }
 
   if (selected.length !== count) {
@@ -367,26 +372,35 @@ async function getExamSet(allQuestions, count = 20, ip) {
     return [];
   }
 
-  // Save selected question IDs for this IP
   selected.forEach(q => saveUsedQuestionForIP(ip, q.id));
-
-  // Shuffle final set for random question order
   return shuffleArray(selected);
 }
 
-// =================== TIMER ===================
+function reservoirSample(arr, k) {
+  if (k <= 0) return [];
+  const n = arr.length;
+  if (k >= n) return shuffleArray(arr).slice(0, k);
+  const reservoir = arr.slice(0, k);
+  for (let i = k; i < n; i++) {
+    const j = Math.floor(Math.random() * (i + 1));
+    if (j < k) reservoir[j] = arr[i];
+  }
+  return reservoir;
+}
+
 function startTimer() {
   const safeTimerEl = safeElementAccess(timerEl);
   if (!safeTimerEl) return;
 
-  const savedEnd = safeLocalStorage('quizEndTime', 'get');
+  const storedKey = `quizEndTime_${currentIP || 'unknown'}`;
+  const savedEnd = safeLocalStorage(storedKey, 'get');
   if (savedEnd) {
     quizEndTime = new Date(savedEnd).getTime();
     const diff = Math.floor((quizEndTime - Date.now()) / 1000);
     timeLeft = Math.max(diff, 0);
   } else {
     quizEndTime = Date.now() + timeLeft * 1000;
-    safeLocalStorage('quizEndTime', 'set', new Date(quizEndTime).toISOString());
+    safeLocalStorage(storedKey, 'set', new Date(quizEndTime).toISOString());
   }
 
   updateTimerDisplay();
@@ -428,7 +442,6 @@ function stopTimer() {
   stopDevPoll();
 }
 
-// =================== SHUFFLE ===================
 function shuffleArray(array) {
   if (!Array.isArray(array) || array.length === 0) return [];
   const arr = [...array];
@@ -439,7 +452,6 @@ function shuffleArray(array) {
   return arr;
 }
 
-// =================== PROGRESS ===================
 function updateProgress() {
   const safeProgressBar = safeElementAccess(progressBar);
   if (!safeProgressBar || questions.length === 0) return;
@@ -448,11 +460,10 @@ function updateProgress() {
   safeProgressBar.textContent = `${currentIndex + 1}/${questions.length}`;
 }
 
-// =================== SHOW QUESTION ===================
 function showQuestion() {
   if (questions.length === 0 || currentIndex >= questions.length || currentIndex < 0) {
     console.error('Invalid question index:', currentIndex, 'Questions length:', questions.length);
-    alert('Ikosa ryabaye mu kugaragaza ibibazo. Ikizamini ryahagaritswe.');
+    alert('Ikosa ryabaye mu kugaragaza ibibazo. Ikizamini cyahagaritswe.');
     endQuiz();
     return;
   }
@@ -472,14 +483,14 @@ function showQuestion() {
   const inputs = safeOptionsForm.querySelectorAll('input[type="radio"]');
   if (inputs.length !== 4) {
     console.error('Expected 4 radio inputs, found:', inputs.length);
-    alert('Ikosa ryabaye mu kugaragaza ibyavugwa. Ikizamini ryahagaritswe.');
+    alert('Ikosa ryabaye mu kugaragaza ibyavugwa. Ikizamini cyahagaritswe.');
     endQuiz();
     return;
   }
 
   inputs.forEach((input, idx) => {
     const key = optionKeys[idx];
-    input.value = key; // Store option key (a, b, c, d)
+    input.value = key;
     const optionText = document.getElementById(`option-${key}`);
     const safeOptionText = safeElementAccess(optionText, { textContent: '' });
     safeOptionText.textContent = q[key] || '';
@@ -501,7 +512,6 @@ function showQuestion() {
   updateProgress();
 }
 
-// =================== SELECT OPTION ===================
 function setupOptionListeners() {
   const safeOptionsForm = safeElementAccess(optionsForm);
   if (!safeOptionsForm) return;
@@ -510,7 +520,7 @@ function setupOptionListeners() {
   inputs.forEach((input) => {
     input.addEventListener('change', () => {
       if (currentIndex >= 0 && currentIndex < selectedAnswers.length) {
-        selectedAnswers[currentIndex] = input.value; // Store option key (a, b, c, d)
+        selectedAnswers[currentIndex] = input.value;
         const labels = safeOptionsForm.querySelectorAll('label');
         labels.forEach((label, i) => {
           label.style.backgroundColor = selectedAnswers[currentIndex] === input.value && i === ['a', 'b', 'c', 'd'].indexOf(input.value) ? '#e0e0e0' : '';
@@ -523,7 +533,6 @@ function setupOptionListeners() {
 }
 setupOptionListeners();
 
-// =================== NAVIGATION ===================
 function nextQuestion() {
   if (currentIndex < questions.length - 1) {
     currentIndex++;
@@ -543,10 +552,11 @@ function prevQuestion() {
   lastActivity = Date.now();
 }
 
-// =================== END QUIZ ===================
 function endQuiz() {
   stopTimer();
-  safeLocalStorage('quizEndTime', 'set', null);
+  const storedKey = `quizEndTime_${currentIP || 'unknown'}`;
+  safeLocalStorage(storedKey, 'set', null);
+
   const safeQuizScreen = safeElementAccess(quizScreen);
   const safeResultScreen = safeElementAccess(resultScreen);
   safeQuizScreen.classList.add('hidden');
@@ -578,7 +588,6 @@ function endQuiz() {
   fullscreenEnabled = false;
 }
 
-// =================== REVIEW ===================
 function reviewAnswers() {
   const safeResultScreen = safeElementAccess(resultScreen);
   const safeReviewScreen = safeElementAccess(reviewScreen);
@@ -617,17 +626,21 @@ function reviewAnswers() {
     fragment.appendChild(block);
   });
 
+  const backBtn = document.createElement('button');
+  backBtn.textContent = 'Home';
+  backBtn.id = 'review-home-btn';
+  backBtn.addEventListener('click', returnToHome);
+  fragment.appendChild(backBtn);
+
   safeReviewContainer.appendChild(fragment);
 }
 
-// =================== RETURN TO HOME ===================
 function returnToHome() {
   const safeReviewScreen = safeElementAccess(reviewScreen);
   const safeHomeScreen = safeElementAccess(homeScreen);
   safeReviewScreen.classList.add('hidden');
   safeHomeScreen.classList.remove('hidden');
 
-  // Reset quiz state
   questions = [];
   selectedAnswers = [];
   currentIndex = 0;
@@ -638,17 +651,20 @@ function returnToHome() {
   hiddenTabWarned = false;
   inactivityWarned = false;
   lastActivity = Date.now();
-  safeLocalStorage('quizEndTime', 'set', null);
 
-  window.onpopstate = null; // Clear history restriction
+  const storedKey = `quizEndTime_${currentIP || 'unknown'}`;
+  safeLocalStorage(storedKey, 'set', null);
+
+  window.onpopstate = null;
 }
 
-// =================== START QUIZ ===================
 async function startQuiz() {
-  const pwd = prompt('Shyiramo ijambo ry\'ibanga kugirango utangire ikizamini:');
-  if (pwd !== authorizedPassword) {
-    alert('Ntushobora gutangira ikizamini. Ijambo ry\'ibanga ntiririho!');
-    return;
+  if (authorizedPassword) {
+    const pwd = prompt('Shyiramo ijambo ry\'ibanga kugirango utangire ikizamini:');
+    if (pwd !== authorizedPassword) {
+      alert('Ntushobora gutangira ikizamini. Ijambo ry\'ibanga ritariho cyangwa si ryo!');
+      return;
+    }
   }
 
   if (!questionsPool.length) {
@@ -662,7 +678,13 @@ async function startQuiz() {
   currentIP = await getIP();
   console.log(`Detected IP: ${currentIP}`);
 
-  questions = await getExamSet(questionsPool, 20, currentIP);
+  const iterationKey = `iterationCount_${currentIP}`;
+  let currentIteration = safeLocalStorage(iterationKey, 'get') || 0;
+  currentIteration++;
+  safeLocalStorage(iterationKey, 'set', currentIteration);
+  console.log(`Starting iteration ${currentIteration} for IP ${currentIP}.`);
+
+  questions = await getExamSet(questionsPool, 20, currentIP, currentIteration);
   if (!questions || questions.length === 0) {
     return;
   }
@@ -691,7 +713,6 @@ async function startQuiz() {
   startDevPoll();
 }
 
-// =================== EVENT LISTENERS ===================
 function attachEventListener(el, event, handler) {
   const safeEl = safeElementAccess(el);
   if (safeEl && safeEl.addEventListener) {
