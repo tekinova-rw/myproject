@@ -159,9 +159,9 @@ function detectDevTools() {
   if (window.outerHeight - window.innerHeight > threshold || window.outerWidth - window.innerWidth > threshold) {
     if (!devToolsDetected) {
       devToolsDetected = true;
-      console.log('Dev tools detected, ending quiz');
-      alert('Ibikoresho bya developer byabonye. Ikizamini kirangiye!');
-      endQuiz();
+      console.log('Dev tools detected, dropping out quiz');
+      alert('Ibikoresho bya developer byabonye. Wavanywe mu ikizamini!');
+      dropOutQuiz();
     }
   }
 }
@@ -211,46 +211,52 @@ function exitFullscreen() {
 
 document.addEventListener('fullscreenchange', () => {
   if (!document.fullscreenElement && fullscreenEnabled) {
-    console.log('Fullscreen exited, ending quiz');
-    alert('Ntushobora gusohoka kuri fullscreen. Ikizamini kirangiye!');
-    endQuiz();
+    console.log('Fullscreen exited, dropping out quiz');
+    alert('Ntushobora gusohoka kuri fullscreen. Wavanywe mu ikizamini!');
+    dropOutQuiz();
   }
 });
 document.addEventListener('webkitfullscreenchange', () => {
   if (!document.webkitFullscreenElement && fullscreenEnabled) {
-    console.log('Fullscreen exited (webkit), ending quiz');
-    alert('Ntushobora gusohoka kuri fullscreen. Ikizamini kirangiye!');
-    endQuiz();
+    console.log('Fullscreen exited (webkit), dropping out quiz');
+    alert('Ntushobora gusohoka kuri fullscreen. Wavanywe mu ikizamini!');
+    dropOutQuiz();
   }
 });
 document.addEventListener('mozfullscreenchange', () => {
   if (!document.mozFullScreenElement && fullscreenEnabled) {
-    console.log('Fullscreen exited (moz), ending quiz');
-    alert('Ntushobora gusohoka kuri fullscreen. Ikizamini kirangiye!');
-    endQuiz();
+    console.log('Fullscreen exited (moz), dropping out quiz');
+    alert('Ntushobora gusohoka kuri fullscreen. Wavanywe mu ikizamini!');
+    dropOutQuiz();
   }
 });
 document.addEventListener('MSFullscreenChange', () => {
   if (!document.msFullscreenElement && fullscreenEnabled) {
-    console.log('Fullscreen exited (ms), ending quiz');
-    alert('Ntushobora gusohoka kuri fullscreen. Ikizamini kirangiye!');
-    endQuiz();
+    console.log('Fullscreen exited (ms), dropping out quiz');
+    alert('Ntushobora gusohoka kuri fullscreen. Wavanywe mu ikizamini!');
+    dropOutQuiz();
   }
 });
 
 let hiddenTabWarned = false;
+let minimizeDetected = false;
 document.addEventListener('visibilitychange', () => {
   if (!quizScreen || quizScreen.classList.contains('hidden')) return;
   if (document.hidden) {
-    lastActivity = Date.now();
+    if (!minimizeDetected) {
+      minimizeDetected = true;
+      console.log('Window minimized or tab switched, dropping out quiz');
+      alert('Ikizamini cyahagaritswe kubera guhisha idirishya! Wavanywe mu ikizamini!');
+      dropOutQuiz();
+    }
   } else {
     if (quizEndTime) {
       const elapsed = Math.floor((quizEndTime - Date.now()) / 1000);
       timeLeft = Math.max(elapsed, 0);
       updateTimerDisplay();
       if (timeLeft <= 0) {
-        console.log('Timer expired on tab switch, ending quiz');
-        endQuiz();
+        console.log('Timer expired on tab switch, dropping out quiz');
+        dropOutQuiz();
       }
     }
     const absenceTime = Date.now() - lastActivity;
@@ -271,8 +277,8 @@ function inactivityCheck() {
     alert('Ntabwo uri mu ikizamini? Ikizamini kirangira mu munota 1!');
     setTimeout(() => {
       if (Date.now() - lastActivity > 180000) {
-        console.log('Inactivity timeout, ending quiz');
-        endQuiz();
+        console.log('Inactivity timeout, dropping out quiz');
+        dropOutQuiz();
       }
     }, 60000);
   }
@@ -312,10 +318,8 @@ async function loadQuestions() {
     }
 
     const imageQuestionsCount = questionsPool.filter(q => q.image).length;
-    if (imageQuestionsCount === 0) {
-      console.warn('No image questions loaded. Proceeding with text-only questions.');
-    } else if (imageQuestionsCount < 2) {
-      console.warn(`Only ${imageQuestionsCount} image questions loaded, less than maximum 2. Proceeding.`);
+    if (imageQuestionsCount < 3) {
+      throw new Error(`Insufficient image questions in questions.json: ${imageQuestionsCount}/3 required`);
     }
 
     safeElementAccess(startBtn).disabled = false;
@@ -340,31 +344,24 @@ async function getExamSet(allQuestions, count = 20, ip, iteration = 0) {
   const imageQuestions = available.filter(q => q.image);
   const noImageQuestions = available.filter(q => !q.image);
 
+  if (imageQuestions.length < 3) {
+    alert(`Nta bibazo bihagije bishya by'amashusho bihari (${imageQuestions.length}/3). Gerageza nyuma y'amasaha 1.`);
+    return [];
+  }
+
+  if (noImageQuestions.length < (count - 3)) {
+    alert(`Nta bibazo bihagije bishya bidafite amashusho bihari (${noImageQuestions.length}/${count - 3}). Gerageza nyuma y'amasaha 1.`);
+    return [];
+  }
+
   let selected = [];
-  const mod = iteration % 4;
-  const maxImages = (mod === 1 || mod === 3) ? 0 : 2;
-  const numImages = Math.floor(Math.random() * (maxImages + 1));
-  const actualNumImages = Math.min(numImages, imageQuestions.length);
-  console.log(`Iteration ${iteration} (mod ${mod}): Selecting up to ${actualNumImages} image questions (max ${maxImages}).`);
 
-  if (actualNumImages > 0) {
-    selected = selected.concat(reservoirSample(imageQuestions, actualNumImages));
-  }
+  // Select exactly 3 image questions
+  selected = selected.concat(reservoirSample(imageQuestions, 3));
 
-  let remainingCount = count - selected.length;
-  if (remainingCount > 0) {
-    if (noImageQuestions.length < remainingCount) {
-      alert(`Nta bibazo bihagije bishya bidafite amashusho bihari (${noImageQuestions.length}/${remainingCount}). Gerageza nyuma y'amasaha 1.`);
-      return [];
-    }
-    selected = selected.concat(reservoirSample(noImageQuestions, remainingCount));
-  }
-
-  if (selected.length < count) {
-    const needed = count - selected.length;
-    const remainingAvailable = available.filter(q => !selected.some(s => s.id === q.id));
-    selected = selected.concat(reservoirSample(remainingAvailable, needed));
-  }
+  // Select remaining non-image questions
+  const remainingCount = count - selected.length; // Should be 17
+  selected = selected.concat(reservoirSample(noImageQuestions, remainingCount));
 
   if (selected.length !== count) {
     console.error(`Failed to select ${count} questions, got ${selected.length}`);
@@ -379,7 +376,7 @@ async function getExamSet(allQuestions, count = 20, ip, iteration = 0) {
 function reservoirSample(arr, k) {
   if (k <= 0) return [];
   const n = arr.length;
-  if (k >= n) return shuffleArray(arr).slice(0, k);
+  if (k >= n) return shuffleArray([...arr]).slice(0, k);
   const reservoir = arr.slice(0, k);
   for (let i = k; i < n; i++) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -411,10 +408,10 @@ function startTimer() {
       updateTimerDisplay();
     }
     if (timeLeft <= 0) {
-      console.log('Timer expired, ending quiz');
+      console.log('Timer expired, dropping out quiz');
       clearInterval(timerId);
       timerId = null;
-      endQuiz();
+      dropOutQuiz();
       return;
     }
 
@@ -464,7 +461,7 @@ function showQuestion() {
   if (questions.length === 0 || currentIndex >= questions.length || currentIndex < 0) {
     console.error('Invalid question index:', currentIndex, 'Questions length:', questions.length);
     alert('Ikosa ryabaye mu kugaragaza ibibazo. Ikizamini cyahagaritswe.');
-    endQuiz();
+    dropOutQuiz();
     return;
   }
   const q = questions[currentIndex];
@@ -484,7 +481,7 @@ function showQuestion() {
   if (inputs.length !== 4) {
     console.error('Expected 4 radio inputs, found:', inputs.length);
     alert('Ikosa ryabaye mu kugaragaza ibyavugwa. Ikizamini cyahagaritswe.');
-    endQuiz();
+    dropOutQuiz();
     return;
   }
 
@@ -552,6 +549,40 @@ function prevQuestion() {
   lastActivity = Date.now();
 }
 
+function dropOutQuiz() {
+  stopTimer();
+  const storedKey = `quizEndTime_${currentIP || 'unknown'}`;
+  safeLocalStorage(storedKey, 'set', null);
+
+  // Clear user data
+  questions = [];
+  selectedAnswers = [];
+  currentIndex = 0;
+  timeLeft = 20 * 60;
+  warnedLastMinute = false;
+  quizEndTime = null;
+  devToolsDetected = false;
+  hiddenTabWarned = false;
+  inactivityWarned = false;
+  minimizeDetected = false;
+  lastActivity = Date.now();
+
+  const safeQuizScreen = safeElementAccess(quizScreen);
+  const safeResultScreen = safeElementAccess(resultScreen);
+  const safeReviewScreen = safeElementAccess(reviewScreen);
+  const safeHomeScreen = safeElementAccess(homeScreen);
+
+  safeQuizScreen.classList.add('hidden');
+  safeResultScreen.classList.add('hidden');
+  safeReviewScreen.classList.add('hidden');
+  safeHomeScreen.classList.remove('hidden');
+
+  exitFullscreen();
+  fullscreenEnabled = false;
+
+  window.onpopstate = null;
+}
+
 function endQuiz() {
   stopTimer();
   const storedKey = `quizEndTime_${currentIP || 'unknown'}`;
@@ -559,7 +590,12 @@ function endQuiz() {
 
   const safeQuizScreen = safeElementAccess(quizScreen);
   const safeResultScreen = safeElementAccess(resultScreen);
+  const safeHomeScreen = safeElementAccess(homeScreen);
+  const safeReviewScreen = safeElementAccess(reviewScreen);
+
   safeQuizScreen.classList.add('hidden');
+  safeHomeScreen.classList.add('hidden');
+  safeReviewScreen.classList.add('hidden');
   safeResultScreen.classList.remove('hidden');
 
   let score = 0;
@@ -591,7 +627,12 @@ function endQuiz() {
 function reviewAnswers() {
   const safeResultScreen = safeElementAccess(resultScreen);
   const safeReviewScreen = safeElementAccess(reviewScreen);
+  const safeHomeScreen = safeElementAccess(homeScreen);
+  const safeQuizScreen = safeElementAccess(quizScreen);
+
   safeResultScreen.classList.add('hidden');
+  safeHomeScreen.classList.add('hidden');
+  safeQuizScreen.classList.add('hidden');
   safeReviewScreen.classList.remove('hidden');
 
   const safeReviewContainer = safeElementAccess(reviewContainer);
@@ -638,7 +679,12 @@ function reviewAnswers() {
 function returnToHome() {
   const safeReviewScreen = safeElementAccess(reviewScreen);
   const safeHomeScreen = safeElementAccess(homeScreen);
+  const safeQuizScreen = safeElementAccess(quizScreen);
+  const safeResultScreen = safeElementAccess(resultScreen);
+
   safeReviewScreen.classList.add('hidden');
+  safeQuizScreen.classList.add('hidden');
+  safeResultScreen.classList.add('hidden');
   safeHomeScreen.classList.remove('hidden');
 
   questions = [];
@@ -650,6 +696,7 @@ function returnToHome() {
   devToolsDetected = false;
   hiddenTabWarned = false;
   inactivityWarned = false;
+  minimizeDetected = false;
   lastActivity = Date.now();
 
   const storedKey = `quizEndTime_${currentIP || 'unknown'}`;
@@ -696,11 +743,18 @@ async function startQuiz() {
   devToolsDetected = false;
   hiddenTabWarned = false;
   inactivityWarned = false;
+  minimizeDetected = false;
   lastActivity = Date.now();
 
   const safeHomeScreen = safeElementAccess(homeScreen);
   const safeQuizScreen = safeElementAccess(quizScreen);
+  const safeResultScreen = safeElementAccess(resultScreen);
+  const safeReviewScreen = safeElementAccess(reviewScreen);
+
+  // Ensure only quiz screen is visible
   safeHomeScreen.classList.add('hidden');
+  safeResultScreen.classList.add('hidden');
+  safeReviewScreen.classList.add('hidden');
   safeQuizScreen.classList.remove('hidden');
 
   requestFullscreen();

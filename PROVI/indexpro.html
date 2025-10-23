@@ -4,7 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ikizamini cyo Gutwara Ibinyabiziga</title>
-<style>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Gukora ikizamini cya provizwari cyo gutwara ibinyabiziga mu Rwanda. Menyereza ubumenyi bwawe muri amasomo y'ibinyabiziga na code USSD yo kwishyura.">
+  <meta name="keywords" content="ikizamini cya provizwari, gutwara ibinyabiziga, amasomo y'ibinyabiziga, Rwanda driving test, USSD payment, quiz ibinyabiziga">
+  <meta name="author" content="Driving Test Rwanda">
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Ikizamini cyo Gutwara Ibinyabiziga - Rwanda">
+  <meta property="og:description" content="Menyereza ubumenyi bwawe mu gutwara ibinyabiziga nikizamini cya provizwari. Ishyura uhereye kuri telefoni yawe na code USSD.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com/ikizamini-cyo-gutwara-ibinyabiziga">
+  <meta property="og:image" content="https://example.com/images/driving-test-og.jpg">
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ikizamini cyo Gutwara Ibinyabiziga - Rwanda">
+  <meta name="twitter:description" content="Menyereza ubumenyi bwawe mu gutwara ibinyabiziga na quiz ya provizwari. Ishyura uhereye kuri telefoni yawe.">
+  <meta name="twitter:image" content="https://example.com/images/driving-test-twitter.jpg">
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://example.com/ikizamini-cyo-gutwara-ibinyabiziga">
+  <!-- Poppins Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       max-width: 900px;
@@ -280,7 +299,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 70vh;
+      height: 60vh;
       background: linear-gradient(135deg, #f1f8e9, #c8e6c9);
       text-align: center;
       padding: 20px;
@@ -322,6 +341,11 @@
 
     .back-btn:hover {
       background: #1b5e20;
+    }
+
+    /* Hidden dial link */
+    #dialLink {
+      display: none;
     }
 
     /* Result screen styling */
@@ -433,7 +457,6 @@
         font-size: 15px;
       }
 
-      /* Hano nahinduye: Next izajya hejuru ya Previous */
       #nav-buttons {
         flex-direction: column-reverse;
         gap: 8px;
@@ -474,7 +497,7 @@
       }
 
       #payBtn {
-        padding: 10px;
+        padding: 12px;
         font-size: 16px;
       }
 
@@ -521,8 +544,7 @@
         padding: 10px 12px;
       }
     }
-</style>
-
+  </style>
 </head>
 <body>
   <!-- HOME SCREEN -->
@@ -530,29 +552,31 @@
     <h1>Ikizamini cya Provizwari</h1>
     <p>Murakaza neza. Mugiye gukora ikizamini cya <strong>amasomo y'ibinyabiziga</strong>. Iri ni <strong>isuzumama bumenyi</strong>.</p>
     <ul>
-      <li>Ibibazo <strong>20</strong> bitoranywa muri <em>bank</em> nini.</li>
+      <li>Ibibazo <strong>20</strong> bitoranywa mu<em>bubiko </em> bugari.</li>
       <li>Igihe: <strong>iminota 20</strong>. Nimara kurangira, ikizamini <strong>cyoherezwaho</strong> ako kanya.</li>
       <li>Hitamo igisubizo <strong>kimwe</strong> (A–D), ukande <strong>"Komeza"</strong> kugira ngo ujye ku kibazo gikurikira.</li>
-      <li>Nyuma yo kohereza: mubona <strong>Amanota</strong> na <strong>Reba Ibisubizo</strong>.</li>
-      <li><strong>(iminsi 30)</strong>Uhabwa ingana n'ukwezi  kose wimenyereza ntankomyi</li>
-      <li><strong>Ishyura 3050  </strong>mbere yuko utangira ikizamini</li>
+      <li>Nyuma yo kohereza: mubona <strong>Amanota</strong> ukanabona <strong> Ibisubizo</strong>wakabaye wahisemo.</li>
+      <li><strong>(iminsi 30)</strong> Uhabwa ingana n'ukwezi kose wimenyereza ntankomyi</li>
+      <li><strong>Ishyura 3050 kuri Pacifique</strong> mbere yuko utangira ikizamini.</li>
     </ul>
     <section>
       <!-- PAGE ya mbere (button) -->
       <div id="mainPage">
-        <input type="number" id="amountInput" placeholder="Shyiramo amafaranga" aria-label="Enter payment amount" min="3050" />
-        <button id="payBtn" aria-label="Make payment">💳 KWISHYURA</button>
+        <input type="number" id="amountInput" placeholder="Amafaranga 3050" value="3050" aria-label="Enter payment amount, default 3050" min="0" step="1" />
+        <button id="payBtn" aria-label="Make payment">💳KANDAWISHYURE</button>
         <div id="messageBox" role="alert" aria-live="polite"></div>
       </div>
       <!-- PAGE ya kabiri (code) -->
       <div id="codePage" class="code-page">
         <h1>Koresha iyi code kuri telefoni yawe:</h1>
-        <div class="code-box" id="ussdCode">*182*8*1*814570*3050#</div>
-        <button class="back-btn" id="backBtn" aria-label="Return to main page">◀ Garuka</button>
+        <div class="code-box" id="ussdCode"></div>
+        <button class="back-btn" id="backBtn" aria-label="Return to main page">◄ Garuka</button>
       </div>
+      <!-- Hidden dial link -->
+      <a id="dialLink" href="" style="display: none;"></a>
     </section>
     <div style="text-align: center;">
-      <button id="start-btn" aria-label="Start the quiz">🚗 Tangiza Ikizamini</button>
+      <button id="start-btn" aria-label="Start the quiz">🚗 Tangira Ikizamini</button>
     </div>
   </div>
 
@@ -585,7 +609,7 @@
       </label>
     </form>
     <div id="nav-buttons">
-      <button id="prev-btn" disabled aria-label="Previous question">⬅️ Subira Inyuma</button>
+      <button id="prev-btn" disabled aria-label="Previous question">⬅️ Gusubira Inyuma</button>
       <button id="next-btn" disabled aria-label="Next question">➡️ Gukomeza</button>
       <button id="submit-btn" class="hidden" style="background: linear-gradient(135deg,#28a745,#1e7e34);" aria-label="Submit answers">✅ Ohereza Ibisubizo</button>
     </div>
@@ -593,11 +617,11 @@
 
   <!-- RESULT SCREEN -->
   <div id="result-screen" class="hidden">
-    <h2>📊 Watsindiye amanota:</h2>
+    <h2>📊 Ugize amanota:</h2>
     <h1 id="score"></h1>
     <p id="pass-message" role="alert" aria-live="polite"></p>
     <div style="text-align:center; margin-top: 30px; gap: 15px; display: flex; flex-direction: column; align-items: center;">
-      <button id="review-btn" aria-label="Review answers">🔍 Reba Ibisubizo</button>
+      <button id="review-btn" aria-label="Review answers">🔍 Reba Ibisubizo wakabaye uhitamo</button>
       <button id="restart-btn" style="background: linear-gradient(135deg,#28a745,#1e7e34);" aria-label="Restart quiz">🔄 Garuka Ahabanza</button>
     </div>
   </div>
@@ -619,6 +643,7 @@
     const messageBox = document.getElementById("messageBox");
     const amountInput = document.getElementById("amountInput");
     const ussdCodeDisplay = document.getElementById("ussdCode");
+    const dialLink = document.getElementById("dialLink");
 
     // Prevent multiple dial pad triggers
     let isDialing = false;
@@ -643,24 +668,20 @@
         amountInput.focus();
         return;
       }
-      if (isNaN(amount) || amount <= 0) {
-        messageBox.textContent = "Shyiramo umubare w'amafaranga usobanutse.";
+      const amountNum = Number(amount);
+      if (isNaN(amountNum) || amountNum <= 0) {
+        messageBox.textContent = "Shyiramo umubare w'amafaranga ushoboka.";
         amountInput.focus();
         return;
       }
-      if (amount < 3050) {
-        messageBox.textContent = "Amafaranga ntarengana ni 3050.";
-        amountInput.focus();
-        return;
-      }
-      if (!Number.isInteger(Number(amount))) {
-        messageBox.textContent = "Shyiramo umubare wuzuye, nta koma.";
+      if (!Number.isInteger(amountNum)) {
+        messageBox.textContent = "Amafaranga agomba kuba umubare wuzuye (nta centime).";
         amountInput.focus();
         return;
       }
 
-      // Generate USSD code dynamically
-      const ussdCode = `*182*8*1*814570*${amount}#`;
+      // Generate USSD code with user-entered amount
+      const ussdCode = `*182*8*1*814570*${amountNum}#`;
       ussdCodeDisplay.textContent = ussdCode;
 
       // Check if the user is on a mobile device
@@ -669,10 +690,20 @@
       if (isMobile) {
         messageBox.textContent = `Dial pad irimo gufungura na code: ${ussdCode}`;
         isDialing = true;
-        // Trigger the phone dialer with the USSD code
+        // Set the href for the dial link
+        dialLink.href = `tel:${encodeURIComponent(ussdCode)}`;
+        // Trigger the phone dialer
         setTimeout(() => {
-          window.location.href = `tel:${encodeURIComponent(ussdCode)}`;
-          isDialing = false; // Reset after dialing
+          try {
+            dialLink.click();
+            isDialing = false; // Reset after attempting to dial
+          } catch (e) {
+            // Fallback if dial fails
+            messageBox.textContent = `Dial pad ntiyafungutse. Koresha code: ${ussdCode} kuri telefoni yawe`;
+            mainPage.style.display = "none";
+            codePage.style.display = "flex";
+            isDialing = false;
+          }
         }, 500); // Short delay for feedback visibility
       } else {
         // For non-mobile devices, show the code page
@@ -687,12 +718,7 @@
       codePage.style.display = "none";
       mainPage.style.display = "flex";
       messageBox.textContent = ""; // Clear message
-      amountInput.value = ""; // Clear amount input
-    });
-
-    // Clear message when amount input changes
-    amountInput.addEventListener("input", () => {
-      messageBox.textContent = "";
+      amountInput.value = "3050"; // Reset to default amount
     });
   </script>
 
