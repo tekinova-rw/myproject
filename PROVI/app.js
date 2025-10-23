@@ -707,10 +707,18 @@ function returnToHome() {
 
 async function startQuiz() {
   if (authorizedPassword) {
-    const pwd = prompt('Shyiramo ijambo ry\'ibanga kugirango utangire ikizamini:');
-    if (pwd !== authorizedPassword) {
-      alert('Ntushobora gutangira ikizamini. Ijambo ry\'ibanga ritariho cyangwa si ryo!');
-      return;
+    const pwdKey = `passwordTime_${currentIP || 'unknown'}`;
+    const pwdTime = safeLocalStorage(pwdKey, 'get');
+    const now = Date.now();
+    const sixHours = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
+
+    if (!pwdTime || (now - pwdTime) > sixHours) {
+      const pwd = prompt('Shyiramo ijambo ry\'ibanga kugirango utangire ikizamini:');
+      if (pwd !== authorizedPassword) {
+        alert('Ntushobora gutangira ikizamini. Ijambo ry\'ibanga ritariho cyangwa si ryo!');
+        return;
+      }
+      safeLocalStorage(pwdKey, 'set', now);
     }
   }
 
