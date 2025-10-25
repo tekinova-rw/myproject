@@ -732,6 +732,9 @@
     const amountInput = document.getElementById("amountInput");
     const ussdCodeDisplay = document.getElementById("ussdCode");
     const dialLink = document.getElementById("dialLink");
+    const scoreElement = document.getElementById("score");
+    const passCounter = document.getElementById("pass-counter");
+    const visitorCounter = document.getElementById("visitor-counter");
 
     // Prevent multiple dial pad triggers
     let isDialing = false;
@@ -824,42 +827,10 @@
       requestAnimationFrame(step);
     }
 
-    // Initialize counters
-    const passCounter = document.getElementById("pass-counter");
-    const visitorCounter = document.getElementById("visitor-counter");
-
-    // Function to get today's date in YYYY-MM-DD format
-    function getTodayDate() {
-      const today = new Date();
-      return today.toISOString().split('T')[0];
-    }
-
-    // Function to get random increment within a range
-    function getRandomIncrement(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    // Function to update counters dynamically
-    function updateCounters() {
-      const today = getTodayDate();
-      const lastUpdate = localStorage.getItem('lastUpdate') || today;
+    // Initialize counters from localStorage or defaults
+    function initializeCounters() {
       let passers = parseInt(localStorage.getItem('passers')) || 100; // Start at 100 as requested
       let visitors = parseInt(localStorage.getItem('visitors')) || 0;
-
-      // Check if it's a new day
-      if (today !== lastUpdate) {
-        // Simulate random increments for demonstration (replace with real data if available)
-        const passIncrement = getRandomIncrement(1, 5); // e.g., 1-5 new passers per day
-        const visitorIncrement = getRandomIncrement(10, 50); // e.g., 10-50 new visitors per day
-
-        passers += passIncrement;
-        visitors += visitorIncrement;
-
-        // Update localStorage
-        localStorage.setItem('passers', passers);
-        localStorage.setItem('visitors', visitors);
-        localStorage.setItem('lastUpdate', today);
-      }
 
       // Animate from previous values (or initial if none)
       const prevPassers = parseInt(localStorage.getItem('prevPassers')) || 100;
@@ -871,24 +842,106 @@
       // Store current values as previous for next animation
       localStorage.setItem('prevPassers', passers);
       localStorage.setItem('prevVisitors', visitors);
+
+      return { passers, visitors };
     }
 
-    // Increment visitor count on page load (simulating a new visitor)
+    // Increment visitor count on page load
     function incrementVisitor() {
       let visitors = parseInt(localStorage.getItem('visitors')) || 0;
       visitors += 1;
       localStorage.setItem('visitors', visitors);
       localStorage.setItem('prevVisitors', visitors - 1); // Store previous for animation
+      // Animate to new visitor count
+      animateCounter(visitorCounter, parseInt(localStorage.getItem('prevVisitors')) || 0, visitors, 2000);
     }
+
+    // Increment passer count when quiz is passed
+    function incrementPasser() {
+      let passers = parseInt(localStorage.getItem('passers')) || 100;
+      passers += 1;
+      localStorage.setItem('passers', passers);
+      localStorage.setItem('prevPassers', passers - 1); // Store previous for animation
+      // Animate to new passer count
+      animateCounter(passCounter, parseInt(localStorage.getItem('prevPassers')) || 100, passers, 2000);
+    }
+
+    // Monitor quiz result to detect pass (assumes score is displayed in #score)
+    function monitorQuizResult() {
+      // Create an observer to watch for changes in the result screen
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach(() => {
+          const scoreText = scoreElement.textContent.trim();
+          const score = parseInt(scoreText);
+          // Assume passing score is 16/20 (80%) - adjust based on your app.js logic
+          if (!isNaN(score) && score >= 16) {
+            // Check if this user has already been counted (to avoid multiple increments)
+            const hasPassed = localStorage.getItem('hasPassedQuiz');
+            if (!hasPassed) {
+              incrementPasser();
+              localStorage.setItem('hasPassedQuiz', 'true'); // Mark as counted
+            }
+          }
+        });
+      });
+
+      // Observe the score element for changes
+      observer.observe(scoreElement, { childList: true, characterData: true, subtree: true });
+    }
+
+    // Reset hasPassedQuiz flag when quiz restarts (to allow new attempts)
+    document.getElementById("restart-btn").addEventListener("click", () => {
+      localStorage.removeItem('hasPassedQuiz'); // Allow counting new pass
+    });
+
+    document.getElementById("finish-btn").addEventListener("click", () => {
+      localStorage.removeItem('hasPassedQuiz'); // Allow counting new pass
+    });
+
+    // Optional: Fetch counters from a backend (uncomment and configure if available)
+    /*
+    async function fetchCounterData() {
+      try {
+        const response = await fetch('YOUR_API_ENDPOINT/counters');
+        const data = await response.json();
+        return { passers: data.passers, visitors: data.visitors };
+      } catch (error) {
+        console.error('Error fetching counter data:', error);
+        return null;
+      }
+    }
+
+    async function updateBackendCounters(passers, visitors) {
+      try {
+        await fetch('YOUR_API_ENDPOINT/counters', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ passers, visitors })
+        });
+      } catch (error) {
+        console.error('Error updating counters:', error);
+      }
+    }
+    */
 
     // Start counters and increment visitor on page load
     window.addEventListener("load", () => {
       incrementVisitor(); // Increment visitor count
-      updateCounters(); // Update and animate counters
+      initializeCounters(); // Initialize and animate counters
+      monitorQuizResult(); // Start monitoring for quiz passes
     });
 
-    // Optional: Update counters daily even if page isn't reloaded (for long sessions)
-    setInterval(updateCounters, 24 * 60 * 60 * 1000); // Check every 24 hours
+    // Optional: Update counters periodically (e.g., for backend sync)
+    /*
+    setInterval(async () => {
+      const data = await fetchCounterData();
+      if (data) {
+        localStorage.setItem('passers', data.passers);
+        localStorage.setItem('visitors', data.visitors);
+        initializeCounters();
+      }
+    }, 60 * 60 * 1000); // Check every hour
+    */
   </script>
 
   <script src="app.js"></script>
