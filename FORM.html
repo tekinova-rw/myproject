@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="rw">
 <head>
   <meta charset="UTF-8">
@@ -148,7 +148,6 @@
       <input type="text" name="father_isibo" placeholder="Father's Isibo" required>
       <input type="text" name="father_umudugudu" placeholder="Father's Umudugudu" required>
       <input type="text" name="father_umurenge" placeholder="Father's Umurenge" required>
-
       <select id="father_intara" name="father_intara" onchange="updateDistricts('father')" required>
         <option value="">-- Hitamo Intara --</option>
         <option value="Kigali">Umujyi wa Kigali</option>
@@ -157,18 +156,15 @@
         <option value="Eastern">Iburasirazuba</option>
         <option value="Western">Iburengerazuba</option>
       </select>
-
       <select id="father_akarere" name="father_akarere" required>
         <option value="">-- Hitamo Akarere --</option>
       </select>
-
       <input type="text" name="father_country" placeholder="Father's Country" required>
 
       <h4>Mother's Residence</h4>
       <input type="text" name="mother_isibo" placeholder="Mother's Isibo" required>
       <input type="text" name="mother_umudugudu" placeholder="Mother's Umudugudu" required>
       <input type="text" name="mother_umurenge" placeholder="Mother's Umurenge" required>
-
       <select id="mother_intara" name="mother_intara" onchange="updateDistricts('mother')" required>
         <option value="">-- Hitamo Intara --</option>
         <option value="Kigali">Umujyi wa Kigali</option>
@@ -177,11 +173,9 @@
         <option value="Eastern">Iburasirazuba</option>
         <option value="Western">Iburengerazuba</option>
       </select>
-
       <select id="mother_akarere" name="mother_akarere" required>
         <option value="">-- Hitamo Akarere --</option>
       </select>
-
       <input type="text" name="mother_country" placeholder="Mother's Country" required>
 
       <button type="button" class="prev-btn">Previous</button>
@@ -194,7 +188,6 @@
       <input type="text" name="isibo" placeholder="Isibo" required>
       <input type="text" name="umudugudu" placeholder="Umudugudu" required>
       <input type="text" name="umurenge" placeholder="Umurenge" required>
-
       <select id="your_intara" name="intara" onchange="updateDistricts('your')" required>
         <option value="">-- Hitamo Intara --</option>
         <option value="Kigali">Umujyi wa Kigali</option>
@@ -203,11 +196,9 @@
         <option value="Eastern">Iburasirazuba</option>
         <option value="Western">Iburengerazuba</option>
       </select>
-
       <select id="your_akarere" name="akarere" required>
         <option value="">-- Hitamo Akarere --</option>
       </select>
-
       <input type="text" name="country" placeholder="Country" required>
 
       <button type="button" class="prev-btn">Previous</button>
@@ -236,7 +227,7 @@
     <!-- Step 5: Upload Documents -->
     <div class="form-step">
       <h3>Upload Documents</h3>
-      <input type="file" name="documents" multiple required>
+      <input type="file" name="documents[]" multiple required>
 
       <button type="button" class="prev-btn">Previous</button>
       <button type="submit" class="submit-btn">Submit Application</button>

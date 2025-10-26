@@ -23,9 +23,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <!-- gusubira hejuru -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-</head>
-
-  
   <style>
     * {
       box-sizing: border-box;
@@ -525,6 +522,124 @@
       transform: rotate(180deg);
     }
 
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1001;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 15px;
+      color: #012f47;
+      text-align: center;
+    }
+
+    .modal-content form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .modal-content input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .modal-content button {
+      padding: 10px;
+      background-color: #2e69b8;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+
+    .modal-content button:hover {
+      background-color: #000c05;
+    }
+
+    .modal-content .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .modal-content .close:hover {
+      color: #d4af37;
+    }
+
+    .modal-content .toggle-form {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .modal-content .toggle-form a {
+      color: #2e69b8;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .modal-content .toggle-form a:hover {
+      color: #d4af37;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 12px;
+      display: none;
+      text-align: center;
+    }
+
+    /* Password Toggle Styles */
+    .password-container {
+      position: relative;
+    }
+
+    .password-container input {
+      width: 100%;
+      padding-right: 40px; /* Space for eye icon */
+    }
+
+    .password-container i {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #333;
+      font-size: 16px;
+    }
+
+    .password-container i:hover {
+      color: #2e69b8;
+    }
+
     /* Responsive Styles */
     @media (max-width: 1024px) {
       .footer-columns {
@@ -587,6 +702,24 @@
         width: 100%;
         max-width: 768px;
       }
+
+      .modal-content {
+        padding: 15px;
+      }
+
+      .modal-content h2 {
+        font-size: 1.5rem;
+      }
+
+      .modal-content input, .modal-content button {
+        font-size: 13px;
+        padding: 8px;
+      }
+
+      .password-container i {
+        font-size: 14px;
+        right: 8px;
+      }
     }
 
     @media (max-width: 576px) {
@@ -625,6 +758,29 @@
         width: 100%;
         max-width: 576px;
       }
+
+      .modal-content {
+        width: 95%;
+        padding: 12px;
+      }
+
+      .modal-content h2 {
+        font-size: 1.3rem;
+      }
+
+      .modal-content input, .modal-content button {
+        font-size: 12px;
+        padding: 7px;
+      }
+
+      .toggle-form {
+        font-size: 12px;
+      }
+
+      .password-container i {
+        font-size: 13px;
+        right: 7px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -657,6 +813,14 @@
       .moving-image {
         width: 100%;
         max-width: 480px;
+      }
+
+      .modal-content {
+        padding: 10px;
+      }
+
+      .modal-content input, .modal-content button {
+        padding: 6px;
       }
     }
 
@@ -781,96 +945,194 @@
     }
     /* ibyo dukora */
     /* ===== SERVICE DUTANGA (scoped) ===== */
-#service-dutanga{
-  --sd-bg: #9fb2c5;    /* light blue background */
-  --sd-panel:#005f73;  /* dark blue */
-  --sd-accent:#f7df1e; /* yellow */
-  --sd-brown:#b67c2f;  /* brown abstract */
-  --sd-text:white;
-  --sd-radius:16px;
-  --sd-shadow:0 8px 24px rgba(0,0,0,.18);
+    #service-dutanga {
+      --sd-bg: #9fb2c5;    /* light blue background */
+      --sd-panel: #005f73;  /* dark blue */
+      --sd-accent: #f7df1e; /* yellow */
+      --sd-brown: #b67c2f;  /* brown abstract */
+      --sd-text: white;
+      --sd-radius: 16px;
+      --sd-shadow: 0 8px 24px rgba(0,0,0,.18);
 
-  display:grid;
-  grid-template-columns: 1fr 2fr;
-  gap:18px;
-  background:var(--sd-bg);
-  padding:16px;
-  font-size: xx-large;
-}
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 18px;
+      background: var(--sd-bg);
+      padding: 16px;
+      font-size: xx-large;
+    }
 
-/* left side */
-#service-dutanga .sd-left{display:flex;flex-direction:column;gap:18px}
-#service-dutanga .sd-device{
-  background:#fff;border-radius:var(--sd-radius);box-shadow:var(--sd-shadow);
-  padding:12px;display:flex;align-items:center;justify-content:center;min-height:180px
-}
-#service-dutanga .sd-device img{max-width:100%;height:auto;display:block}
-#service-dutanga .sd-abstract{
-  background:var(--sd-brown);border-radius:10px;min-height:320px;position:relative;overflow:hidden
-}
-#service-dutanga .sd-abstract::before{
-  content:"";position:absolute;inset:18px 24px;border-radius:12px;
-  background:
-    radial-gradient(120px 160px at 40% 45%, transparent 60%, transparent 61%),
-    radial-gradient(40px 50px at 60% 20%, #7aa13a 49%, transparent 51%),
-    radial-gradient(36px 46px at 62% 78%, #7aa13a 49%, transparent 51%),
-    var(--sd-bg);
-}
+    /* left side */
+    #service-dutanga .sd-left {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
 
-/* right panel */
-#service-dutanga .sd-panel{
-  background:var(--sd-panel);color:var(--sd-text);
-  border-radius:var(--sd-radius);padding:26px;box-shadow:var(--sd-shadow);
-  display:flex;flex-direction:column;gap:16px
-}
-#service-dutanga .sd-head{display:flex;align-items:center;gap:10px}
-#service-dutanga .sd-quote-open{color:var(--sd-accent);font-size:42px;font-weight:800;line-height:.8}
-#service-dutanga .sd-title{margin:0;font-size:26px;letter-spacing:.5px}
-#service-dutanga .sd-services{margin:0;padding-left:20px;display:grid;gap:10px;font-size:16px}
-#service-dutanga .sd-bottom{margin-top:auto;display:flex;align-items:center;gap:12px;position:relative}
-#service-dutanga .sd-logo{
-  background:#fff;border-radius:10px;padding:8px;width:92px;height:72px;
-  display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.2)
-}
-#service-dutanga .sd-logo img{max-width:100%;max-height:100%}
-#service-dutanga .sd-accent{flex:1;height:52px;background:var(--sd-accent);border-radius:10px}
-#service-dutanga .sd-quote-close{
-  position:absolute;right:14px;bottom:-6px;font-size:46px;font-weight:800;color:var(--sd-accent);line-height:.6
-}
+    #service-dutanga .sd-device {
+      background: #fff;
+      border-radius: var(--sd-radius);
+      box-shadow: var(--sd-shadow);
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 180px;
+    }
 
-/* responsiveness */
-@media (max-width: 920px){
-  #service-dutanga{grid-template-columns:1fr}
-  #service-dutanga .sd-abstract{min-height:200px}
-}
-@media (max-width: 480px){
-  #service-dutanga .sd-title{font-size:22px}
-  #service-dutanga .sd-quote-open{font-size:36px}
-  #service-dutanga .sd-services{font-size:15px}
-  #service-dutanga .sd-accent{height:46px}
-}
-/* gusubira hejuru */
-#topBtn {
-  display: none;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 99;
-  font-size: 70px;
-  background-color: #2e69b8;
-  color: white;
-  border: none;
-  padding: 10px 1px;
-  border-radius: 10%;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-  transition: background-color 0.3s ease;
-}
-#topBtn:hover {
-  background-color: #555;
-}
+    #service-dutanga .sd-device img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
 
+    #service-dutanga .sd-abstract {
+      background: var(--sd-brown);
+      border-radius: 10px;
+      min-height: 320px;
+      position: relative;
+      overflow: hidden;
+    }
 
+    #service-dutanga .sd-abstract::before {
+      content: "";
+      position: absolute;
+      inset: 18px 24px;
+      border-radius: 12px;
+      background:
+        radial-gradient(120px 160px at 40% 45%, transparent 60%, transparent 61%),
+        radial-gradient(40px 50px at 60% 20%, #7aa13a 49%, transparent 51%),
+        radial-gradient(36px 46px at 62% 78%, #7aa13a 49%, transparent 51%),
+        var(--sd-bg);
+    }
+
+    /* right panel */
+    #service-dutanga .sd-panel {
+      background: var(--sd-panel);
+      color: var(--sd-text);
+      border-radius: var(--sd-radius);
+      padding: 26px;
+      box-shadow: var(--sd-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    #service-dutanga .sd-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #service-dutanga .sd-quote-open {
+      color: var(--sd-accent);
+      font-size: 42px;
+      font-weight: 800;
+      line-height: .8;
+    }
+
+    #service-dutanga .sd-title {
+      margin: 0;
+      font-size: 26px;
+      letter-spacing: .5px;
+    }
+
+    #service-dutanga .sd-services {
+      margin: 0;
+      padding-left: 20px;
+      display: grid;
+      gap: 10px;
+      font-size: 16px;
+    }
+
+    #service-dutanga .sd-bottom {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+    }
+
+    #service-dutanga .sd-logo {
+      background: #fff;
+      border-radius: 10px;
+      padding: 8px;
+      width: 92px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,.2);
+    }
+
+    #service-dutanga .sd-logo img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    #service-dutanga .sd-accent {
+      flex: 1;
+      height: 52px;
+      background: var(--sd-accent);
+      border-radius: 10px;
+    }
+
+    #service-dutanga .sd-quote-close {
+      position: absolute;
+      right: 14px;
+      bottom: -6px;
+      font-size: 46px;
+      font-weight: 800;
+      color: var(--sd-accent);
+      line-height: .6;
+    }
+
+    /* responsiveness */
+    @media (max-width: 920px) {
+      #service-dutanga {
+        grid-template-columns: 1fr;
+      }
+      #service-dutanga .sd-abstract {
+        min-height: 200px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #service-dutanga .sd-title {
+        font-size: 22px;
+      }
+      #service-dutanga .sd-quote-open {
+        font-size: 36px;
+      }
+      #service-dutanga .sd-services {
+        font-size: 15px;
+      }
+      #service-dutanga .sd-accent {
+        height: 46px;
+      }
+    }
+
+    /* gusubira hejuru */
+    #topBtn {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 99;
+      font-size: 70px;
+      background-color: #2e69b8;
+      color: white;
+      border: none;
+      padding: 10px 1px;
+      border-radius: 10%;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    #topBtn:hover {
+      background-color: #555;
+    }
   </style>
 </head>
 <body>
@@ -901,13 +1163,7 @@
         </li>
         <li>
           <a href="QUIARA.html">▼QR code making</a>
-        <div class="mobile-dropdown-toggle" data-toggle="jobs">
-        </div>
-        <!-- <div class="mobile-dropdown">
-          <a href="QUIARA.html" lang="en">QR MAKING</a>
-          <a href="provizwari/index.html" lang="en">PROVISUAL TEST</a>
-        </div> -->
-      </li>
+        </li>
         <li>
           <a href="#" lang="en">Services</a>
           <div class="dropdown">
@@ -967,6 +1223,12 @@
             <a href="amasahayakazi.html" lang="rw">▼Our Calendar Days</a>
           </div>
         </li>
+        <li>
+          <a href="#" id="signupLink" lang="en">Sign Up</a>
+        </li>
+        <li>
+          <a href="#" id="loginLink" lang="en">Login</a>
+        </li>
       </ul>
     </nav>
     <!-- Menu Icon (right side, desktop) -->
@@ -985,73 +1247,69 @@
    zikurikira watwandikira unyuze kuri buto
    ya twandikire cyangwa ukaduhamagara kuri (+250)780019239!</b></div>
   </div>
-<!-- ibyodukora  -->
-<section class="sd" id="service-dutanga">
-  <div class="sd-left">
-    <figure class="sd-device">
-      <!-- SHYIRAMO IFOTO YAWE YA COMPUTER -->
-      <img src="computer.webp" alt="Desktop computer" loading="lazy">
-    </figure>
-    <div class="sd-abstract" aria-hidden="true"></div>
-  </div>
 
-  <div class="sd-panel">
-    <div class="sd-head">
-      <span class="sd-quote-open">“</span>
-      <h2 class="sd-title">SERVICE&nbsp;DUTANGA</h2>
+  <!-- ibyodukora  -->
+  <section class="sd" id="service-dutanga">
+    <div class="sd-left">
+      <figure class="sd-device">
+        <!-- SHYIRAMO IFOTO YAWE YA COMPUTER -->
+        <img src="computer.webp" alt="Desktop computer" loading="lazy">
+      </figure>
+      <div class="sd-abstract" aria-hidden="true"></div>
     </div>
 
-    <ol class="sd-services">
-      <li>Web designing.</li>
-      <li>Guhanga email cg kuzihuza na SIM card yawe.</li>
-      <li>Application mur University zitandukanye.</li>
-      <li>Gukora account zitandukanye yaba MIFOTRA, Irembo, imbuga nkoranyambaga n'ibindi.</li>
-      <li>Kwandika kubyapa yaba ibito cg ibinini.</li>
-      <li>Kwandika amamenyesha y'ubukwe n’indi mihango itandukanye.</li>
-      <li>Kumenyesha akazi no kugufasha gusaba akazi.</li>
-      <li>Computer maintenance and networking.</li>
-      <li>Mobile app.</li>
-      <li>Gufasha umuntu ufite ikibazo cyo kudepoza kuri MIFOTRA bakakubwira ngo “you are not qualified” kandi wujuje ibisabwa.</li>
-      <h1> In english</h1>
-      <li>Graphic design (logos, posters, flyers).</li>
-      <li>Video editing no gukora short clips.</li>
-      <li>Digital marketing (SEO, social media campaigns).</li>
-      <li>Developing websites of e-commerce.</li>
-      <li>IT training & tutoring (beginners and advanced).</li>
-      <li>Database setup & management.</li>
-      <li>Cyber security awareness & support.</li>
-      <li>Document typing & formatting (Word, Excel, PowerPoint).</li>
-      <li>Translation services (EN–RW, RW–EN).</li>
-      <li>Photography & photo editing.</li>
-      <li>Online job application assistance.</li>
-      <li>Domain & hosting setup.</li>
-      <li>Email marketing campaigns.</li>
-      <li>Data recovery & backup solutions.</li>
-      <li>Consulting services for tech-related projects.</li>
-    </ol>
-
-    <div class="sd-bottom">
-      <!-- SHYIRAMO LOGO YAWE NYAYO -->
-      <div class="sd-logo">
-        <img src="inama2.webp" alt="Company logo" loading="lazy">
+    <div class="sd-panel">
+      <div class="sd-head">
+        <span class="sd-quote-open">“</span>
+        <h2 class="sd-title">SERVICE&nbsp;DUTANGA</h2>
       </div>
-      <div class="sd-accent" title="Decoration"></div>
-      <span class="sd-quote-close">”</span>
-    </div>
-  </div>
-</section>
 
+      <ol class="sd-services">
+        <li>Web designing.</li>
+        <li>Guhanga email cg kuzihuza na SIM card yawe.</li>
+        <li>Application mur University zitandukanye.</li>
+        <li>Gukora account zitandukanye yaba MIFOTRA, Irembo, imbuga nkoranyambaga n'ibindi.</li>
+        <li>Kwandika kubyapa yaba ibito cg ibinini.</li>
+        <li>Kwandika amamenyesha y'ubukwe n’indi mihango itandukanye.</li>
+        <li>Kumenyesha akazi no kugufasha gusaba akazi.</li>
+        <li>Computer maintenance and networking.</li>
+        <li>Mobile app.</li>
+        <li>Gufasha umuntu ufite ikibazo cyo kudepoza kuri MIFOTRA bakakubwira ngo “you are not qualified” kandi wujuje ibisabwa.</li>
+        <h1>In english</h1>
+        <li>Graphic design (logos, posters, flyers).</li>
+        <li>Video editing no gukora short clips.</li>
+        <li>Digital marketing (SEO, social media campaigns).</li>
+        <li>Developing websites of e-commerce.</li>
+        <li>IT training & tutoring (beginners and advanced).</li>
+        <li>Database setup & management.</li>
+        <li>Cyber security awareness & support.</li>
+        <li>Document typing & formatting (Word, Excel, PowerPoint).</li>
+        <li>Translation services (EN–RW, RW–EN).</li>
+        <li>Photography & photo editing.</li>
+        <li>Online job application assistance.</li>
+        <li>Domain & hosting setup.</li>
+        <li>Email marketing campaigns.</li>
+        <li>Data recovery & backup solutions.</li>
+        <li>Consulting services for tech-related projects.</li>
+      </ol>
+
+      <div class="sd-bottom">
+        <!-- SHYIRAMO LOGO YAWE NYAYO -->
+        <div class="sd-logo">
+          <img src="inama2.webp" alt="Company logo" loading="lazy">
+        </div>
+        <div class="sd-accent" title="Decoration"></div>
+        <span class="sd-quote-close">”</span>
+      </div>
+    </div>
+  </section>
 
   <!-- Mobile Menu -->
   <div class="mobile-menu" id="mobileMenu">
     <ul>
-       <li><a href="features.html" lang="en">JOB & SCHOLARSHIPS</a></li>
+      <li><a href="features.html" lang="en">JOB & SCHOLARSHIPS</a></li>
       <li>
-          <a href="">QR making</a>
-        <div class="mobile-dropdown-toggle" data-toggle="jobs">
-          <a href="QUIARA.html" lang="en">QR MAKING</a>
-          <i class="fas fa-chevron-down"></i>
-        </div>
+        <a href="QUIARA.html" lang="en">QR code making</a>
       </li>
       <li>
         <div class="mobile-dropdown-toggle" data-toggle="about">
@@ -1121,8 +1379,9 @@
           <a href="" lang="en">Company Updates</a>
         </div>
       </li>
-    
       <li><a href="contact_us.html" lang="en">Contact</a></li>
+      <li><a href="#" id="signupLinkMobile" lang="en">Sign Up</a></li>
+      <li><a href="#" id="loginLinkMobile" lang="en">Login</a></li>
     </ul>
   </div>
 
@@ -1139,8 +1398,9 @@
       <a href="Products.html" lang="en"><i class="fas fa-box"></i> Products</a>
       <a href="Blog_Tech_News.html" lang="en"><i class="fas fa-blog"></i> Blog</a>
       <a href="Careers.html" lang="en"><i class="fas fa-briefcase"></i> Careers</a>
-      <!-- <a href="features.html" lang="en"><i class="fas fa-laptop-code"></i> Jobs</a> -->
       <a href="contact_us.html" lang="en"><i class="fas fa-envelope"></i> Contact</a>
+      <a href="#" id="signupLinkSidebar" lang="en"><i class="fas fa-user-plus"></i> Sign Up</a>
+      <a href="#" id="loginLinkSidebar" lang="en"><i class="fas fa-sign-in-alt"></i> Login</a>
     </nav>
     <div class="menu-widget">
       <h3 lang="en">Quick Stats</h3>
@@ -1167,6 +1427,64 @@
       <p lang="en"><i class="fas fa-sync-alt"></i> Website updated</p>
     </div>
   </aside>
+
+  <!-- Signup Modal -->
+  <div class="modal" id="signupModal">
+    <div class="modal-content">
+      <span class="close" id="closeSignup">&times;</span>
+      <h2 lang="en">Sign Up</h2>
+      <form action="signup.php" method="post">
+        <input type="text" name="name" id="signupName" placeholder="Full Name" required>
+        <input type="email" name="email" id="signupEmail" placeholder="Email" required>
+        <div class="password-container">
+          <input type="password" name="password" id="signupPassword" placeholder="Password" required>
+          <i class="fas fa-eye" id="toggleSignupPassword"></i>
+        </div>
+        <div class="error-message" id="signupError"></div>
+        <button type="submit" lang="en">Sign Up</button>
+      </form>
+      <div class="toggle-form" lang="en">
+        Already have an account? <a href="#" id="showLogin">Login</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <span class="close" id="closeLogin">&times;</span>
+      <h2 lang="en">Login</h2>
+      <form action="login.php" method="post">
+        <input type="email" name="email" id="loginEmail" placeholder="Email" required>
+        <div class="password-container">
+          <input type="password" name="password" id="loginPassword" placeholder="Password" required>
+          <i class="fas fa-eye" id="toggleLoginPassword"></i>
+        </div>
+        <div class="error-message" id="loginError"></div>
+        <button type="submit" lang="en">Login</button>
+      </form>
+      <div class="toggle-form" lang="en">
+        <a href="#" id="showReset">Forgot Password?</a> | 
+        <a href="#" id="showSignup">Sign Up</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Password Reset Modal -->
+  <div class="modal" id="resetModal">
+    <div class="modal-content">
+      <span class="close" id="closeReset">&times;</span>
+      <h2 lang="en">Reset Password</h2>
+      <form action="reset.php" method="post">
+        <input type="email" name="email" id="resetEmail" placeholder="Email" required>
+        <div class="error-message" id="resetError"></div>
+        <button type="submit" lang="en">Send Reset Link</button>
+      </form>
+      <div class="toggle-form" lang="en">
+        Back to <a href="#" id="showLoginFromReset">Login</a>
+      </div>
+    </div>
+  </div>
 
   <!-- Talk to Us -->
   <div class="floating-whatsapp-buttons left-side">
@@ -1195,13 +1513,13 @@
       </div>
       <div class="staff-card">
         <img src="JJ.jpg" alt="Jane Smith, Designer at Jobs and Scholarships" />
-        <h3 lang="en"> engineers group</h3>
+        <h3 lang="en">engineers group</h3>
         <p lang="en">Designer</p>
       </div>
       <div class="staff-card">
         <img src="jo.jpeg" alt="Mike Lee, Accountant at Jobs and Scholarships" />
         <h3 lang="en">J&S</h3>
-        <p lang="en">source </p>
+        <p lang="en">source</p>
       </div>
     </div>
   </main>
@@ -1267,16 +1585,15 @@
         <h3 lang="en">Jobs & Internships</h3>
         <a href="features.html" style="text-decoration: underline;" lang="en"><b>More Info</b></a>
       </div>
-       <div class="col">
+      <div class="col">
         <h3 lang="en">Jobs & Internships</h3>
         <a href="suprt.html" style="text-decoration: underline;" lang="en"><b>More Info</b></a>
       </div>
     </div>
     <button onclick="topFunction()" id="topBtn">
-  <i class="fa-solid fa-arrow-up"></i>
-</button>
-<a href="./QUIARA.html">generate own quiara code</a>
-
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+    <a href="./QUIARA.html">generate own quiara code</a>
   </footer>
 
   <!-- Internal JavaScript -->
@@ -1424,26 +1741,189 @@
     }
     setInterval(waveHand, 120000);
     waveHand();
-  </script>
-  <!-- buto yo gusubira hejuru -->
-   <script>
-  let mybutton = document.getElementById("topBtn");
 
-  window.onscroll = function() {scrollFunction()};
+    // Modal JavaScript (no form submission handlers; handled by PHP)
+    const signupModal = document.getElementById('signupModal');
+    const loginModal = document.getElementById('loginModal');
+    const resetModal = document.getElementById('resetModal');
+    const signupLink = document.getElementById('signupLink');
+    const loginLink = document.getElementById('loginLink');
+    const signupLinkMobile = document.getElementById('signupLinkMobile');
+    const loginLinkMobile = document.getElementById('loginLinkMobile');
+    const signupLinkSidebar = document.getElementById('signupLinkSidebar');
+    const loginLinkSidebar = document.getElementById('loginLinkSidebar');
+    const closeSignup = document.getElementById('closeSignup');
+    const closeLogin = document.getElementById('closeLogin');
+    const closeReset = document.getElementById('closeReset');
+    const showLogin = document.getElementById('showLogin');
+    const showSignup = document.getElementById('showSignup');
+    const showReset = document.getElementById('showReset');
+    const showLoginFromReset = document.getElementById('showLoginFromReset');
 
-  function scrollFunction() {
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-      mybutton.style.display = "block";
-    } else {
-      mybutton.style.display = "none";
+    // Show modals
+    signupLink.addEventListener('click', () => {
+      signupModal.style.display = 'flex';
+      document.getElementById('mobileMenu').classList.remove('active');
+      document.getElementById('menuSidebar').classList.remove('active');
+    });
+
+    loginLink.addEventListener('click', () => {
+      loginModal.style.display = 'flex';
+      document.getElementById('mobileMenu').classList.remove('active');
+      document.getElementById('menuSidebar').classList.remove('active');
+    });
+
+    signupLinkMobile.addEventListener('click', () => {
+      signupModal.style.display = 'flex';
+      document.getElementById('mobileMenu').classList.remove('active');
+    });
+
+    loginLinkMobile.addEventListener('click', () => {
+      loginModal.style.display = 'flex';
+      document.getElementById('mobileMenu').classList.remove('active');
+    });
+
+    signupLinkSidebar.addEventListener('click', () => {
+      signupModal.style.display = 'flex';
+      document.getElementById('menuSidebar').classList.remove('active');
+    });
+
+    loginLinkSidebar.addEventListener('click', () => {
+      loginModal.style.display = 'flex';
+      document.getElementById('menuSidebar').classList.remove('active');
+    });
+
+    // Toggle between modals
+    showLogin.addEventListener('click', () => {
+      signupModal.style.display = 'none';
+      loginModal.style.display = 'flex';
+    });
+
+    showSignup.addEventListener('click', () => {
+      loginModal.style.display = 'none';
+      signupModal.style.display = 'flex';
+    });
+
+    showReset.addEventListener('click', () => {
+      loginModal.style.display = 'none';
+      resetModal.style.display = 'flex';
+    });
+
+    showLoginFromReset.addEventListener('click', () => {
+      resetModal.style.display = 'none';
+      loginModal.style.display = 'flex';
+    });
+
+    // Close modals
+    closeSignup.addEventListener('click', () => {
+      signupModal.style.display = 'none';
+      document.getElementById('signupError').style.display = 'none';
+    });
+
+    closeLogin.addEventListener('click', () => {
+      loginModal.style.display = 'none';
+      document.getElementById('loginError').style.display = 'none';
+    });
+
+    closeReset.addEventListener('click', () => {
+      resetModal.style.display = 'none';
+      document.getElementById('resetError').style.display = 'none';
+    });
+
+    // Close modals on outside click
+    window.addEventListener('click', (event) => {
+      if (event.target === signupModal) {
+        signupModal.style.display = 'none';
+        document.getElementById('signupError').style.display = 'none';
+      }
+      if (event.target === loginModal) {
+        loginModal.style.display = 'none';
+        document.getElementById('loginError').style.display = 'none';
+      }
+      if (event.target === resetModal) {
+        resetModal.style.display = 'none';
+        document.getElementById('resetError').style.display = 'none';
+      }
+    });
+
+    // Close modals on Escape key
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        signupModal.style.display = 'none';
+        loginModal.style.display = 'none';
+        resetModal.style.display = 'none';
+        document.getElementById('signupError').style.display = 'none';
+        document.getElementById('loginError').style.display = 'none';
+        document.getElementById('resetError').style.display = 'none';
+      }
+    });
+
+    // Password Visibility Toggle
+    document.getElementById('toggleSignupPassword').addEventListener('click', function() {
+      const password = document.getElementById('signupPassword');
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      this.classList.toggle('fa-eye');
+      this.classList.toggle('fa-eye-slash');
+    });
+
+    document.getElementById('toggleLoginPassword').addEventListener('click', function() {
+      const password = document.getElementById('loginPassword');
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      this.classList.toggle('fa-eye');
+      this.classList.toggle('fa-eye-slash');
+    });
+
+    // Handle URL Query Params for Success/Error Messages (from PHP redirects)
+    window.addEventListener('load', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('success')) {
+        const success = urlParams.get('success');
+        if (success === 'signup') {
+          alert('Sign up successful! Please login.');
+          loginModal.style.display = 'flex';
+        } else if (success === 'login') {
+          alert('Welcome back!');
+        } else if (success === 'reset_sent') {
+          alert('Password reset link sent to your email.');
+        }
+      } else if (urlParams.has('error')) {
+        const error = urlParams.get('error');
+        if (error === 'email_exists') {
+          alert('Email already registered.');
+          signupModal.style.display = 'flex';
+        } else if (error === 'signup_failed') {
+          alert('Signup failed. Please try again.');
+          signupModal.style.display = 'flex';
+        } else if (error === 'invalid_credentials') {
+          alert('Invalid email or password.');
+          loginModal.style.display = 'flex';
+        } else if (error === 'email_not_found') {
+          alert('Email not found.');
+          resetModal.style.display = 'flex';
+        }
+      }
+      // Clear query params from URL
+      history.replaceState(null, null, window.location.pathname);
+    });
+
+    // Scroll to top
+    let mybutton = document.getElementById("topBtn");
+
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        mybutton.style.display = "block";
+      } else {
+        mybutton.style.display = "none";
+      }
     }
-  }
 
-  function topFunction() {
-    window.scrollTo({top: 0, behavior: 'smooth'});
-  }
-</script>
-</body>
-
+    function topFunction() {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+  </script>
 </body>
 </html>
