@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inyigisho ku Resume, Abaruwa n'Uko Byandikwa</title>
+  <style>
+    :root{--bg:#f4f6f8;--card:#ffffff;--muted:#6b7280;--accent:#0f766e}
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:var(--bg);margin:0;color:#0f172a}
+    .container{max-width:980px;margin:28px auto;padding:20px}
+    header{display:flex;justify-content:space-between;align-items:center}
+    h1{margin:0;font-size:20px}
+    p.lead{color:var(--muted);margin:6px 0 18px}
+    .card{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 6px 20px rgba(12,15,20,0.06);margin-bottom:16px}
+    h2{margin-top:0}
+    ul{margin:8px 0 8px 20px}
+    .code{background:#0f172a;color:#fff;padding:6px 10px;border-radius:6px;display:inline-block;font-family:monospace}
+    .btn{background:var(--accent);color:white;padding:8px 12px;border-radius:8px;border:none;cursor:pointer}
+    .examples{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .example{border:1px dashed rgba(15,118,110,0.12);padding:12px;border-radius:8px}
+    @media (max-width:720px){.examples{grid-template-columns:1fr}}
+    footer{color:var(--muted);font-size:13px;text-align:center;margin-top:8px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Umuyobozi w'Inyandiko: Resume, Abaruwa n'Uko Byandikwa</h1>
+        <p class="lead">Inyandiko imwe (single file) igufasha kumenya ubwoko bwa resume, abarukwa dukoresha mu gusaba akazi, n'amayeri yo kwandika CV ituma uba umwiza ku isoko ry'umurimo.</p>
+      </div>
+      <div>
+        <button class="btn" id="printBtn">Print / Save</button>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2>1. Resume vs CV — itandukaniro</h2>
+      <p>Resume na CV akenshi abantu bayivanga. Dore itandukaniro ry'ingenzi:</p>
+      <ul>
+        <li><strong>Resume</strong>: ni impapuro ngufi (1-2 pages) zerekana ubunararibonye, ubumenyi n'ubushobozi. Bikunze gukoreshwa mu mwuga wa private sector.</li>
+        <li><strong>CV (Curriculum Vitae)</strong>: ni inyandiko ndende, irambuye (2+ pages) ikubiyemo amahugurwa, ubushakashatsi, publications n'ibindi, bikoreshwa cyane mu mabwiriza ya academia n'ibigo by'ubushakashatsi.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>2. Ubwoko bwa Resume uko zakorwa</h2>
+      <ul>
+        <li><strong>Chronological (Gukurikiranya igihe)</strong>: yakusanyirije uko wagiye ukora kuva ku mirimo ya vuba kugera kure. Ni nziza ku bantu bafite ubunararibonye buhoraho.</li>
+        <li><strong>Functional (Bishingiye ku skills)</strong>: ishyira imbere ubumenyi n'ubushobozi aho gushyira imbere amateka y'akazi. Ikwiye ku bantu bahinduye umwuga cyangwa bafite intera zerekana ubumenyi.</li>
+        <li><strong>Combination (Ivangamutwe)</strong>: ihuza ibya chronology n'ibya skills — ni nziza ku bantu bafite ubumenyi bwinshi bashaka kugaragaza na experience.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>3. Abaruwa dukoresha mu gusaba akazi (Types of letters)</h2>
+      <ul>
+        <li><strong>Cover Letter / Application Letter</strong>: ni urwandiko rugaragaza impamvu usaba umwanya w'akazi, uburyo wahuza n'ibyifuzo by'umukoresha, n'ubusobanuro bw'ingenzi kuri resume yawe.</li>
+        <li><strong>Motivation Letter</strong>: ikoreshwa cyane mu masomo, scholarships, cyangwa applications zidasaba CV gusa — isobanura impamvu n'intego zawe.</li>
+        <li><strong>Recommendation Request</strong>: uko usaba umuntu kukwandikira reference / recommendation.</li>
+        <li><strong>Thank You Letter</strong>: nyuma yo kugirana interview, ushobora kohereza urwandiko rwo gushimira no kongera kugaragaza inyota yawe.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>4. Ibice by'ingenzi bya Resume nziza</h2>
+      <ol>
+        <li><strong>Header:</strong> Amazina, telefoni, email, aho utuye, website/LinkedIn.</li>
+        <li><strong>Profile / Summary:</strong> interuro 2-4 zisobanura uwo uri we n'icyo uje gutanga.</li>
+        <li><strong>Experience / Work History:</strong> amazina y'ahantu wakoreye, inshingano, igihe n'ibyagezweho (achievements) bifatika.</li>
+        <li><strong>Skills:</strong> tekiniki (technical) na soft skills zijyanye n'umwanya usaba.</li>
+        <li><strong>Education:</strong> amashuri, impamyabumenyi n'imyaka.</li>
+        <li><strong>Projects / Certifications:</strong> iby'ingenzi byerekana ubushobozi bwawe.</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>5. Uko wandika Cover Letter ikurura</h2>
+      <p>Cover letter igomba kuba ngufi, yibanda ku byo ushobora gutanga:</p>
+      <ul>
+        <li>Tangira ukoresheje izina ry'umukoresha niba ubizi cyangwa <em>"To the hiring manager"</em> niba utarizi.</li>
+        <li>Sobanura muri 1-2 interuro impamvu usaba umwanya.</li>
+        <li>Garagaza ubunararibonye cyangwa project ifatika ijyanye n'umwanya w'akazi.</li>
+        <li>Sozereza usaba interview kandi ushimire umusomyi ku mwanya we.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>6. Inama zihuse (Quick tips)</h2>
+      <ul>
+        <li>Gira resume imwe y'ibanze, hanyuma uyitunganye (customize) bitewe n'umwanya usaba.</li>
+        <li>Koresha amagambo y'ibikorwa (action verbs) nka "Led", "Designed", "Improved".</li>
+        <li>Ongera imibare aho bishoboka (e.g., "Yazamuye conversion by 30%").</li>
+        <li>Reba spelling na grammar; shyira ku murongo (format) w'umwuga kandi usome neza kuri mobile.</li>
+        <li>Niba uri kufata umwanya wa tekiniki, ongera link za GitHub cyangwa portfolio.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>7. Templates & Samples</h2>
+      <div class="examples">
+        <div class="example">
+          <strong>Resume — Chronological (Sample)</strong>
+          <p class="muted">Amazina: Jean Bosco<br/>Title: Software Developer<br/>Experience: Acme Ltd (2021-Now) — Developed X, improved Y.</p>
+        </div>
+        <div class="example">
+          <strong>Cover Letter — Short Sample</strong>
+          <p class="muted">Mwaramutse Bwana/ Madamu,<br/>Nanditse mbasaba umwanya wa Software Developer muri company yanyu. Mfite uburambe mu gukora imbuga n'ama APIs... (garagaza ibyagezweho). Murakoze.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>8. Tools n'aho wabika (Resources)</h2>
+      <ul>
+        <li><strong>Canva / Google Docs / Microsoft Word</strong>: byoroshye gukoresha templates.</li>
+        <li><strong>LinkedIn</strong>: shyiraho profile ihuye na resume yawe.</li>
+        <li><strong>GitHub / Portfolio</strong>: ku bantu ba tekiniki shyiraho imishinga n'amasomo.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>9. Serivisi dushobora kukugurira</h2>
+      <ul>
+        <li>Gukosora no gutunganya CV / Resume (formatting + content)</li>
+        <li>Kwandika cover letter ikurura abakoresha</li>
+        <li>Gukora LinkedIn profile optimised</li>
+        <li>Templates ziteguye gukoresha (Word, Google Docs, PDF)</li>
+      </ul>
+      <p>Twandikire: <a href="mailto:you@example.com">you@example.com</a> cyangwa telefon: +250 7XX XXX XXX</p>
+    </section>
+
+    <footer>
+      <small>© 2025 — Inyigisho ku Resume & Abaruwa. Ibi ni iby'inyigisho gusa; niba ushaka ko twagukorera CV yawe dukore customization turimo kugufasha.</small>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('printBtn').addEventListener('click', ()=> window.print());
+  </script>
+</body>
+</html>

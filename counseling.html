@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Counseling & Guidance Services</title>
+  <style>
+    :root{--bg:#f4f6f8;--card:#ffffff;--accent:#0f766e;--muted:#6b7280}
+    body{font-family:Inter,system-ui,Arial,sans-serif;margin:0;background:var(--bg);color:#0f172a}
+    .container{max-width:900px;margin:28px auto;padding:20px}
+    header{display:flex;justify-content:space-between;align-items:center}
+    h1{margin:0;font-size:22px}
+    p.lead{margin:6px 0 18px;color:var(--muted)}
+    .card{background:var(--card);border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 6px 20px rgba(12,15,20,0.06)}
+    h2{margin-top:0}
+    ul{margin:8px 0 8px 20px}
+    .btn{background:var(--accent);color:white;padding:8px 12px;border-radius:8px;border:none;cursor:pointer}
+    input, textarea{width:100%;padding:8px;margin:6px 0 12px;border-radius:6px;border:1px solid #ccc;resize:vertical}
+    footer{color:var(--muted);font-size:13px;text-align:center;margin-top:8px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Counseling & Guidance</h1>
+        <p class="lead">Serivisi zacu zifasha abantu mu rugendo rwabo rw'umwuga, imyigire, n'ubuzima bwite kugira ngo bagerwe ku ntego zabo.</p>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2>1. Intego za Counseling</h2>
+      <ul>
+        <li>Kuyobora abantu mu gufata ibyemezo by'umwuga n'amasomo.</li>
+        <li>Gufasha abantu kumenya imbaraga n'intege nke zabo.</li>
+        <li>Kugira inama ku gucunga stress, anxiety, cyangwa ibibazo by'imibereho.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>2. Ubwoko bwa Counseling dutanga</h2>
+      <ul>
+        <li><strong>Career Counseling:</strong> gufasha abantu guhitamo akazi cyangwa icyerekezo cy'umwuga.</li>
+        <li><strong>Academic Guidance:</strong> gufasha abanyeshuri kumenya amasomo bakwiye, preparation y'ibizamini, na study planning.</li>
+        <li><strong>Personal / Life Counseling:</strong> gufasha abantu gucunga stress, umubano n'abandi, no gukemura ibibazo by'umubano.</li>
+        <li><strong>Online / Remote Counseling:</strong> ushobora kuganira n'umujyanama ukoresheje internet (video / chat).</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>3. Uko Counseling ikorwa</h2>
+      <ul>
+        <li>Guhuza n'umujyanama ubifitiye uburambe.</li>
+        <li>Gusuzuma ibibazo cyangwa intego z'umuntu ku giti cye.</li>
+        <li>Kugena gahunda y'inama cyangwa sessions z'ikiganiro.</li>
+        <li>Kugenzura iterambere no gutanga feedback ku buryo bwo gukemura ibibazo.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>4. Impamvu guhitamo serivisi zacu</h2>
+      <ul>
+        <li>Dufite abajyanama bafite uburambe n'ubumenyi mu by'amasomo, career, n'imibereho.</li>
+        <li>Serivisi zacu ziba personalized, zikumira ibibazo ku buryo bwihuse kandi bufatika.</li>
+        <li>Inama zitangwa mu buryo bworoshye: online, face-to-face cyangwa phone consultation.</li>
+        <li>Dushyira imbere confidentialité n'ubunyangamugayo mu nama zose.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>5. Form yo Gusaba Consultation</h2>
+      <p>Wuzuza iyi form maze umujyanama wacu azagusubize vuba.</p>
+      <form id="counselForm">
+        <label for="name">Amazina yawe:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="phone">Telefoni / WhatsApp:</label>
+        <input type="text" id="phone" name="phone" required>
+        <label for="topic">Ikiganiro / Topic:</label>
+        <input type="text" id="topic" name="topic" required>
+        <label for="message">Ubutumwa:</label>
+        <textarea id="message" name="message" rows="4"></textarea>
+        <button type="submit" class="btn">Ohereza Ubutumwa</button>
+      </form>
+      <p id="formResponse" style="color:var(--accent);margin-top:12px"></p>
+    </section>
+
+    <footer>
+      <small>© 2025 — Counseling & Guidance Services. Twubaha ubuzima bwawe n'intego zawe.</small>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('counselForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const topic = document.getElementById('topic').value;
+      const message = document.getElementById('message').value;
+
+      // Simulate sending (replace with backend integration)
+      console.log({name,email,phone,topic,message});
+      document.getElementById('formResponse').textContent = 'Murakoze, ' + name + '! Ubutumwa bwawe bwakiriwe. Tuzagusubiza vuba.';
+      this.reset();
+    });
+  </script>
+</body>
+</html>

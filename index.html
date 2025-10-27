@@ -665,6 +665,7 @@
       .menu-toggle {
         display: block;
         color: white;
+        order: 3; /* Move hamburger to the right */
       }
 
       .menu-icon {
@@ -691,6 +692,7 @@
       
       header {
         padding: 4px 8px; /* Reduced from 8px 12px */
+        flex-wrap: wrap;
       }
       
       .main-content {
@@ -719,6 +721,28 @@
       .password-container i {
         font-size: 14px;
         right: 8px;
+      }
+
+      /* New styles for auth links on mobile */
+      .auth-links {
+        display: flex;
+        gap: 10px;
+        order: 2; /* Place auth links before hamburger */
+      }
+
+      .auth-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 13px;
+        padding: 4px 8px;
+        border-radius: 6px;
+        transition: background-color 0.3s;
+      }
+
+      .auth-links a:hover {
+        background-color: #033d3d;
+        color: gold;
       }
     }
 
@@ -913,6 +937,10 @@
       box-shadow: 0 4px 6px rgba(0,0,0,0.2);
       z-index: 9999;
       transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    .floating-car-btn.hidden {
+      display: none;
     }
 
     .floating-car-btn:hover {
@@ -1231,6 +1259,11 @@
         </li>
       </ul>
     </nav>
+    <!-- Auth Links for Mobile -->
+    <div class="auth-links" id="authLinks">
+      <a href="#" id="signupLinkMobileHeader" lang="en">Sign Up</a>
+      <a href="#" id="loginLinkMobileHeader" lang="en">Login</a>
+    </div>
     <!-- Menu Icon (right side, desktop) -->
     <div class="menu-icon" id="menuIcon">
       <i class="fas fa-bars"></i>
@@ -1433,7 +1466,7 @@
     <div class="modal-content">
       <span class="close" id="closeSignup">&times;</span>
       <h2 lang="en">Sign Up</h2>
-      <form action="signup.php" method="post">
+      <form id="signupForm" action="signup.php" method="post">
         <input type="text" name="name" id="signupName" placeholder="Full Name" required>
         <input type="email" name="email" id="signupEmail" placeholder="Email" required>
         <div class="password-container">
@@ -1454,7 +1487,7 @@
     <div class="modal-content">
       <span class="close" id="closeLogin">&times;</span>
       <h2 lang="en">Login</h2>
-      <form action="login.php" method="post">
+      <form id="loginForm" action="login.php" method="post">
         <input type="email" name="email" id="loginEmail" placeholder="Email" required>
         <div class="password-container">
           <input type="password" name="password" id="loginPassword" placeholder="Password" required>
@@ -1525,7 +1558,7 @@
   </main>
 
   <!-- Provizwari Button -->
-  <button class="floating-car-btn" title="Kanda hano" onclick="document.getElementById('provizwari-link').click()">
+  <button class="floating-car-btn" id="provizwariButton" title="Kanda hano" onclick="document.getElementById('provizwari-link').click()">
     <div class="icons">
       <i id="hand-icon" class="fas fa-hand-pointer"></i>
       <i class="fas fa-car"></i>
@@ -1647,6 +1680,13 @@
       slider.style.zIndex = dropdown.classList.contains('active') ? '900' : '900';
     }
 
+    // Function to update Provizwari button visibility
+    function updateProvizwariButton() {
+      const provizwariButton = document.getElementById('provizwariButton');
+      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+      provizwariButton.classList.toggle('hidden', isLoggedIn);
+    }
+
     // Event listeners for menu toggles
     document.getElementById('menuIcon').addEventListener('click', toggleMenuSidebar);
     document.getElementById('menuToggle').addEventListener('click', toggleMobileMenu);
@@ -1707,28 +1747,35 @@
       const menuSidebar = document.getElementById('menuSidebar');
       const mobileMenu = document.getElementById('mobileMenu');
       const slider = document.querySelector('.top-right-slider');
+      const authLinks = document.getElementById('authLinks');
       if (window.innerWidth > 768) {
         mobileMenu.classList.remove('active');
         document.getElementById('menuIcon').style.display = 'block';
         document.getElementById('menuToggle').style.display = 'none';
+        authLinks.style.display = 'none';
         slider.style.zIndex = '900';
       } else {
         menuSidebar.classList.remove('active');
         document.getElementById('menuIcon').style.display = 'none';
         document.getElementById('menuToggle').style.display = 'block';
+        authLinks.style.display = 'flex';
         slider.style.zIndex = '900';
       }
     });
 
     // Initialize menu visibility based on screen size
     window.addEventListener('load', () => {
+      const authLinks = document.getElementById('authLinks');
       if (window.innerWidth > 768) {
         document.getElementById('menuIcon').style.display = 'block';
         document.getElementById('menuToggle').style.display = 'none';
+        authLinks.style.display = 'none';
       } else {
         document.getElementById('menuIcon').style.display = 'none';
         document.getElementById('menuToggle').style.display = 'block';
+        authLinks.style.display = 'flex';
       }
+      updateProvizwariButton(); // Initial check for Provizwari button
     });
 
     // Provizwari button wave animation
@@ -1742,7 +1789,7 @@
     setInterval(waveHand, 120000);
     waveHand();
 
-    // Modal JavaScript (no form submission handlers; handled by PHP)
+    // Modal JavaScript
     const signupModal = document.getElementById('signupModal');
     const loginModal = document.getElementById('loginModal');
     const resetModal = document.getElementById('resetModal');
@@ -1752,6 +1799,8 @@
     const loginLinkMobile = document.getElementById('loginLinkMobile');
     const signupLinkSidebar = document.getElementById('signupLinkSidebar');
     const loginLinkSidebar = document.getElementById('loginLinkSidebar');
+    const signupLinkMobileHeader = document.getElementById('signupLinkMobileHeader');
+    const loginLinkMobileHeader = document.getElementById('loginLinkMobileHeader');
     const closeSignup = document.getElementById('closeSignup');
     const closeLogin = document.getElementById('closeLogin');
     const closeReset = document.getElementById('closeReset');
@@ -1791,6 +1840,16 @@
     loginLinkSidebar.addEventListener('click', () => {
       loginModal.style.display = 'flex';
       document.getElementById('menuSidebar').classList.remove('active');
+    });
+
+    signupLinkMobileHeader.addEventListener('click', () => {
+      signupModal.style.display = 'flex';
+      document.getElementById('mobileMenu').classList.remove('active');
+    });
+
+    loginLinkMobileHeader.addEventListener('click', () => {
+      loginModal.style.display = 'flex';
+      document.getElementById('mobileMenu').classList.remove('active');
     });
 
     // Toggle between modals
@@ -1875,6 +1934,26 @@
       this.classList.toggle('fa-eye-slash');
     });
 
+    // Simulated form submission handlers (for demo purposes)
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Simulate successful signup
+      localStorage.setItem('isLoggedIn', 'true');
+      alert('Sign up successful! Please login.');
+      signupModal.style.display = 'none';
+      loginModal.style.display = 'flex';
+      updateProvizwariButton();
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Simulate successful login
+      localStorage.setItem('isLoggedIn', 'true');
+      alert('Welcome back!');
+      loginModal.style.display = 'none';
+      updateProvizwariButton();
+    });
+
     // Handle URL Query Params for Success/Error Messages (from PHP redirects)
     window.addEventListener('load', () => {
       const urlParams = new URLSearchParams(window.location.search);
@@ -1883,8 +1962,12 @@
         if (success === 'signup') {
           alert('Sign up successful! Please login.');
           loginModal.style.display = 'flex';
+          localStorage.setItem('isLoggedIn', 'true');
+          updateProvizwariButton();
         } else if (success === 'login') {
           alert('Welcome back!');
+          localStorage.setItem('isLoggedIn', 'true');
+          updateProvizwariButton();
         } else if (success === 'reset_sent') {
           alert('Password reset link sent to your email.');
         }

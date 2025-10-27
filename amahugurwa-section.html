@@ -52,12 +52,12 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      border: 2px solid gold;
+      border: 2px solid white;
       margin-right: 8px;
     }
 
     .logo h1 {
-      color: gold;
+      color: white;
       font-size: 18px;
       font-weight: 700;
       white-space: nowrap;
@@ -435,7 +435,7 @@
       min-width: 200px;
       border-radius: 0 0 5px 5px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-      z-index: 100;
+      z-index: 1000; /* Increased to appear above top-right-slider */
       padding: 8px;
     }
 
@@ -529,6 +529,37 @@
       to { transform: rotate(1turn); }
     }
 
+    /* Moving Text Slider */
+    .top-right-slider {
+      position: sticky;
+      top: 60px;
+      width: 100%;
+      background: #3781ca;
+      color: white;
+      padding: 8px 0;
+      text-align: center;
+      overflow: hidden;
+      z-index: 900; /* Lowered to appear behind dropdown */
+    }
+
+    .slider-text {
+      display: inline-block;
+      padding-left: 100%;
+      white-space: nowrap;
+      animation: slide-left 35s linear infinite;
+      font-size: 1rem;
+    }
+
+    @keyframes slide-left {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .slider-text b {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: x-large;
+    }
+
     /* Responsive Design */
     @media (max-width: 992px) {
       header {
@@ -550,6 +581,10 @@
 
       .main-content {
         margin-top: 64px;
+      }
+
+      .top-right-slider {
+        top: 56px; /* Adjusted to match header height */
       }
     }
 
@@ -574,6 +609,10 @@
       .gallery-track img {
         height: 200px;
         max-width: 400px;
+      }
+
+      .top-right-slider {
+        top: 56px; /* Adjusted to match header height */
       }
     }
 
@@ -632,6 +671,10 @@
         font-size: 16px;
         margin-right: 8px;
       }
+
+      .top-right-slider {
+        top: 52px; /* Adjusted to match header height */
+      }
     }
 
     @media (max-width: 480px) {
@@ -668,6 +711,10 @@
         padding: 8px 15px;
         font-size: 13px;
       }
+
+      .top-right-slider {
+        top: 52px; /* Adjusted to match header height */
+      }
     }
 
     @media (max-width: 360px) {
@@ -696,48 +743,11 @@
       .training-form h2 {
         font-size: 16px;
       }
+
+      .top-right-slider {
+        top: 50px; /* Adjusted to match header height */
+      }
     }
-     /* muving image  */
-    .top-right-slider {
-  position: sticky;      /* sticky aho */
-  top: 60px;             /* itegereze hejuru ya header (height ya header) */
-  width: 100%;
-  background: #02635e;
-  color: white;
-  padding: 8px 0;
-  text-align: center;
-  overflow: hidden;
-  z-index: 9000;
-  
-}
-
-/* animation ntiyahinduwe */
-.slider-text {
-  display: inline-block;
-  padding-left: 100%;
-  white-space: nowrap;
-  animation: slide-left 35s linear infinite;
-  font-size: 1rem;
-}
-
-@keyframes slide-left {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-/* content isikororinga */
-.content {
-  margin-top: 20px;
-  padding: 20px;
-}
-.slider-text b{
-font-family: 'Times New Roman', Times, serif;
-  font-size: x-large;
-}
   </style>
 </head>
 <body>
@@ -749,8 +759,8 @@ font-family: 'Times New Roman', Times, serif;
   <!-- HEADER -->
   <header>
     <div class="logo" id="logo">
-      <img src="tekilogo.jpg" alt="TEKINOVA Logo">
-      <h1>TekiNova</h1>
+      <img src="jo.jpeg" alt="TEKINOVA Logo">
+      <h1>jobandscholarships</h1>
     </div>
     <nav class="navbar">
       <ul class="desktop-menu" id="desktop-menu">
@@ -758,7 +768,7 @@ font-family: 'Times New Roman', Times, serif;
         <li>
           <a href="#">About</a>
           <div class="dropdown">
-            <h2>About TEKINOVA</h2>
+            <h2>About J & schl</h2>
             <a href="About.html">About Us</a>
             <a href="#">Company Background & Vision</a>
             <a href="#">Mission & Goals</a>
@@ -840,10 +850,10 @@ font-family: 'Times New Roman', Times, serif;
       <i class="fas fa-bars"></i>
     </div>
   </header>
- <div class="top-right-slider">
-  <div class="slider-text"><b>Ushaka ko tugufasha zimwe murizi services zikurikira
-    watwandikira kuri 0733253803 cg ukaduhamagara kur 0780019239!</b></div>
-</div>
+  <div class="top-right-slider">
+    <div class="slider-text"><b>Ushaka ko tugufasha zimwe murizi services zikurikira
+      watwandikira kuri 0733253803 cg ukaduhamagara kur 0780019239!</b></div>
+  </div>
   <!-- Overlay for Sidebar -->
   <div class="overlay" id="overlay"></div>
 
@@ -894,9 +904,9 @@ font-family: 'Times New Roman', Times, serif;
     <h1>Amahugurwa y'Ikoranabuhanga</h1>
     <div class="sliding-gallery" id="sliding-gallery">
       <div class="gallery-track">
-        <img src="images/training1.jpg" alt="Amahugurwa 1" loading="lazy">
-        <img src="images/training2.jpg" alt="Amahugurwa 2" loading="lazy">
-        <img src="images/training3.jpg" alt="Amahugurwa 3" loading="lazy">
+        <img src="training.jpg" alt="Amahugurwa 1" loading="lazy">
+        <img src="Training-and-Development.webp" alt="Amahugurwa 2" loading="lazy">
+        <img src="Tech-training-01.png" alt="Amahugurwa 3" loading="lazy">
       </div>
     </div>
     <div class="amahugurwa">
