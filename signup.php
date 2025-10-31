@@ -1,42 +1,48 @@
 <?php
-$servername = "localhost";
-$username = "root";  // Replace with your DB username
-$password = "";      // Replace with your DB password
-$dbname = "jobs_scholarships";
+// signup.php
+require 'config.php';
+session_start();
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    json_resp(['status'=>'error','message'=>'Invalid method'], 405);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+// get POST data (works whether fetch or form POST)
+$full_name = trim($_POST['full_name'] ?? '');
+$email = strtolower(trim($_POST['email'] ?? ''));
+$password = $_POST['password'] ?? '';
+$confirm = $_POST['confirm_password'] ?? '';
 
-    // Check if email exists
-    $sql = "SELECT id FROM users WHERE email = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $stmt->store_result();
+if (!$full_name || !$email || !$password || !$confirm) {
+    json_resp(['status'=>'error','message'=>'All fields required'], 400);
+}
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    json_resp(['status'=>'error','message'=>'Invalid email'], 400);
+}
+if ($password !== $confirm) {
+    json_resp(['status'=>'error','message'=>"Passwords don't match"], 400);
+}
+if (strlen($password) < 6) {
+    json_resp(['status'=>'error','message'=>'Password too short (min 6)'], 400);
+}
 
-    if ($stmt->num_rows > 0) {
-        header("Location: index.html?error=email_exists");
-    } else {
-        $sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sss", $name, $email, $hashed_password);
-        if ($stmt->execute()) {
-            header("Location: index.html?success=signup");
-        } else {
-            header("Location: index.html?error=signup_failed");
-        }
-    }
+// check existing email
+$stmt = $mysqli->prepare("SELECT id FROM users WHERE email = ?");
+$stmt->bind_param('s', $email);
+$stmt->execute();
+$stmt->store_result();
+if ($stmt->num_rows > 0) {
     $stmt->close();
+    json_resp(['status'=>'error','message'=>'Email already registered'], 409);
 }
-$conn->close();
-?>
+$stmt->close();
+
+// insert user
+$hash = password_hash($password, PASSWORD_DEFAULT);
+$ins = $mysqli->prepare("INSERT INTO users (full_name, email, password_hash) VALUES (?, ?, ?)");
+$ins->bind_param('sss', $full_name, $email, $hash);
+if ($ins->execute()) {
+    json_resp(['status'=>'success','message'=>'Account created']);
+} else {
+    json_resp(['status'=>'error','message'=>'Insert failed: '.$mysqli->error], 500);
+}

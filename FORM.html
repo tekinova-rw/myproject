@@ -1,118 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="rw">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Scholarship Application</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f7f9fc;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-    .application-form {
-      background: rgb(248, 162, 2);
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      width: 420px;
-    }
-    h1, h3, h4 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .input-group {
-      display: block;
-      gap: 10px;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-    }
-    .submit-btn, .next-btn, .prev-btn {
-      width: 100%;
-      padding: 12px;
-      background-color: #0056b3;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-top: 10px;
-    }
-    .submit-btn:hover, .next-btn:hover, .prev-btn:hover {
-      background-color: #004494;
-    }
-    .form-step {
-      display: none;
-    }
-    .form-step.active {
-      display: block;
-    }
-    .support-section {
-      margin-top: 30px;
-      background-color: #eef3f8;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-    }
-    .support-btn {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 20px;
-      background-color: #003366;
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-    }
-    .support-btn:hover {
-      background-color: #002244;
-    }
-    table {
-      width: 100%;
-      margin-top: 10px;
-      margin-bottom: 15px;
-      border-collapse: collapse;
-    }
-    td {
-      padding: 8px;
-    }
+    /* Simple CSS - ushobora kuyihindura uko ubishaka */
+    body { font-family: Arial, Helvetica, sans-serif; background:#f4f7fb; color:#333; padding:20px; }
+    .application-form { max-width:900px; margin:0 auto; background:#fff; padding:24px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+    h1 { margin-top:0; }
+    .input-group { display:flex; gap:10px; flex-wrap:wrap; }
+    input[type=text], input[type=email], select, textarea { width:100%; padding:10px; margin:8px 0; border:1px solid #ccd0d8; border-radius:6px; }
+    textarea { min-height:100px; }
+    .form-step { display:none; }
+    .form-step.active { display:block; }
+    .next-btn, .prev-btn, .submit-btn { padding:10px 16px; margin:8px 6px; border:none; border-radius:6px; background:#2b7cff; color:#fff; cursor:pointer; }
+    .prev-btn { background:#6c757d; }
+    .support-section { margin-top:20px; padding:12px; background:#eef6ff; border-radius:6px; }
+    table { width:100%; }
+    tr td { padding:4px 0; }
+    .steps-indicator { margin-bottom:12px; display:flex; gap:8px; }
+    .step-dot { width:12px; height:12px; border-radius:50%; background:#ddd; }
+    .step-dot.active { background:#2b7cff; }
   </style>
 </head>
-
 <body>
+  <div class="application-form">
+    <h1>Scholarship Application</h1>
 
-<div class="application-form">
-  <h1>Scholarship Application</h1>
+    <div class="steps-indicator">
+      <div class="step-dot active" data-step="0"></div>
+      <div class="step-dot" data-step="1"></div>
+      <div class="step-dot" data-step="2"></div>
+      <div class="step-dot" data-step="3"></div>
+      <div class="step-dot" data-step="4"></div>
+    </div>
 
-  <form id="applicationForm" action="submit_application.php" method="POST" enctype="multipart/form-data">
+    <form id="applicationForm" action="submit_application.php" method="POST" enctype="multipart/form-data">
 
-    <!-- Step 1: Personal Information -->
-    <div class="form-step active">
-      <div class="input-group">
-        <input type="text" name="First_name" placeholder="Izina ryababyeyi" required>
-        <input type="text" name="Middle_name" placeholder="Izina ryo hagati" required>
-        <input type="text" name="Last_name" placeholder="Izina ryidini" required>
-        <input type="email" name="email" placeholder="Email Address" required>
-      </div>
-      <input type="text" name="phone" placeholder="Nimero yatlephone" required>
+      <!-- Step 1: Personal Information -->
+      <div class="form-step active">
+        <div class="input-group">
+          <input type="text" name="First_name" placeholder="Izina ryababyeyi" required>
+          <input type="text" name="Middle_name" placeholder="Izina ryo hagati" required>
+          <input type="text" name="Last_name" placeholder="Izina ryidini" required>
+          <input type="email" name="email" placeholder="Email Address" required>
+        </div>
+        <input type="text" name="phone" placeholder="Nimero yatlephone" required>
 
-      <h3>Current Address</h3>
-      <table>
-        <tr><td><input type="text" name="current_isibo" placeholder="Isibo" required></td></tr>
-        <tr><td><input type="text" name="current_umudugudu" placeholder="Umudugudu" required></td></tr>
-        <tr><td><input type="text" name="current_umurenge" placeholder="Umurenge" required></td></tr>
-        <tr>
-          <td>
+        <h3>Current Address</h3>
+        <table>
+          <tr><td><input type="text" name="current_isibo" placeholder="Isibo" required></td></tr>
+          <tr><td><input type="text" name="current_umudugudu" placeholder="Umudugudu" required></td></tr>
+          <tr><td><input type="text" name="current_umurenge" placeholder="Umurenge" required></td></tr>
+          <tr><td>
             <select id="current_intara" name="current_intara" onchange="updateDistricts('current')" required>
               <option value="">-- Hitamo Intara --</option>
               <option value="Kigali">Umujyi wa Kigali</option>
@@ -121,186 +62,191 @@
               <option value="Eastern">Iburasirazuba</option>
               <option value="Western">Iburengerazuba</option>
             </select>
-          </td>
-        </tr>
-        <tr>
-          <td>
+          </td></tr>
+          <tr><td>
             <select id="current_akarere" name="current_akarere" required>
               <option value="">-- Hitamo Akarere --</option>
             </select>
-          </td>
-        </tr>
-        <tr><td><input type="text" name="current_country" placeholder="Country" required></td></tr>
-      </table>
+          </td></tr>
+          <tr><td><input type="text" name="current_country" placeholder="Country" required></td></tr>
+        </table>
 
-      <button type="button" class="next-btn">Next</button>
-    </div>
-
-    <!-- Step 2: Parents Information -->
-    <div class="form-step">
-      <h3>Amakuru y'ababyeyi</h3>
-      <div class="input-group">
-        <input type="text" name="father_name" placeholder="Father's Full Name" required>
-        <input type="text" name="mother_name" placeholder="Mother's Full Name" required>
+        <button type="button" class="next-btn">Next</button>
       </div>
 
-      <h4>Father's Residence</h4>
-      <input type="text" name="father_isibo" placeholder="Father's Isibo" required>
-      <input type="text" name="father_umudugudu" placeholder="Father's Umudugudu" required>
-      <input type="text" name="father_umurenge" placeholder="Father's Umurenge" required>
-      <select id="father_intara" name="father_intara" onchange="updateDistricts('father')" required>
-        <option value="">-- Hitamo Intara --</option>
-        <option value="Kigali">Umujyi wa Kigali</option>
-        <option value="Northern">Amajyaruguru</option>
-        <option value="Southern">Amajyepfo</option>
-        <option value="Eastern">Iburasirazuba</option>
-        <option value="Western">Iburengerazuba</option>
-      </select>
-      <select id="father_akarere" name="father_akarere" required>
-        <option value="">-- Hitamo Akarere --</option>
-      </select>
-      <input type="text" name="father_country" placeholder="Father's Country" required>
+      <!-- Step 2: Parents Information -->
+      <div class="form-step">
+        <h3>Amakuru y'ababyeyi</h3>
+        <div class="input-group">
+          <input type="text" name="father_name" placeholder="Father's Full Name" required>
+          <input type="text" name="mother_name" placeholder="Mother's Full Name" required>
+        </div>
 
-      <h4>Mother's Residence</h4>
-      <input type="text" name="mother_isibo" placeholder="Mother's Isibo" required>
-      <input type="text" name="mother_umudugudu" placeholder="Mother's Umudugudu" required>
-      <input type="text" name="mother_umurenge" placeholder="Mother's Umurenge" required>
-      <select id="mother_intara" name="mother_intara" onchange="updateDistricts('mother')" required>
-        <option value="">-- Hitamo Intara --</option>
-        <option value="Kigali">Umujyi wa Kigali</option>
-        <option value="Northern">Amajyaruguru</option>
-        <option value="Southern">Amajyepfo</option>
-        <option value="Eastern">Iburasirazuba</option>
-        <option value="Western">Iburengerazuba</option>
-      </select>
-      <select id="mother_akarere" name="mother_akarere" required>
-        <option value="">-- Hitamo Akarere --</option>
-      </select>
-      <input type="text" name="mother_country" placeholder="Mother's Country" required>
+        <h4>Father's Residence</h4>
+        <input type="text" name="father_isibo" placeholder="Father's Isibo" required>
+        <input type="text" name="father_umudugudu" placeholder="Father's Umudugudu" required>
+        <input type="text" name="father_umurenge" placeholder="Father's Umurenge" required>
+        <select id="father_intara" name="father_intara" onchange="updateDistricts('father')" required>
+          <option value="">-- Hitamo Intara --</option>
+          <option value="Kigali">Umujyi wa Kigali</option>
+          <option value="Northern">Amajyaruguru</option>
+          <option value="Southern">Amajyepfo</option>
+          <option value="Eastern">Iburasirazuba</option>
+          <option value="Western">Iburengerazuba</option>
+        </select>
+        <select id="father_akarere" name="father_akarere" required>
+          <option value="">-- Hitamo Akarere --</option>
+        </select>
+        <input type="text" name="father_country" placeholder="Father's Country" required>
 
-      <button type="button" class="prev-btn">Previous</button>
-      <button type="button" class="next-btn">Next</button>
+        <h4>Mother's Residence</h4>
+        <input type="text" name="mother_isibo" placeholder="Mother's Isibo" required>
+        <input type="text" name="mother_umudugudu" placeholder="Mother's Umudugudu" required>
+        <input type="text" name="mother_umurenge" placeholder="Mother's Umurenge" required>
+        <select id="mother_intara" name="mother_intara" onchange="updateDistricts('mother')" required>
+          <option value="">-- Hitamo Intara --</option>
+          <option value="Kigali">Umujyi wa Kigali</option>
+          <option value="Northern">Amajyaruguru</option>
+          <option value="Southern">Amajyepfo</option>
+          <option value="Eastern">Iburasirazuba</option>
+          <option value="Western">Iburengerazuba</option>
+        </select>
+        <select id="mother_akarere" name="mother_akarere" required>
+          <option value="">-- Hitamo Akarere --</option>
+        </select>
+        <input type="text" name="mother_country" placeholder="Mother's Country" required>
+
+        <button type="button" class="prev-btn">Previous</button>
+        <button type="button" class="next-btn">Next</button>
+      </div>
+
+      <!-- Step 3: Your Location Details -->
+      <div class="form-step">
+        <h3>Amakuru y'aho uba</h3>
+        <input type="text" name="isibo" placeholder="Isibo" required>
+        <input type="text" name="umudugudu" placeholder="Umudugudu" required>
+        <input type="text" name="umurenge" placeholder="Umurenge" required>
+        <select id="your_intara" name="intara" onchange="updateDistricts('your')" required>
+          <option value="">-- Hitamo Intara --</option>
+          <option value="Kigali">Umujyi wa Kigali</option>
+          <option value="Northern">Amajyaruguru</option>
+          <option value="Southern">Amajyepfo</option>
+          <option value="Eastern">Iburasirazuba</option>
+          <option value="Western">Iburengerazuba</option>
+        </select>
+        <select id="your_akarere" name="akarere" required>
+          <option value="">-- Hitamo Akarere --</option>
+        </select>
+        <input type="text" name="country" placeholder="Country" required>
+
+        <button type="button" class="prev-btn">Previous</button>
+        <button type="button" class="next-btn">Next</button>
+      </div>
+
+      <!-- Step 4: Education Background -->
+      <div class="form-step">
+        <h3>Amateka y'Amashuri</h3>
+        <input type="text" name="primary_school" placeholder="Primary School Name" required>
+        <input type="text" name="secondary_school" placeholder="Secondary School Name" required>
+        <input type="text" name="university" placeholder="University (if applicable)">
+        <select name="education_level" required>
+          <option value="" disabled selected>Select Education Level to Apply</option>
+          <option value="highschool">High School</option>
+          <option value="undergraduate">Undergraduate</option>
+          <option value="graduate">Graduate</option>
+          <option value="phd">PhD</option>
+        </select>
+        <textarea name="cover_letter" placeholder="Write your cover letter here..." rows="5" required></textarea>
+
+        <button type="button" class="prev-btn">Previous</button>
+        <button type="button" class="next-btn">Next</button>
+      </div>
+
+      <!-- Step 5: Upload Documents -->
+      <div class="form-step">
+        <h3>Upload Documents</h3>
+        <input type="file" name="documents[]" multiple required>
+
+        <button type="button" class="prev-btn">Previous</button>
+        <button type="submit" class="submit-btn">Submit Application</button>
+      </div>
+
+    </form>
+
+    <div class="support-section">
+      <h2>Need Assistance?</h2>
+      <p>If you need help with your application, click below:</p>
+      <a href="support.html" class="support-btn">Request Support</a>
     </div>
-
-    <!-- Step 3: Your Location Details -->
-    <div class="form-step">
-      <h3>Amakuru y'aho uba</h3>
-      <input type="text" name="isibo" placeholder="Isibo" required>
-      <input type="text" name="umudugudu" placeholder="Umudugudu" required>
-      <input type="text" name="umurenge" placeholder="Umurenge" required>
-      <select id="your_intara" name="intara" onchange="updateDistricts('your')" required>
-        <option value="">-- Hitamo Intara --</option>
-        <option value="Kigali">Umujyi wa Kigali</option>
-        <option value="Northern">Amajyaruguru</option>
-        <option value="Southern">Amajyepfo</option>
-        <option value="Eastern">Iburasirazuba</option>
-        <option value="Western">Iburengerazuba</option>
-      </select>
-      <select id="your_akarere" name="akarere" required>
-        <option value="">-- Hitamo Akarere --</option>
-      </select>
-      <input type="text" name="country" placeholder="Country" required>
-
-      <button type="button" class="prev-btn">Previous</button>
-      <button type="button" class="next-btn">Next</button>
-    </div>
-
-    <!-- Step 4: Education Background -->
-    <div class="form-step">
-      <h3>Amateka y'Amashuri</h3>
-      <input type="text" name="primary_school" placeholder="Primary School Name" required>
-      <input type="text" name="secondary_school" placeholder="Secondary School Name" required>
-      <input type="text" name="university" placeholder="University (if applicable)">
-      <select name="education_level" required>
-        <option value="" disabled selected>Select Education Level to Apply</option>
-        <option value="highschool">High School</option>
-        <option value="undergraduate">Undergraduate</option>
-        <option value="graduate">Graduate</option>
-        <option value="phd">PhD</option>
-      </select>
-      <textarea name="cover_letter" placeholder="Write your cover letter here..." rows="5" required></textarea>
-
-      <button type="button" class="prev-btn">Previous</button>
-      <button type="button" class="next-btn">Next</button>
-    </div>
-
-    <!-- Step 5: Upload Documents -->
-    <div class="form-step">
-      <h3>Upload Documents</h3>
-      <input type="file" name="documents[]" multiple required>
-
-      <button type="button" class="prev-btn">Previous</button>
-      <button type="submit" class="submit-btn">Submit Application</button>
-    </div>
-
-  </form>
-
-  <div class="support-section">
-    <h2>Need Assistance?</h2>
-    <p>If you need help with your application, click below:</p>
-    <a href="support.html" class="support-btn">Request Support</a>
   </div>
-</div>
 
-<script>
-const districts = {
-  "Kigali": ["Gasabo", "Kicukiro", "Nyarugenge"],
-  "Northern": ["Musanze", "Gicumbi", "Burera", "Rulindo", "Gakenke"],
-  "Southern": ["Huye", "Nyanza", "Gisagara", "Nyamagabe", "Muhanga", "Ruhango", "Nyaruguru", "Kamonyi"],
-  "Eastern": ["Bugesera", "Gatsibo", "Kayonza", "Ngoma", "Nyagatare", "Kirehe", "Rwamagana"],
-  "Western": ["Rubavu", "Rusizi", "Nyamasheke", "Nyabihu", "Ngororero", "Rutsiro", "Karongi"]
-};
+  <script>
+    // JavaScript for step navigation
+    const steps = Array.from(document.querySelectorAll('.form-step'));
+    const nextBtns = document.querySelectorAll('.next-btn');
+    const prevBtns = document.querySelectorAll('.prev-btn');
+    const dots = document.querySelectorAll('.step-dot');
+    let currentStep = 0;
 
-function updateDistricts(prefix) {
-  const intaraSelect = document.getElementById(prefix + '_intara');
-  const akarereSelect = document.getElementById(prefix + '_akarere');
-  const selectedIntara = intaraSelect.value;
+    function showStep(idx) {
+      steps.forEach((s, i) => s.classList.toggle('active', i === idx));
+      dots.forEach((d,i)=> d.classList.toggle('active', i===idx));
+      currentStep = idx;
+      window.scrollTo(0,0);
+    }
 
-  akarereSelect.innerHTML = '<option value="">-- Hitamo Akarere --</option>';
+    nextBtns.forEach(btn => btn.addEventListener('click', () => {
+      // simple validation: check required in current step
+      const inputs = steps[currentStep].querySelectorAll('input, select, textarea');
+      for (let el of inputs) {
+        if (el.hasAttribute('required') && !el.value) {
+          el.focus();
+          return;
+        }
+      }
+      if (currentStep < steps.length - 1) showStep(currentStep + 1);
+    }));
 
-  if (selectedIntara && districts[selectedIntara]) {
-    districts[selectedIntara].forEach(function(district) {
-      const option = document.createElement('option');
-      option.value = district;
-      option.textContent = district;
-      akarereSelect.appendChild(option);
-    });
-  }
-}
+    prevBtns.forEach(btn => btn.addEventListener('click', () => {
+      if (currentStep > 0) showStep(currentStep - 1);
+    }));
 
-const formSteps = document.querySelectorAll('.form-step');
-const nextBtns = document.querySelectorAll('.next-btn');
-const prevBtns = document.querySelectorAll('.prev-btn');
-const form = document.getElementById('applicationForm');
-let currentStep = 0;
+    // Example district data for each province (Rwanda). Ushobora kongeraho neza uko ubishaka.
+    const districts = {
+      "Kigali": ["Gasabo","Kicukiro","Nyarugenge"],
+      "Northern": ["Gakenke","Gicumbi","Gisagara","Musanze","Rulindo"],
+      "Southern": ["Gisagara","Huye","Kamonyi","Muhanga","Nyanza","Nyaruguru","Ruhango"],
+      "Eastern": ["Bugesera","Gatsibo","Kayonza","Kirehe","Ngoma","Nyagatare","Rwamagana"],
+      "Western": ["Karongi","Ngororero","Nyabihu","Nyamasheke","Rubavu","Rusizi","Rutsiro"]
+    };
 
-nextBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const inputs = formSteps[currentStep].querySelectorAll('input, select, textarea');
-    for (let input of inputs) {
-      if (!input.checkValidity()) {
-        input.reportValidity();
-        return;
+    function updateDistricts(prefix) {
+      let intaraSelect, akarereSelect;
+      if (prefix === 'current') {
+        intaraSelect = document.getElementById('current_intara');
+        akarereSelect = document.getElementById('current_akarere');
+      } else if (prefix === 'father') {
+        intaraSelect = document.getElementById('father_intara');
+        akarereSelect = document.getElementById('father_akarere');
+      } else if (prefix === 'mother') {
+        intaraSelect = document.getElementById('mother_intara');
+        akarereSelect = document.getElementById('mother_akarere');
+      } else if (prefix === 'your') {
+        intaraSelect = document.getElementById('your_intara');
+        akarereSelect = document.getElementById('your_akarere');
+      } else return;
+
+      const chosen = intaraSelect.value;
+      akarereSelect.innerHTML = '<option value="">-- Hitamo Akarere --</option>';
+      if (districts[chosen]) {
+        districts[chosen].forEach(d => {
+          const opt = document.createElement('option');
+          opt.value = d;
+          opt.textContent = d;
+          akarereSelect.appendChild(opt);
+        });
       }
     }
-    if (currentStep < formSteps.length - 1) {
-      formSteps[currentStep].classList.remove('active');
-      currentStep++;
-      formSteps[currentStep].classList.add('active');
-    }
-  });
-});
-
-prevBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (currentStep > 0) {
-      formSteps[currentStep].classList.remove('active');
-      currentStep--;
-      formSteps[currentStep].classList.add('active');
-    }
-  });
-});
-</script>
-
+  </script>
 </body>
 </html>

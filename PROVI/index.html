@@ -38,11 +38,9 @@
       display: flex;
       flex-direction: column;
     }
-
     .hidden {
       display: none !important;
     }
-
     /* Card style wrapper */
     #home-screen, #quiz-screen, #result-screen, #review-screen {
       background: rgba(255, 255, 255, 0.96);
@@ -52,17 +50,14 @@
       margin-top: 40px;
       animation: fadeIn 0.6s ease;
     }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     #image-container {
       margin: 15px 0;
       text-align: center;
     }
-
     .question-img {
       display: block;
       margin: 0 auto;
@@ -74,23 +69,19 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       transition: all 0.3s ease;
     }
-
     .question-img:hover {
       transform: scale(1.05);
       box-shadow: 0 6px 18px rgba(0,0,0,0.25);
     }
-
     h1, h2 {
       text-align: center;
       margin-bottom: 20px;
       color: #1e3c72;
     }
-
     h1 {
       font-size: 2.4em;
       margin-bottom: 10px;
     }
-
     /* OPTION STYLE */
     .option-label {
       display: flex;
@@ -105,25 +96,21 @@
       transition: all 0.3s ease;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
-
     .option-label:hover {
       background-color: #f1f7ff;
       border-color: #007bff;
       transform: translateY(-2px);
       box-shadow: 0 6px 15px rgba(0,123,255,0.25);
     }
-
     .option-label.selected {
       background-color: #e3f2fd;
       border-color: #2196f3;
       box-shadow: 0 6px 15px rgba(33,150,243,0.3);
       transform: translateY(-1px);
     }
-
     .option-label input {
       display: none;
     }
-
     .option-circle {
       width: 32px;
       height: 32px;
@@ -139,20 +126,17 @@
       flex-shrink: 0;
       margin-top: 2px;
     }
-
     .option-label input:checked + .option-circle {
       background-color: #007bff;
       color: #fff;
       border-color: #0056b3;
     }
-
     .option-text {
       flex: 1;
       line-height: 1.4;
       color: #2c3e50;
       font-size: 15px;
     }
-
     #timer {
       font-size: 24px;
       font-weight: bold;
@@ -165,7 +149,6 @@
       display: inline-block;
       box-shadow: inset 0 2px 6px rgba(0,0,0,0.08);
     }
-
     button {
       margin: 8px 4px;
       padding: 12px 28px;
@@ -180,20 +163,17 @@
       box-shadow: 0 4px 10px rgba(0,123,255,0.3);
       touch-action: manipulation;
     }
-
     button:hover:not(:disabled) {
       background: linear-gradient(135deg, #0056b3, #00408d);
       transform: translateY(-2px) scale(1.02);
       box-shadow: 0 6px 15px rgba(0,123,255,0.4);
     }
-
     button:disabled {
       background: #6c757d;
       cursor: not-allowed;
       opacity: 0.6;
       box-shadow: none;
     }
-
     #nav-buttons {
       text-align: center;
       margin-top: 25px;
@@ -204,7 +184,6 @@
       gap: 10px;
       flex-wrap: wrap;
     }
-
     #review-container .question-block {
       background: #fff;
       padding: 25px;
@@ -213,7 +192,6 @@
       border: 1px solid #e0e0e0;
       box-shadow: 0 6px 18px rgba(0,0,0,0.12);
     }
-
     /* Payment section styles */
     section {
       margin: 20px 0;
@@ -226,7 +204,6 @@
       border-radius: 12px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     }
-
     #mainPage {
       display: flex;
       flex-direction: column;
@@ -235,7 +212,6 @@
       width: 100%;
       max-width: 400px;
     }
-
     #amountInput {
       padding: 12px;
       font-size: 16px;
@@ -245,14 +221,15 @@
       max-width: 250px;
       box-sizing: border-box;
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+      font-weight: bold;
+      color: #1e3c72;
     }
-
     #amountInput:focus {
       outline: none;
       border-color: #007bff;
       box-shadow: 0 0 5px rgba(0,123,255,0.3);
     }
-
     #messageBox {
       color: #dc3545;
       font-size: 14px;
@@ -262,7 +239,6 @@
       width: 100%;
       max-width: 300px;
     }
-
     #payBtn {
       background: linear-gradient(135deg, #4CAF50, #2e7d32);
       color: white;
@@ -278,12 +254,10 @@
       max-width: 250px;
       touch-action: manipulation;
     }
-
     #payBtn:hover {
       background: linear-gradient(135deg, #43a047, #1b5e20);
       transform: scale(1.05);
     }
-
     /* Animation for shaking */
     @keyframes shake {
       0% { transform: translateX(0); }
@@ -292,11 +266,9 @@
       75% { transform: translateX(-6px); }
       100% { transform: translateX(0); }
     }
-
     .shake {
       animation: shake 0.4s;
     }
-
     /* Code page */
     .code-page {
       display: none;
@@ -309,13 +281,11 @@
       padding: 20px;
       border-radius: 12px;
     }
-
     .code-page h1 {
       color: #2e7d32;
       font-size: 28px;
       margin-bottom: 20px;
     }
-
     .code-box {
       background: white;
       padding: 20px 30px;
@@ -327,7 +297,6 @@
       word-break: break-all;
       max-width: 90%;
     }
-
     .back-btn {
       margin-top: 25px;
       padding: 12px 25px;
@@ -342,22 +311,18 @@
       max-width: 200px;
       touch-action: manipulation;
     }
-
     .back-btn:hover {
       background: #1b5e20;
     }
-
     /* Hidden dial link */
     #dialLink {
       display: none;
     }
-
     /* Result screen styling */
     #result-screen {
       text-align: center;
       padding: 40px 20px;
     }
-
     #score {
       font-size: 4.5em;
       color: #28a745;
@@ -365,7 +330,6 @@
       font-weight: bold;
       text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
     }
-
     #pass-message {
       font-size: 1.6em;
       margin: 25px 0;
@@ -374,398 +338,317 @@
       border-radius: 10px;
       display: inline-block;
     }
-
     #pass-message:where([style*="color: green"]) {
       background: rgba(40, 167, 69, 0.12);
       color: #28a745;
       border: 2px solid rgba(40, 167, 69, 0.3);
     }
-
     #pass-message:where([style*="color: red"]) {
       background: rgba(220, 53, 69, 0.12);
       color: #dc3545;
       border: 2px solid rgba(220, 53, 69, 0.3);
     }
-
     /* Footer styles */
     footer {
       margin-top: auto;
-      padding: 20px 0;
+      padding: 10px 0;
       width: 100%;
     }
-
     .counter-section {
       display: flex;
       justify-content: space-around;
       align-items: center;
       flex-wrap: wrap;
       gap: 15px;
-      padding: 20px;
-      background: linear-gradient(135deg, #ffffff, #e6ecef);
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      padding: 0px;
+      border-radius: 2px;
       margin: 0 auto;
       max-width: 100%;
     }
-
     .counter-box {
       text-align: center;
       flex: 1;
-      min-width: 120px;
-      padding: 15px;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      min-width: 10px;
+      padding: 2px;
       transition: transform 0.3s ease;
       opacity: 0;
       animation: fadeInCounter 1s ease forwards;
       animation-delay: calc(var(--counter-index) * 0.2s);
     }
-
     .counter-box:nth-child(1) { --counter-index: 1; }
     .counter-box:nth-child(2) { --counter-index: 2; }
     .counter-box:nth-child(3) { --counter-index: 3; }
-
     @keyframes fadeInCounter {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     .counter-box:hover {
       transform: translateY(-5px);
     }
-
     .counter-box i {
       font-size: 28px;
       margin-bottom: 12px;
     }
-
     .counter-box i.fa-users, .counter-box i.fa-graduation-cap {
-      color: #14b8a6; /* Teal for visitors and passers */
+      color: #05ceb6; /* Teal for visitors and passers */
     }
-
     .counter-box i.fa-heart {
-      color: #dc3545; /* Red for appreciators */
+      color: #d40a1f; /* Red for appreciators */
     }
-
     .counter-number {
       font-size: 2.2em;
       font-weight: bold;
-      color: #1e3c72;
+      color: #eceef0;
       margin: 10px 0;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 5px;
     }
-
     .counter-label {
       font-size: 1em;
-      color: #2c3e50;
+      color: #f6f8fa;
       font-family: 'Poppins', sans-serif;
     }
-
     #appreciate-btn {
-      background: linear-gradient(135deg, #dc3545, #a71d2a);
+      background: linear-gradient(135deg, #cc0317, #c20518);
       padding: 10px 20px;
       font-size: 14px;
       margin: 10px auto;
       display: block;
       max-width: 200px;
     }
-
     #appreciate-btn:hover:not(:disabled) {
       background: linear-gradient(135deg, #a71d2a, #7a1a1f);
       transform: translateY(-2px) scale(1.02);
     }
-
     /* Responsive styles */
     @media (max-width: 768px) {
       body {
         padding: 15px;
       }
-
       h1 {
         font-size: 2em;
       }
-
       h2 {
         font-size: 1.5em;
       }
-
       #home-screen, #quiz-screen, #result-screen, #review-screen {
         padding: 20px;
         margin-top: 20px;
       }
-
       section {
         padding: 15px;
         height: auto;
         min-height: 40vh;
       }
-
       #mainPage {
         max-width: 100%;
       }
-
       #payBtn, .back-btn, #amountInput {
         max-width: 100%;
       }
-
       .code-page {
         height: auto;
         min-height: 50vh;
         padding: 15px;
       }
-
       .code-page h1 {
         font-size: 24px;
       }
-
       .code-box {
         font-size: 18px;
         padding: 15px 20px;
         max-width: 100%;
       }
-
       .counter-section {
         flex-direction: column;
         padding: 15px;
         gap: 12px;
       }
-
       .counter-box {
         min-width: 100%;
         padding: 12px;
       }
-
       .counter-box i {
         font-size: 24px;
       }
-
       .counter-number {
         font-size: 1.8em;
       }
-
       .counter-label {
         font-size: 0.9em;
       }
-
       #appreciate-btn {
         font-size: 13px;
         padding: 8px 16px;
         max-width: 180px;
       }
     }
-
     @media (max-width: 500px) {
       body {
         padding: 10px;
       }
-
       h1 {
         font-size: 1.8em;
       }
-
       h2 {
         font-size: 1.3em;
       }
-
       .question-img {
         max-width: 100%;
       }
-
       button {
         width: 100%;
         margin: 8px 0;
         padding: 12px;
         font-size: 15px;
       }
-
       #nav-buttons {
         flex-direction: column-reverse;
         gap: 8px;
       }
-
       #timer {
         font-size: 20px;
         padding: 8px 15px;
       }
-
       #score {
         font-size: 3.5em;
       }
-
       #pass-message {
         font-size: 1.4em;
         padding: 10px 20px;
       }
-
       .option-label {
         padding: 10px;
         gap: 10px;
       }
-
       .option-circle {
         width: 28px;
         height: 28px;
         font-size: 12px;
       }
-
       .option-text {
         font-size: 14px;
       }
-
       #amountInput {
         padding: 12px;
         font-size: 15px;
       }
-
       #payBtn {
         padding: 12px;
         font-size: 16px;
       }
-
       .code-page h1 {
         font-size: 20px;
       }
-
       .code-box {
         font-size: 16px;
         padding: 12px 15px;
       }
-
       .back-btn {
         font-size: 16px;
         padding: 12px;
       }
-
       #messageBox {
         font-size: 13px;
         max-width: 100%;
       }
-
       .counter-section {
         padding: 12px;
         gap: 10px;
       }
-
       .counter-box {
         padding: 10px;
       }
-
       .counter-box i {
         font-size: 22px;
       }
-
       .counter-number {
         font-size: 1.6em;
       }
-
       .counter-label {
         font-size: 0.85em;
       }
-
       #appreciate-btn {
         font-size: 12px;
         padding: 8px 14px;
         max-width: 160px;
       }
     }
-
     @media (max-width: 360px) {
       body {
         padding: 8px;
       }
-
       h1 {
         font-size: 1.6em;
       }
-
       h2 {
         font-size: 1.2em;
       }
-
       #home-screen, #quiz-screen, #result-screen, #review-screen {
         padding: 15px;
         margin-top: 15px;
       }
-
       .counter-section {
         padding: 10px;
         gap: 8px;
       }
-
       .counter-box {
         padding: 8px;
         min-width: 100%;
       }
-
       .counter-box i {
         font-size: 20px;
         margin-bottom: 8px;
       }
-
       .counter-number {
         font-size: 1.4em;
       }
-
       .counter-label {
         font-size: 0.8em;
       }
-
       #appreciate-btn {
         font-size: 11px;
         padding: 7px 12px;
         max-width: 140px;
       }
     }
-
     @media (max-width: 320px) {
       body {
         padding: 6px;
       }
-
       h1 {
         font-size: 1.4em;
       }
-
       #amountInput, #payBtn, .back-btn {
         padding: 10px;
         font-size: 14px;
       }
-
       .code-page h1 {
         font-size: 18px;
       }
-
       .code-box {
         font-size: 14px;
         padding: 10px 12px;
       }
-
       .counter-section {
         padding: 8px;
         gap: 6px;
       }
-
       .counter-box {
         padding: 6px;
       }
-
       .counter-box i {
         font-size: 18px;
         margin-bottom: 6px;
       }
-
       .counter-number {
         font-size: 1.3em;
       }
-
       .counter-label {
         font-size: 0.75em;
       }
-
       #appreciate-btn {
         font-size: 10px;
         padding: 6px 10px;
@@ -785,13 +668,13 @@
       <li>Hitamo igisubizo <strong>kimwe</strong> (A–D), ukande <strong>"Komeza"</strong> kugira ngo ujye ku kibazo gikurikira.</li>
       <li>Nyuma yo kohereza: mubona <strong>Amanota</strong> ukanabona <strong> Ibisubizo</strong>wakabaye wahisemo.</li>
       <li><strong>(iminsi 30)</strong> Uhabwa ingana n'ukwezi kose wimenyereza ntankomyi</li>
-      <li><strong>Ishyura 3050 kuri Pacifique</strong> mbere yuko utangira ikizamini.</li>
+      <li><strong>Ishyura 1000 kuri Pacifique</strong> mbere yuko utangira ikizamini.</li>
     </ul>
     <section>
       <!-- PAGE ya mbere (button) -->
       <div id="mainPage">
-        <input type="number" id="amountInput" placeholder="Amafaranga 3050" value="3050" aria-label="Enter payment amount, default 3050" min="0" step="1" />
-        <button id="payBtn" aria-label="Make payment">💳KANDAWISHYURE</button>
+        <input type="number" id="amountInput" value="1000" readonly aria-label="Fixed payment amount: 1000" />
+        <button id="payBtn" aria-label="Make payment">KANDAWISHYURE</button>
         <div id="messageBox" role="alert" aria-live="polite"></div>
       </div>
       <!-- PAGE ya kabiri (code) -->
@@ -804,10 +687,9 @@
       <a id="dialLink" href="" style="display: none;"></a>
     </section>
     <div style="text-align: center;">
-      <button id="start-btn" aria-label="Start the quiz">🚗 Tangira Ikizamini</button>
+      <button id="start-btn" aria-label="Start the quiz">Tangira Ikizamini</button>
     </div>
   </div>
-
   <!-- QUIZ SCREEN -->
   <div id="quiz-screen" class="hidden">
     <div id="timer" role="timer">20:00</div>
@@ -837,32 +719,29 @@
       </label>
     </form>
     <div id="nav-buttons">
-      <button id="prev-btn" disabled aria-label="Previous question">⬅️ Gusubira Inyuma</button>
-      <button id="next-btn" disabled aria-label="Next question">➡️ Gukomeza</button>
-      <button id="submit-btn" class="hidden" style="background: linear-gradient(135deg,#28a745,#1e7e34);" aria-label="Submit answers">✅ Ohereza Ibisubizo</button>
+      <button id="prev-btn" disabled aria-label="Previous question">Gusubira Inyuma</button>
+      <button id="next-btn" disabled aria-label="Next question">Gukomeza</button>
+      <button id="submit-btn" class="hidden" style="background: linear-gradient(135deg,#28a745,#1e7e34);" aria-label="Submit answers">Ohereza Ibisubizo</button>
     </div>
   </div>
-
   <!-- RESULT SCREEN -->
   <div id="result-screen" class="hidden">
-    <h2>📊 Ugize amanota:</h2>
+    <h2>Ugize amanota:</h2>
     <h1 id="score"></h1>
     <p id="pass-message" role="alert" aria-live="polite"></p>
     <div style="text-align:center; margin-top: 30px; gap: 15px; display: flex; flex-direction: column; align-items: center;">
-      <button id="review-btn" aria-label="Review answers">🔍 Reba Ibisubizo wakabaye uhitamo</button>
-      <button id="restart-btn" style="background: linear-gradient(135deg,#28a745,#1e7e34);" aria-label="Restart quiz">🔄 Garuka Ahabanza</button>
+      <button id="review-btn" aria-label="Review answers">Reba Ibisubizo wakabaye uhitamo</button>
+      <button id="restart-btn" style="background: linear-gradient(135deg,#28a745,#1e7e34);" aria-label="Restart quiz">Garuka Ahabanza</button>
     </div>
   </div>
-
   <!-- REVIEW SCREEN -->
   <div id="review-screen" class="hidden">
-    <h2>📖 Gusubiramo Ibisubizo</h2>
+    <h2>Gusubiramo Ibisubizo</h2>
     <div id="review-container"></div>
     <div style="text-align:center; margin-top: 25px;">
-      <button id="finish-btn" style="background: linear-gradient(135deg,#28a745,#1e7e34);" aria-label="Return to home">🏠 Garuka Ahabanza</button>
+      <button id="finish-btn" style="background: linear-gradient(135deg,#28a745,#1e7e34);" aria-label="Return to home">Garuka Ahabanza</button>
     </div>
   </div>
-
   <!-- FOOTER -->
   <footer>
     <div class="counter-section">
@@ -882,9 +761,8 @@
         <div class="counter-label">People Who Passed the Exam</div>
       </div>
     </div>
-    <button id="appreciate-btn" aria-label="Appreciate our work">❤️ Murakoze Kushyigikira</button>
+    <button id="appreciate-btn" aria-label="Appreciate our work">Murakoze Kushyigikira</button>
   </footer>
-
   <script>
     const payBtn = document.getElementById("payBtn");
     const mainPage = document.getElementById("mainPage");
@@ -899,10 +777,8 @@
     const visitorCounter = document.getElementById("visitor-counter");
     const appreciateCounter = document.getElementById("appreciate-counter");
     const appreciateBtn = document.getElementById("appreciate-btn");
-
     // Prevent multiple dial pad triggers
     let isDialing = false;
-
     // Animation for shaking the payment button every 3 seconds
     setInterval(() => {
       payBtn.classList.add("shake");
@@ -911,57 +787,36 @@
       }, 500);
     }, 3000);
 
+    // Enforce fixed amount: 1000
+    amountInput.value = "1000";
+    amountInput.setAttribute("readonly", true);
+
     // Handle payment button click
     payBtn.addEventListener("click", () => {
-      if (isDialing) return; // Prevent multiple clicks
+      if (isDialing) return;
+      const amount = 1000; // Fixed amount
 
-      const amount = amountInput.value.trim();
-
-      // Validate the amount
-      if (!amount) {
-        messageBox.textContent = "Nyamuneka shyiramo amafaranga.";
-        amountInput.focus();
-        return;
-      }
-      const amountNum = Number(amount);
-      if (isNaN(amountNum) || amountNum <= 0) {
-        messageBox.textContent = "Shyiramo umubare w'amafaranga ushoboka.";
-        amountInput.focus();
-        return;
-      }
-      if (!Number.isInteger(amountNum)) {
-        messageBox.textContent = "Amafaranga agomba kuba umubare wuzuye (nta centime).";
-        amountInput.focus();
-        return;
-      }
-
-      // Generate USSD code with user-entered amount
-      const ussdCode = `*182*8*1*814570*${amountNum}#`;
+      // Generate USSD code
+      const ussdCode = `*182*8*1*814570*${amount}#`;
       ussdCodeDisplay.textContent = ussdCode;
 
-      // Check if the user is on a mobile device
       const isMobile = /Mobi|Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
       if (isMobile) {
         messageBox.textContent = `Dial pad irimo gufungura na code: ${ussdCode}`;
         isDialing = true;
-        // Set the href for the dial link
         dialLink.href = `tel:${encodeURIComponent(ussdCode)}`;
-        // Trigger the phone dialer
         setTimeout(() => {
           try {
             dialLink.click();
-            isDialing = false; // Reset after attempting to dial
+            isDialing = false;
           } catch (e) {
-            // Fallback if dial fails
             messageBox.textContent = `Dial pad ntiyafungutse. Koresha code: ${ussdCode} kuri telefoni yawe`;
             mainPage.style.display = "none";
             codePage.style.display = "flex";
             isDialing = false;
           }
-        }, 500); // Short delay for feedback visibility
+        }, 500);
       } else {
-        // For non-mobile devices, show the code page
         messageBox.textContent = "Uri kuri mashine (desktop)! Koresha code uko yagaragaye kuri telefoni yawe.";
         mainPage.style.display = "none";
         codePage.style.display = "flex";
@@ -972,8 +827,7 @@
     backBtn.addEventListener("click", () => {
       codePage.style.display = "none";
       mainPage.style.display = "flex";
-      messageBox.textContent = ""; // Clear message
-      amountInput.value = "3050"; // Reset to default amount
+      messageBox.textContent = "";
     });
 
     // Counter Animation
@@ -983,7 +837,7 @@
         if (!startTimestamp) startTimestamp = timestamp;
         const progress = Math.min((timestamp - startTimestamp) / duration, 1);
         const value = Math.floor(progress * (end - start) + start);
-        element.textContent = '+' + value.toLocaleString(); // + sign on left
+        element.textContent = '+' + value.toLocaleString();
         if (progress < 1) {
           requestAnimationFrame(step);
         }
@@ -995,22 +849,18 @@
     function initializeCounters() {
       let passers, visitors, appreciators;
       try {
-        passers = parseInt(localStorage.getItem('passers')) || 3579; // Start at 3579
-        visitors = parseInt(localStorage.getItem('visitors')) || 10001; // Start at 10001
-        appreciators = parseInt(localStorage.getItem('appreciators')) || 9000; // Start at 9000
+        passers = parseInt(localStorage.getItem('passers')) || 3579;
+        visitors = parseInt(localStorage.getItem('visitors')) || 10001;
+        appreciators = parseInt(localStorage.getItem('appreciators')) || 9000;
       } catch (e) {
         console.error('Error accessing localStorage:', e);
         passers = 3579;
         visitors = 10001;
         appreciators = 9000;
       }
-
-      // Animate from 0 to target values
       animateCounter(visitorCounter, 0, visitors, 2000);
       animateCounter(appreciateCounter, 0, appreciators, 2000);
       animateCounter(passCounter, 0, passers, 2000);
-
-      // Store current values
       try {
         localStorage.setItem('passers', passers);
         localStorage.setItem('visitors', visitors);
@@ -1018,7 +868,6 @@
       } catch (e) {
         console.error('Error saving to localStorage:', e);
       }
-
       return { passers, visitors, appreciators };
     }
 
@@ -1033,7 +882,6 @@
         console.error('Error updating visitors in localStorage:', e);
         visitors = 10001 + 1;
       }
-      // Animate to new visitor count
       animateCounter(visitorCounter, 0, visitors, 2000);
     }
 
@@ -1048,7 +896,6 @@
         console.error('Error updating passers in localStorage:', e);
         passers = 3579 + 1;
       }
-      // Animate to new passer count
       animateCounter(passCounter, 0, passers, 2000);
     }
 
@@ -1063,9 +910,7 @@
         console.error('Error updating appreciators in localStorage:', e);
         appreciators = 9000 + 1;
       }
-      // Animate to new appreciator count
       animateCounter(appreciateCounter, 0, appreciators, 2000);
-      // Disable button after clicking
       appreciateBtn.disabled = true;
       appreciateBtn.style.opacity = '0.6';
     }
@@ -1089,13 +934,11 @@
         mutations.forEach(() => {
           const scoreText = scoreElement.textContent.trim();
           let score;
-          // Handle both "16" and "16/20" formats
           if (scoreText.includes('/')) {
             score = parseInt(scoreText.split('/')[0]);
           } else {
             score = parseInt(scoreText);
           }
-          // Assume passing score is 16/20 (80%)
           if (!isNaN(score) && score >= 16) {
             const hasPassed = localStorage.getItem('hasPassedQuiz');
             if (!hasPassed) {
@@ -1109,11 +952,10 @@
           }
         });
       });
-
       observer.observe(scoreElement, { childList: true, characterData: true, subtree: true });
     }
 
-    // Reset hasPassedQuiz and hasAppreciated flags when quiz restarts
+    // Reset flags when restarting
     document.getElementById("restart-btn").addEventListener("click", () => {
       try {
         localStorage.removeItem('hasPassedQuiz');
@@ -1124,7 +966,6 @@
         console.error('Error removing flags from localStorage:', e);
       }
     });
-
     document.getElementById("finish-btn").addEventListener("click", () => {
       try {
         localStorage.removeItem('hasPassedQuiz');
@@ -1136,20 +977,18 @@
       }
     });
 
-    // Start counters and increment visitor on page load
+    // Start on load
     window.addEventListener("load", () => {
-      // Check if user has appreciated in this session
       const hasAppreciated = localStorage.getItem('hasAppreciated');
       if (hasAppreciated) {
         appreciateBtn.disabled = true;
         appreciateBtn.style.opacity = '0.6';
       }
-      incrementVisitor(); // Increment visitor count
-      initializeCounters(); // Initialize and animate counters
-      monitorQuizResult(); // Start monitoring for quiz passes
+      incrementVisitor();
+      initializeCounters();
+      monitorQuizResult();
     });
   </script>
-
   <script src="app.js"></script>
 </body>
 </html>
