@@ -56,7 +56,7 @@ async function getIP() {
     const data = await res.json();
     safeLocalStorage('fallbackIP', 'set', data.ip);
     return data.ip;
-  } catch (err) {
+   } catch (err) {
     console.warn('IP detection via ipify failed, using deterministic fallback. Error:', err);
     const existing = safeLocalStorage('fallbackIP', 'get');
     if (existing) return existing;
@@ -77,7 +77,7 @@ function simpleHash(str) {
 }
 
 function getUsedQuestionsForIP(ip) {
-  const data = safeLocalStorage('usedQuestionsByIP', 'get') || {}; // ← FIXED: was 'used.usedQuestionsByIP'
+  const data = safeLocalStorage('usedQuestionsByIP', 'get') || {};
   const ipData = Array.isArray(data[ip]) ? data[ip] : [];
   const now = Date.now();
   const fresh = ipData.filter(q => q && q.id && (now - q.time) < 3600000);
@@ -375,7 +375,7 @@ async function getExamSet(allQuestions, count = 20, ip, iteration = 0) {
     selected = selected.concat(reservoirSample(imageQuestions, 3));
     selected = selected.concat(reservoirSample(noImageQuestions, count - 3));
   } else {
-    const noImageQuestions = available.filter(q => !q.image); // ← STRICT: no image allowed
+    const noImageQuestions = available.filter(q => !q.image);
     if (noImageQuestions.length < count) {
       alert(`Nta bibazo bihagije bishya bidafite amashusho bihari (${noImageQuestions.length}/${count}). Gerageza nyuma y'amasaha 1.`);
       return [];
@@ -383,7 +383,6 @@ async function getExamSet(allQuestions, count = 20, ip, iteration = 0) {
     selected = reservoirSample(noImageQuestions, count);
   }
 
-  // FINAL SAFETY CHECK: No image in non-image exams
   if (!shouldHaveImages && selected.some(q => q.image)) {
     console.error('IMAGE LEAK DETECTED IN NON-IMAGE EXAM!');
     alert('Ikosa ryabaye mu guhitamo ibibazo. Gerageza vuba.');
@@ -608,6 +607,9 @@ function resetQuizToHome() {
 
   window.onpopstate = null;
 
+  // SHOW FOOTER when returning to home
+  if (typeof window.showFooter === 'function') window.showFooter();
+
   alert('Ikizamini kirahari. Kanda "Tangira" kugirango urongere utangire.');
 }
 
@@ -652,6 +654,9 @@ function endQuiz() {
 
   exitFullscreen();
   fullscreenEnabled = false;
+
+  // SHOW FOOTER when showing result
+  if (typeof window.showFooter === 'function') window.showFooter();
 }
 
 function reviewAnswers() {
@@ -704,6 +709,9 @@ function reviewAnswers() {
   fragment.appendChild(backBtn);
 
   safeReviewContainer.appendChild(fragment);
+
+  // SHOW FOOTER when showing review
+  if (typeof window.showFooter === 'function') window.showFooter();
 }
 
 function returnToHome() {
@@ -733,6 +741,9 @@ function returnToHome() {
   safeLocalStorage(storedKey, 'set', null);
 
   window.onpopstate = null;
+
+  // SHOW FOOTER when returning to home
+  if (typeof window.showFooter === 'function') window.showFooter();
 }
 
 async function startQuiz() {
@@ -802,6 +813,9 @@ async function startQuiz() {
   showQuestion();
   startTimer();
   startDevPoll();
+
+  // HIDE FOOTER when entering quiz
+  if (typeof window.hideFooter === 'function') window.hideFooter();
 }
 
 function attachEventListener(el, event, handler) {

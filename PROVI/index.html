@@ -41,6 +41,12 @@
     .hidden {
       display: none !important;
     }
+
+    /* === FOOTER HIDE WHEN QUIZ IS ACTIVE === */
+    footer.footer-hidden {
+      display: none !important;
+    }
+
     /* Card style wrapper */
     #home-screen, #quiz-screen, #result-screen, #review-screen {
       background: rgba(255, 255, 255, 0.96);
@@ -681,7 +687,7 @@
       <div id="codePage" class="code-page">
         <h1>Koresha iyi code kuri telefoni yawe:</h1>
         <div class="code-box" id="ussdCode"></div>
-        <button class="back-btn" id="backBtn" aria-label="Return to main page">◄ Garuka</button>
+        <button class="back-btn" id="backBtn" aria-label="Return to main page">Garuka</button>
       </div>
       <!-- Hidden dial link -->
       <a id="dialLink" href="" style="display: none;"></a>
@@ -763,6 +769,28 @@
     </div>
     <button id="appreciate-btn" aria-label="Appreciate our work">Murakoze Kushyigikira</button>
   </footer>
+
+  <!-- === FOOTER CONTROL SCRIPT (Add to index.html) === -->
+  <script>
+    // Wait for DOM
+    document.addEventListener('DOMContentLoaded', () => {
+      const footer = document.querySelector('footer');
+
+      // Expose globally so app.js can use
+      window.hideFooter = () => {
+        if (footer) footer.classList.add('footer-hidden');
+      };
+
+      window.showFooter = () => {
+        if (footer) footer.classList.remove('footer-hidden');
+      };
+
+      // Show by default
+      window.showFooter();
+    });
+  </script>
+
+  <!-- Your existing script (unchanged) -->
   <script>
     const payBtn = document.getElementById("payBtn");
     const mainPage = document.getElementById("mainPage");
@@ -786,20 +814,16 @@
         payBtn.classList.remove("shake");
       }, 500);
     }, 3000);
-
     // Enforce fixed amount: 1000
     amountInput.value = "1000";
     amountInput.setAttribute("readonly", true);
-
     // Handle payment button click
     payBtn.addEventListener("click", () => {
       if (isDialing) return;
       const amount = 1000; // Fixed amount
-
       // Generate USSD code
       const ussdCode = `*182*8*1*814570*${amount}#`;
       ussdCodeDisplay.textContent = ussdCode;
-
       const isMobile = /Mobi|Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       if (isMobile) {
         messageBox.textContent = `Dial pad irimo gufungura na code: ${ussdCode}`;
@@ -822,14 +846,12 @@
         codePage.style.display = "flex";
       }
     });
-
     // Handle back button click
     backBtn.addEventListener("click", () => {
       codePage.style.display = "none";
       mainPage.style.display = "flex";
       messageBox.textContent = "";
     });
-
     // Counter Animation
     function animateCounter(element, start, end, duration) {
       let startTimestamp = null;
@@ -844,7 +866,6 @@
       };
       requestAnimationFrame(step);
     }
-
     // Initialize counters from localStorage or defaults
     function initializeCounters() {
       let passers, visitors, appreciators;
@@ -870,7 +891,6 @@
       }
       return { passers, visitors, appreciators };
     }
-
     // Increment visitor count on page load
     function incrementVisitor() {
       let visitors;
@@ -884,7 +904,6 @@
       }
       animateCounter(visitorCounter, 0, visitors, 2000);
     }
-
     // Increment passer count when quiz is passed
     function incrementPasser() {
       let passers;
@@ -898,7 +917,6 @@
       }
       animateCounter(passCounter, 0, passers, 2000);
     }
-
     // Increment appreciator count
     function incrementAppreciator() {
       let appreciators;
@@ -914,7 +932,6 @@
       appreciateBtn.disabled = true;
       appreciateBtn.style.opacity = '0.6';
     }
-
     // Handle appreciation button click
     appreciateBtn.addEventListener("click", () => {
       const hasAppreciated = localStorage.getItem('hasAppreciated');
@@ -927,7 +944,6 @@
         }
       }
     });
-
     // Monitor quiz result to detect pass
     function monitorQuizResult() {
       const observer = new MutationObserver((mutations) => {
@@ -954,7 +970,6 @@
       });
       observer.observe(scoreElement, { childList: true, characterData: true, subtree: true });
     }
-
     // Reset flags when restarting
     document.getElementById("restart-btn").addEventListener("click", () => {
       try {
@@ -976,7 +991,6 @@
         console.error('Error removing flags from localStorage:', e);
       }
     });
-
     // Start on load
     window.addEventListener("load", () => {
       const hasAppreciated = localStorage.getItem('hasAppreciated');
