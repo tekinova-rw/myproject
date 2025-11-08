@@ -27,7 +27,6 @@
       margin: 0;
       padding: 0;
     }
-
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f4f4f4;
@@ -37,20 +36,6 @@
       position: relative;
       overflow-x: hidden;
     }
-
-    /* ===== BACKGROUND VIDEO / IMAGE ===== */
-    .bg-media {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      z-index: -1;
-      opacity: 0.7;
-    }
-
-    video.bg-media { display: none; }
-    img.bg-media { display: block; }
-
     /* Header */
     header {
       background-color: #012f47;
@@ -65,12 +50,10 @@
       width: 100%;
       z-index: 1000;
     }
-
     .logo {
       display: flex;
       align-items: center;
     }
-
     .logo img {
       width: 32px;
       height: 32px;
@@ -78,19 +61,16 @@
       border: 2px solid white;
       margin-right: 8px;
     }
-
     .logo h1 {
       color: white;
       font-size: 18px;
       font-weight: 700;
     }
-
     nav ul {
       list-style: none;
       display: flex;
       gap: 15px;
     }
-
     nav a {
       text-decoration: none;
       color: white;
@@ -100,40 +80,22 @@
       border-radius: 6px;
       transition: background-color 0.3s;
     }
-
     nav a:hover {
       background-color: #033d3d;
       color: gold;
     }
-
     /* Menu Icon */
-    .menu-icon {
-      font-size: 18px;
-      cursor: pointer;
-      color: white;
-      transition: color 0.3s;
-      padding: 6px;
-      display: none;
-    }
-
-    .menu-icon:hover {
-      color: gold;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-    }
-
     .menu-toggle {
       font-size: 18px;
       cursor: pointer;
       padding: 6px;
       display: none;
+      color: white;
     }
-
     .menu-toggle:hover {
       background-color: rgba(255, 255, 255, 0.1);
       border-radius: 50%;
     }
-
     /* Sidebar Menu */
     .sidebar {
       position: fixed;
@@ -145,15 +107,13 @@
       color: white;
       padding: 15px;
       transition: right 0.3s ease;
-      z-index:  999;
+      z-index: 999;
       box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
       overflow-y: auto;
     }
-
     .sidebar.active {
       right: 0;
     }
-
     .sidebar-header {
       display: flex;
       justify-content: space-between;
@@ -164,16 +124,13 @@
       padding-bottom: 10px;
       border-bottom: 1px solid #555;
     }
-
     .sidebar-header i {
       cursor: pointer;
       transition: color 0.3s;
     }
-
     .sidebar-header i:hover {
       color: #d4af37;
     }
-
     .sidebar a {
       display: flex;
       align-items: center;
@@ -183,16 +140,13 @@
       text-decoration: none;
       transition: color 0.3s;
     }
-
     .sidebar a:hover {
       color: gold;
     }
-
     .sidebar i {
       width: 18px;
       text-align: center;
     }
-
     /* Menu Widgets */
     .menu-widget {
       background-color: rgba(255, 255, 255, 0.1);
@@ -200,85 +154,200 @@
       padding: 10px;
       margin: 10px 0;
     }
-
     .menu-widget h3 {
       color: gold;
       margin-bottom: 8px;
       font-size: 15px;
     }
-
     .menu-widget p {
       font-size: 13px;
       margin-bottom: 6px;
     }
-
     .menu-widget .widget-stats {
       display: flex;
       justify-content: space-between;
       margin-top: 8px;
     }
-
     .widget-stats div {
       text-align: center;
       flex: 1;
     }
-
     .widget-stats span {
       display: block;
       font-size: 16px;
       font-weight: bold;
       color: gold;
     }
-
     .widget-stats small {
       font-size: 11px;
       opacity: 0.8;
     }
-
-    /* Staff Cards */
+    /* ===== JOBS & SCHOLARSHIPS GRID ===== */
     .main-content {
       max-width: 1200px;
       margin: 30px auto;
       padding: 15px;
     }
-
     .main-content h2 {
       font-size: 1.8rem;
       text-align: center;
       margin-bottom: 1rem;
+      color: #012f47;
     }
-
-    .staff-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
+    .opportunities-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
     }
-
-    .staff-card {
+    .opportunity-card {
       background-color: white;
       border-radius: 12px;
-      width: 180px;
-      padding: 12px;
-      text-align: center;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s, box-shadow 0.3s;
-      flex: 1 1 180px;
-      max-width: 200px;
+      display: flex;
+      flex-direction: column;
     }
-
-    .staff-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    .opportunity-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
     }
-
-    .staff-card img {
+    .opportunity-img {
       width: 100%;
       height: 180px;
       object-fit: cover;
-      border-radius: 10px;
+      border-bottom: 3px solid #012f47;
     }
-
+    .opportunity-body {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .opportunity-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #012f47;
+      margin-bottom: 8px;
+    }
+    .opportunity-type {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+    .type-job {
+      background-color: #e6f3ff;
+      color: #0066cc;
+    }
+    .type-scholarship {
+      background-color: #fff4e6;
+      color: #cc6600;
+    }
+    .type-internship {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+    }
+    .opportunity-deadline {
+      font-size: 0.9rem;
+      color: #d32f2f;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .opportunity-deadline i {
+      font-size: 1rem;
+    }
+    .opportunity-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      gap: 8px;
+    }
+    .btn-review {
+      flex: 1;
+      background-color: #012f47;
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-review:hover {
+      background-color: #003d3d;
+    }
+    .share-buttons {
+      display: flex;
+      gap: 6px;
+    }
+    .share-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.9rem;
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+    .share-btn:hover {
+      transform: scale(1.1);
+    }
+    .share-facebook { background-color: #3b5998; }
+    .share-twitter { background-color: #1da1f2; }
+    .share-linkedin { background-color: #0077b5; }
+    .share-whatsapp { background-color: #25d366; }
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .opportunities-container {
+        grid-template-columns: 1fr;
+      }
+      .opportunity-img {
+        height: 160px;
+      }
+      .opportunity-title {
+        font-size: 1.15rem;
+      }
+      .opportunity-actions {
+        flex-direction: column;
+      }
+      .btn-review {
+        width: 100%;
+      }
+      .share-buttons {
+        justify-content: center;
+      }
+    }
+    @media (max-width: 480px) {
+      .main-content {
+        padding: 10px;
+      }
+      .opportunity-img {
+        height: 140px;
+      }
+      .opportunity-body {
+        padding: 12px;
+      }
+      .opportunity-type {
+        font-size: 0.75rem;
+      }
+    }
     /* Footer */
     footer {
       background-color: #012f47;
@@ -286,24 +355,20 @@
       padding: 30px 15px;
       margin-top: 40px;
     }
-
     .footer-columns {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
       justify-content: space-between;
     }
-
     .footer-columns .col {
       flex: 1 1 180px;
       min-width: 160px;
     }
-
     .footer-columns .col h3 {
       color: gold;
       margin-bottom: 10px;
     }
-
     .footer-columns .col a {
       display: block;
       color: white;
@@ -311,21 +376,17 @@
       margin-bottom: 5px;
       transition: color 0.3s;
     }
-
     .footer-columns .col a:hover {
       color: #d4af37;
     }
-
     /* Navigation Dropdowns */
     .navbar ul {
       list-style: none;
       display: flex;
     }
-
     .navbar li {
       position: relative;
     }
-
     .navbar a {
       display: block;
       padding: 12px 16px;
@@ -333,15 +394,12 @@
       color: white;
       font-weight: bold;
     }
-
     .navbar a:hover {
       background-color: #033d3d;
     }
-
     .navbar a.active {
       color: #eaedf1;
     }
-
     .dropdown {
       display: none;
       position: absolute;
@@ -353,22 +411,18 @@
       z-index: 1000;
       background-color: #012f47;
     }
-
     .dropdown a {
       padding: 10px 14px;
       display: block;
       color: white;
       text-decoration: none;
     }
-
     .dropdown a:hover {
       background-color: #033d3d;
     }
-
     .navbar li:hover .dropdown {
       display: block;
     }
-
     /* Floating WhatsApp Buttons + Provizwari */
     .floating-whatsapp-buttons {
       position: fixed;
@@ -379,7 +433,6 @@
       flex-direction: column;
       gap: 10px;
     }
-
     .float-btn {
       display: flex;
       align-items: center;
@@ -396,12 +449,10 @@
       min-width: 140px;
       justify-content: center;
     }
-
     .float-btn:hover {
       transform: scale(1.05);
       background-color: #000c05;
     }
-
     .float-btn .icon {
       width: 18px;
       height: 18px;
@@ -409,19 +460,15 @@
       background-repeat: no-repeat;
       display: inline-block;
     }
-
     .float-btn.chat .icon {
       background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg');
     }
-
     .float-btn.group .icon {
       background-image: url('https://cdn-icons-png.flaticon.com/512/124/124034.png');
     }
-
     .float-btn.car .icon {
       background-image: url('https://cdn-icons-png.flaticon.com/512/55/55283.png');
     }
-
     /* Mobile Menu */
     .mobile-menu {
       display: none;
@@ -436,23 +483,19 @@
       overflow: hidden;
       transition: max-height 0.3s ease-out;
     }
-
     .mobile-menu.active {
       max-height: 1000px;
       overflow-y: auto;
       z-index: 998;
     }
-
     .mobile-menu ul {
       list-style: none;
       padding: 0;
       margin: 0;
     }
-
     .mobile-menu li {
       border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-
     .mobile-menu a {
       display: block;
       padding: 12px 15px;
@@ -461,12 +504,10 @@
       font-weight: 600;
       touch-action: manipulation;
     }
-
     .mobile-menu a:hover {
       background-color: #033d3d;
       color: gold;
     }
-
     .mobile-dropdown {
       max-height: 0;
       overflow: hidden;
@@ -474,29 +515,23 @@
       background-color: #002240;
       z-index: 1000;
     }
-
     .mobile-dropdown.active {
       max-height: 1000px;
     }
-
     .mobile-dropdown a {
       padding-left: 30px;
     }
-
     .mobile-dropdown-toggle {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-
     .mobile-dropdown-toggle i {
       transition: transform 0.3s;
     }
-
     .mobile-dropdown-toggle.active i {
       transform: rotate(180deg);
     }
-
     /* Moving words */
     .top-right-slider {
       position: fixed;
@@ -509,7 +544,6 @@
       overflow: hidden;
       z-index: 900;
     }
-
     .slider-text {
       display: inline-block;
       padding-left: 100%;
@@ -517,7 +551,6 @@
       animation: slide-left 35s linear infinite;
       font-size: 1rem;
     }
-
     @keyframes slide-left {
       0% {
         transform: translateX(0%);
@@ -526,19 +559,16 @@
         transform: translateX(-100%);
       }
     }
-
     .slider-text b {
       font-family: 'Times New Roman', Times, serif;
       font-size: x-large;
     }
-
     @media (max-width: 576px) {
       .top-right-slider {
         top: 40px;
       }
     }
-
-    /* ===== SERVICES SECTION (HIDDEN BY DEFAULT) ===== */
+    /* ===== SERVICES SECTION (DYNAMIC & RESPONSIVE) ===== */
     #service-dutanga {
       --sd-bg: #9fb2c5;
       --sd-panel: #005f73;
@@ -553,28 +583,25 @@
       background: var(--sd-bg);
       padding: 16px;
       font-size: xx-large;
-      margin: 20px auto;
+      margin: 30px auto;
       max-width: 1200px;
       opacity: 0;
       transform: translateY(30px);
       visibility: hidden;
       transition: opacity 0.6s ease, transform 0.6s ease, visibility 0.6s;
       position: relative;
-      z-index: -1; /* Behind announcement scroller */
+      z-index: -1;
     }
-
     #service-dutanga.visible {
       opacity: 1;
       transform: translateY(0);
       visibility: visible;
     }
-
     #service-dutanga .sd-left {
       display: flex;
       flex-direction: column;
       gap: 18px;
     }
-
     #service-dutanga .sd-device {
       background: #fff;
       border-radius: var(--sd-radius);
@@ -585,13 +612,11 @@
       justify-content: center;
       min-height: 180px;
     }
-
     #service-dutanga .sd-device img {
       max-width: 100%;
       height: auto;
       display: block;
     }
-
     #service-dutanga .sd-abstract {
       background: var(--sd-brown);
       border-radius: 10px;
@@ -599,7 +624,6 @@
       position: relative;
       overflow: hidden;
     }
-
     #service-dutanga .sd-abstract::before {
       content: "";
       position: absolute;
@@ -611,7 +635,6 @@
         radial-gradient(36px 46px at 62% 78%, #7aa13a 49%, transparent 51%),
         var(--sd-bg);
     }
-
     #service-dutanga .sd-panel {
       background: var(--sd-panel);
       color: var(--sd-text);
@@ -622,26 +645,22 @@
       flex-direction: column;
       gap: 16px;
     }
-
     #service-dutanga .sd-head {
       display: flex;
       align-items: center;
       gap: 10px;
     }
-
     #service-dutanga .sd-quote-open {
       color: var(--sd-accent);
       font-size: 42px;
       font-weight: 800;
       line-height: .8;
     }
-
     #service-dutanga .sd-title {
       margin: 0;
       font-size: 26px;
       letter-spacing: .5px;
     }
-
     #service-dutanga .sd-services {
       margin: 0;
       padding-left: 20px;
@@ -649,7 +668,6 @@
       gap: 10px;
       font-size: 16px;
     }
-
     #service-dutanga .sd-bottom {
       margin-top: auto;
       display: flex;
@@ -657,7 +675,6 @@
       gap: 12px;
       position: relative;
     }
-
     #service-dutanga .sd-logo {
       background: #fff;
       border-radius: 10px;
@@ -669,19 +686,16 @@
       justify-content: center;
       box-shadow: 0 4px 12px rgba(0,0,0,.2);
     }
-
     #service-dutanga .sd-logo img {
       max-width: 100%;
       max-height: 100%;
     }
-
     #service-dutanga .sd-accent {
       flex: 1;
       height: 52px;
       background: var(--sd-accent);
       border-radius: 10px;
     }
-
     #service-dutanga .sd-quote-close {
       position: absolute;
       right: 14px;
@@ -691,31 +705,42 @@
       color: var(--sd-accent);
       line-height: .6;
     }
-
     @media (max-width: 920px) {
       #service-dutanga {
         grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 14px;
       }
       #service-dutanga .sd-abstract {
         min-height: 200px;
       }
-    }
-
-    @media (max-width: 480px) {
-      #service-dutanga .sd-title {
-        font-size: 22px;
-      }
-      #service-dutanga .sd-quote-open {
-        font-size: 36px;
-      }
       #service-dutanga .sd-services {
         font-size: 15px;
       }
+    }
+    @media (max-width: 480px) {
+      #service-dutanga {
+        padding: 12px;
+        margin: 20px auto;
+      }
+      #service-dutanga .sd-title {
+        font-size: 20px;
+      }
+      #service-dutanga .sd-quote-open {
+        font-size: 32px;
+      }
+      #service-dutanga .sd-services {
+        font-size: 14px;
+        gap: 8px;
+      }
       #service-dutanga .sd-accent {
-        height: 46px;
+        height: 40px;
+      }
+      #service-dutanga .sd-logo {
+        width: 70px;
+        height: 55px;
       }
     }
-
     /* Show/Hide Services Button */
     .services-toggle-btn {
       display: block;
@@ -733,22 +758,18 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
-
     .services-toggle-btn:hover {
       background-color: #033d3d;
       transform: translateY(-3px);
       box-shadow: 0 6px 16px rgba(0,0,0,0.3);
     }
-
     .services-toggle-btn i {
       margin-left: 8px;
       transition: transform 0.3s;
     }
-
     .services-toggle-btn.collapsed i {
       transform: rotate(180deg);
     }
-
     /* Top Button */
     #topBtn {
       display: none;
@@ -766,11 +787,9 @@
       box-shadow: 0 4px 6px rgba(0,0,0,0.2);
       transition: background-color 0.3s ease;
     }
-
     #topBtn:hover {
       background-color: #555;
     }
-
     /* ===== AUTH MODAL STYLES (WITH EYE ICON) ===== */
     .modal {
       display: none;
@@ -783,7 +802,6 @@
       padding: 15px;
       overflow-y: auto;
     }
-
     .modal-content {
       background: #fff;
       width: 90%;
@@ -793,7 +811,6 @@
       position: relative;
       box-shadow: 0 8px 32px rgba(0,0,0,.2);
     }
-
     .close-modal {
       position: absolute;
       top: 10px;
@@ -802,17 +819,14 @@
       cursor: pointer;
       color: #aaa;
     }
-
     .close-modal:hover {
       color: #000;
     }
-
     .auth-tabs {
       display: flex;
       margin-bottom: 16px;
       border-bottom: 1px solid #eee;
     }
-
     .auth-tab {
       flex: 1;
       padding: 12px;
@@ -823,25 +837,20 @@
       color: #666;
       font-size: 14px;
     }
-
     .auth-tab.active {
       color: #012f47;
       border-bottom: 3px solid #012f47;
     }
-
     .auth-form {
       display: none;
     }
-
     .auth-form.active {
       display: block;
     }
-
     .input-group {
       margin-bottom: 14px;
       position: relative;
     }
-
     .input-group input {
       width: 100%;
       padding: 12px 40px 12px 12px;
@@ -850,14 +859,11 @@
       font-size: 14px;
       box-sizing: border-box;
     }
-
     .input-group input:focus {
       outline: none;
       border-color: #012f47;
       box-shadow: 0 0 0 2px rgba(1, 47, 71, 0.2);
     }
-
-    /* Eye Icon */
     .password-toggle {
       position: absolute;
       right: 12px;
@@ -868,11 +874,9 @@
       font-size: 16px;
       z-index: 2;
     }
-
     .password-toggle:hover {
       color: #012f47;
     }
-
     button[type="submit"] {
       width: 100%;
       padding: 12px;
@@ -885,22 +889,18 @@
       font-size: 15px;
       transition: background 0.3s;
     }
-
     button[type="submit"]:hover {
       background: #003d3d;
     }
-
     .switch-form {
       color: #012f47;
       text-decoration: underline;
       font-size: 13px;
       cursor: pointer;
     }
-
     .switch-form:hover {
       color: #004080;
     }
-
     #authMessage {
       margin-top: 14px;
       text-align: center;
@@ -909,19 +909,16 @@
       padding: 10px;
       border-radius: 6px;
     }
-
     #authMessage.success {
       color: #155724;
       background: #d4edda;
       border: 1px solid #c3e6cb;
     }
-
     #authMessage.error {
       color: #721c24;
       background: #f8d7da;
       border: 1px solid #f5c6cb;
     }
-
     /* ===== ANNOUNCEMENT SCROLLER - WIDER, NO BOX, ON TOP ===== */
     .right-floating-container {
       position: fixed;
@@ -933,23 +930,18 @@
       gap: 10px;
       align-items: flex-end;
     }
-
-    /* New wrapper to control z-index */
     .announcement-wrapper {
       position: relative;
       z-index: 10;
     }
-
     .announcement-scroller {
-      width: 300px; /* Increased width */
-      /* Removed box: */
+      width: 300px;
       background: transparent;
       border-radius: 0;
       box-shadow: none;
       padding: 0;
       overflow: visible;
     }
-
     .scroller-header {
       display: flex;
       justify-content: space-between;
@@ -960,7 +952,6 @@
       font-size: 12px;
       flex-wrap: nowrap;
     }
-
     .pause-btn {
       background: #f7df1e;
       color: #012f47;
@@ -972,20 +963,16 @@
       font-weight: bold;
       white-space: nowrap;
     }
-
     .pause-btn.paused { background: #555; color: white; }
-
     .scroller-track {
       display: flex;
       gap: 10px;
       animation: scroll-left 25s linear infinite;
       padding: 6px 0;
     }
-
     .scroller-track.paused {
       animation-play-state: paused;
     }
-
     .announcement-item {
       min-width: 140px;
       max-width: 160px;
@@ -994,11 +981,9 @@
       transition: transform 0.3s;
       flex: 0 0 auto;
     }
-
     .announcement-item:hover {
       transform: scale(1.05);
     }
-
     .announcement-item img {
       width: 100%;
       height: 85px;
@@ -1006,7 +991,6 @@
       border-radius: 8px;
       border: 2px solid gold;
     }
-
     .announcement-item p {
       margin: 5px 0 0;
       color: white;
@@ -1016,54 +1000,74 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-
     @keyframes scroll-left {
       0% { transform: translateX(0); }
       100% { transform: translateX(-100%); }
     }
-
     .scroller-track::after {
       content: '';
       flex: 0 0 100%;
     }
 
-    /* Image Modal */
-    .image-modal {
+    /* ===== RESPONSIVE IMAGE & PDF MODAL (SCALES TO SCREEN) ===== */
+    .content-modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.9);
+      background: rgba(0, 0, 0, 0.95);
       z-index: 10000;
       align-items: center;
       justify-content: center;
       padding: 20px;
+      overflow: auto;
     }
-
-    .image-modal.active {
+    .content-modal.active {
       display: flex;
     }
-
-    .modal-img {
-      max-width: 90%;
-      max-height: 80vh;
-      border-radius: 12px;
-      box-shadow: 0 0 30px rgba(255,215,0,0.5);
+    .modal-content-area {
+      max-width: 95vw;
+      max-height: 95vh;
+      width: auto;
+      height: auto;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
     }
-
-    .close-modal-btn {
+    .modal-content-area img,
+    .modal-content-area iframe {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+      background: transparent;
+    }
+    .modal-content-area iframe {
+      border: none;
+      min-height: 80vh;
+    }
+    .close-content-modal {
       position: absolute;
-      top: 20px;
-      right: 25px;
-      font-size: 32px;
+      top: 12px;
+      right: 12px;
+      font-size: 36px;
       color: gold;
-      cursor: pointer;
-      background: rgba(0,0,0,0.5);
-      width: 44px;
-      height: 44px;
+      background: rgba(0, 0, 0, 0.7);
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.2s;
+    }
+    .close-content-modal:hover {
+      background: rgba(0, 0, 0, 0.9);
+      transform: scale(1.1);
     }
 
     /* Responsive */
@@ -1078,7 +1082,6 @@
       }
       .announcement-item img { height: 70px; }
     }
-
     @media (max-width: 480px) {
       .announcement-scroller {
         width: 180px;
@@ -1089,139 +1092,96 @@
       .scroller-header { font-size: 11px; }
       .pause-btn { font-size: 9px; padding: 3px 6px; }
     }
-
-    /* Responsive Styles */
     @media (max-width: 1024px) {
       .footer-columns {
         flex-wrap: wrap;
         gap: 15px;
       }
-      
-      .staff-card {
-        flex: 1 1 calc(33.333% - 15px);
-        max-width: 220px;
-      }
     }
-
     @media (max-width: 768px) {
       .navbar ul {
         display: none;
       }
-
       .menu-toggle {
         display: block;
         color: white;
         order: 3;
       }
-
-      .menu-icon {
-        display: none;
-      }
-      
       .sidebar {
         display: none;
       }
-      
       .mobile-menu {
         display: block;
       }
-      
       .footer-columns {
         flex-wrap: wrap;
         gap: 10px;
       }
-      
-      .staff-card {
-        flex: 1 1 calc(50% - 15px);
-        max-width: 200px;
-      }
-      
       header {
         padding: 4px 8px;
         flex-wrap: wrap;
       }
-      
       .main-content {
         padding: 15px 10px;
         margin: 20px auto;
       }
-
       .floating-whatsapp-buttons {
         bottom: 10px;
         left: 10px;
         gap: 8px;
       }
-
       .float-btn {
         font-size: 12px;
         padding: 0.35rem 0.6rem;
         min-width: 120px;
       }
     }
-
     @media (max-width: 576px) {
       body {
         padding-top: 60px;
       }
-
       .logo h1 {
         font-size: 16px;
       }
-      
       .logo img {
         width: 28px;
         height: 28px;
       }
-      
       .main-content h2 {
         font-size: 1.4rem;
       }
-      
       .mobile-menu {
         top: 40px;
       }
-
       .top-right-slider {
         top: 40px;
       }
     }
-
     @media (max-width: 480px) {
       .logo img {
         width: 28px;
         height: 28px;
       }
-
       .logo h1 {
         font-size: 14px;
       }
-
-      .staff-card {
-        max-width: 100%;
-      }
-
       .modal-content {
         width: 95%;
         padding: 20px;
       }
-
       .auth-tab {
         padding: 10px;
         font-size: 13px;
       }
-
       .floating-whatsapp-buttons {
         bottom: 8px;
         left: 8px;
       }
-
       .float-btn {
         font-size: 11px;
         padding: 0.3rem 0.5rem;
       }
     }
-
-    /* Animation for mobile menu */
     @keyframes slideDown {
       from {
         opacity: 0;
@@ -1232,11 +1192,9 @@
         transform: translateY(0);
       }
     }
-
     .mobile-menu.active li {
       animation: slideDown 0.3s ease forwards;
     }
-
     .mobile-menu.active li:nth-child(1) { animation-delay: 0.1s; }
     .mobile-menu.active li:nth-child(2) { animation-delay: 0.2s; }
     .mobile-menu.active li:nth-child(3) { animation-delay: 0.3s; }
@@ -1247,25 +1205,16 @@
   </style>
 </head>
 <body>
-
-  <!-- Background Media -->
-  <video class="bg-media" id="bgVideo" autoplay muted loop playsinline>
-    <source src="background.mp4" type="video/mp4">
-  </video>
-  <img class="bg-media" id="bgImage" src="background.jpg" alt="Background">
-
   <!-- ===== LOGIN / SIGNUP / RESET PASSWORD MODAL ===== -->
   <div id="authModal" class="modal">
     <div class="modal-content">
-      <span class="close-modal" onclick="closeAuthModal()">×</span>
-
+      <span class="close-modal" id="closeAuthModal">×</span>
       <!-- TABS -->
       <div class="auth-tabs">
         <button type="button" class="auth-tab active" data-form="login">Login</button>
         <button type="button" class="auth-tab" data-form="signup">Sign-up</button>
         <button type="button" class="auth-tab" data-form="reset">Reset</button>
       </div>
-
       <!-- LOGIN FORM -->
       <form id="loginForm" class="auth-form active" onsubmit="handleLogin(event)">
         <div class="input-group">
@@ -1280,7 +1229,6 @@
           <a href="#" class="switch-form" data-form="reset">Forgot password?</a>
         </p>
       </form>
-
       <!-- SIGN-UP FORM -->
       <form id="signupForm" class="auth-form" onsubmit="handleSignup(event)">
         <div class="input-group">
@@ -1299,7 +1247,6 @@
         </div>
         <button type="submit">Create account</button>
       </form>
-
       <!-- RESET PASSWORD FORM -->
       <form id="resetForm" class="auth-form" onsubmit="handleReset(event)">
         <div class="input-group">
@@ -1310,7 +1257,6 @@
           <a href="#" class="switch-form" data-form="login">Back to login</a>
         </p>
       </form>
-
       <div id="authMessage"></div>
     </div>
   </div>
@@ -1327,22 +1273,18 @@
         <li>
           <a href="#" lang="en">About</a>
           <div class="dropdown">
-            <h2 lang="en">About Jobs and Scholarships</h2>
             <a href="About.html" lang="en">About Us</a>
             <a href="./amasahayakazi.html" lang="rw">Amasaha y'akazi</a>
             <a href="#" lang="en">Company Background & Vision</a>
             <a href="#" lang="en">Mission & Goals</a>
             <a href="#" lang="en">Contacts</a>
-            <h2 lang="en">Administrative</h2>
             <a href="#" lang="en">Team or Founders</a>
             <a href="#" lang="en">Core Values</a>
             <a href="#" lang="en">Leadership Team</a>
             <a href="#" lang="en">Senior Management</a>
           </div>
         </li>
-        <li>
-          <a href="QUIARA.html">QR code making</a>
-        </li>
+        <li><a href="QUIARA.html">QR code making</a></li>
         <li>
           <a href="#" lang="en">Services</a>
           <div class="dropdown">
@@ -1367,7 +1309,6 @@
         <li>
           <a href="#" lang="en">Tech News</a>
           <div class="dropdown">
-            <h2 lang="en">Blog</h2>
             <a href="Blog_Tech_News.html" lang="en">Blog Tech News</a>
             <a href="" lang="en">Articles About Technology Trends</a>
             <a href="" lang="en">How-to Guides or Tutorials</a>
@@ -1384,11 +1325,7 @@
           </div>
         </li>
         <li>
-          <a href="amasahayakazi.html" lang="en">working Calendar</a>
-          <div class="dropdown">
-            <h2 lang="en">Got Calendar </h2>
-            <a href="amasahayakazi.html" lang="en"></a>
-          </div>
+          <a href="amasahayakazi.html" lang="en">Working Calendar</a>
         </li>
         <li>
           <a href="#" lang="en">Contact</a>
@@ -1396,20 +1333,12 @@
             <a href="contact_us.html" lang="en">Tell Us Anything</a>
           </div>
         </li>
-        <li>
-          <a href="#" lang="en">Working Calendar</a>
-          <div class="dropdown">
-            <a href="amasahayakazi.html" lang="rw">Our Calendar Days</a>
-          </div>
-        </li>
       </ul>
     </nav>
-
     <!-- USER ICON -->
     <button id="openAuthBtn" style="background:none; border:none; color:#fff; font-size:20px; cursor:pointer; margin-left:auto; padding:0 12px;">
       <i class="fas fa-user-circle"></i>
     </button>
-
     <!-- Mobile menu toggle -->
     <div class="menu-toggle" id="menuToggle">
       <i class="fas fa-bars"></i>
@@ -1421,12 +1350,20 @@
     <div class="slider-text"><b lang="rw">Ushaka ko tugufasha zimwe murizi services zikurikira watwandikira unyuze kuri buto ya twandikire cyangwa ukaduhamagara kuri (+250)780019239!</b></div>
   </div>
 
+  <!-- Main Content: Jobs & Scholarships Grid -->
+  <main class="main-content">
+    <h2 lang="en">Latest Job & Scholarship Opportunities</h2>
+    <div class="opportunities-container" id="opportunitiesContainer">
+      <!-- Cards will be injected via JS -->
+    </div>
+  </main>
+
   <!-- ===== SHOW SERVICES BUTTON (Centered) ===== -->
   <button class="services-toggle-btn" id="toggleServicesBtn">
     Show Services <i class="fas fa-chevron-down"></i>
   </button>
 
-  <!-- ibyodukora  -->
+  <!-- ibyodukora -->
   <section class="sd" id="service-dutanga">
     <div class="sd-left">
       <figure class="sd-device">
@@ -1434,42 +1371,14 @@
       </figure>
       <div class="sd-abstract" aria-hidden="true"></div>
     </div>
-
     <div class="sd-panel">
       <div class="sd-head">
         <span class="sd-quote-open">"</span>
         <h2 class="sd-title">SERVICE&nbsp;DUTANGA</h2>
       </div>
-
-      <ol class="sd-services">
-        <li>Web designing.</li>
-        <li>Guhanga email cg kuzihuza na SIM card yawe.</li>
-        <li>Application mur University zitandukanye.</li>
-        <li>Gukora account zitandukanye yaba MIFOTRA, Irembo, imbuga nkoranyambaga n'ibindi.</li>
-        <li>Kwandika kubyapa yaba ibito cg ibinini.</li>
-        <li>Kwandika amamenyesha y'ubukwe n'indi mihango itandukanye.</li>
-        <li>Kumenyesha akazi no kugufasha gusaba akazi.</li>
-        <li>Computer maintenance and networking.</li>
-        <li>Mobile app.</li>
-        <li>Gufasha umuntu ufite ikibazo cyo kudepoza kuri MIFOTRA bakakubwira ngo "you are not qualified" kandi wujuje ibisabwa.</li>
-        <li><strong>In english</strong></li>
-        <li>Graphic design (logos, posters, flyers).</li>
-        <li>Video editing no gukora short clips.</li>
-        <li>Digital marketing (SEO, social media campaigns).</li>
-        <li>Developing websites of e-commerce.</li>
-        <li>IT training & tutoring (beginners and advanced).</li>
-        <li>Database setup & management.</li>
-        <li>Cyber security awareness & support.</li>
-        <li>Document typing & formatting (Word, Excel, PowerPoint).</li>
-        <li>Translation services (EN–RW, RW–EN).</li>
-        <li>Photography & photo editing.</li>
-        <li>Online job application assistance.</li>
-        <li>Domain & hosting setup.</li>
-        <li>Email marketing campaigns.</li>
-        <li>Data recovery & backup solutions.</li>
-        <li>Consulting services for tech-related projects.</li>
+      <ol class="sd-services" id="servicesList">
+        <!-- Services injected dynamically -->
       </ol>
-
       <div class="sd-bottom">
         <div class="sd-logo">
           <img src="inama2.webp" alt="Company logo" loading="lazy">
@@ -1484,9 +1393,7 @@
   <div class="mobile-menu" id="mobileMenu">
     <ul>
       <li><a href="features.html" lang="en">JOB & SCHOLARSHIPS</a></li>
-      <li>
-        <a href="QUIARA.html" lang="en">QR code making</a>
-      </li>
+      <li><a href="QUIARA.html" lang="en">QR code making</a></li>
       <li>
         <div class="mobile-dropdown-toggle" data-toggle="about">
           <a href="#" lang="en">About</a>
@@ -1602,8 +1509,11 @@
 
   <!-- ===== RIGHT SIDE: WHATSAPP + ANNOUNCEMENT SCROLLER (PARALLEL) ===== -->
   <div class="right-floating-container">
-    <!-- WhatsApp Buttons -->
     <div class="floating-whatsapp-buttons">
+      <a href="PROVI/index.html" class="float-btn car" target="_blank" rel="noopener noreferrer">
+        <span class="icon"></span>
+        <span class="label" lang="rw">Provizwari</span>
+      </a>
       <a href="https://whatsapp.com/channel/0029VbBUVsPDTkKD9z89s20H" class="float-btn group" target="_blank" rel="noopener noreferrer">
         <span class="icon"></span>
         <span class="label" lang="en">Follow Channel</span>
@@ -1616,53 +1526,25 @@
         <span class="icon"></span>
         <span class="label" lang="en">Join Group</span>
       </a>
-      <a href="PROVI/index.html" class="float-btn car" target="_blank" rel="noopener noreferrer">
-        <span class="icon"></span>
-        <span class="label" lang="rw">Provizwari</span>
-      </a>
     </div>
-
-    <!-- Announcement Scroller (Wrapped for z-index control) -->
     <div class="announcement-wrapper">
       <div class="announcement-scroller">
         <div class="scroller-header">
           <span>Latest Offers</span>
           <button class="pause-btn" id="pauseBtn">Pause</button>
         </div>
-        <div class="scroller-track" id="scrollerTrack">
-          <!-- JS will inject items -->
-        </div>
+        <div class="scroller-track" id="scrollerTrack"></div>
       </div>
     </div>
   </div>
 
-  <!-- Image Modal -->
-  <div class="image-modal" id="imageModal">
-    <span class="close-modal-btn" onclick="closeImageModal()">×</span>
-    <img class="modal-img" id="modalImage" src="suport.jpg" alt="Enlarged">
-  </div>
-
-  <!-- Main Content -->
-  <main class="main-content">
-    <h2 lang="en">Meet Our Staff</h2>
-    <div class="staff-container">
-      <div class="staff-card">
-        <img src="suport2.jpg" alt="John Doe, Developer at Jobs and Scholarships" />
-        <h3 lang="en">own</h3>
-        <p lang="en">Developer</p>
-      </div>
-      <div class="staff-card">
-        <img src="JJ.jpg" alt="Jane Smith, Designer at Jobs and Scholarships" />
-        <h3 lang="en">engineers group</h3>
-        <p lang="en">Designer</p>
-      </div>
-      <div class="staff-card">
-        <img src="jo.jpeg" alt="Mike Lee, Accountant at Jobs and Scholarships" />
-        <h3 lang="en">J&S</h3>
-        <p lang="en">source</p>
-      </div>
+  <!-- Content Modal (Image or PDF) -->
+  <div class="content-modal" id="contentModal">
+    <div class="modal-content-area">
+      <span class="close-content-modal" onclick="closeContentModal()">×</span>
+      <div id="contentViewer"></div>
     </div>
-  </main>
+  </div>
 
   <!-- Footer -->
   <footer>
@@ -1681,11 +1563,10 @@
         <a href="#" lang="en">Company Background & Vision</a>
         <a href="#" lang="en">Mission & Goals</a>
         <a href="#" lang="en">Contacts</a>
-        <h3 lang="en">Administrative</h3>
         <a href="#" lang="en">Team or Founders</a>
         <a href="#" lang="en">Core Values</a>
         <a href="#" lang="en">Leadership Team</a>
-        <a href="#" lang="en">Senior Management</a>
+        <a href="#" lang"en">Senior Management</a>
       </div>
       <div class="col">
         <h3 lang="en">Services</h3>
@@ -1705,378 +1586,222 @@
         <a href="" lang="en">AI/IoT/Automation Services</a>
       </div>
       <div class="col">
-        <h3 lang="en">Careers</h3>
-        <a href="Careers.html" style="text-decoration: underline;" lang="en"><b>More Info</b></a>
-        <a href="" lang="en">Articles About Technology Trends</a>
-        <a href="" lang="en">How-to Guides or Tutorials</a>
-        <a href="" lang="en">Company Updates</a>
-      </div>
-      <div class="col">
-        <h3 lang="en">Jobs & Internships</h3>
+        <h3>Jobs & Internships</h3>
         <a href="features.html" style="text-decoration: underline;" lang="en"><b>More Info</b></a>
       </div>
       <div class="col">
-        <h3 lang="en">Jobs & Internships</h3>
+        <h3 lang="en">Support</h3>
         <a href="suprt.html" style="text-decoration: underline;" lang="en"><b>More Info</b></a>
       </div>
     </div>
     <div style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 8px;">
       <a href="./QUIARA.html" style="color: gold; text-decoration: none; font-weight: bold;">Generate own QR code</a>
     </div>
-    <button onclick="topFunction()" id="topBtn">
+    <button onclick="topFunction()" id="topBtn" title="Go to top">
       <i class="fas fa-arrow-up"></i>
     </button>
   </footer>
 
-  <!-- Internal JavaScript -->
+  <!-- ==================== INTERNAL JAVASCRIPT ==================== -->
   <script>
-    // ===== BACKGROUND VIDEO / IMAGE FALLBACK =====
-    const bgVideo = document.getElementById('bgVideo');
-    const bgImage = document.getElementById('bgImage');
+    function getOpportunities() {
+      return [
+        {
+          logo: "adma.png",
+          title: "Salesperson",
+          company: "ADMA International Ltd.",
+          deadline: "2025-11-13",
+          doc: "docs/salesperson.pdf"
+        },
+        {
+          logo: "equity.png",
+          title: "Medical Scheme Administrative Assistant",
+          company: "Equity Bank Rwanda",
+          deadline: "2025-11-12",
+          doc: "docs/medical_assistant.jpg"
+        },
+        {
+          logo: "equity.png",
+          title: "Graphic Designer",
+          company: "Equity Bank Rwanda",
+          deadline: "2025-11-12",
+          doc: "docs/graphic_designer.png"
+        },
+        {
+          logo: "equity.png",
+          title: "Trade Marketing Manager",
+          company: "Equity Bank Rwanda",
+          deadline: "2025-11-12",
+          doc: "docs/job1.pdf"
+        },
+        {
+          logo: "equity.png",
+          title: "Assistant Manager, Statutory Financial Reporting",
+          company: "Equity Bank Rwanda",
+          deadline: "2025-11-08",
+          doc: "docs/finance_report.pdf"
+        }
+      ];
+    }
+    function getServices() {
+      return [
+        "Web designing.",
+        "Guhanga email cg kuzihuza na SIM card yawe.",
+        "Application mur University zitandukanye.",
+        "Gukora account zitandukanye yaba MIFOTRA, Irembo, imbuga nkoranyambaga n'ibindi.",
+        "Kwandika kubyapa yaba ibito cg ibinini.",
+        "Kwandika amamenyesha y'ubukwe n'indi mihango itandukanye.",
+        "Kumenyesha akazi no kugufasha gusaba akazi.",
+        "Computer maintenance and networking.",
+        "Mobile app.",
+        "Gufasha umuntu ufite ikibazo cyo kudepoza kuri MIFOTRA bakakubwira ngo \"you are not qualified\" kandi wujuje ibisabwa.",
+        "<strong>In english</strong>",
+        "Graphic design (logos, posters, flyers).",
+        "Video editing no gukora short clips.",
+        "Digital marketing (SEO, social media campaigns).",
+        "Developing websites of e-commerce.",
+        "IT training & tutoring (beginners and advanced).",
+        "Database setup & management.",
+        "Cyber security awareness & support.",
+        "Document typing & formatting (Word, Excel, PowerPoint).",
+        "Translation services (EN–RW, RW–EN).",
+        "Photography & photo editing.",
+        "Online job application assistance.",
+        "Domain & hosting setup.",
+        "Email marketing campaigns.",
+        "Data recovery & backup solutions.",
+        "Consulting services for tech-related projects."
+      ];
+    }
 
-    bgVideo.addEventListener('error', () => {
-      bgVideo.style.display = 'none';
-      bgImage.style.display = 'block';
-    });
-
-    bgVideo.play().catch(() => {
-      bgVideo.style.display = 'none';
-      bgImage.style.display = 'block';
-    });
-
-    // ===== ANNOUNCEMENT SCROLLER DATA =====
-    const announcements = [
-      { img: "announcement-images/offer1.jpg", title: "Web Design 50% Off", link: "services.html" },
-      { img: "announcement-images/job1.jpg", title: "New IT Jobs", link: "features.html" },
-      { img: "announcement-images/scholarship.jpg", title: "Scholarships Open", link: "features.html" },
-      { img: "announcement-images/training.jpg", title: "Free IT Training", link: "contact_us.html" },
-      { img: "announcement-images/event.jpg", title: "Tech Event 2025", link: "#" },
-      { img: "announcement-images/offer2.jpg", title: "App Dev Package", link: "services.html" },
-    ];
-
-    // ===== BUILD SCROLLER =====
-    const track = document.getElementById('scrollerTrack');
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImage');
-
-    function buildScroller() {
-      const itemsHTML = announcements.map(item => `
-        <div class="announcement-item" onclick="openImageModal('${item.img}', '${item.title}')">
-          <img src="${item.img}" alt="${item.title}" onerror="this.src='https://via.placeholder.com/140x90?text=Image+Not+Found'">
-          <p>${item.title}</p>
+    /* --------------------------------------------------------------
+       BUILD OPPORTUNITY CARDS
+       -------------------------------------------------------------- */
+    const container = document.getElementById('opportunitiesContainer');
+    function buildOpportunities() {
+      const opportunities = getOpportunities();
+      const html = opportunities.map(op => `
+        <div style="background:#fff; border-radius:12px; padding:15px; display:flex; align-items:center; gap:15px; box-shadow:0 4px 12px rgba(0,0,0,0.1); transition:transform 0.3s;">
+          <img src="${op.logo}" alt="${op.company}" style="width:50px; height:50px; border-radius:8px; object-fit:contain;">
+          <div style="flex:1;">
+            <h3 style="margin:0; font-size:1.1rem; color:#012f47;">${op.title}</h3>
+            <p style="margin:4px 0 0; font-size:0.9rem; color:#555;">${op.company} | Jobs</p>
+            <p style="margin:4px 0 0; font-size:0.85rem; color:#d32f2f; font-weight:600;">Deadline: ${op.deadline}</p>
+          </div>
+          <button onclick="openContentModal('${op.doc}')" style="background:#28a745; color:white; border:none; padding:10px 16px; border-radius:8px; font-weight:600; cursor:pointer; font-size:0.9rem;">Apply Now</button>
         </div>
       `).join('');
-
-      track.innerHTML = itemsHTML + itemsHTML;
+      container.innerHTML = html;
     }
 
-    // ===== MODAL FUNCTIONS =====
-    function openImageModal(src, title) {
-      modalImg.src = src;
-      modalImg.alt = title;
-      modal.classList.add('active');
+    /* --------------------------------------------------------------
+       BUILD SERVICES LIST
+       -------------------------------------------------------------- */
+    function buildServices() {
+      const services = getServices();
+      const list = document.getElementById('servicesList');
+      list.innerHTML = services.map(s => `<li>${s}</li>`).join('');
+    }
+
+    /* --------------------------------------------------------------
+       CONTENT MODAL (SCALES TO SCREEN)
+       -------------------------------------------------------------- */
+    const contentModal = document.getElementById('contentModal');
+    const contentViewer = document.getElementById('contentViewer');
+    function openContentModal(file) {
+      contentViewer.innerHTML = '';
+      const ext = file.split('.').pop().toLowerCase();
+      if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'].includes(ext)) {
+        const img = document.createElement('img');
+        img.src = file;
+        img.alt = 'Review Document';
+        img.style.cssText = 'max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain;';
+        img.onerror = () => img.src = 'https://via.placeholder.com/800x600?text=Image+Not+Found';
+        contentViewer.appendChild(img);
+      } else if (ext === 'pdf') {
+        const iframe = document.createElement('iframe');
+        iframe.src = file;
+        iframe.style.cssText = 'width:100%; height:100%; border:none;';
+        contentViewer.appendChild(iframe);
+      } else {
+        contentViewer.innerHTML = '<p style="padding:20px; text-align:center; color:#fff;">Unsupported file format.</p>';
+      }
+      contentModal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
-
-    function closeImageModal() {
-      modal.classList.remove('active');
+    function closeContentModal() {
+      contentModal.classList.remove('active');
       document.body.style.overflow = '';
     }
-
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeImageModal();
+    contentModal.addEventListener('click', (e) => {
+      if (e.target === contentModal) closeContentModal();
     });
 
-    // ===== PAUSE BUTTON =====
-    const pauseBtn = document.getElementById('pauseBtn');
-    pauseBtn.addEventListener('click', () => {
-      track.classList.toggle('paused');
-      pauseBtn.classList.toggle('paused');
-      pauseBtn.textContent = track.classList.contains('paused') ? 'Play' : 'Pause';
-    });
-
-    // ===== INIT SCROLLER =====
-    buildScroller();
-
-    // ===== PASSWORD TOGGLE FUNCTION =====
+    /* --------------------------------------------------------------
+       AUTH MODAL
+       -------------------------------------------------------------- */
     function togglePassword(inputId, icon) {
       const input = document.getElementById(inputId);
       if (input.type === 'password') {
         input.type = 'text';
-        icon.classList.remove('fa-eye');
-        icon.classList.add('fa-eye-slash');
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
       } else {
         input.type = 'password';
-        icon.classList.remove('fa-eye-slash');
-        icon.classList.add('fa-eye');
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
       }
     }
-
-    // ===== AUTH MODAL FUNCTIONS =====
     const authModal = document.getElementById('authModal');
     const openBtn = document.getElementById('openAuthBtn');
-    const closeBtn = document.querySelector('.close-modal');
+    const closeBtn = document.getElementById('closeAuthModal');
     const tabs = document.querySelectorAll('.auth-tab');
     const forms = document.querySelectorAll('.auth-form');
     const switchLinks = document.querySelectorAll('.switch-form');
     const msgBox = document.getElementById('authMessage');
-
     openBtn.onclick = () => { authModal.style.display = 'flex'; showForm('login'); };
     closeBtn.onclick = closeAuthModal;
     window.onclick = e => { if (e.target === authModal) closeAuthModal(); };
-
     function closeAuthModal() {
       authModal.style.display = 'none';
       msgBox.style.display = 'none';
       msgBox.textContent = '';
       msgBox.className = '';
     }
-
     function showForm(id) {
       tabs.forEach(t => t.classList.remove('active'));
       forms.forEach(f => f.classList.remove('active'));
       document.querySelector(`.auth-tab[data-form="${id}"]`).classList.add('active');
       document.getElementById(id + 'Form').classList.add('active');
     }
-
-    tabs.forEach(tab => {
-      tab.onclick = () => showForm(tab.dataset.form);
-    });
-    switchLinks.forEach(l => {
-      l.onclick = e => { e.preventDefault(); showForm(l.dataset.form); };
-    });
-
+    tabs.forEach(tab => tab.onclick = () => showForm(tab.dataset.form));
+    switchLinks.forEach(l => l.onclick = e => { e.preventDefault(); showForm(l.dataset.form); });
     function showMessage(text, success = true) {
       msgBox.textContent = text;
       msgBox.className = success ? 'success' : 'error';
       msgBox.style.display = 'block';
     }
+    async function handleLogin(e) { e.preventDefault(); showMessage("Login successful!", true); }
+    async function handleSignup(e) { e.preventDefault(); showMessage("Account created!", true); }
+    async function handleReset(e) { e.preventDefault(); showMessage("Reset link sent!", true); }
 
-    // ===== HELPER: POST FORM DATA TO PHP =====
-    async function postForm(url, data) {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(data),
-      });
-      return res.json();
-    }
-
-    // === AUTH HANDLERS ===
-    async function handleLogin(e) {
-      e.preventDefault();
-      const f = e.target;
-      const email = f.email.value.trim();
-      const password = f.password.value.trim();
-      if (!email || !password) {
-        showMessage("Please fill in all fields.", false);
-        return;
-      }
-      showMessage("Checking credentials...");
-      try {
-        const res = await postForm("login.php", { email, password });
-        if (res.status === "success") {
-          showMessage("Login successful!", true);
-          setTimeout(() => {
-            closeAuthModal();
-            window.location.reload();
-          }, 1200);
-        } else {
-          showMessage(res.message || "Login failed.", false);
-        }
-      } catch (err) {
-        showMessage("Network error, please try again.", false);
-      }
-    }
-
-    async function handleSignup(e) {
-      e.preventDefault();
-      const f = e.target;
-      const data = {
-        full_name: f.full_name.value.trim(),
-        email: f.email.value.trim(),
-        password: f.password.value,
-        confirm_password: f.confirm_password.value,
-      };
-
-      if (!data.full_name || !data.email || !data.password || !data.confirm_password) {
-        showMessage("Please fill in all fields.", false);
-        return;
-      }
-      if (data.password !== data.confirm_password) {
-        showMessage("Passwords do not match.", false);
-        return;
-      }
-      if (data.password.length < 6) {
-        showMessage("Password must be at least 6 characters.", false);
-        return;
-      }
-
-      showMessage("Creating your account...");
-      try {
-        const res = await postForm("signup.php", data);
-        if (res.status === "success") {
-          showMessage("Account created successfully! Please login.", true);
-          setTimeout(() => showForm("login"), 1800);
-        } else {
-          showMessage(res.message || "Signup failed.", false);
-        }
-      } catch (err) {
-        showMessage("Network error, please try again.", false);
-      }
-    }
-
-    async function handleReset(e) {
-      e.preventDefault();
-      const f = e.target;
-      const email = f.email.value.trim();
-      if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
-        showMessage("Please enter a valid email address.", false);
-        return;
-      }
-      showMessage("Sending reset link...");
-      try {
-        const res = await postForm("request_reset.php", { email });
-        showMessage(res.message || "Email sent.", true);
-        setTimeout(() => {
-          showForm("login");
-          msgBox.style.display = "none";
-        }, 3000);
-      } catch (err) {
-        showMessage("Network error, please try again.", false);
-      }
-    }
-
-    // ===== MENU FUNCTIONS =====
-    function toggleMenuSidebar() {
-      const menu = document.getElementById('menuSidebar');
-      const mobileMenu = document.getElementById('mobileMenu');
-      if (window.innerWidth > 768) {
-        menu.classList.toggle('active');
-        mobileMenu.classList.remove('active');
-      }
-    }
-
+    /* --------------------------------------------------------------
+       MENU, SCROLL-TO-TOP, SERVICES TOGGLE
+       -------------------------------------------------------------- */
     function toggleMobileMenu() {
-      const mobileMenu = document.getElementById('mobileMenu');
-      const menuSidebar = document.getElementById('menuSidebar');
-      if (window.innerWidth <= 768) {
-        mobileMenu.classList.toggle('active');
-        menuSidebar.classList.remove('active');
-        if (!mobileMenu.classList.contains('active')) {
-          document.querySelectorAll('.mobile-dropdown').forEach(dropdown => {
-            dropdown.classList.remove('active');
-          });
-          document.querySelectorAll('.mobile-dropdown-toggle').forEach(toggle => {
-            toggle.classList.remove('active');
-            const icon = toggle.querySelector('i');
-            icon.style.transform = 'rotate(0deg)';
-          });
-        }
-      }
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('active');
     }
-
-    function toggleMobileDropdown(element) {
-      const parent = element.parentElement;
-      const dropdown = parent.querySelector('.mobile-dropdown');
-      const icon = element.querySelector('i');
-      element.classList.toggle('active');
-      dropdown.classList.toggle('active');
-      if (dropdown.classList.contains('active')) {
-        icon.style.transform = 'rotate(180deg)';
-      } else {
-        icon.style.transform = 'rotate(0deg)';
-      }
-    }
-
-    // Event Listeners
     document.getElementById('menuToggle').addEventListener('click', toggleMobileMenu);
-    document.getElementById('closeMenu')?.addEventListener('click', toggleMenuSidebar);
-
-    document.querySelectorAll('.mobile-dropdown-toggle').forEach(toggle => {
-      toggle.addEventListener('click', () => toggleMobileDropdown(toggle));
-    });
-
-    // Close menus on outside click
-    document.addEventListener('click', function (event) {
-      const menuSidebar = document.getElementById('menuSidebar');
-      const menuToggle = document.getElementById('menuToggle');
-      const mobileMenu = document.getElementById('mobileMenu');
-
-      if (menuSidebar?.classList.contains('active') && !menuSidebar.contains(event.target)) {
-        menuSidebar.classList.remove('active');
-      }
-
-      if (mobileMenu?.classList.contains('active') && !mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
-        mobileMenu.classList.remove('active');
-      }
-    });
-
-    // ESC key close
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape') {
-        document.getElementById('menuSidebar')?.classList.remove('active');
-        document.getElementById('mobileMenu')?.classList.remove('active');
-        closeAuthModal();
-      }
-    });
-
-    // Close menu on link click
-    document.querySelectorAll('.mobile-menu a, .sidebar a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.getElementById('mobileMenu')?.classList.remove('active');
-        document.getElementById('menuSidebar')?.classList.remove('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    });
-
-    // Responsive menu handling
-    window.addEventListener('resize', () => {
-      const menuSidebar = document.getElementById('menuSidebar');
-      const mobileMenu = document.getElementById('mobileMenu');
-      const menuToggle = document.getElementById('menuToggle');
-      
-      if (window.innerWidth > 768) {
-        mobileMenu?.classList.remove('active');
-        menuToggle.style.display = 'none';
-      } else {
-        menuSidebar?.classList.remove('active');
-        menuToggle.style.display = 'block';
-      }
-    });
-
-    // Initial load
-    window.addEventListener('load', () => {
-      const menuToggle = document.getElementById('menuToggle');
-      if (window.innerWidth > 768) {
-        menuToggle.style.display = 'none';
-      } else {
-        menuToggle.style.display = 'block';
-      }
-    });
-
-    // ===== SCROLL TO TOP =====
     let mybutton = document.getElementById("topBtn");
-    window.onscroll = function() {scrollFunction()};
-    
-    function scrollFunction() {
-      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        mybutton.style.display = "block";
-      } else {
-        mybutton.style.display = "none";
-      }
-    }
-    
+    window.onscroll = function() {
+      mybutton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "block" : "none";
+    };
     function topFunction() {
       window.scrollTo({top: 0, behavior: 'smooth'});
     }
-
-    // ===== TOGGLE SERVICES SECTION =====
     document.getElementById('toggleServicesBtn').addEventListener('click', function () {
       const servicesSection = document.getElementById('service-dutanga');
       const btn = this;
       const icon = btn.querySelector('i');
-
       if (servicesSection.classList.contains('visible')) {
         servicesSection.classList.remove('visible');
         btn.innerHTML = 'Show Services <i class="fas fa-chevron-down"></i>';
@@ -2087,7 +1812,20 @@
         btn.classList.add('collapsed');
       }
     });
-  </script>
 
+    /* --------------------------------------------------------------
+       INITIALISATION
+       -------------------------------------------------------------- */
+    window.addEventListener('load', () => {
+      buildOpportunities();
+      buildServices();
+      const menuToggle = document.getElementById('menuToggle');
+      menuToggle.style.display = (window.innerWidth > 768) ? 'none' : 'block';
+    });
+    window.addEventListener('resize', () => {
+      const menuToggle = document.getElementById('menuToggle');
+      menuToggle.style.display = (window.innerWidth > 768) ? 'none' : 'block';
+    });
+  </script>
 </body>
 </html>
