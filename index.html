@@ -28,13 +28,7 @@
       background:#f4f4f4;color:#333;line-height:1.6;
       padding-top:68px;position:relative;overflow-x:hidden;
     }
-
-    /* Global Wrapper - Makes everything wide */
-    .page-wrapper{
-      width:100%;max-width:1600px;margin:0 auto;padding:0 15px;
-    }
-
-    /* Header */
+    .page-wrapper{width:100%;max-width:1600px;margin:0 auto;padding:0 15px;}
     header{
       background:#012f47;color:#fff;padding:6px 8px;
       display:flex;justify-content:space-between;align-items:center;
@@ -51,8 +45,6 @@
     nav a:hover{background:#033d3d;color:gold}
     .menu-toggle{font-size:18px;cursor:pointer;padding:6px;display:none;color:#fff}
     .menu-toggle:hover{background:rgba(255,255,255,.1);border-radius:50%}
-
-    /* Sidebar */
     .sidebar{
       position:fixed;top:0;right:-250px;width:240px;height:100vh;
       background:#002240;color:#fff;padding:15px;transition:right .3s ease;
@@ -68,8 +60,6 @@
       text-decoration:none;transition:color .3s}
     .sidebar a:hover{color:gold}
     .sidebar i{width:18px;text-align:center}
-
-    /* Menu Widgets */
     .menu-widget{
       background:rgba(255,255,255,.1);border-radius:8px;padding:10px;margin:10px 0;
     }
@@ -79,8 +69,6 @@
     .widget-stats div{text-align:center;flex:1}
     .widget-stats span{display:block;font-size:16px;font-weight:bold;color:gold}
     .widget-stats small{font-size:11px;opacity:.8}
-
-    /* Main Content - WIDE */
     .main-content{
       max-width:1600px;width:95%;margin:30px auto;padding:15px;
     }
@@ -146,8 +134,6 @@
     .share-twitter{background:#1da1f2}
     .share-linkedin{background:#0077b5}
     .share-whatsapp{background:#25d366}
-
-    /* Footer - WIDE */
     footer{
       background:#012f47;color:#fff;padding:30px 15px;margin-top:40px;
     }
@@ -162,8 +148,6 @@
       transition:color .3s;
     }
     .footer-columns .col a:hover{color:#d4af37}
-
-    /* Navigation Dropdowns */
     .navbar ul{list-style:none;display:flex}
     .navbar li{position:relative}
     .navbar a{
@@ -179,8 +163,6 @@
     .dropdown a{padding:10px 14px;display:block;color:#fff;text-decoration:none}
     .dropdown a:hover{background:#033d3d}
     .navbar li:hover .dropdown{display:block}
-
-    /* Floating WhatsApp Buttons */
     .floating-whatsapp-buttons{
       position:fixed;bottom:15px;left:15px;z-index:9999;
       display:flex;flex-direction:column;gap:10px;
@@ -200,8 +182,6 @@
     .float-btn.chat .icon{background-image:url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg')}
     .float-btn.group .icon{background-image:url('https://cdn-icons-png.flaticon.com/512/124/124034.png')}
     .float-btn.car .icon{background-image:url('https://cdn-icons-png.flaticon.com/512/55/55283.png')}
-
-    /* Mobile Menu */
     .mobile-menu{
       display:none;position:fixed;top:48px;left:0;width:100%;
       background:#012f47;z-index:998;box-shadow:0 5px 10px rgba(0,0,0,.2);
@@ -226,8 +206,6 @@
     }
     .mobile-dropdown-toggle i{transition:transform .3s}
     .mobile-dropdown-toggle.active i{transform:rotate(180deg)}
-
-    /* Moving words */
     .top-right-slider{
       position:fixed;top:48px;width:100%;background:#3781ca;color:#fff;
       padding:8px 0;text-align:center;overflow:hidden;z-index:900;
@@ -242,8 +220,6 @@
     }
     .slider-text b{font-family:'Times New Roman',Times,serif;font-size:x-large}
     @media (max-width:576px){.top-right-slider{top:40px}}
-
-    /* Live info banner */
     .live-info-banner{
       background:linear-gradient(135deg,#012f47,#003d3d);color:gold;
       text-align:center;padding:10px 15px;font-size:.95rem;font-weight:600;
@@ -256,8 +232,6 @@
       .live-info-banner{font-size:.85rem;padding:8px 10px}
       .live-info-banner span{margin:0 6px;font-size:.8rem}
     }
-
-    /* Services section (wide) */
     #service-dutanga{
       --sd-bg:#9fb2c5;--sd-panel:#005f73;--sd-accent:#f7df1e;
       --sd-brown:#b67c2f;--sd-text:#fff;--sd-radius:16px;
@@ -322,8 +296,6 @@
       #service-dutanga .sd-accent{height:40px}
       #service-dutanga .sd-logo{width:70px;height:55px}
     }
-
-    /* Show/Hide Services Button */
     .services-toggle-btn{
       display:block;margin:30px auto;padding:14px 28px;
       font-size:18px;font-weight:bold;color:#fff;background:#012f47;
@@ -335,8 +307,6 @@
       box-shadow:0 6px 16px rgba(0,0,0,.3)}
     .services-toggle-btn i{margin-left:8px;transition:transform .3s}
     .services-toggle-btn.collapsed i{transform:rotate(180deg)}
-
-    /* Top button */
     #topBtn{
       display:none;position:fixed;bottom:20px;right:20px;z-index:99;
       font-size:20px;background:#2e69b8;color:#fff;border:none;
@@ -344,8 +314,6 @@
       box-shadow:0 4px 6px rgba(0,0,0,.2);transition:background .3s;
     }
     #topBtn:hover{background:#555}
-
-    /* Auth modal */
     .modal{
       display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
       z-index:2000;align-items:center;justify-content:center;
@@ -398,33 +366,27 @@
     }
     #authMessage.success{color:#155724;background:#d4edda;border:1px solid #c3e6cb}
     #authMessage.error{color:#721c24;background:#f8d7da;border:1px solid #f5c6cb}
-
-    /* ==================== CONTENT MODAL - ORIGINAL SIZE ==================== */
     .content-modal{
       display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);
       z-index:10000;align-items:center;justify-content:center;
       padding:20px;overflow:auto;
     }
     .content-modal.active{display:flex}
-
     .modal-content-area{
       width:auto;height:auto;position:relative;
       display:flex;flex-direction:column;align-items:center;
       max-width:95vw;max-height:95vh;
     }
-
     .modal-content-area img{
       width:auto;height:auto;
       max-width:100%;max-height:90vh;
       object-fit:contain;display:block;
     }
-
     .modal-content-area iframe{
       width:95vw;height:90vh;
       border:none;background:#fff;
       max-width:100%;max-height:90vh;
     }
-
     .close-content-modal{
       position:absolute;top:12px;right:12px;font-size:36px;color:gold;
       background:rgba(0,0,0,.7);width:48px;height:48px;border-radius:50%;
@@ -434,34 +396,45 @@
     .close-content-modal:hover{
       background:rgba(0,0,0,.9);transform:scale(1.1);
     }
-
-    /* NEW: Small Share Button */
-    .modal-share-btn {
-      width: 40px;
-      height: 40px;
+    .modal-action-btns {
+      display: flex;
+      gap: 12px;
+      margin: 20px auto 0;
+    }
+    .modal-share-btn, .modal-copy-btn {
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      background: #1da1f2;
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 18px;
       cursor: pointer;
-      margin: 20px auto 0;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       transition: all 0.2s;
+    }
+    .modal-share-btn {
+      background: #1da1f2;
     }
     .modal-share-btn:hover {
       background: #0d8aec;
       transform: scale(1.1);
     }
-
-    /* RESPONSIVE BREAKPOINTS */
+    .modal-copy-btn {
+      background: #28a745;
+    }
+    .modal-copy-btn:hover {
+      background: #218838;
+      transform: scale(1.1);
+    }
+    .modal-copy-btn.copied {
+      background: #17a2b8;
+    }
     @media (max-width: 1200px) {
       .opportunities-container { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
       .main-content h2 { font-size: 1.6rem; }
     }
-
     @media (max-width: 992px) {
       .navbar ul { gap: 10px; }
       nav a { font-size: 12px; padding: 4px 6px; }
@@ -470,7 +443,6 @@
       .top-right-slider { top: 44px; }
       .live-info-banner { padding: 8px 12px; }
     }
-
     @media (max-width: 768px) {
       .opportunities-container { grid-template-columns: 1fr; }
       .opportunity-img { height: 160px; }
@@ -489,7 +461,6 @@
       .footer-columns { gap: 15px; }
       .footer-columns .col { flex: 1 1 140px; min-width: 140px; }
     }
-
     @media (max-width: 576px) {
       body { padding-top: 60px; }
       .logo h1 { font-size: 14px; }
@@ -506,7 +477,6 @@
       .modal-content { width: 95%; padding: 18px; }
       .auth-tab { padding: 8px; font-size: 12px; }
     }
-
     @media (max-width: 480px) {
       .logo img { width: 22px; height: 22px; }
       .logo h1 { font-size: 13px; }
@@ -520,10 +490,8 @@
   </style>
 </head>
 <body>
-
 <div class="page-wrapper">
-
-  <!-- ===== LOGIN / SIGNUP MODAL ===== -->
+  <!-- LOGIN / SIGNUP MODAL -->
   <div id="authModal" class="modal">
     <div class="modal-content">
       <span class="close-modal" id="closeAuthModal">×</span>
@@ -532,8 +500,6 @@
         <button type="button" class="auth-tab" data-form="signup">Sign-up</button>
         <button type="button" class="auth-tab" data-form="reset">Reset</button>
       </div>
-
-      <!-- LOGIN -->
       <form id="loginForm" class="auth-form active" onsubmit="handleLogin(event)">
         <div class="input-group"><input type="email" name="email" placeholder="Email" required></div>
         <div class="input-group">
@@ -545,8 +511,6 @@
           <a href="#" class="switch-form" data-form="reset">Forgot password?</a>
         </p>
       </form>
-
-      <!-- SIGN-UP -->
       <form id="signupForm" class="auth-form" onsubmit="handleSignup(event)">
         <div class="input-group"><input type="text" name="full_name" placeholder="Full name" required></div>
         <div class="input-group"><input type="email" name="email" placeholder="Email" required></div>
@@ -560,8 +524,6 @@
         </div>
         <button type="submit">Create account</button>
       </form>
-
-      <!-- RESET -->
       <form id="resetForm" class="auth-form" onsubmit="handleReset(event)">
         <div class="input-group"><input type="email" name="email" placeholder="Email address" required></div>
         <button type="submit">Send reset link</button>
@@ -569,12 +531,11 @@
           <a href="#" class="switch-form" data-form="login">Back to login</a>
         </p>
       </form>
-
       <div id="authMessage"></div>
     </div>
   </div>
 
-  <!-- ===== HEADER ===== -->
+  <!-- HEADER -->
   <header>
     <div class="logo">
       <img src="./jo.jpeg" alt="Logo">
@@ -661,10 +622,10 @@
     <span><i class="fas fa-map-marker-alt"></i> Country: Rwanda (RW)</span>
   </div>
 
-  <!-- ===== MAIN CONTENT ===== -->
+  <!-- MAIN CONTENT -->
   <main class="main-content">
     <h2 lang="en">Latest Job & Scholarship Opportunities</h2>
-    <div class="opportunities-container" id="opportunitiesContainer"><!-- JS injects cards --></div>
+    <div class="opportunities-container" id="opportunitiesContainer"></div>
   </main>
 
   <!-- Show services button -->
@@ -680,7 +641,7 @@
     </div>
     <div class="sd-panel">
       <div class="sd-head"><span class="sd-quote-open">"</span><h2 class="sd-title">SERVICE DUTANGA</h2></div>
-      <ol class="sd-services" id="servicesList"><!-- JS injects items --></ol>
+      <ol class="sd-services" id="servicesList"></ol>
       <div class="sd-bottom">
         <div class="sd-logo"><img src="inama2.webp" alt="Company logo" loading="lazy"></div>
         <div class="sd-accent" title="Decoration"></div>
@@ -875,18 +836,52 @@
     </div>
     <button onclick="topFunction()" id="topBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
   </footer>
+</div>
 
-</div> <!-- end .page-wrapper -->
-
-<!-- ==================== JAVASCRIPT ==================== -->
 <script>
   function getOpportunities() {
     return [
-      { logo: "adma.png", title: "Salesperson", company: "ADMA International Ltd.", deadline: "2025-11-13", doc: "docs/job1.pdf" },
-      { logo: "equity.png", title: "Medical Scheme Administrative Assistant", company: "Equity Bank Rwanda", deadline: "2025-11-12", doc: "docs/medical_assistant.jpg" },
-      { logo: "equity.png", title: "Graphic Designer", company: "Equity Bank Rwanda", deadline: "2025-11-12", doc: "docs/graphic_designer.png" },
-      { logo: "equity.png", title: "Trade Marketing Manager", company: "Equity Bank Rwanda", deadline: "2025-11-12", doc: "docs/job1.pdf" },
-      { logo: "equity.png", title: "Assistant Manager, Statutory Financial Reporting", company: "Equity Bank Rwanda", deadline: "2025-11-08", doc: "index2.html" }
+      { 
+        logo: "adma.png", 
+        title: "Salesperson", 
+        company: "ADMA International Ltd.", 
+        description: "Join a dynamic sales team to promote innovative products across Rwanda.", 
+        deadline: "2025-11-13", 
+        doc: "docs/job1.pdf" 
+      },
+      { 
+        logo: "equity.png", 
+        title: "Medical Scheme Administrative Assistant", 
+        company: "Equity Bank Rwanda", 
+        description: "Support medical insurance operations and client services.", 
+        deadline: "2025-11-12", 
+        doc: "docs/medical_assistant.jpg" 
+      },
+      { 
+        logo: "equity.png", 
+        title: "Graphic Designer", 
+        company: "Equity Bank Rwanda", 
+        description: "Create stunning visuals for marketing campaigns and digital platforms.", 
+        deadline: "2025-11-12", 
+        doc: "docs/graphic_designer.png" 
+      },
+      { 
+        logo: "equity.png", 
+        title: "Trade Marketing Manager", 
+        company: "Equity Bank Rwanda", 
+        description: "Lead trade marketing strategies to boost brand presence.", 
+        deadline: "2025-11-12", 
+        doc: "docs/job1.pdf" 
+      },
+      { 
+        logo: "equity.png", 
+        title: "Assistant Manager, Statutory Financial Reporting", 
+        company: "Equity Bank Rwanda", 
+        description: "Ensure compliance with financial reporting standards and regulations.", 
+        deadline: "2025-11-08", 
+        doc: "docs/assistant_manager.html",
+        img: "docs/assistant_manager.jpg"
+      }
     ];
   }
 
@@ -930,9 +925,10 @@
         <div style="flex:1;">
           <h3 style="margin:0; font-size:1.1rem; color:#012f47;">${op.title}</h3>
           <p style="margin:4px 0 0; font-size:0.9rem; color:#555;">${op.company} | Jobs</p>
+          <p style="margin:4px 0 0; font-size:0.85rem; color:#666; font-style:italic;">${op.description}</p>
           <p style="margin:4px 0 0; font-size:0.85rem; color:#d32f2f; font-weight:600;">Deadline: ${op.deadline}</p>
         </div>
-        <button onclick="openContentModal('${op.doc}')" style="background:#28a745; color:white; border:none; padding:10px 16px; border-radius:8px; font-weight:600; cursor:pointer; font-size:0.9rem;">Apply Now</button>
+        <button onclick="openContentModal('${op.doc}', '${op.title}', '${op.description.replace(/'/g, "\\'")}', '${op.deadline}')" style="background:#28a745; color:white; border:none; padding:10px 16px; border-radius:8px; font-weight:600; cursor:pointer; font-size:0.9rem;">Apply Now</button>
       </div>
     `).join('');
     container.innerHTML = html;
@@ -946,13 +942,16 @@
 
   const contentModal = document.getElementById('contentModal');
   const contentViewer = document.getElementById('contentViewer');
+  let currentShareData = {};
 
-  function openContentModal(file) {
+  function openContentModal(file, title, description, deadline) {
     contentViewer.innerHTML = '';
     const ext = (file.split('.').pop() || '').toLowerCase();
-
     let contentElement = null;
     let canPreview = false;
+
+    const job = getOpportunities().find(o => o.doc === file);
+    currentShareData = { file, title, description, deadline, img: job?.img };
 
     if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg'].includes(ext)) {
       contentElement = document.createElement('img');
@@ -973,38 +972,54 @@
       canPreview = true;
     }
     else if (ext === 'html' || ext === 'htm') {
-      contentElement = document.createElement('iframe');
-      contentElement.src = file;
-      contentElement.style.width = '95vw';
-      contentElement.style.height = '80vh';
-      contentElement.style.border = 'none';
-      contentElement.style.borderRadius = '8px';
-      contentElement.style.background = '#fff';
-      canPreview = true;
+      if (job?.img) {
+        contentElement = document.createElement('img');
+        contentElement.src = job.img;
+        contentElement.alt = 'Job Preview';
+        contentElement.style.maxWidth = '100%';
+        contentElement.style.maxHeight = '80vh';
+        contentElement.style.borderRadius = '8px';
+        canPreview = true;
+      } else {
+        contentElement = document.createElement('iframe');
+        contentElement.src = file;
+        contentElement.style.width = '95vw';
+        contentElement.style.height = '80vh';
+        contentElement.style.border = 'none';
+        contentElement.style.borderRadius = '8px';
+        contentElement.style.background = '#fff';
+        canPreview = true;
+      }
     }
 
     if (canPreview && contentElement) {
       contentViewer.appendChild(contentElement);
-
-      // === SMALL SHARE BUTTON ===
-      const shareBtn = document.createElement('div');
-      shareBtn.className = 'modal-share-btn';
-      shareBtn.innerHTML = '<i class="fas fa-share-alt"></i>';
-      shareBtn.onclick = () => shareDocument(file);
-      contentViewer.appendChild(shareBtn);
-    }
-    else {
+    } else {
       contentViewer.innerHTML = `
-        <div style="text-align:center; padding:40px; color:#fff; font-family:Arial;">
+        <div style="text-align:center; padding:40px; color:#fff;">
           <p style="font-size:1.1rem; margin-bottom:20px;">
             <strong>Cannot preview this file type:</strong> <code style="background:#333; padding:2px 6px; border-radius:4px;">.${ext}</code>
           </p>
-          <div class="modal-share-btn" onclick="shareDocument('${file}')">
-            <i class="fas fa-share-alt"></i>
-          </div>
         </div>
       `;
     }
+
+    const actionBtns = document.createElement('div');
+    actionBtns.className = 'modal-action-btns';
+
+    const shareBtn = document.createElement('div');
+    shareBtn.className = 'modal-share-btn';
+    shareBtn.innerHTML = '<i class="fas fa-share-alt"></i>';
+    shareBtn.onclick = shareDocument;
+
+    const copyBtn = document.createElement('div');
+    copyBtn.className = 'modal-copy-btn';
+    copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
+    copyBtn.onclick = copyToClipboard;
+
+    actionBtns.appendChild(shareBtn);
+    actionBtns.appendChild(copyBtn);
+    contentViewer.appendChild(actionBtns);
 
     contentModal.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -1014,43 +1029,41 @@
     contentModal.classList.remove('active');
     document.body.style.overflow = '';
   }
-  contentModal.addEventListener('click', e => { if (e.target === contentModal) closeContentModal(); });
 
-  // === SHARE FUNCTION ===
-  function shareDocument(fileUrl) {
-    const url = location.origin + '/' + fileUrl;
-    const title = document.title;
+  contentModal.addEventListener('click', e => { 
+    if (e.target === contentModal) closeContentModal(); 
+  });
 
-    if (navigator.share) {
-      navigator.share({ title, url })
-        .catch(() => fallbackShare(url, title));
-    } else {
-      fallbackShare(url, title);
-    }
+  function shareDocument() {
+    const { file, title, description, deadline, img } = currentShareData;
+    const base = location.href.split('?')[0].replace(/\/[^\/]*$/, '/');
+    const url = base + file;
+    const imgUrl = img ? base + img : '';
+
+    let message = `${title}\n\n${description}\n\nDeadline: ${deadline}\n\nApply here: ${url}`;
+    if (imgUrl) message += `\n\n${imgUrl}`;
+    message += `\n\n#Jobs&scholarships #Scholarships`;
+
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
   }
 
-  function fallbackShare(url, title) {
-    const width = 600, height = 500;
-    const left = screen.width / 2 - width / 2;
-    const top = screen.height / 2 - height / 2;
-    const features = `width=${width},height=${height},left=${left},top=${top},menubar=no,toolbar=no`;
+  function copyToClipboard() {
+    const { title, description, deadline, file } = currentShareData;
+    const url = location.href.split('?')[0].replace(/\/[^\/]*$/, '/') + file;
+    const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\n\nApply here: ${url}\n\n#Jobs&scholarships #Scholarships`;
 
-    const choice = prompt(
-      `Share this job opportunity:\n\n1. Twitter\n2. Facebook\n3. LinkedIn\n4. WhatsApp\n5. Telegram\n\nEnter number (1-5):`,
-      "4"
-    );
-
-    let shareUrl = '';
-    switch (choice) {
-      case '1': shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`; break;
-      case '2': shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`; break;
-      case '3': shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`; break;
-      case '4': shareUrl = `https://wa.me/?text=${encodeURIComponent(title + ' ' + url)}`; break;
-      case '5': shareUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`; break;
-      default: return;
-    }
-
-    window.open(shareUrl, '_blank', features);
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('.modal-copy-btn');
+      btn.innerHTML = '<i class="fas fa-check"></i>';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fas fa-copy"></i>';
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(() => {
+      alert("Copy failed. Please copy manually.");
+    });
   }
 
   function togglePassword(inputId, icon) {
@@ -1071,22 +1084,27 @@
   const forms = document.querySelectorAll('.auth-form');
   const switchLinks = document.querySelectorAll('.switch-form');
   const msgBox = document.getElementById('authMessage');
+
   openBtn.onclick = () => { authModal.style.display = 'flex'; showForm('login'); };
   closeBtn.onclick = () => { authModal.style.display = 'none'; msgBox.style.display = 'none'; };
   window.onclick = e => { if (e.target === authModal) authModal.style.display = 'none'; };
+
   function showForm(id) {
     tabs.forEach(t => t.classList.remove('active'));
     forms.forEach(f => f.classList.remove('active'));
     document.querySelector(`.auth-tab[data-form="${id}"]`).classList.add('active');
     document.getElementById(id + 'Form').classList.add('active');
   }
+
   tabs.forEach(tab => tab.onclick = () => showForm(tab.dataset.form));
   switchLinks.forEach(l => l.onclick = e => { e.preventDefault(); showForm(l.dataset.form); });
+
   function showMessage(text, success = true) {
     msgBox.textContent = text;
     msgBox.className = success ? 'success' : 'error';
     msgBox.style.display = 'block';
   }
+
   async function handleLogin(e) { e.preventDefault(); showMessage("Login successful!", true); }
   async function handleSignup(e) { e.preventDefault(); showMessage("Account created!", true); }
   async function handleReset(e) { e.preventDefault(); showMessage("Reset link sent!", true); }
@@ -1099,6 +1117,7 @@
   window.onscroll = function() {
     mybutton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "block" : "none";
   };
+
   function topFunction() {
     window.scrollTo({top: 0, behavior: 'smooth'});
   }
