@@ -1,78 +1,361 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="rw">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facilitator Interns - RODI Recruitment</title>
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 40px 10px;
-            color: #333;
-            background-color: #f9f9f9;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jobs, Internships & Scholarships</title>
+  <!-- SEO / Open Graph -->
+  <meta name="description" content="Find job opportunities, internships, and scholarships in Rwanda. Connect with us for career guidance and tech-related services.">
+  <meta name="keywords" content="jobs, internships, scholarships, Rwanda, careers, tech services, job opportunities">
+  <meta name="author" content="Jobs and Scholarships Team">
+  <meta property="og:title" content="Jobs, Internships & Scholarships - Rwanda">
+  <meta property="og:description" content="Explore job opportunities, internships, and scholarships in Rwanda.">
+  <meta property="og:image" content="./jo.jpeg">
+  <meta property="og:url" content="https://yourwebsite.com">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+      background:#fff;color:#333;line-height:1.6;
+      padding-top:68px;overflow-x:hidden;
+    }
+    .page-wrapper{max-width:1600px;margin:auto;padding:0 15px;}
 
-        .container {
-            background: #fff;
-            padding: 30px 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            max-width: 900px;
-            margin: 0 auto;
-        }
+    /* ---------- Header ---------- */
+    header{
+      background:#012f47;color:#fff;padding:10px 15px;
+      display:flex;justify-content:space-between;align-items:center;
+      position:fixed;top:0;left:0;width:100%;z-index:1000;
+      box-shadow:0 2px 10px rgba(0,0,0,.1);
+    }
+    .logo{display:flex;align-items:center;gap:8px}
+    .logo img{width:36px;height:36px;border-radius:50%;border:2px solid #fff}
+    .logo h1{font-size:18px;font-weight:700}
 
-        h1, h2, h3 {
-            color: #004080;
-        }
+    /* Hamburger Icon */
+    .hamburger{
+      display:none;cursor:pointer;font-size:22px;padding:5px;
+      border-radius:4px;transition:background .3s;
+    }
+    .hamburger:hover{background:rgba(255,255,255,.1)}
+    .hamburger .bar{
+      display:block;width:22px;height:2px;background:#fff;
+      margin:5px auto;transition:all .3s;
+    }
+    .hamburger.active .bar:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.active .bar:nth-child(2){opacity:0}
+    .hamburger.active .bar:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-        h1 {
-            text-transform: uppercase;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+    /* Desktop Nav (hidden on mobile) */
+    nav ul{
+      list-style:none;display:flex;gap:18px;flex-wrap:wrap;
+      justify-content:center;align-items:center;
+    }
+    nav a{
+      color:#fff;text-decoration:none;font-weight:600;font-size:14px;
+      padding:6px 10px;border-radius:6px;transition:background .3s;
+    }
+    nav a:hover{background:#033d3d;color:gold}
 
-        ul {
-            margin-left: 20px;
-        }
+    /* Mobile Menu (Hamburger Dropdown) */
+    .mobile-nav{
+      position:fixed;top:68px;left:0;width:100%;background:#012f47;
+      max-height:0;overflow:hidden;transition:max-height .4s ease-out;
+      z-index:998;box-shadow:0 4px 10px rgba(0,0,0,.2);
+    }
+    .mobile-nav.active{max-height:600px;overflow-y:auto}
+    .mobile-nav ul{list-style:none;padding:15px 0}
+    .mobile-nav li{border-bottom:1px solid rgba(255,255,255,.1)}
+    .mobile-nav a{
+      display:block;padding:14px 20px;color:#fff;text-decoration:none;
+      font-weight:600;font-size:15px;transition:background .3s;
+    }
+    .mobile-nav a:hover{background:#033d3d;color:gold}
 
-        a {
-            color: #0066cc;
-            text-decoration: none;
-        }
+    /* ---------- Slider & Banner ---------- */
+    .top-right-slider{
+      position:fixed;top:68px;width:100%;background:#3781ca;color:#fff;
+      padding:8px 0;text-align:center;overflow:hidden;z-index:900;
+    }
+    .slider-text{
+      display:inline-block;padding-left:100%;white-space:nowrap;
+      animation:slide-left 35s linear infinite;font-size:1rem;
+    }
+    @keyframes slide-left{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+    .slider-text b{font-family:'Times New Roman',serif;font-size:1.1rem}
+    .live-info-banner{
+      background:linear-gradient(135deg,#012f47,#003d3d);color:gold;
+      text-align:center;padding:10px 15px;font-size:.95rem;font-weight:600;
+     
+    }
+    .live-info-banner i{color:#f7df1e;margin-right:6px}
+    .live-info-banner span{display:inline-flex;align-items:center;gap:6px;margin:0 12px}
 
-        a:hover {
-            text-decoration: underline;
-        }
+    /* ---------- WhatsApp Buttons ---------- */
+    .floating-whatsapp-buttons{
+      position:fixed;bottom:15px;left:15px;z-index:9999;
+      display:flex;flex-direction:column;gap:10px;
+    }
+    .float-btn{
+      display:flex;align-items:center;gap:6px;background:#2e69b8;
+      color:#fff;padding:.5rem 1rem;border-radius:999px;
+      text-decoration:none;font-size:14px;box-shadow:0 4px 12px rgba(12,12,12,.2);
+      transition:transform .2s,background .3s;min-width:140px;
+      justify-content:center;
+    }
+    .float-btn:hover{transform:scale(1.05);background:#000c05}
+    .float-btn .icon{
+      width:18px;height:18px;background-size:contain;
+      background-repeat:no-repeat;display:inline-block;
+    }
+    .float-btn.chat .icon{background-image:url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg')}
+    .float-btn.group .icon{background-image:url('https://cdn-icons-png.flaticon.com/512/124/124034.png')}
+    .float-btn.car .icon{background-image:url('https://cdn-icons-png.flaticon.com/512/55/55283.png')}
 
-        .section {
-            margin-bottom: 30px;
-        }
+    /* ---------- Footer ---------- */
+    footer{
+      background:#012f47;color:#fff;padding:40px 15px 30px;margin-top:60px;
+    }
+    .footer-inner{max-width:1600px;margin:auto;text-align:center}
+    .footer-columns{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:25px;margin-bottom:30px;text-align:left;
+    }
+    .footer-columns .col h3{color:gold;margin-bottom:12px;font-size:1.1rem}
+    .footer-columns a{
+      display:block;color:#fff;text-decoration:none;margin-bottom:8px;
+      transition:color .3s;font-size:14px;
+    }
+    .footer-columns a:hover{color:#d4af37}
+    .footer-social{
+      display:flex;gap:15px;justify-content:center;margin:25px 0;
+    }
+    .footer-social a{
+      width:44px;height:44px;border-radius:50%;display:flex;
+      align-items:center;justify-content:center;color:#fff;
+      font-size:1.2rem;transition:transform .3s,box-shadow .3s;
+      box-shadow:0 2px 8px rgba(0,0,0,.2);
+    }
+    .footer-social a:hover{transform:scale(1.15);box-shadow:0 4px 12px rgba(0,0,0,.3)}
+    .footer-social .fb{background:#3b5998}
+    .footer-social .tw{background:#1da1f2}
+    .footer-social .li{background:#0077b5}
+    .footer-social .wa{background:#25d366}
+    .footer-qr{
+      margin:25px 0;padding:18px;background:rgba(255,255,255,.08);
+      border-radius:10px;display:inline-block;
+    }
+    .footer-qr a{color:gold;font-weight:bold;text-decoration:none;font-size:15px}
+    .footer-qr a:hover{text-decoration:underline}
 
-        .apply-link {
-            background-color: #004080;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            display: inline-block;
-            margin-top: 10px;
-        }
+    #topBtn{
+      display:none;position:fixed;bottom:20px;right:20px;z-index:99;
+      background:#2e69b8;color:#fff;border:none;padding:14px;
+      border-radius:50%;font-size:20px;cursor:pointer;
+      box-shadow:0 4px 12px rgba(0,0,0,.3);transition:all .3s;
+    }
+    #topBtn:hover{background:#003d3d;transform:scale(1.1)}
 
-        .apply-link:hover {
-            background-color: #0066cc;
-        }
+    /* ---------- Login Modal ---------- */
+    .modal{
+      display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
+      z-index:2000;align-items:center;justify-content:center;
+      padding:15px;overflow-y:auto;
+    }
+    .modal-content{
+      background:#fff;width:90%;max-width:400px;border-radius:12px;
+      padding:24px;position:relative;box-shadow:0 8px 32px rgba(0,0,0,.2);
+    }
+    .close-modal{
+      position:absolute;top:10px;right:15px;font-size:26px;
+      cursor:pointer;color:#aaa;transition:color .3s;
+    }
+    .close-modal:hover{color:#000}
+    .auth-tabs{display:flex;margin-bottom:16px;border-bottom:1px solid #eee}
+    .auth-tab{
+      flex:1;padding:12px;background:none;border:none;
+      font-weight:600;cursor:pointer;color:#666;font-size:14px;
+    }
+    .auth-tab.active{color:#012f47;border-bottom:3px solid #012f47}
+    .auth-form{display:none}
+    .auth-form.active{display:block}
+    .input-group{margin-bottom:14px;position:relative}
+    .input-group input{
+      width:100%;padding:12px 40px 12px 12px;border:1px solid #ccc;
+      border-radius:6px;font-size:14px;
+    }
+    .input-group input:focus{
+      outline:none;border-color:#012f47;
+      box-shadow:0 0 0 2px rgba(1,47,71,.2);
+    }
+    .password-toggle{
+      position:absolute;right:12px;top:50%;transform:translateY(-50%);
+      cursor:pointer;color:#666;font-size:16px;
+    }
+    .password-toggle:hover{color:#012f47}
+    button[type="submit"]{
+      width:100%;padding:12px;background:#012f47;color:#fff;
+      border:none;border-radius:6px;font-weight:600;cursor:pointer;
+      font-size:15px;transition:background .3s;
+    }
+    button[type="submit"]:hover{background:#003d3d}
+    .switch-form{color:#012f47;text-decoration:underline;font-size:13px;cursor:pointer}
+    .switch-form:hover{color:#004080}
+    #authMessage{
+      margin-top:14px;text-align:center;font-size:14px;
+      display:none;padding:10px;border-radius:6px;
+    }
+    #authMessage.success{color:#155724;background:#d4edda;border:1px solid #c3e6cb}
+    #authMessage.error{color:#721c24;background:#f8d7da;border:1px solid #f5c6cb}
 
-        .footer-note {
-            margin-top: 20px;
-            font-style: italic;
-            color: #555;
-        }
-    </style>
+    /* ---------- Main Content ---------- */
+    main{min-height:70vh;padding:40px 15px}
+
+    /* ---------- Responsive ---------- */
+    @media (max-width:992px){
+      .logo h1{font-size:17px}
+      .logo img{width:32px;height:32px}
+      nav ul{gap:12px}
+      nav a{font-size:13px;padding:5px 8px}
+    }
+    @media (max-width:768px){
+      .hamburger{display:block}
+      nav ul{display:none} /* Hide desktop menu */
+      .top-right-slider{top:68px}
+      .live-info-banner{font-size:.9rem;padding:8px}
+      .floating-whatsapp-buttons{bottom:10px;left:10px;gap:8px}
+      .float-btn{font-size:13px;padding:.4rem .8rem;min-width:130px}
+    }
+    @media (max-width:576px){
+      body{padding-top:60px}
+      header{padding:8px 12px}
+      .logo h1{font-size:15px}
+      .logo img{width:28px;height:28px}
+      .top-right-slider{top:60px;font-size:.9rem;padding:6px 0}
+      .slider-text b{font-size:medium}
+      .live-info-banner{font-size:.8rem;padding:6px 8px}
+      .mobile-nav a{font-size:14px;padding:12px 18px}
+      .float-btn{font-size:12px;min-width:110px}
+      #topBtn{bottom:15px;right:15px;font-size:18px;padding:12px}
+    }
+    @media (max-width:480px){
+      .logo h1{font-size:14px}
+      .logo img{width:26px;height:26px}
+      .float-btn{font-size:11px;min-width:100px;padding:.3rem .6rem}
+      .float-btn .icon{width:16px;height:16px}
+      .footer-columns{grid-template-columns:1fr}
+      .footer-social a{width:40px;height:40px;font-size:1.1rem}
+    }
+  </style>
 </head>
 <body>
+<div class="page-wrapper">
+  <!-- ==================== LOGIN MODAL ==================== -->
+  <div id="authModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" id="closeAuthModal">x</span>
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active" data-form="login">Login</button>
+        <button type="button" class="auth-tab" data-form="signup">Sign-up</button>
+        <button type="button" class="auth-tab" data-form="reset">Reset</button>
+      </div>
+      <form id="loginForm" class="auth-form active" onsubmit="handleLogin(event)">
+        <div class="input-group"><input type="email" placeholder="Email" required></div>
+        <div class="input-group">
+          <input type="password" id="loginPassword" placeholder="Password" required>
+          <i class="fas fa-eye password-toggle" onclick="togglePassword('loginPassword',this)"></i>
+        </div>
+        <button type="submit">Login</button>
+        <p style="margin-top:8px;text-align:center;">
+          <a href="#" class="switch-form" data-form="reset">Forgot password?</a>
+        </p>
+      </form>
+      <form id="signupForm" class="auth-form" onsubmit="handleSignup(event)">
+        <div class="input-group"><input type="text" placeholder="Full name" required></div>
+        <div class="input-group"><input type="email" placeholder="Email" required></div>
+        <div class="input-group">
+          <input type="password" id="signupPassword" placeholder="Password" required>
+          <i class="fas fa-eye password-toggle" onclick="togglePassword('signupPassword',this)"></i>
+        </div>
+        <div class="input-group">
+          <input type="password" id="confirmPassword" placeholder="Confirm password" required>
+          <i class="fas fa-eye password-toggle" onclick="togglePassword('confirmPassword',this)"></i>
+        </div>
+        <button type="submit">Create account</button>
+      </form>
+      <form id="resetForm" class="auth-form" onsubmit="handleReset(event)">
+        <div class="input-group"><input type="email" placeholder="Email address" required></div>
+        <button type="submit">Send reset link</button>
+        <p style="margin-top:8px;text-align:center;">
+          <a href="#" class="switch-form" data-form="login">Back to login</a>
+        </p>
+      </form>
+      <div id="authMessage"></div>
+    </div>
+  </div>
 
-<div class="container">
+  <!-- ==================== HEADER ==================== -->
+  <header>
+    <div class="logo">
+      <img src="./jo.jpeg" alt="Logo">
+      <h1 lang="en">Jobs, Internships & Scholarships</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="../index.html" lang="en">home</a></li>
+        <li><a href="../About.html" lang="en">About</a></li>
+        <li><a href="../QUIARA.html" lang="en">QR Code</a></li>
+        <li><a href="../services.html" lang="en">Services</a></li>
+        <li><a href="../Products.html" lang="en">Product</a></li>
+        <li><a href="../Blog_Tech_News.html" lang="en">Tech News</a></li>
+        <li><a href="../Careers.html" lang="en">Careers</a></li>
+        <li><a href="../amasahayakazi.html" lang="en">Calendar</a></li>
+        <li><a href="../contact_us.html" lang="en">Contact</a></li>
+      </ul>
+    </nav>
+    <button id="openAuthBtn" style="background:none;border:none;color:#fff;font-size:22px;cursor:pointer;padding:0 10px;">
+      <i class="fas fa-user-circle"></i>
+    </button>
+    <div class="hamburger" id="hamburger">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+  </header>
+
+  <!-- ==================== Mobile Nav (Hamburger Menu) ==================== -->
+  <div class="mobile-nav" id="mobileNav">
+    <ul>
+      <li><a href="../index.html" lang="en">home</a></li>
+      <li><a href="../About.html" lang="en">About</a></li>
+      <li><a href="../QUIARA.html" lang="en">QR Code</a></li>
+      <li><a href="../services.html" lang="en">Services</a></li>
+      <li><a href="../Products.html" lang="en">Product</a></li>
+      <li><a href="../Blog_Tech_News.html" lang="en">Tech News</a></li>
+      <li><a href="../Careers.html" lang="en">Careers</a></li>
+      <li><a href="../amasahayakazi.html" lang="en">Calendar</a></li>
+      <li><a href="../contact_us.html" lang="en">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- ==================== Slider & Banner ==================== -->
+  <div class="top-right-slider">
+    <div class="slider-text"><b lang="rw">Ushaka ko tugufasha zimwe murizi services zikurikira watwandikira unyuze kuri buto ya twandikire cyangwa ukaduhamagara kuri (+250)780019239!</b></div>
+  </div>
+  <div class="live-info-banner">
+    <span> November 14, 2025 02:00 PM CAT</span>
+    <span> Country: Rwanda (RW)</span>
+  </div>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main>
+    <!-- YOUR NEW CONTENT GOES HERE -->
+   <div class="container">
     <h1>Facilitator Interns – RODI Recruitment</h1>
 
     <div class="section">
@@ -179,5 +462,127 @@
     </div>
 </div>
 
+
+
+  </main>
+
+  <!-- ==================== WhatsApp Buttons ==================== -->
+  <div class="floating-whatsapp-buttons">
+    <a href="../PROVI/index.html" class="float-btn car" target="_blank">
+      <span class="icon"></span><span class="label" lang="rw">Provizwari</span>
+    </a>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-columns">
+        <div class="col">
+          <h3 lang="en">Contact</h3>
+          <a href="../contact_us.html" style="text-decoration:underline"><b>More Info</b></a>
+          <strong lang="en">WhatsApp:</strong>
+          <a href="https://wa.me/+250733253803" target="_blank">+250 733 253 803</a>
+          <strong lang="en">Email:</strong>
+          <a href="mailto:infojobandscholarships@gmail.com">infojobandscholarships@gmail.com</a>
+        </div>
+        <div class="col">
+          <h3 lang="en">About Us</h3>
+          <a href="../About.html" style="text-decoration:underline"><b>More Info</b></a>
+        </div>
+        <div class="col">
+          <h3 lang="en">Services</h3>
+          <a href="../services.html" style="text-decoration:underline"><b>More Info</b></a>
+        </div>
+        <div class="col">
+          <h3 lang="en">Product</h3>
+          <a href="../Products.html" style="text-decoration:underline"><b>More Info</b></a>
+        </div>
+        <div class="col">
+          <h3>Jobs & Internships</h3>
+          <a href="../index.html" style="text-decoration:underline"><b>More Info</b></a>
+        </div>
+        <div class="col">
+          <h3 lang="en">Scholarships</h3>
+          <a href="../index.html" style="text-decoration:underline"><b>View All</b></a>
+        </div>
+      </div>
+      <div class="footer-social">
+        <a href="https://facebook.com" target="_blank" class="fb"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://twitter.com" target="_blank" class="tw"><i class="fab fa-twitter"></i></a>
+        <a href="https://linkedin.com" target="_blank" class="li"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://wa.me/250733253803" target="_blank" class="wa"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <div class="footer-qr">
+        <a href="../QUIARA.html">Generate own QR code</a>
+      </div>
+      <button onclick="topFunction()" id="topBtn" title="Go to top">Top</button>
+    </div>
+  </footer>
+</div>
+
+<script>
+  /* ---------- HAMBURGER MENU TOGGLE ---------- */
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    mobileNav.classList.toggle('active');
+  });
+
+  // Close mobile menu when clicking a link
+  document.querySelectorAll('.mobile-nav a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      mobileNav.classList.remove('active');
+    });
+  });
+
+  /* ---------- AUTH MODAL ---------- */
+  const authModal = document.getElementById('authModal');
+  const openBtn = document.getElementById('openAuthBtn');
+  const closeBtn = document.getElementById('closeAuthModal');
+  const tabs = document.querySelectorAll('.auth-tab');
+  const forms = document.querySelectorAll('.auth-form');
+  const switchLinks = document.querySelectorAll('.switch-form');
+  const msgBox = document.getElementById('authMessage');
+
+  openBtn.onclick = () => { authModal.style.display = 'flex'; showForm('login'); };
+  closeBtn.onclick = () => { authModal.style.display = 'none'; msgBox.style.display = 'none'; };
+  window.onclick = e => { if (e.target === authModal) authModal.style.display = 'none'; };
+
+  function showForm(id){
+    tabs.forEach(t=>t.classList.remove('active'));
+    forms.forEach(f=>f.classList.remove('active'));
+    document.querySelector(`.auth-tab[data-form="${id}"]`).classList.add('active');
+    document.getElementById(id+'Form').classList.add('active');
+  }
+  tabs.forEach(t=>t.onclick=()=>showForm(t.dataset.form));
+  switchLinks.forEach(l=>l.onclick=e=>{e.preventDefault(); showForm(l.dataset.form);});
+
+  function showMessage(txt,success=true){
+    msgBox.textContent=txt;
+    msgBox.className=success?'success':'error';
+    msgBox.style.display='block';
+  }
+  function handleLogin(e){e.preventDefault();showMessage('Login successful!',true);}
+  function handleSignup(e){e.preventDefault();showMessage('Account created!',true);}
+  function handleReset(e){e.preventDefault();showMessage('Reset link sent!',true);}
+  function togglePassword(id,icon){
+    const inp=document.getElementById(id);
+    if(inp.type==='password'){
+      inp.type='text';
+      icon.classList.replace('fa-eye','fa-eye-slash');
+    }else{
+      inp.type='password';
+      icon.classList.replace('fa-eye-slash','fa-eye');
+    }
+  }
+
+  /* ---------- SCROLL TO TOP ---------- */
+  const topBtn=document.getElementById('topBtn');
+  window.onscroll=()=>{topBtn.style.display=(document.body.scrollTop>100||document.documentElement.scrollTop>100)?'block':'none';};
+  function topFunction(){window.scrollTo({top:0,behavior:'smooth'});}
+</script>
 </body>
 </html>

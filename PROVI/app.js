@@ -1,3 +1,6 @@
+// ---------------------------------------------------------------------
+//  ORIGINAL CODE (unchanged) – DOM references, utilities, anti-cheat, etc.
+// ---------------------------------------------------------------------
 const homeScreen = document.getElementById('home-screen');
 const quizScreen = document.getElementById('quiz-screen');
 const resultScreen = document.getElementById('result-screen');
@@ -56,7 +59,7 @@ async function getIP() {
     const data = await res.json();
     safeLocalStorage('fallbackIP', 'set', data.ip);
     return data.ip;
-   } catch (err) {
+  } catch (err) {
     console.warn('IP detection via ipify failed, using deterministic fallback. Error:', err);
     const existing = safeLocalStorage('fallbackIP', 'get');
     if (existing) return existing;
@@ -613,6 +616,148 @@ function resetQuizToHome() {
   alert('Ikizamini kirahari. Kanda "Tangira" kugirango urongere utangire.');
 }
 
+// ---------------------------------------------------------------------
+//  NEW: 2-FREE-ATTEMPTS + PAYMENT LOGIC
+// ---------------------------------------------------------------------
+
+// 1. Track attempts (localStorage + IP fallback)
+function getAttempts() {
+  const ip = currentIP || 'unknown';
+  const key = `examAttempts_${ip}`;
+  return safeLocalStorage(key, 'get') ?? 0;
+}
+function addAttempt() {
+  const ip = currentIP || 'unknown';
+  const key = `examAttempts_${ip}`;
+  const attempts = (safeLocalStorage(key, 'get') ?? 0) + 1;
+  safeLocalStorage(key, 'set', attempts);
+  return attempts;
+}
+function resetAttempts() {
+  const ip = currentIP || 'unknown';
+  const key = `examAttempts_${ip}`;
+  safeLocalStorage(key, 'set', 0);
+}
+
+// 2. Check payment status
+function isPaidUser() {
+  return safeLocalStorage('paidUser', 'get') === 'true';
+}
+
+// 3. Show attempts notice (inject into home screen)
+function updateAttemptsNotice() {
+  let notice = document.getElementById('attempts-notice');
+  if (!notice) {
+    notice = document.createElement('p');
+    notice.id = 'attempts-notice';
+    notice.style.margin = '10px 0';
+    notice.style.fontWeight = '600';
+    notice.style.color = '#d35400';
+    const container = homeScreen.querySelector('div[style*="text-align: center"]') || homeScreen;
+    container.insertBefore(notice, startBtn);
+  }
+
+  if (isPaidUser()) {
+    notice.textContent = 'Wishyuye – Ufite ingaruka zisanzwe!';
+    notice.style.color = '#27ae60';
+  } else {
+    const remaining = Math.max(0, 2 - getAttempts());
+    if (remaining > 0) {
+      notice.textContent = `Ufite ingaruka ${remaining} zisigaye (2 free)`;
+    } else {
+      notice.textContent = 'Nta ngaruka zisigaye – Wishyure kugira ngo ukomeze!';
+      notice.style.color = '#c0392b';
+    }
+  }
+}
+
+// 4. Block start if >2 attempts & not paid
+async function startQuiz() {
+  // Existing password logic (unchanged)
+  if (authorizedPassword) {
+    const pwdKey = `passwordTime_${currentIP || 'unknown'}`;
+    const pwdTime = safeLocalStorage(pwdKey, 'get');
+    const now = Date.now();
+    const sixHours = 6 * 60 * 60 * 1000;
+
+    if (!pwdTime || (now - pwdTime) > sixHours) {
+      const pwd = prompt('Shyiramo ijambo ry\'ibanga kugirango utangire ikizamini:');
+      if (pwd !== authorizedPassword) {
+        alert('Ntushobora gutangira ikizamini. Ijambo ry\'ibanga ritariho cyangwa si ryo!');
+        return;
+      }
+      safeLocalStorage(pwdKey, 'set', now);
+    }
+  }
+
+  // Load questions if needed
+  if (!questionsPool.length) {
+    await loadQuestions();
+    if (!questionsPool.length) {
+      alert('Ibibazo ntibiruzura. Tegereza gato.');
+      return;
+    }
+  }
+
+  currentIP = await getIP();
+  console.log(`Detected IP: ${currentIP}`);
+
+  // === PAYMENT / ATTEMPTS CHECK ===
+  if (!isPaidUser()) {
+    const attempts = getAttempts();
+    if (attempts >= 2) {
+      alert('Wakoze ingaruka 2 za free. Wishyure kugira ngo ukomeze!');
+      window.location.href = 'pay.html';
+      return;
+    }
+  }
+
+  // Proceed with quiz (original flow)
+  const iterationKey = `iterationCount_${currentIP}`;
+  let currentIteration = safeLocalStorage(iterationKey, 'get') || 0;
+  currentIteration++;
+  safeLocalStorage(iterationKey, 'set', currentIteration);
+  console.log(`Starting iteration ${currentIteration} for IP ${currentIP}.`);
+
+  questions = await getExamSet(questionsPool, 20, currentIP, currentIteration);
+  if (!questions || questions.length === 0) {
+    return;
+  }
+
+  selectedAnswers = new Array(questions.length).fill(null);
+  currentIndex = 0;
+  timeLeft = 20 * 60;
+  warnedLastMinute = false;
+  devToolsDetected = false;
+  hiddenTabWarned = false;
+  inactivityWarned = false;
+  minimizeDetected = false;
+  lastActivity = Date.now();
+
+  const safeHomeScreen = safeElementAccess(homeScreen);
+  const safeQuizScreen = safeElementAccess(quizScreen);
+  const safeResultScreen = safeElementAccess(resultScreen);
+  const safeReviewScreen = safeElementAccess(reviewScreen);
+
+  safeHomeScreen.classList.add('hidden');
+  safeResultScreen.classList.add('hidden');
+  safeReviewScreen.classList.add('hidden');
+  safeQuizScreen.classList.remove('hidden');
+
+  requestFullscreen();
+  fullscreenEnabled = true;
+
+  alertAudio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVpGn+DyvmwhBjiR5/DMeSwFJHfH8N2QQAoUXrTp66hVFApGn+Dyvmwh');
+
+  showQuestion();
+  startTimer();
+  startDevPoll();
+
+  // HIDE FOOTER when entering quiz
+  if (typeof window.hideFooter === 'function') window.hideFooter();
+}
+
+// 5. On submission → add attempt BEFORE showing result
 function endQuiz() {
   stopTimer();
   const storedKey = `quizEndTime_${currentIP || 'unknown'}`;
@@ -637,6 +782,11 @@ function endQuiz() {
     }, 0);
   }
 
+  // === ADD ATTEMPT ONLY IF NOT PAID ===
+  if (!isPaidUser()) {
+    addAttempt();
+  }
+
   incrementCompletedExamCount(currentIP);
 
   const safeScoreEl = safeElementAccess(scoreEl);
@@ -657,8 +807,25 @@ function endQuiz() {
 
   // SHOW FOOTER when showing result
   if (typeof window.showFooter === 'function') window.showFooter();
+
+  // Update notice on result screen
+  updateAttemptsNotice();
 }
 
+// ---------------------------------------------------------------------
+//  PAYMENT CALLBACK (pay.html calls this on success)
+// ---------------------------------------------------------------------
+// Call this function from pay.html after successful payment:
+window.completePayment = function () {
+  safeLocalStorage('paidUser', 'set', 'true');
+  resetAttempts();
+  alert('Wishyuye neza! Ufite ingaruka zisanzwe!');
+  window.location.href = 'index.html';
+};
+
+// ---------------------------------------------------------------------
+//  REST OF ORIGINAL CODE (unchanged)
+// ---------------------------------------------------------------------
 function reviewAnswers() {
   const safeResultScreen = safeElementAccess(resultScreen);
   const safeReviewScreen = safeElementAccess(reviewScreen);
@@ -710,7 +877,6 @@ function reviewAnswers() {
 
   safeReviewContainer.appendChild(fragment);
 
-  // SHOW FOOTER when showing review
   if (typeof window.showFooter === 'function') window.showFooter();
 }
 
@@ -742,82 +908,14 @@ function returnToHome() {
 
   window.onpopstate = null;
 
-  // SHOW FOOTER when returning to home
   if (typeof window.showFooter === 'function') window.showFooter();
+
+  updateAttemptsNotice(); // Refresh notice on home
 }
 
-async function startQuiz() {
-  if (authorizedPassword) {
-    const pwdKey = `passwordTime_${currentIP || 'unknown'}`;
-    const pwdTime = safeLocalStorage(pwdKey, 'get');
-    const now = Date.now();
-    const sixHours = 6 * 60 * 60 * 1000;
-
-    if (!pwdTime || (now - pwdTime) > sixHours) {
-      const pwd = prompt('Shyiramo ijambo ry\'ibanga kugirango utangire ikizamini:');
-      if (pwd !== authorizedPassword) {
-        alert('Ntushobora gutangira ikizamini. Ijambo ry\'ibanga ritariho cyangwa si ryo!');
-        return;
-      }
-      safeLocalStorage(pwdKey, 'set', now);
-    }
-  }
-
-  if (!questionsPool.length) {
-    await loadQuestions();
-    if (!questionsPool.length) {
-      alert('Ibibazo ntibiruzura. Tegereza gato.');
-      return;
-    }
-  }
-
-  currentIP = await getIP();
-  console.log(`Detected IP: ${currentIP}`);
-
-  const iterationKey = `iterationCount_${currentIP}`;
-  let currentIteration = safeLocalStorage(iterationKey, 'get') || 0;
-  currentIteration++;
-  safeLocalStorage(iterationKey, 'set', currentIteration);
-  console.log(`Starting iteration ${currentIteration} for IP ${currentIP}.`);
-
-  questions = await getExamSet(questionsPool, 20, currentIP, currentIteration);
-  if (!questions || questions.length === 0) {
-    return;
-  }
-
-  selectedAnswers = new Array(questions.length).fill(null);
-  currentIndex = 0;
-  timeLeft = 20 * 60;
-  warnedLastMinute = false;
-  devToolsDetected = false;
-  hiddenTabWarned = false;
-  inactivityWarned = false;
-  minimizeDetected = false;
-  lastActivity = Date.now();
-
-  const safeHomeScreen = safeElementAccess(homeScreen);
-  const safeQuizScreen = safeElementAccess(quizScreen);
-  const safeResultScreen = safeElementAccess(resultScreen);
-  const safeReviewScreen = safeElementAccess(reviewScreen);
-
-  safeHomeScreen.classList.add('hidden');
-  safeResultScreen.classList.add('hidden');
-  safeReviewScreen.classList.add('hidden');
-  safeQuizScreen.classList.remove('hidden');
-
-  requestFullscreen();
-  fullscreenEnabled = true;
-
-  alertAudio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVpGn+DyvmwhBjiR5/DMeSwFJHfH8N2QQAoUXrTp66hVFApGn+Dyvmwh');
-
-  showQuestion();
-  startTimer();
-  startDevPoll();
-
-  // HIDE FOOTER when entering quiz
-  if (typeof window.hideFooter === 'function') window.hideFooter();
-}
-
+// ---------------------------------------------------------------------
+//  EVENT LISTENERS (unchanged)
+// ---------------------------------------------------------------------
 function attachEventListener(el, event, handler) {
   const safeEl = safeElementAccess(el);
   if (safeEl && safeEl.addEventListener) {
@@ -835,4 +933,11 @@ attachEventListener(homeBtn, 'click', returnToHome);
 window.addEventListener('beforeunload', () => {
   stopTimer();
   exitFullscreen();
+});
+
+// ---------------------------------------------------------------------
+//  INITIALIZE ATTEMPTS NOTICE ON PAGE LOAD
+// ---------------------------------------------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+  updateAttemptsNotice();
 });
