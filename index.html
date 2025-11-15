@@ -139,15 +139,13 @@
     .opportunity-actions{
       display:flex;gap:8px;align-items:center;margin-top:auto;
     }
-    .btn-review, .btn-share{
+    .btn-review{
       flex:1;background:#012f47;color:#fff;border:none;padding:8px 14px;
       border-radius:8px;font-weight:600;font-size:0.85rem;cursor:pointer;
       transition:background .3s;display:flex;align-items:center;
       justify-content:center;gap:6px;
     }
-    .btn-review:hover, .btn-share:hover{background:#003d3d}
-    .btn-share{background:#1da1f2}
-    .btn-share:hover{background:#0d8aec}
+    .btn-review:hover{background:#003d3d}
     /* ----- SOCIAL SHARE IN FOOTER ----- */
     .footer-social{
       display:flex;gap:12px;justify-content:center;margin-top:20px;
@@ -461,10 +459,6 @@
     .modal-copy-btn.copied {
       background: #17a2b8;
     }
-
-    /* NEW: Share preview canvas (hidden) */
-    #shareCanvas{display:none}
-
     @media (max-width: 1200px) {
       .opportunities-container, .internships-container, .scholarships-container { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
       .main-content h2 { font-size: 1.6rem; }
@@ -524,9 +518,6 @@
 </head>
 <body>
 <div class="page-wrapper">
-  <!-- Hidden canvas for generating combined image -->
-  <canvas id="shareCanvas"></canvas>
-
   <!-- LOGIN / SIGNUP MODAL -->
   <div id="authModal" class="modal">
     <div class="modal-content">
@@ -570,7 +561,6 @@
       <div id="authMessage"></div>
     </div>
   </div>
-
   <!-- HEADER -->
   <header>
     <div class="logo">
@@ -646,18 +636,15 @@
     </button>
     <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
   </header>
-
   <!-- Moving words -->
   <div class="top-right-slider">
     <div class="slider-text"><b lang="rw">Ushaka ko tugufasha zimwe murizi services zikurikira watwandikira unyuze kuri buto ya twandikire cyangwa ukaduhamagara kuri (+250)780019239!</b></div>
   </div>
-
   <!-- Live info banner -->
   <div class="live-info-banner">
-    <span><i class="fas fa-clock"></i> November 15, 2025 07:22 PM CAT</span>
+    <span><i class="fas fa-clock"></i> November 13, 2025 02:00 PM CAT</span>
     <span><i class="fas fa-map-marker-alt"></i> Country: Rwanda (RW)</span>
   </div>
-
   <!-- MAIN CONTENT -->
   <main class="main-content">
     <!-- FILTER BAR -->
@@ -667,15 +654,14 @@
       <button class="filter-btn" data-filter="internship">Internships <span class="count-badge" id="count-internships">0</span></button>
       <button class="filter-btn" data-filter="scholarship">Scholarships <span class="count-badge" id="count-scholarships">0</span></button>
     </div>
+
     <h2 lang="en">Latest Opportunities</h2>
     <div class="opportunities-container" id="allContainer"></div>
   </main>
-
   <!-- Show services button -->
   <button class="services-toggle-btn" id="toggleServicesBtn">
     Show Services <i class="fas fa-chevron-down"></i>
   </button>
-
   <!-- Services section -->
   <section class="sd" id="service-dutanga">
     <div class="sd-left">
@@ -692,7 +678,6 @@
       </div>
     </div>
   </section>
-
   <!-- Mobile menu -->
   <div class="mobile-menu" id="mobileMenu">
     <ul>
@@ -769,7 +754,6 @@
       <li><a href="contact_us.html" lang="en">Contact</a></li>
     </ul>
   </div>
-
   <!-- Sidebar -->
   <aside class="sidebar" id="menuSidebar">
     <div class="sidebar-header">
@@ -801,7 +785,6 @@
       <p lang="en"><i class="fas fa-sync-alt"></i> Website updated</p>
     </div>
   </aside>
-
   <!-- Floating WhatsApp Buttons -->
   <div class="floating-whatsapp-buttons">
     <a href="PROVI/index.html" class="float-btn car" target="_blank" rel="noopener noreferrer">
@@ -810,11 +793,11 @@
     <a href="https://whatsapp.com/channel/0029VbBUVsPDTkKD9z89s20H" class="float-btn group" target="_blank" rel="noopener noreferrer">
       <span class="icon"></span><span class="label" lang="en">Follow Channel</span>
     </a>
+   
     <a href="https://chat.whatsapp.com/CoPf3siZOpKB2B9UNh2fYC" class="float-btn group" target="_blank" rel="noopener noreferrer">
       <span class="icon"></span><span class="label" lang="en">Join Group</span>
     </a>
   </div>
-
   <!-- Content Modal (full-screen viewer) -->
   <div class="content-modal" id="contentModal">
     <div class="modal-content-area">
@@ -822,7 +805,6 @@
       <div id="contentViewer"></div>
     </div>
   </div>
-
   <!-- Footer -->
   <footer>
     <div class="footer-columns">
@@ -871,7 +853,6 @@
         <a href="features.html#scholarshipsContainer" style="text-decoration: underline;" lang="en"><b>View All</b></a>
       </div>
     </div>
-
     <!-- SOCIAL MEDIA LINKS IN FOOTER -->
     <div class="footer-social">
       <a href="https://facebook.com" target="_blank" class="fb"><i class="fab fa-facebook-f"></i></a>
@@ -879,52 +860,98 @@
       <a href="https://linkedin.com" target="_blank" class="li"><i class="fab fa-linkedin-in"></i></a>
       <a href="https://wa.me/250733253803" target="_blank" class="wa"><i class="fab fa-whatsapp"></i></a>
     </div>
-
     <div style="text-align:center;margin-top:30px;padding:20px;background:rgba(255,255,255,.05);border-radius:8px;">
       <a href="./QUIARA.html" style="color:gold;text-decoration:none;font-weight:bold;">Generate own QR code</a>
     </div>
-
     <button onclick="topFunction()" id="topBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
   </footer>
 </div>
 
 <script>
   // -------------------------------------------------
-  // DATA
+  // DATA (with type field)
   // -------------------------------------------------
   function getAllData() {
     const today = new Date();
     today.setHours(0,0,0,0);
     return [
       // Jobs
-      { type: 'job', logo: "docs/download.png", title: "3 Junior Facilitators Interns", company: "RODI Rwanda",
-        description: "Train, mentor, and support Peer Educators (youths) in Ruhango District.", deadline: "2025-11-18", doc: "docs/job11.html" },
-      { type: 'job', logo: "docs/Sorwathe-ltd.png", title: "Factory Accountant", company: "Sorwathe Ltd",
-        description: "Bachelor’s degree in accounting or related field..", deadline: "2025-12-15", doc: "docs/job33.html" },
-      { type: 'job', logo: "docs/job33.png", title: "Commission Based Marketing Agent", company: "Strongmind Ltd",
-        description: "Required level of study: Secondary School graduates.", deadline: "2025-12-12", doc: "docs/job22.html" },
-      { type: 'job', logo: "docs/mtn.jpg", title: "Key Accounts Manager", company: "MTN Rwanda",
-        description: "Minimum of bachelor’s academic degree, coupled with an MBA/Master, would be advantageous.", deadline: "2025-11-17", doc: "docs/mtn.html" },
-      { type: 'job', logo: "docs/bridges_to_prosperity_logo.jpg", title: "IT Coordinator", company: "Bridges to Prosperity",
-        description: "Bachelor's degree in Information Technology or any other relevant tech-related course.", deadline: "2025-11-30", doc: "docs/bridges.html" },
-      { type: 'job', logo: "docs/rurama.jpg", title: "Managing Director (Karongi District)", company: "RUMA",
-        description: "Master’s or Bachelor’s degree in Finance, Economics, Management or Accounting.", deadline: "2025-11-25", doc: "docs/ruma.html" },
+      { type: 'job',
+       logo: "docs/download.png",
+       title: "3 Junior Facilitators Interns", 
+       company: "RODI Rwanda",
+        description: "Train, mentor, and support Peer Educators (youths) in Ruhango District.",
+       deadline: "2025-11-18",
+        doc: "docs/job11.html" },
+
+      { type: 'job', 
+      logo: "docs/Sorwathe-ltd.png",
+       title: "Factory Accountant", 
+       company: "Sorwathe Ltd", 
+       description: "Bachelor’s degree in accounting or related field..", 
+       deadline: "2025-12-15", 
+       doc: "docs/job33.html" },
+
+      { type: 'job',
+       logo: "docs/job33.png", 
+      title: "Commission Based Marketing Agent", 
+      company: "Strongmind Ltd",
+       description: "Required level of study: Secondary School graduates.", 
+       deadline: "2025-12-12",
+        doc: "docs/job22.html" },
+
+      { type: 'job',
+        logo: "docs/mtn.jpg", 
+        title: "Key Accounts Manager",
+        company: "MTN Rwanda",
+        description: "Minimum of bachelor’s academic degree, coupled with an MBA/Master, would be advantageous.", 
+        deadline: "2025-11-17",
+        doc: "docs/mtn.html" },
+
+      { type: 'job', logo: "docs/bridges_to_prosperity_logo.jpg",
+       title: "IT Coordinator",
+      company: "Bridges to Prosperity",
+      description: "Bachelor's degree in Information Technology or any other relevant tech-related course.",
+      deadline: "2025-11-30",
+      doc: "docs/bridges.html" },
+
+      { type: 'job',
+       logo: "docs/rurama.jpg",
+        title: "Managing Director (Karongi District)",
+         company: "RUMA",
+          description: "Master’s or Bachelor’s degree in Finance, Economics, Management or Accounting.",
+           deadline: "2025-11-25",
+            doc: "docs/ruma.html" },
 
       // Internships
-      { type: 'internship', logo: "rodi.png", title: "Youth Facilitator Intern", company: "RODI Rwanda",
-        description: "Support youth training programs in Ruhango. 3-month paid internship.", deadline: "2025-11-2", doc: "docs/internship_rodi.pdf" },
-      { type: 'internship', logo: "undp.png", title: "UNDP Rwanda Internship", company: "United Nations Development Programme",
-        description: "Policy research and project support in sustainable development.", deadline: "2025-1-01", doc: "docs/undp_internship.html" },
-      { type: 'internship', logo: "worldbank.png", title: "World Bank Summer Internship", company: "World Bank Group",
-        description: "Economics, data analysis, and development projects in Kigali.", deadline: "2025-11-3", doc: "docs/wb_intern.pdf" },
-
+      { type: 'internship', logo: "rodi.png", title: "Youth Facilitator Intern", company: "RODI Rwanda", description: "Support youth training programs in Ruhango. 3-month paid internship.", deadline: "2025-11-2", doc: "docs/internship_rodi.pdf" },
+      { type: 'internship', logo: "undp.png", title: "UNDP Rwanda Internship", company: "United Nations Development Programme", description: "Policy research and project support in sustainable development.", deadline: "2025-1-01", doc: "docs/undp_internship.html" },
+      { type: 'internship', logo: "worldbank.png", title: "World Bank Summer Internship", company: "World Bank Group", description: "Economics, data analysis, and development projects in Kigali.", deadline: "2025-11-3", doc: "docs/wb_intern.pdf" },
       // Scholarships
-      { type: 'scholarship', logo: "docs/eas_chiristiat.png", title: "Call for EACC Application with Chancen Financing", company: "East African Christian College (EACC)",
-        description: "East African Christian College (EACC) is pleased to announce that, in partnership with Chancen International, it is offering student financing through an Income Share Agreement (Study Now-Pay Later Model).", deadline: "2025-11-14", doc: "docs/Call for EACC Application with Chancen Financing, November 2025-1.pdf" },
-      { type: 'scholarship', logo: "docs/logo_HEC.png", title: "Republic of Korea - Government of Rwanda scholarship", company: "Higher Education Council - Rwanda",
-        description: "Fully funded Master's degree in Korea.", deadline: "2025-11-25", doc: "https://hecmis.hec.gov.rw/" },
-      { type: 'scholarship', logo: "daad.png", title: "DAAD Scholarship for Rwanda", company: "German Academic Exchange Service",
-        description: "Master’s and PhD funding for study in Germany.", deadline: "2025-1-2", doc: "docs/daad_rwanda.pdf" }
+
+      { type: 'scholarship',
+    logo: "docs/eas_chiristiat.png",
+    title: "Call for EACC Application with Chancen Financing",
+    company: "East African Christian College (EACC)",
+    description: "East African Christian College (EACC) is pleased to announce that, in partnership with Chancen International, it is offering student financing through an Income Share Agreement (Study Now-Pay Later Model).",
+    deadline: "2026-11-14",
+    doc: "docs/Call for EACC Application with Chancen Financing, November 2025-1.pdf" },
+
+      { type: 'scholarship',
+       logo: "docs/logo_HEC.png",
+        title: "Republic of Korea - Governoment of Rwanda scholarship",
+         company: "Higher Education Council - Rwanda",
+          description: "Fully funded Master's degree in Korea.",
+           deadline: "2025-11-25",
+            doc: "https://hecmis.hec.gov.rw/" },
+
+      { type: 'scholarship',
+       logo: "daad.png",
+        title: "DAAD Scholarship for Rwanda",
+         company: "German Academic Exchange Service",
+          description: "Master’s and PhD funding for study in Germany.",
+           deadline: "2025-1-2",
+            doc: "docs/daad_rwanda.pdf" }
     ].filter(op => {
       const [y,m,d] = op.deadline.split('-').map(Number);
       const dl = new Date(y,m-1,d);
@@ -964,7 +991,7 @@
   }
 
   // -------------------------------------------------
-  // BUILD CARD – now includes a **Share** button after **View**
+  // BUILD CARD (adds type badge)
   // -------------------------------------------------
   function buildCard(op) {
     const typeBadge = `<span style="background:#012f47;color:gold;padding:2px 8px;border-radius:12px;font-size:0.75rem;margin-left:6px;">${op.type.charAt(0).toUpperCase() + op.type.slice(1)}</span>`;
@@ -981,9 +1008,6 @@
           <div class="opportunity-actions">
             <button class="btn-review" onclick="openContentModal('${op.doc}', '${op.title}', '${op.description.replace(/'/g, "\\'")}', '${op.deadline}', '${op.logo}')">
               <i class="fas fa-eye"></i> View
-            </button>
-            <button class="btn-share" onclick="shareWithCombinedImage('${op.title}', '${op.description.replace(/'/g, "\\'")}', '${op.deadline}', '${op.logo}', '${op.doc}')">
-              <i class="fas fa-share-alt"></i> Share
             </button>
           </div>
         </div>
@@ -1033,7 +1057,6 @@
     const ext = (file.split('.').pop() || '').toLowerCase();
     let contentElement = null;
     currentShareData = { file, title, description, deadline, img };
-
     if (['jpg','jpeg','png','gif','webp','bmp','svg'].includes(ext)) {
       contentElement = document.createElement('img');
       contentElement.src = file;
@@ -1041,14 +1064,16 @@
       contentElement.style.maxWidth = '100%';
       contentElement.style.maxHeight = '90vh';
       contentElement.style.borderRadius = '8px';
-    } else if (ext === 'pdf') {
+    }
+    else if (ext === 'pdf') {
       contentElement = document.createElement('iframe');
       contentElement.src = file;
       contentElement.style.width = '95vw';
       contentElement.style.height = '90vh';
       contentElement.style.border = 'none';
       contentElement.style.borderRadius = '8px';
-    } else if (ext === 'html' || ext === 'htm') {
+    }
+    else if (ext === 'html' || ext === 'htm') {
       contentElement = document.createElement('iframe');
       contentElement.src = file;
       contentElement.style.width = '95vw';
@@ -1056,14 +1081,16 @@
       contentElement.style.border = 'none';
       contentElement.style.borderRadius = '8px';
       contentElement.style.background = '#fff';
-    } else if (file.startsWith('http')) {
+    }
+    else if (file.startsWith('http')) {
       contentElement = document.createElement('iframe');
       contentElement.src = file;
       contentElement.style.width = '95vw';
       contentElement.style.height = '90vh';
       contentElement.style.border = 'none';
       contentElement.style.borderRadius = '8px';
-    } else {
+    }
+    else {
       contentViewer.innerHTML = `<div style="text-align:center;padding:40px;color:#fff;">
         <p>Cannot preview file: <code>.${ext}</code></p>
         <a href="${file}" target="_blank" style="color:gold;">Open Link</a>
@@ -1072,15 +1099,13 @@
       document.body.style.overflow = 'hidden';
       return;
     }
-
     contentViewer.appendChild(contentElement);
-
     const actionBtns = document.createElement('div');
     actionBtns.className = 'modal-action-btns';
     const shareBtn = document.createElement('div');
     shareBtn.className = 'modal-share-btn';
     shareBtn.innerHTML = '<i class="fas fa-share-alt"></i>';
-    shareBtn.onclick = () => shareWithCombinedImage(title, description, deadline, img);
+    shareBtn.onclick = () => shareWithImage(title, description, deadline, img);
     const copyBtn = document.createElement('div');
     copyBtn.className = 'modal-copy-btn';
     copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
@@ -1088,7 +1113,6 @@
     actionBtns.appendChild(shareBtn);
     actionBtns.appendChild(copyBtn);
     contentViewer.appendChild(actionBtns);
-
     contentModal.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
@@ -1097,127 +1121,43 @@
     contentModal.classList.remove('active');
     document.body.style.overflow = '';
   }
-
   contentModal.addEventListener('click', e => {
     if (e.target === contentModal) closeContentModal();
   });
 
   // -------------------------------------------------
-  // NEW: COMBINE IMAGE + TEXT AND SHARE
+  // SHARE & COPY
   // -------------------------------------------------
-  async function shareWithCombinedImage(title, description, deadline, logoSrc, docFile) {
-    const canvas = document.getElementById('shareCanvas');
-    const ctx = canvas.getContext('2d');
-
-    // Load logo
-    const logo = new Image();
-    logo.crossOrigin = 'anonymous';
-    logo.src = logoSrc.startsWith('http') ? logoSrc : location.href.replace(/[^/]+$/, '') + logoSrc;
-
-    await new Promise(resolve => { logo.onload = resolve; });
-
-    // Set canvas size
-    const padding = 30;
-    const logoSize = 80;
-    const lineHeight = 28;
-    const fontSize = 20;
-    const titleFontSize = 28;
-    const maxWidth = 500;
-
-    ctx.font = `${titleFontSize}px 'Segoe UI', sans-serif`;
-    const titleLines = wrapText(ctx, title, maxWidth);
-    ctx.font = `${fontSize}px 'Segoe UI', sans-serif`;
-    const descLines = wrapText(ctx, description, maxWidth);
-    const deadlineLine = `Deadline: ${deadline}`;
-    const applyLine = `Apply: ${location.href.split('?')[0].replace(/\/[^/]*$/, '/') + (docFile || '')}`;
-
-    const textHeight = titleLines.length * titleFontSize * 1.2 +
-                       descLines.length * lineHeight +
-                       lineHeight * 3; // deadline + apply + spacing
-
-    canvas.width = maxWidth + padding * 2;
-    canvas.height = logoSize + textHeight + padding * 3;
-
-    // Background
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Logo
-    ctx.drawImage(logo, padding, padding, logoSize, logoSize);
-
-    // Text
-    let y = padding + logoSize + 20;
-    ctx.fillStyle = '#012f47';
-    ctx.font = `bold ${titleFontSize}px 'Segoe UI', sans-serif`;
-    titleLines.forEach(line => {
-      ctx.fillText(line, padding + logoSize + 15, y);
-      y += titleFontSize * 1.2;
-    });
-
-    ctx.font = `${fontSize}px 'Segoe UI', sans-serif`;
-    ctx.fillStyle = '#333';
-    descLines.forEach(line => {
-      ctx.fillText(line, padding + logoSize + 15, y);
-      y += lineHeight;
-    });
-
-    ctx.fillStyle = '#d32f2f';
-    ctx.fillText(deadlineLine, padding + logoSize + 15, y);
-    y += lineHeight;
-
-    ctx.fillStyle = '#012f47';
-    ctx.fillText(applyLine, padding + logoSize + 15, y);
-
-    // Convert to blob
-    canvas.toBlob(async blob => {
-      const file = new File([blob], "opportunity_card.jpg", { type: 'image/jpeg' });
-
-      const shareData = {
-        title: "Job Opportunity",
-        text: `${title}\n\n${description}\n\nDeadline: ${deadline}\nApply now!`,
-        files: [file]
-      };
-
-      if (navigator.canShare && navigator.canShare(shareData)) {
-        try {
-          await navigator.share(shareData);
-        } catch (err) {
-          fallbackShare(shareData.text, URL.createObjectURL(blob));
-        }
-      } else {
-        fallbackShare(shareData.text, URL.createObjectURL(blob));
+  async function shareWithImage(title, description, deadline, imgSrc) {
+    const base = location.href.split('?')[0].replace(/\/[^\/]*$/, '/');
+    const url = base + (currentShareData.file || '');
+    const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\n\nApply: ${url}\n\n#jobandscholarship #Internships #Scholarships`;
+    if (navigator.share && imgSrc) {
+      try {
+        const response = await fetch(base + imgSrc);
+        const blob = await response.blob();
+        const file = new File([blob], "opportunity.jpg", { type: blob.type });
+        await navigator.share({
+          title: "Opportunity",
+          text: text,
+          files: [file]
+        });
+      } catch (err) {
+        fallbackShare(text, base + imgSrc);
       }
-    }, 'image/jpeg', 0.95);
-  }
-
-  function wrapText(ctx, text, maxWidth) {
-    const words = text.split(' ');
-    const lines = [];
-    let line = '';
-    for (const word of words) {
-      const test = line ? line + ' ' + word : word;
-      if (ctx.measureText(test).width > maxWidth) {
-        lines.push(line);
-        line = word;
-      } else {
-        line = test;
-      }
+    } else {
+      fallbackShare(text, base + imgSrc);
     }
-    if (line) lines.push(line);
-    return lines;
   }
-
   function fallbackShare(text, imgUrl) {
-    const fullText = `${text}\n\n${imgUrl}`;
-    const wa = `https://wa.me/?text=${encodeURIComponent(fullText)}`;
-    window.open(wa, '_blank');
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text + (imgUrl ? `\n\n${imgUrl}` : ''))}`;
+    window.open(whatsappUrl, '_blank');
   }
-
   function copyToClipboard() {
     const { title, description, deadline, file } = currentShareData;
     const base = location.href.split('?')[0].replace(/\/[^\/]*$/, '/');
     const url = base + file;
-    const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\nApply: ${url}\n\n#jobandscholarship`;
+    const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\n\nApply: ${url}\n\n#jobandscholarship`;
     navigator.clipboard.writeText(text).then(() => {
       const btn = document.querySelector('.modal-copy-btn');
       btn.innerHTML = '<i class="fas fa-check"></i>';
@@ -1239,27 +1179,22 @@
   const forms = document.querySelectorAll('.auth-form');
   const switchLinks = document.querySelectorAll('.switch-form');
   const msgBox = document.getElementById('authMessage');
-
   openBtn.onclick = () => { authModal.style.display = 'flex'; showForm('login'); };
   closeBtn.onclick = () => { authModal.style.display = 'none'; msgBox.style.display = 'none'; };
   window.onclick = e => { if (e.target === authModal) authModal.style.display = 'none'; };
-
   function showForm(id) {
     tabs.forEach(t => t.classList.remove('active'));
     forms.forEach(f => f.classList.remove('active'));
     document.querySelector(`.auth-tab[data-form="${id}"]`).classList.add('active');
     document.getElementById(id + 'Form').classList.add('active');
   }
-
   tabs.forEach(tab => tab.onclick = () => showForm(tab.dataset.form));
   switchLinks.forEach(l => l.onclick = e => { e.preventDefault(); showForm(l.dataset.form); });
-
   function showMessage(text, success = true) {
     msgBox.textContent = text;
     msgBox.className = success ? 'success' : 'error';
     msgBox.style.display = 'block';
   }
-
   async function handleLogin(e) { e.preventDefault(); showMessage("Login successful!", true); }
   async function handleSignup(e) { e.preventDefault(); showMessage("Account created!", true); }
   async function handleReset(e) { e.preventDefault(); showMessage("Reset link sent!", true); }
