@@ -146,6 +146,13 @@
       justify-content:center;gap:6px;
     }
     .btn-review:hover{background:#003d3d}
+    .btn-share{
+      flex:1;background:#25d366;color:#fff;border:none;padding:8px 14px;
+      border-radius:8px;font-weight:600;font-size:0.85rem;cursor:pointer;
+      transition:background .3s;display:flex;align-items:center;
+      justify-content:center;gap:6px;
+    }
+    .btn-share:hover{background:#1da851}
     /* ----- SOCIAL SHARE IN FOOTER ----- */
     .footer-social{
       display:flex;gap:12px;justify-content:center;margin-top:20px;
@@ -793,9 +800,7 @@
     <a href="https://whatsapp.com/channel/0029VbBUVsPDTkKD9z89s20H" class="float-btn group" target="_blank" rel="noopener noreferrer">
       <span class="icon"></span><span class="label" lang="en">Follow Channel</span>
     </a>
-    <a href="https://wa.me/250733253803" class="float-btn chat" target="_blank" rel="noopener noreferrer">
-      <span class="icon"></span><span class="label" lang="rw">Twandikire</span>
-    </a>
+   
     <a href="https://chat.whatsapp.com/CoPf3siZOpKB2B9UNh2fYC" class="float-btn group" target="_blank" rel="noopener noreferrer">
       <span class="icon"></span><span class="label" lang="en">Join Group</span>
     </a>
@@ -993,7 +998,7 @@
   }
 
   // -------------------------------------------------
-  // BUILD CARD (adds type badge)
+  // BUILD CARD (adds type badge + share button)
   // -------------------------------------------------
   function buildCard(op) {
     const typeBadge = `<span style="background:#012f47;color:gold;padding:2px 8px;border-radius:12px;font-size:0.75rem;margin-left:6px;">${op.type.charAt(0).toUpperCase() + op.type.slice(1)}</span>`;
@@ -1011,10 +1016,32 @@
             <button class="btn-review" onclick="openContentModal('${op.doc}', '${op.title}', '${op.description.replace(/'/g, "\\'")}', '${op.deadline}', '${op.logo}')">
               <i class="fas fa-eye"></i> View
             </button>
+            <button class="btn-share" onclick="shareOpportunity('${op.title}', '${op.description.replace(/'/g, "\\'")}', '${op.deadline}', '${op.doc}', '${op.logo}')">
+              <i class="fab fa-whatsapp"></i> Share
+            </button>
           </div>
         </div>
       </div>
     `;
+  }
+
+  // -------------------------------------------------
+  // SHARE FUNCTION (WhatsApp + X + Copy)
+  // -------------------------------------------------
+  function shareOpportunity(title, description, deadline, doc, logo) {
+    const base = location.href.split('?')[0].replace(/\/[^\/]*$/, '/');
+    const url = base + doc;
+    const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\n\nApply: ${url}\n\n#jobandscholarship`;
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text + (logo ? `\n\n${base}${logo}` : ''))}`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+
+    // Open WhatsApp by default
+    window.open(whatsappUrl, '_blank');
+
+    // Optional: Show copy confirmation
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Text copied to clipboard!');
+    });
   }
 
   // -------------------------------------------------
@@ -1107,11 +1134,23 @@
     const shareBtn = document.createElement('div');
     shareBtn.className = 'modal-share-btn';
     shareBtn.innerHTML = '<i class="fas fa-share-alt"></i>';
-    shareBtn.onclick = () => shareWithImage(title, description, deadline, img);
+    shareBtn.onclick = () => shareOpportunity(title, description, deadline, file, img);
     const copyBtn = document.createElement('div');
     copyBtn.className = 'modal-copy-btn';
     copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
-    copyBtn.onclick = copyToClipboard;
+    copyBtn.onclick = () => {
+      const base = location.href.split('?')[0].replace(/\/[^\/]*$/, '/');
+      const url = base + file;
+      const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\n\nApply: ${url}\n\n#jobandscholarship`;
+      navigator.clipboard.writeText(text).then(() => {
+        copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      });
+    };
     actionBtns.appendChild(shareBtn);
     actionBtns.appendChild(copyBtn);
     contentViewer.appendChild(actionBtns);
@@ -1126,50 +1165,6 @@
   contentModal.addEventListener('click', e => {
     if (e.target === contentModal) closeContentModal();
   });
-
-  // -------------------------------------------------
-  // SHARE & COPY
-  // -------------------------------------------------
-  async function shareWithImage(title, description, deadline, imgSrc) {
-    const base = location.href.split('?')[0].replace(/\/[^\/]*$/, '/');
-    const url = base + (currentShareData.file || '');
-    const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\n\nApply: ${url}\n\n#JobsInRwanda #Internships #Scholarships`;
-    if (navigator.share && imgSrc) {
-      try {
-        const response = await fetch(base + imgSrc);
-        const blob = await response.blob();
-        const file = new File([blob], "opportunity.jpg", { type: blob.type });
-        await navigator.share({
-          title: "Opportunity",
-          text: text,
-          files: [file]
-        });
-      } catch (err) {
-        fallbackShare(text, base + imgSrc);
-      }
-    } else {
-      fallbackShare(text, base + imgSrc);
-    }
-  }
-  function fallbackShare(text, imgUrl) {
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text + (imgUrl ? `\n\n${imgUrl}` : ''))}`;
-    window.open(whatsappUrl, '_blank');
-  }
-  function copyToClipboard() {
-    const { title, description, deadline, file } = currentShareData;
-    const base = location.href.split('?')[0].replace(/\/[^\/]*$/, '/');
-    const url = base + file;
-    const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\n\nApply: ${url}\n\n#JobsInRwanda`;
-    navigator.clipboard.writeText(text).then(() => {
-      const btn = document.querySelector('.modal-copy-btn');
-      btn.innerHTML = '<i class="fas fa-check"></i>';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.innerHTML = '<i class="fas fa-copy"></i>';
-        btn.classList.remove('copied');
-      }, 2000);
-    });
-  }
 
   // -------------------------------------------------
   // AUTH MODAL
