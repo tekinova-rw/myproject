@@ -461,6 +461,10 @@
     .modal-copy-btn.copied {
       background: #17a2b8;
     }
+
+    /* NEW: Share preview canvas (hidden) */
+    #shareCanvas{display:none}
+
     @media (max-width: 1200px) {
       .opportunities-container, .internships-container, .scholarships-container { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
       .main-content h2 { font-size: 1.6rem; }
@@ -520,6 +524,9 @@
 </head>
 <body>
 <div class="page-wrapper">
+  <!-- Hidden canvas for generating combined image -->
+  <canvas id="shareCanvas"></canvas>
+
   <!-- LOGIN / SIGNUP MODAL -->
   <div id="authModal" class="modal">
     <div class="modal-content">
@@ -647,7 +654,7 @@
 
   <!-- Live info banner -->
   <div class="live-info-banner">
-    <span><i class="fas fa-clock"></i> November 15, 2025 07:10 PM CAT</span>
+    <span><i class="fas fa-clock"></i> November 15, 2025 07:22 PM CAT</span>
     <span><i class="fas fa-map-marker-alt"></i> Country: Rwanda (RW)</span>
   </div>
 
@@ -975,7 +982,7 @@
             <button class="btn-review" onclick="openContentModal('${op.doc}', '${op.title}', '${op.description.replace(/'/g, "\\'")}', '${op.deadline}', '${op.logo}')">
               <i class="fas fa-eye"></i> View
             </button>
-            <button class="btn-share" onclick="shareWithImage('${op.title}', '${op.description.replace(/'/g, "\\'")}', '${op.deadline}', '${op.logo}', '${op.doc}')">
+            <button class="btn-share" onclick="shareWithCombinedImage('${op.title}', '${op.description.replace(/'/g, "\\'")}', '${op.deadline}', '${op.logo}', '${op.doc}')">
               <i class="fas fa-share-alt"></i> Share
             </button>
           </div>
@@ -1073,7 +1080,7 @@
     const shareBtn = document.createElement('div');
     shareBtn.className = 'modal-share-btn';
     shareBtn.innerHTML = '<i class="fas fa-share-alt"></i>';
-    shareBtn.onclick = () => shareWithImage(title, description, deadline, img);
+    shareBtn.onclick = () => shareWithCombinedImage(title, description, deadline, img);
     const copyBtn = document.createElement('div');
     copyBtn.className = 'modal-copy-btn';
     copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
@@ -1096,35 +1103,114 @@
   });
 
   // -------------------------------------------------
-  // SHARE & COPY (rich text + image)
+  // NEW: COMBINE IMAGE + TEXT AND SHARE
   // -------------------------------------------------
-  async function shareWithImage(title, description, deadline, imgSrc, docFile) {
-    const base = location.href.split('?')[0].replace(/\/[^\/]*$/, '/');
-    const url = base + (docFile || '');
-    const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\nApply: ${url}\n\n#jobandscholarship`;
+  async function shareWithCombinedImage(title, description, deadline, logoSrc, docFile) {
+    const canvas = document.getElementById('shareCanvas');
+    const ctx = canvas.getContext('2d');
 
-    if (navigator.share && imgSrc) {
-      try {
-        const response = await fetch(base + imgSrc);
-        const blob = await response.blob();
-        const file = new File([blob], "opportunity.jpg", { type: blob.type });
-        await navigator.share({
-          title: "Opportunity",
-          text: text,
-          files: [file]
-        });
-      } catch (err) {
-        fallbackShare(text, base + imgSrc);
+    // Load logo
+    const logo = new Image();
+    logo.crossOrigin = 'anonymous';
+    logo.src = logoSrc.startsWith('http') ? logoSrc : location.href.replace(/[^/]+$/, '') + logoSrc;
+
+    await new Promise(resolve => { logo.onload = resolve; });
+
+    // Set canvas size
+    const padding = 30;
+    const logoSize = 80;
+    const lineHeight = 28;
+    const fontSize = 20;
+    const titleFontSize = 28;
+    const maxWidth = 500;
+
+    ctx.font = `${titleFontSize}px 'Segoe UI', sans-serif`;
+    const titleLines = wrapText(ctx, title, maxWidth);
+    ctx.font = `${fontSize}px 'Segoe UI', sans-serif`;
+    const descLines = wrapText(ctx, description, maxWidth);
+    const deadlineLine = `Deadline: ${deadline}`;
+    const applyLine = `Apply: ${location.href.split('?')[0].replace(/\/[^/]*$/, '/') + (docFile || '')}`;
+
+    const textHeight = titleLines.length * titleFontSize * 1.2 +
+                       descLines.length * lineHeight +
+                       lineHeight * 3; // deadline + apply + spacing
+
+    canvas.width = maxWidth + padding * 2;
+    canvas.height = logoSize + textHeight + padding * 3;
+
+    // Background
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Logo
+    ctx.drawImage(logo, padding, padding, logoSize, logoSize);
+
+    // Text
+    let y = padding + logoSize + 20;
+    ctx.fillStyle = '#012f47';
+    ctx.font = `bold ${titleFontSize}px 'Segoe UI', sans-serif`;
+    titleLines.forEach(line => {
+      ctx.fillText(line, padding + logoSize + 15, y);
+      y += titleFontSize * 1.2;
+    });
+
+    ctx.font = `${fontSize}px 'Segoe UI', sans-serif`;
+    ctx.fillStyle = '#333';
+    descLines.forEach(line => {
+      ctx.fillText(line, padding + logoSize + 15, y);
+      y += lineHeight;
+    });
+
+    ctx.fillStyle = '#d32f2f';
+    ctx.fillText(deadlineLine, padding + logoSize + 15, y);
+    y += lineHeight;
+
+    ctx.fillStyle = '#012f47';
+    ctx.fillText(applyLine, padding + logoSize + 15, y);
+
+    // Convert to blob
+    canvas.toBlob(async blob => {
+      const file = new File([blob], "opportunity_card.jpg", { type: 'image/jpeg' });
+
+      const shareData = {
+        title: "Job Opportunity",
+        text: `${title}\n\n${description}\n\nDeadline: ${deadline}\nApply now!`,
+        files: [file]
+      };
+
+      if (navigator.canShare && navigator.canShare(shareData)) {
+        try {
+          await navigator.share(shareData);
+        } catch (err) {
+          fallbackShare(shareData.text, URL.createObjectURL(blob));
+        }
+      } else {
+        fallbackShare(shareData.text, URL.createObjectURL(blob));
       }
-    } else {
-      fallbackShare(text, base + imgSrc);
+    }, 'image/jpeg', 0.95);
+  }
+
+  function wrapText(ctx, text, maxWidth) {
+    const words = text.split(' ');
+    const lines = [];
+    let line = '';
+    for (const word of words) {
+      const test = line ? line + ' ' + word : word;
+      if (ctx.measureText(test).width > maxWidth) {
+        lines.push(line);
+        line = word;
+      } else {
+        line = test;
+      }
     }
+    if (line) lines.push(line);
+    return lines;
   }
 
   function fallbackShare(text, imgUrl) {
-    const fullText = `${text}${imgUrl ? `\n\n${imgUrl}` : ''}`;
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(fullText)}`;
-    window.open(whatsappUrl, '_blank');
+    const fullText = `${text}\n\n${imgUrl}`;
+    const wa = `https://wa.me/?text=${encodeURIComponent(fullText)}`;
+    window.open(wa, '_blank');
   }
 
   function copyToClipboard() {
@@ -1162,7 +1248,7 @@
     tabs.forEach(t => t.classList.remove('active'));
     forms.forEach(f => f.classList.remove('active'));
     document.querySelector(`.auth-tab[data-form="${id}"]`).classList.add('active');
-    document.getElementById(id + 'Explained').classList.add('active');
+    document.getElementById(id + 'Form').classList.add('active');
   }
 
   tabs.forEach(tab => tab.onclick = () => showForm(tab.dataset.form));
