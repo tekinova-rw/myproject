@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="rw">
 <head>
@@ -146,13 +147,6 @@
       justify-content:center;gap:6px;
     }
     .btn-review:hover{background:#003d3d}
-    .btn-share{
-      flex:1;background:#25d366;color:#fff;border:none;padding:8px 14px;
-      border-radius:8px;font-weight:600;font-size:0.85rem;cursor:pointer;
-      transition:background .3s;display:flex;align-items:center;
-      justify-content:center;gap:6px;
-    }
-    .btn-share:hover{background:#1da851}
     /* ----- SOCIAL SHARE IN FOOTER ----- */
     .footer-social{
       display:flex;gap:12px;justify-content:center;margin-top:20px;
@@ -661,7 +655,6 @@
       <button class="filter-btn" data-filter="internship">Internships <span class="count-badge" id="count-internships">0</span></button>
       <button class="filter-btn" data-filter="scholarship">Scholarships <span class="count-badge" id="count-scholarships">0</span></button>
     </div>
-
     <h2 lang="en">Latest Opportunities</h2>
     <div class="opportunities-container" id="allContainer"></div>
   </main>
@@ -800,7 +793,7 @@
     <a href="https://whatsapp.com/channel/0029VbBUVsPDTkKD9z89s20H" class="float-btn group" target="_blank" rel="noopener noreferrer">
       <span class="icon"></span><span class="label" lang="en">Follow Channel</span>
     </a>
-   
+  
     <a href="https://chat.whatsapp.com/CoPf3siZOpKB2B9UNh2fYC" class="float-btn group" target="_blank" rel="noopener noreferrer">
       <span class="icon"></span><span class="label" lang="en">Join Group</span>
     </a>
@@ -873,7 +866,6 @@
     <button onclick="topFunction()" id="topBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
   </footer>
 </div>
-
 <script>
   // -------------------------------------------------
   // DATA (with type field)
@@ -885,43 +877,38 @@
       // Jobs
       { type: 'job',
        logo: "docs/download.png",
-       title: "3 Junior Facilitators Interns", 
+       title: "3 Junior Facilitators Interns",
        company: "RODI Rwanda",
         description: "Train, mentor, and support Peer Educators (youths) in Ruhango District.",
        deadline: "2025-11-18",
         doc: "docs/job11.html" },
-
-      { type: 'job', 
-      logo: "docs/Sorwathe-ltd.png",
-       title: "Factory Accountant", 
-       company: "Sorwathe Ltd", 
-       description: "Bachelor’s degree in accounting or related field..", 
-       deadline: "2025-12-15", 
-       doc: "docs/job33.html" },
-
       { type: 'job',
-       logo: "docs/job33.png", 
-      title: "Commission Based Marketing Agent", 
+      logo: "docs/Sorwathe-ltd.png",
+       title: "Factory Accountant",
+       company: "Sorwathe Ltd",
+       description: "Bachelor’s degree in accounting or related field..",
+       deadline: "2025-12-15",
+       doc: "docs/job33.html" },
+      { type: 'job',
+       logo: "docs/job33.png",
+      title: "Commission Based Marketing Agent",
       company: "Strongmind Ltd",
-       description: "Required level of study: Secondary School graduates.", 
+       description: "Required level of study: Secondary School graduates.",
        deadline: "2025-12-12",
         doc: "docs/job22.html" },
-
       { type: 'job',
-        logo: "docs/mtn.jpg", 
+        logo: "docs/mtn.jpg",
         title: "Key Accounts Manager",
         company: "MTN Rwanda",
-        description: "Minimum of bachelor’s academic degree, coupled with an MBA/Master, would be advantageous.", 
+        description: "Minimum of bachelor’s academic degree, coupled with an MBA/Master, would be advantageous.",
         deadline: "2025-11-17",
         doc: "docs/mtn.html" },
-
       { type: 'job', logo: "docs/bridges_to_prosperity_logo.jpg",
        title: "IT Coordinator",
       company: "Bridges to Prosperity",
       description: "Bachelor's degree in Information Technology or any other relevant tech-related course.",
       deadline: "2025-11-30",
       doc: "docs/bridges.html" },
-
       { type: 'job',
        logo: "docs/rurama.jpg",
         title: "Managing Director (Karongi District)",
@@ -929,13 +916,11 @@
           description: "Master’s or Bachelor’s degree in Finance, Economics, Management or Accounting.",
            deadline: "2025-11-25",
             doc: "docs/ruma.html" },
-
       // Internships
       { type: 'internship', logo: "rodi.png", title: "Youth Facilitator Intern", company: "RODI Rwanda", description: "Support youth training programs in Ruhango. 3-month paid internship.", deadline: "2025-11-2", doc: "docs/internship_rodi.pdf" },
       { type: 'internship', logo: "undp.png", title: "UNDP Rwanda Internship", company: "United Nations Development Programme", description: "Policy research and project support in sustainable development.", deadline: "2025-1-01", doc: "docs/undp_internship.html" },
       { type: 'internship', logo: "worldbank.png", title: "World Bank Summer Internship", company: "World Bank Group", description: "Economics, data analysis, and development projects in Kigali.", deadline: "2025-11-3", doc: "docs/wb_intern.pdf" },
       // Scholarships
-
       { type: 'scholarship',
     logo: "docs/eas_chiristiat.png",
     title: "Call for EACC Application with Chancen Financing",
@@ -943,7 +928,6 @@
     description: "East African Christian College (EACC) is pleased to announce that, in partnership with Chancen International, it is offering student financing through an Income Share Agreement (Study Now-Pay Later Model).",
     deadline: "2026-11-14",
     doc: "docs/Call for EACC Application with Chancen Financing, November 2025-1.pdf" },
-
       { type: 'scholarship',
        logo: "docs/logo_HEC.png",
         title: "Republic of Korea - Governoment of Rwanda scholarship",
@@ -951,7 +935,6 @@
           description: "Fully funded Master's degree in Korea.",
            deadline: "2025-11-25",
             doc: "https://hecmis.hec.gov.rw/" },
-
       { type: 'scholarship',
        logo: "daad.png",
         title: "DAAD Scholarship for Rwanda",
@@ -965,7 +948,6 @@
       return dl >= today;
     });
   }
-
   function getServices() {
     return [
       "Web designing.",
@@ -996,9 +978,8 @@
       "Consulting services for tech-related projects."
     ];
   }
-
   // -------------------------------------------------
-  // BUILD CARD (adds type badge + share button)
+  // BUILD CARD (adds type badge)
   // -------------------------------------------------
   function buildCard(op) {
     const typeBadge = `<span style="background:#012f47;color:gold;padding:2px 8px;border-radius:12px;font-size:0.75rem;margin-left:6px;">${op.type.charAt(0).toUpperCase() + op.type.slice(1)}</span>`;
@@ -1016,40 +997,16 @@
             <button class="btn-review" onclick="openContentModal('${op.doc}', '${op.title}', '${op.description.replace(/'/g, "\\'")}', '${op.deadline}', '${op.logo}')">
               <i class="fas fa-eye"></i> View
             </button>
-            <button class="btn-share" onclick="shareOpportunity('${op.title}', '${op.description.replace(/'/g, "\\'")}', '${op.deadline}', '${op.doc}', '${op.logo}')">
-              <i class="fab fa-whatsapp"></i> Share
-            </button>
           </div>
         </div>
       </div>
     `;
   }
-
-  // -------------------------------------------------
-  // SHARE FUNCTION (WhatsApp + X + Copy)
-  // -------------------------------------------------
-  function shareOpportunity(title, description, deadline, doc, logo) {
-    const base = location.href.split('?')[0].replace(/\/[^\/]*$/, '/');
-    const url = base + doc;
-    const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\n\nApply: ${url}\n\n#jobandscholarship`;
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text + (logo ? `\n\n${base}${logo}` : ''))}`;
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
-
-    // Open WhatsApp by default
-    window.open(whatsappUrl, '_blank');
-
-    // Optional: Show copy confirmation
-    navigator.clipboard.writeText(text).then(() => {
-      alert('Text copied to clipboard!');
-    });
-  }
-
   // -------------------------------------------------
   // RENDER & FILTER
   // -------------------------------------------------
   const allContainer = document.getElementById('allContainer');
   let allData = [];
-
   function render(filter = 'all') {
     const filtered = filter === 'all' ? allData : allData.filter(op => op.type === filter);
     allContainer.innerHTML = filtered.map(buildCard).join('');
@@ -1057,7 +1014,6 @@
       btn.classList.toggle('active', btn.dataset.filter === filter);
     });
   }
-
   function updateCounts() {
     const counts = { all: allData.length, job: 0, internship: 0, scholarship: 0 };
     allData.forEach(op => counts[op.type]++);
@@ -1066,21 +1022,18 @@
     document.getElementById('count-internships').textContent = counts.internship;
     document.getElementById('count-scholarships').textContent = counts.scholarship;
   }
-
   // -------------------------------------------------
   // FILTER BUTTONS
   // -------------------------------------------------
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => render(btn.dataset.filter));
   });
-
   // -------------------------------------------------
   // CONTENT MODAL
   // -------------------------------------------------
   const contentModal = document.getElementById('contentModal');
   const contentViewer = document.getElementById('contentViewer');
   let currentShareData = {};
-
   function openContentModal(file, title, description, deadline, img) {
     contentViewer.innerHTML = '';
     const ext = (file.split('.').pop() || '').toLowerCase();
@@ -1134,30 +1087,17 @@
     const shareBtn = document.createElement('div');
     shareBtn.className = 'modal-share-btn';
     shareBtn.innerHTML = '<i class="fas fa-share-alt"></i>';
-    shareBtn.onclick = () => shareOpportunity(title, description, deadline, file, img);
+    shareBtn.onclick = () => shareWithImage(title, description, deadline, img);
     const copyBtn = document.createElement('div');
     copyBtn.className = 'modal-copy-btn';
     copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
-    copyBtn.onclick = () => {
-      const base = location.href.split('?')[0].replace(/\/[^\/]*$/, '/');
-      const url = base + file;
-      const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\n\nApply: ${url}\n\n#jobandscholarship`;
-      navigator.clipboard.writeText(text).then(() => {
-        copyBtn.innerHTML = '<i class="fas fa-check"></i>';
-        copyBtn.classList.add('copied');
-        setTimeout(() => {
-          copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
-          copyBtn.classList.remove('copied');
-        }, 2000);
-      });
-    };
+    copyBtn.onclick = copyToClipboard;
     actionBtns.appendChild(shareBtn);
     actionBtns.appendChild(copyBtn);
     contentViewer.appendChild(actionBtns);
     contentModal.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
-
   function closeContentModal() {
     contentModal.classList.remove('active');
     document.body.style.overflow = '';
@@ -1165,7 +1105,50 @@
   contentModal.addEventListener('click', e => {
     if (e.target === contentModal) closeContentModal();
   });
-
+  // -------------------------------------------------
+  // SHARE & COPY (Enhanced for Social Media & Copy)
+  // -------------------------------------------------
+  async function shareWithImage(title, description, deadline, imgSrc) {
+    const base = location.href.split('?')[0].replace(/\/[^\/]*$/, '/');
+    const url = base + (currentShareData.file || '');
+    const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\n\nApply: ${url}\n\n#jobandscholarship`;
+    if (navigator.share && imgSrc) {
+      try {
+        const response = await fetch(base + imgSrc);
+        const blob = await response.blob();
+        const file = new File([blob], "opportunity.jpg", { type: blob.type });
+        await navigator.share({
+          title: "Opportunity",
+          text: text,
+          files: [file]
+        });
+      } catch (err) {
+        fallbackShare(text, base + imgSrc);
+      }
+    } else {
+      fallbackShare(text, base + imgSrc);
+    }
+  }
+  function fallbackShare(text, imgUrl) {
+    const fullText = `${text}${imgUrl ? `\n\n${imgUrl}` : ''}`;
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(fullText)}`;
+    window.open(whatsappUrl, '_blank');
+  }
+  function copyToClipboard() {
+    const { title, description, deadline, file } = currentShareData;
+    const base = location.href.split('?')[0].replace(/\/[^\/]*$/, '/');
+    const url = base + file;
+    const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\n\nApply: ${url}\n\n#jobandscholarship`;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('.modal-copy-btn');
+      btn.innerHTML = '<i class="fas fa-check"></i>';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fas fa-copy"></i>';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
   // -------------------------------------------------
   // AUTH MODAL
   // -------------------------------------------------
@@ -1195,7 +1178,6 @@
   async function handleLogin(e) { e.preventDefault(); showMessage("Login successful!", true); }
   async function handleSignup(e) { e.preventDefault(); showMessage("Account created!", true); }
   async function handleReset(e) { e.preventDefault(); showMessage("Reset link sent!", true); }
-
   // -------------------------------------------------
   // MOBILE MENU
   // -------------------------------------------------
@@ -1210,7 +1192,6 @@
       toggle.classList.toggle('active');
     });
   });
-
   // -------------------------------------------------
   // SCROLL TO TOP
   // -------------------------------------------------
@@ -1221,7 +1202,6 @@
   function topFunction() {
     window.scrollTo({top: 0, behavior: 'smooth'});
   }
-
   // -------------------------------------------------
   // TOGGLE SERVICES SECTION
   // -------------------------------------------------
@@ -1239,7 +1219,6 @@
       btn.classList.add('collapsed');
     }
   });
-
   // -------------------------------------------------
   // INITIALISE
   // -------------------------------------------------
@@ -1249,7 +1228,6 @@
     render('all');
     buildServices();
   });
-
   function buildServices() {
     const services = getServices();
     const list = document.getElementById('servicesList');
