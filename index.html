@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="rw">
 <head>
@@ -556,7 +555,7 @@
         <div class="input-group"><input type="email" name="email" placeholder="Email address" required></div>
         <button type="submit">Send reset link</button>
         <p style="margin-top:8px;text-align:center;">
-          <a href="#" class="switch-form" data-form="login">Back to login</a>
+          <a href="#" class="switch-form" data-form="login">Back for Back to login</a>
         </p>
       </form>
       <div id="authMessage"></div>
@@ -643,7 +642,7 @@
   </div>
   <!-- Live info banner -->
   <div class="live-info-banner">
-    <span><i class="fas fa-clock"></i> November 13, 2025 02:00 PM CAT</span>
+    <span><i class="fas fa-clock"></i> November 15, 2025 06:46 PM CAT</span>
     <span><i class="fas fa-map-marker-alt"></i> Country: Rwanda (RW)</span>
   </div>
   <!-- MAIN CONTENT -->
@@ -930,7 +929,7 @@
     doc: "docs/Call for EACC Application with Chancen Financing, November 2025-1.pdf" },
       { type: 'scholarship',
        logo: "docs/logo_HEC.png",
-        title: "Republic of Korea - Governoment of Rwanda scholarship",
+        title: "Republic of Korea - Government of Rwanda scholarship",
          company: "Higher Education Council - Rwanda",
           description: "Fully funded Master's degree in Korea.",
            deadline: "2025-11-25",
@@ -1106,12 +1105,12 @@
     if (e.target === contentModal) closeContentModal();
   });
   // -------------------------------------------------
-  // SHARE & COPY (Enhanced for Social Media & Copy)
+  // SHARE & COPY (EXACT FORMAT)
   // -------------------------------------------------
   async function shareWithImage(title, description, deadline, imgSrc) {
     const base = location.href.split('?')[0].replace(/\/[^\/]*$/, '/');
     const url = base + (currentShareData.file || '');
-    const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\n\nApply: ${url}\n\n#jobandscholarship`;
+    const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\nApply: ${url}\n\n#jobandscholarship`;
     if (navigator.share && imgSrc) {
       try {
         const response = await fetch(base + imgSrc);
@@ -1138,7 +1137,7 @@
     const { title, description, deadline, file } = currentShareData;
     const base = location.href.split('?')[0].replace(/\/[^\/]*$/, '/');
     const url = base + file;
-    const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\n\nApply: ${url}\n\n#jobandscholarship`;
+    const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\nApply: ${url}\n\n#jobandscholarship`;
     navigator.clipboard.writeText(text).then(() => {
       const btn = document.querySelector('.modal-copy-btn');
       btn.innerHTML = '<i class="fas fa-check"></i>';
