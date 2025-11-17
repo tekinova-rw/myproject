@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jobs, Internships & Scholarships</title>
+  <title>JobsandScholarships</title>
   <!-- SEO Meta Tags -->
   <meta name="description" content="Find job opportunities, internships, and scholarships in Rwanda. Connect with us for career guidance and tech-related services.">
   <meta name="keywords" content="jobs, internships, scholarships, Rwanda, careers, tech services, job opportunities">
@@ -922,6 +922,13 @@
           description: "Master’s or Bachelor’s degree in Finance, Economics, Management or Accounting.",
            deadline: "2025-11-25",
             doc: "docs/ruma.html" },
+        { type: 'job',
+       logo: "docs/kingfaisa.png",
+        title: "Drivers",
+         company: "King Faisal Hospital Rwanda (KFHR)",
+          description: "Requirements:  Advanced Certificate (A2) and must have a Driving license with Category B & D ",
+           deadline: "2025-11-18",
+            doc: "docs/kingfaisaldriver.html" },
 
       // Internships
       { type: 'internship', logo: "rodi.png", title: "Youth Facilitator Intern", company: "RODI Rwanda", description: "Support youth training programs in Ruhango. 3-month paid internship.", deadline: "2025-11-2", doc: "docs/internship_rodi.pdf" },
@@ -930,28 +937,28 @@
       // Scholarships
 
       { type: 'scholarship',
-    logo: "docs/eas_chiristiat.png",
-    title: "Call for EACC Application with Chancen Financing",
-    company: "East African Christian College (EACC)",
-    description: "East African Christian College (EACC) is pleased to announce that, in partnership with Chancen International, it is offering student financing through an Income Share Agreement (Study Now-Pay Later Model).",
-    deadline: "2026-11-14",
-    doc: "docs/Call for EACC Application with Chancen Financing, November 2025-1.pdf" },
+    logo: "docs/logo_HEC.png",
+    title: "Switzerland - Rwanda Cooperation Scholarships",
+    company: "Higher Education Council - Rwanda",
+    description: "These scholarships are available only for Research Fellowships, PhD or Postdoctoral studies of one year’s duration (3 years for PhD studies) at Swiss Universities, with exception of studies in fine arts",
+    deadline: "2025-11-28",
+    doc: "docs/68cb2f2a674ab_SWITZERLAND_-_RWANDA_COOPERATION_SCHOLARSHIPS.pdf" },
 
       { type: 'scholarship',
        logo: "docs/logo_HEC.png",
         title: "Republic of Korea - Governoment of Rwanda scholarship",
          company: "Higher Education Council - Rwanda",
           description: "Fully funded Master's degree in Korea.",
-           deadline: "2025-11-25",
+           deadline: "2025-12-25",
             doc: "https://hecmis.hec.gov.rw/" },
 
       { type: 'scholarship',
-       logo: "daad.png",
-        title: "DAAD Scholarship for Rwanda",
-         company: "German Academic Exchange Service",
-          description: "Master’s and PhD funding for study in Germany.",
-           deadline: "2025-1-2",
-            doc: "docs/daad_rwanda.pdf" }
+       logo: "docs/logo_HEC.png",
+        title: "Public Notice For Scholarship Applicants",
+         company: "Higher Education Council - Rwanda",
+          description: "The Higher Education Council (HEC) wishes to inform the public, particularly prospective students who plan to study in local Higher Learning Institutions and in International Universities, that applications for study loan for both local and international studies are published and granted annually..",
+           deadline: "2025-11-30",
+            doc: "docs/68cb27343ecb6_PUBLIC_NOTICE_SCHOLARSHIP.pdf" }
     ].filter(op => {
       const [y,m,d] = op.deadline.split('-').map(Number);
       const dl = new Date(y,m-1,d);
@@ -1131,7 +1138,7 @@
   async function shareWithImage(title, description, deadline, imgSrc) {
     const base = location.href.split('?')[0].replace(/\/[^\/]*$/, '/');
     const url = base + (currentShareData.file || '');
-    const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\n\nApply: ${url}\n\n#JobsInRwanda #Internships #Scholarships`;
+    const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\n\nApply: ${url}\n\n#jobandscholarship #Internships #Scholarships`;
     if (navigator.share && imgSrc) {
       try {
         const response = await fetch(base + imgSrc);
@@ -1157,7 +1164,7 @@
     const { title, description, deadline, file } = currentShareData;
     const base = location.href.split('?')[0].replace(/\/[^\/]*$/, '/');
     const url = base + file;
-    const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\n\nApply: ${url}\n\n#JobsInRwanda`;
+    const text = `${title}\n\n${description}\n\nDeadline: ${deadline}\n\nApply: ${url}\n\n#jobandscholarship`;
     navigator.clipboard.writeText(text).then(() => {
       const btn = document.querySelector('.modal-copy-btn');
       btn.innerHTML = '<i class="fas fa-check"></i>';
