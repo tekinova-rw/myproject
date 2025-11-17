@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Job</title>
+  <title>JobsandScholarships</title>
   <!-- SEO Meta Tags -->
   <meta name="description" content="Find job opportunities, internships, and scholarships in Rwanda. Connect with us for career guidance and tech-related services.">
   <meta name="keywords" content="jobs, internships, scholarships, Rwanda, careers, tech services, job opportunities">
@@ -958,7 +958,10 @@
          company: "Higher Education Council - Rwanda",
           description: "The Higher Education Council (HEC) wishes to inform the public, particularly prospective students who plan to study in local Higher Learning Institutions and in International Universities, that applications for study loan for both local and international studies are published and granted annually..",
            deadline: "2025-11-30",
-            doc: "docs/68cb27343ecb6_PUBLIC_NOTICE_SCHOLARSHIP.pdf" }
+            doc: "docs/68cb27343ecb6_PUBLIC_NOTICE_SCHOLARSHIP.pdf" },
+
+                  { type: 'scholarship', logo: "docs/ASOME-logo-1.png", title: "ANNOUNCEMENT FOR Government-funded of Rwanda scholarship opportunity -2025 intake", company: "The Adventist School of Medicine of East-Central Africa (ASOME)", description: "Requirements: overall grades minimum of 80% in biology , chemistry & mathematics (MCB,PCB, AND ASSOCIATE NURSING PROGRAM (ANP)).", deadline: "2025-12-5", doc: "docs/adivantist.pdf" }
+
     ].filter(op => {
       const [y,m,d] = op.deadline.split('-').map(Number);
       const dl = new Date(y,m-1,d);
