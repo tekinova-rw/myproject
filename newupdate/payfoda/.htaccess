@@ -1,0 +1,47 @@
+# .htaccess
+# Security and URL configuration
+
+# Prevent directory listing
+Options -Indexes
+
+# Protect sensitive directories
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Block access to includes directory
+RedirectMatch 403 ^/PAYFODA/includes/.*$
+
+# Protect config files
+<Files "config.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "database.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Enable mod_rewrite
+RewriteEngine On
+
+# Redirect admin_register.php if admin already exists (optional PHP check)
+# This is better handled in PHP
+
+# Set default charset
+AddDefaultCharset UTF-8
+
+# Security headers
+<IfModule mod_headers.c>
+    Header set X-Frame-Options "DENY"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>
+
+# Prevent access to sensitive files
+<FilesMatch "\.(sql|log|ini|sh|bak|md)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

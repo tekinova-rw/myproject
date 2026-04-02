@@ -1,0 +1,6 @@
+# Protect uploads directory
+Options -Indexes
+<FilesMatch "\.(php|php3|php4|php5|phtml|inc)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

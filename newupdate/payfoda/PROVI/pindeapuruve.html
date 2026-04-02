@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saba Access — Online System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #1a237e, #0d47a1);
+      color: white;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+    h1 { margin-bottom: 10px; }
+    p { font-size: 14px; margin-bottom: 15px; }
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      margin: 5px 0 10px;
+      border-radius: 8px;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+    button {
+      background: #00c853;
+      color: #003300;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: .3s;
+    }
+    button:hover { background: #009624; }
+    button:disabled { background: #666; cursor: not-allowed; }
+    .status { margin-top: 15px; font-size: 14px; min-height: 20px; }
+    /* ADD: Add custom styles here, e.g., for loading spinners or animations */
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Saba Access</h1>
+    <p>Shyiramo amakuru yawe hanyuma kanda «Saba Access». IP yawe izabikwa muri Google Sheet kandi WhatsApp ifungure ubutumwa.</p>
+
+    <input id="name" type="text" placeholder="Amazina (optional)">
+    <input id="email" type="email" placeholder="Email (optional)">
+    <input id="phone" type="text" placeholder="Phone (WhatsApp) e.g. 07XXXXXXXX">
+    <input id="reason" type="text" placeholder="Impamvu (optional)">
+    
+    <button id="requestBtn">Saba Access</button>
+    <div id="status" class="status"></div>
+    <!-- ADD: Add additional UI elements here, e.g., a loading spinner or reset button -->
+  </div>
+
+  <script>
+    
+    const API_URL = "https://script.google.com/macros/s/AKfycbxba0TsYWVr9OYqEAqKzgEMrm2AkIGSGWY8dOnkdP4GrQ9uQFDzxiVXVtIVQ-jyqGK5/exec";
+    const WHATSAPP_NUMBER = "250733253803";
+    const ACCESS_DURATION_DAYS = 30;
+
+    async function getIP() {
+      try {
+        const r = await fetch('https://api.ipify.org?format=json');
+        const j = await r.json();
+        return j.ip;
+      } catch (e) {
+        return "Unknown IP";
+      }
+    }
+
+    async function checkAccess() {
+      const status = document.getElementById('status');
+      try {
+        const ip = await getIP();
+        // MODIFIED: Filter by IP to reduce data transfer
+        const res = await fetch(`${API_URL}?ip=${encodeURIComponent(ip)}`);
+        const list = await res.json();
+        const record = list.find(r => r.ip === ip);
+        if (record && record.date_approved) {
+          const approvedDate = new Date(record.date_approved);
+          const now = new Date();
+          const diffDays = (now - approvedDate) / (1000 * 60 * 60 * 24);
+          if (diffDays <= ACCESS_DURATION_DAYS) {
+            status.textContent = "✅ Ufite access. Urashobora gukomeza gukoresha system.";
+            document.getElementById('requestBtn').style.display = "none";
+            return true;
+          }
+        }
+        status.textContent = "⚠️ Nta access wemerewe. Kanda 'Saba Access'.";
+        return false;
+      } catch (e) {
+        // MODIFIED: User-friendly error message
+        status.textContent = `⚠️ Ntibyakunze kugenzura access: ${e.message === 'Failed to fetch' ? 'Nta internet cyangwa ikibazo cya server' : e.message}`;
+        return false;
+      }
+      // ADD: Add analytics or logging here, e.g., track failed access checks
+    }
+
+    document.getElementById('requestBtn').addEventListener('click', async () => {
+      const status = document.getElementById('status');
+      const btn = document.getElementById('requestBtn');
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const reason = document.getElementById('reason').value.trim();
+
+      // MODIFIED: Validate phone and standardize format
+      if (!phone || !/^(\+250|07)[0-9]{8,9}$/.test(phone)) {
+        status.textContent = "⚠️ Shyiramo nomero ya WhatsApp y'urwanda (07XXXXXXXX or +250XXXXXXXXX).";
+        return;
+      }
+
+      // MODIFIED: Add loading state
+      btn.disabled = true;
+      btn.textContent = "Kohereza...";
+      const ip = await getIP();
+      status.textContent = `Kohereza request...`; // Removed IP display for privacy
+
+      try {
+        await fetch(API_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ip, name, email, phone, reason, date: new Date().toISOString() })
+        });
+
+        // MODIFIED: Standardize phone for WhatsApp
+        const waPhone = phone.startsWith('+250') ? phone : `+250${phone.slice(1)}`;
+        const text = `Ndashaka access.\nIP:${ip}\nName:${name || '-'}\nEmail:${email || '-'}\nPhone:${waPhone}\nImpamvu:${reason || '-'}`;
+        const wa = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+        window.open(wa, '_blank');
+        status.textContent = "✅ Request yoherejwe! WhatsApp ifunguye. Tegereza ko admin ayemeza.";
+      } catch (err) {
+        // MODIFIED: User-friendly error message
+        status.textContent = `❌ Habaye ikibazo: ${err.message === 'Failed to fetch' ? 'Nta internet cyangwa ikibazo cya server' : err.message}`;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Saba Access";
+      }
+      // ADD: Add analytics or logging here, e.g., track successful submissions
+    });
+
+    window.addEventListener('load', checkAccess);
+    // ADD: Add initialization code here, e.g., pre-fill fields or check local storage
+  </script>
+</body>
+</html>
