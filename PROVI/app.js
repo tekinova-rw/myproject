@@ -370,7 +370,7 @@ function ensureFullscreenWithPrompt() {
   }, 500);
 }
 
-// === Visibility (Minimize) Handler ===
+// === Visibility (Minimize) Handler - NOW ALLOWS CONTINUING ===
 let hiddenTabWarned = false;
 let minimizeDetected = false;
 let wasHidden = false;
@@ -379,13 +379,15 @@ document.addEventListener('visibilitychange', () => {
   if (!quizScreen || quizScreen.classList.contains('hidden')) return;
 
   if (document.hidden) {
+    // User left the exam (phone call, notification, app switch, minimize)
     wasHidden = true;
     minimizeDetected = true;
     lastActivity = Date.now();
-    console.log('User left exam — timer continues');
+    console.log('User left exam — timer continues silently');
     return;
   }
 
+  // User returned
   if (wasHidden) {
     wasHidden = false;
 
@@ -394,14 +396,17 @@ document.addEventListener('visibilitychange', () => {
       updateTimerDisplay();
     }
 
+    // If time expired while they were away -> submit (don't reset)
     if (timeLeft <= 0) {
       console.log('Timer expired while away — submitting');
       endQuiz();
       return;
     }
 
+    // Force back to fullscreen (will show tap banner if browser blocks it)
     ensureFullscreenWithPrompt();
 
+    // Gentle notice for longer absences, but do NOT reset
     const absenceTime = Date.now() - lastActivity;
     if (absenceTime > 30000 && !hiddenTabWarned) {
       hiddenTabWarned = true;
@@ -459,7 +464,6 @@ async function getExamSet(allQuestions, count = 20, ip, iteration = 0) {
   let available = allQuestions.filter(q => !used.has(q.id));
 
   if (available.length < count) {
-    // Show the 2-minute silent wait overlay
     showAutoRefreshOverlay();
     return [];
   }
