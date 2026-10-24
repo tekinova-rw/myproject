@@ -1,3 +1,4 @@
+// PROVI/app.js
 const homeScreen = document.getElementById('home-screen');
 const quizScreen = document.getElementById('quiz-screen');
 const resultScreen = document.getElementById('result-screen');
@@ -19,6 +20,7 @@ const scoreEl = document.getElementById('score');
 const passMessage = document.getElementById('pass-message');
 const reviewContainer = document.getElementById('review-container');
 const progressBar = document.getElementById('progress-bar');
+const navButtons = document.getElementById('nav-buttons');
 
 let questionsPool = [];
 let questions = [];
@@ -30,13 +32,119 @@ let warnedLastMinute = false;
 let quizEndTime = null;
 let lastActivity = Date.now();
 let inactivityWarned = false;
+
 let fullscreenEnabled = false;
+let hasEverEnteredFullscreen = false; 
+let fullscreenExitStrikes = 0;       
+
 let currentIP = null;
-const authorizedPassword = 'exam2025'; // Password required to start quiz
+const authorizedPassword = 'exam2025'; 
 const ENCRYPTION_KEY = 'quiz_secure_key_2025';
 const MIN_QUESTIONS_REQUIRED = 20;
 
-// === NEW: Track completed exams per IP ===
+const isMobile = /Android|iPhone|iPad|iPod|Mobile|Windows Phone/i.test(
+  navigator.userAgent || ''
+);
+
+// ==========================================
+// === CUSTOM AUTO-DISMISS NOTIFICATION ===
+// ==========================================
+function showToast(message) {
+  let toast = document.getElementById('custom-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'custom-toast';
+    toast.style.cssText = `
+      position: fixed;
+      top: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(231, 76, 60, 0.95);
+      color: white;
+      padding: 15px 25px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      z-index: 10000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      max-width: 90%;
+      cursor: pointer;
+    `;
+    document.body.appendChild(toast);
+
+    document.body.addEventListener('click', () => {
+      if (toast.style.display === 'block') {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translate(-50%, -20px)';
+        setTimeout(() => { toast.style.display = 'none'; }, 300);
+      }
+    });
+  }
+  
+  toast.textContent = message;
+  toast.style.opacity = '1';
+  toast.style.display = 'block';
+  toast.style.transform = 'translate(-50%, 0)';
+
+  if (window.toastTimeout) clearTimeout(window.toastTimeout);
+
+  window.toastTimeout = setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translate(-50%, -20px)';
+    setTimeout(() => { toast.style.display = 'none'; }, 300);
+  }, 3000);
+}
+
+// ==========================================
+// === AUTO-REFRESH OVERLAY (2-Minute Wait) ===
+// ==========================================
+function showAutoRefreshOverlay() {
+  let overlay = document.getElementById('auto-refresh-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'auto-refresh-overlay';
+    overlay.style.cssText = `
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(15, 32, 39, 0.95); color: white;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      z-index: 999999; text-align: center; padding: 20px; font-family: 'Segoe UI', sans-serif;
+    `;
+    overlay.innerHTML = `
+      <h1 style="color: #f1c40f; margin-bottom: 20px;">Tegereza Gato...</h1>
+      <p style="font-size: 18px; margin-bottom: 30px;">Sisitemu iri gukora ivugurura. Nyamuneka tegereza akanya gato.</p>
+      <div id="refresh-countdown" style="font-size: 48px; font-weight: bold; color: #f1c40f; background: rgba(0,0,0,0.5); padding: 10px 30px; border-radius: 10px;">02:00</div>
+      <p style="font-size: 14px; color: #bdc3c7; margin-top: 30px;">Ntukeneye gukora icyo ari cyo cyose. Iyi page iziyongera ubwayo.</p>
+    `;
+    document.body.appendChild(overlay);
+  }
+
+  // Start the 2-minute countdown
+  let countdownTime = 2 * 60; // 2 minutes in seconds
+  const countdownEl = document.getElementById('refresh-countdown');
+
+  const interval = setInterval(() => {
+    countdownTime--;
+    
+    if (countdownTime <= 0) {
+      clearInterval(interval);
+      // Clear the used questions cache for this IP so they can start fresh
+      if (currentIP) {
+        safeLocalStorage(`usedQuestionsByIP`, 'set', null); // Clears all used questions
+      }
+      window.location.reload(); // Automatically refresh the page
+      return;
+    }
+
+    const mins = Math.floor(countdownTime / 60);
+    const secs = countdownTime % 60;
+    countdownEl.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  }, 1000);
+}
+
+
+// === Track completed exams per IP ===
 function getCompletedExamCount(ip) {
   const key = `completedExams_${ip}`;
   return safeLocalStorage(key, 'get') || 0;
@@ -56,8 +164,8 @@ async function getIP() {
     const data = await res.json();
     safeLocalStorage('fallbackIP', 'set', data.ip);
     return data.ip;
-   } catch (err) {
-    console.warn('IP detection via ipify failed, using deterministic fallback. Error:', err);
+  } catch (err) {
+    console.warn('IP detection failed, using fallback:', err);
     const existing = safeLocalStorage('fallbackIP', 'get');
     if (existing) return existing;
     const seed = (navigator.userAgent || '') + '|' + Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -107,12 +215,15 @@ function safeLocalStorage(key, operation = 'get', value = null) {
         localStorage.removeItem(obfuscatedKey);
         return true;
       } else {
-        localStorage.setItem(obfuscatedKey, btoa(JSON.stringify(value)));
+        localStorage.setItem(
+          obfuscatedKey,
+          btoa(unescape(encodeURIComponent(JSON.stringify(value))))
+        );
         return true;
       }
     } else {
       const data = localStorage.getItem(obfuscatedKey);
-      return data ? JSON.parse(atob(data)) : null;
+      return data ? JSON.parse(decodeURIComponent(escape(atob(data)))) : null;
     }
   } catch (err) {
     console.error(`LocalStorage error for ${key}:`, err);
@@ -133,16 +244,13 @@ setInterval(() => {
       if (usedData[ip].length === 0) delete usedData[ip];
     });
     safeLocalStorage('usedQuestionsByIP', 'set', usedData);
-  } catch (err) {
-    console.error('Periodic cleanup error:', err);
-  }
+  } catch (err) {}
 }, 600000);
 
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('keydown', e => {
   if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) e.preventDefault();
 });
-
 document.addEventListener('selectstart', e => e.preventDefault());
 document.addEventListener('keydown', e => {
   const forbiddenKeys = [
@@ -155,243 +263,232 @@ document.addEventListener('keydown', e => {
     return false;
   }
 });
-
 document.addEventListener('dragstart', e => e.preventDefault());
 document.addEventListener('drop', e => e.preventDefault());
 
 window.addEventListener('pageshow', e => {
-  if (e.persisted) {
-    window.location.reload();
+  if (e.persisted && quizScreen && !quizScreen.classList.contains('hidden')) {
+    if (quizEndTime) {
+      timeLeft = Math.max(Math.floor((quizEndTime - Date.now()) / 1000), 0);
+      updateTimerDisplay();
+      if (timeLeft <= 0) endQuiz();
+    }
+    return;
   }
+  if (e.persisted) window.location.reload();
 });
 
 let devToolsDetected = false;
 function detectDevTools() {
   if (!quizScreen || quizScreen.classList.contains('hidden')) return;
+  if (isMobile) return;
   const threshold = 100;
   if (window.outerHeight - window.innerHeight > threshold || window.outerWidth - window.innerWidth > threshold) {
     if (!devToolsDetected) {
       devToolsDetected = true;
-      console.log('Dev tools detected, resetting quiz (no permanent dropout)');
-      alert('Ibikoresho bya developer byabonye. Ikizamini kirongera gutangira!');
+      showToast('Ibikoresho bya developer byabonye. Ikizamini kirongera gutangira!');
       resetQuizToHome();
     }
   }
 }
 let devPollId = null;
-function startDevPoll() {
-  if (devPollId) return;
-  devPollId = setInterval(detectDevTools, 500);
-}
-function stopDevPoll() {
-  if (devPollId) {
-    clearInterval(devPollId);
-    devPollId = null;
-  }
-}
+function startDevPoll() { if (!devPollId) devPollId = setInterval(detectDevTools, 500); }
+function stopDevPoll() { if (devPollId) { clearInterval(devPollId); devPollId = null; } }
 
 function requestFullscreen() {
+  const el = document.documentElement;
   try {
-    if (document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen();
-    } else if (document.documentElement.mozRequestFullScreen) {
-      document.documentElement.mozRequestFullScreen();
-    } else if (document.documentElement.webkitRequestFullscreen) {
-      document.documentElement.webkitRequestFullscreen();
-    } else if (document.documentElement.msRequestFullscreen) {
-      document.documentElement.msRequestFullscreen();
-    }
-  } catch (err) {
-    console.error('Fullscreen request failed:', err);
-  }
+    if (el.requestFullscreen) el.requestFullscreen().catch(()=>{});
+    else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if (el.msRequestFullscreen) el.msRequestFullscreen();
+  } catch (err) {}
 }
 
 function exitFullscreen() {
   try {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.mozCancelFullScreen) {
-      document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
-    }
-  } catch (err) {
-    console.error('Fullscreen exit failed:', err);
-  }
+    if (document.exitFullscreen) document.exitFullscreen().catch(()=>{});
+    else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+    else if (document.msExitFullscreen) document.msExitFullscreen();
+  } catch (err) {}
 }
 
-document.addEventListener('fullscreenchange', () => {
-  if (!document.fullscreenElement && fullscreenEnabled) {
-    console.log('Fullscreen exited, resetting quiz (no dropout)');
-    alert('Ntushobora gusohoka kuri fullscreen. Ikizamini kirongera!');
-    resetQuizToHome();
-  }
-});
-document.addEventListener('webkitfullscreenchange', () => {
-  if (!document.webkitFullscreenElement && fullscreenEnabled) {
-    console.log('Fullscreen exited (webkit), resetting quiz');
-    alert('Ntushobora gusohoka kuri fullscreen. Ikizamini kirongera!');
-    resetQuizToHome();
-  }
-});
-document.addEventListener('mozfullscreenchange', () => {
-  if (!document.mozFullScreenElement && fullscreenEnabled) {
-    console.log('Fullscreen exited (moz), resetting quiz');
-    alert('Ntushobora gusohoka kuri fullscreen. Ikizamini kirongera!');
-    resetQuizToHome();
-  }
-});
-document.addEventListener('MSFullscreenChange', () => {
-  if (!document.msFullscreenElement && fullscreenEnabled) {
-    console.log('Fullscreen exited (ms), resetting quiz');
-    alert('Ntushobora gusohoka kuri fullscreen. Ikizamini kirongera!');
-    resetQuizToHome();
-  }
-});
+function isFullscreenActive() {
+  return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+}
 
-let hiddenTabWarned = false;
-let minimizeDetected = false;
-document.addEventListener('visibilitychange', () => {
+// === Fullscreen Loss Handler (Warn on 1st, Reset on 2nd) ===
+let fsResetTimer = null;
+function handleFullscreenLoss() {
   if (!quizScreen || quizScreen.classList.contains('hidden')) return;
-  if (document.hidden) {
-    if (!minimizeDetected) {
-      minimizeDetected = true;
-      console.log('Window minimized or tab switched, resetting quiz');
-      alert('Ikizamini cyahagaritswe kubera guhisha idirishya! Kirongera gutangira.');
-      resetQuizToHome();
-    }
-  } else {
-    if (quizEndTime) {
-      const elapsed = Math.floor((quizEndTime - Date.now()) / 1000);
-      timeLeft = Math.max(elapsed, 0);
-      updateTimerDisplay();
-      if (timeLeft <= 0) {
-        console.log('Timer expired on tab switch, resetting quiz');
+  if (!fullscreenEnabled) return;
+  if (isFullscreenActive()) return;
+
+  if (!hasEverEnteredFullscreen) return;
+  if (document.hidden) return;
+  if (isMobile) return;
+
+  clearTimeout(fsResetTimer);
+  fsResetTimer = setTimeout(() => {
+    if (!isFullscreenActive() && !document.hidden && fullscreenEnabled && hasEverEnteredFullscreen) {
+      fullscreenExitStrikes++;
+      
+      if (fullscreenExitStrikes === 1) {
+        showToast('Urahiye gusohoka kuri fullscreen. Nyamuneka subira kuri fullscreen ukomeze ikizamini! (Uramburwa rimwe gusa)');
+        requestFullscreen();
+      } else {
+        showToast('Ntushobora gusohoka kuri fullscreen. Ikizamini kirongera!');
         resetQuizToHome();
       }
     }
+  }, 800);
+}
+document.addEventListener('fullscreenchange', handleFullscreenLoss);
+document.addEventListener('webkitfullscreenchange', handleFullscreenLoss);
+document.addEventListener('mozfullscreenchange', handleFullscreenLoss);
+document.addEventListener('MSFullscreenChange', handleFullscreenLoss);
+
+function ensureFullscreenWithPrompt() {
+  if (!fullscreenEnabled || isFullscreenActive()) return;
+  requestFullscreen();
+
+  setTimeout(() => {
+    if (isFullscreenActive() || !fullscreenEnabled || document.hidden) return;
+    if (document.getElementById('fs-banner')) return;
+
+    const banner = document.createElement('div');
+    banner.id = 'fs-banner';
+    banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#c00;color:#fff;padding:16px;text-align:center;z-index:99999;font-size:16px;cursor:pointer;';
+    banner.textContent = 'Kanda hano kugirango usubire kuri fullscreen ukomeze ikizamini';
+    banner.onclick = () => { requestFullscreen(); banner.remove(); };
+    document.body.appendChild(banner);
+
+    const check = setInterval(() => {
+      if (isFullscreenActive()) { clearInterval(check); banner.remove(); }
+    }, 500);
+  }, 500);
+}
+
+// === Visibility (Minimize) Handler ===
+let hiddenTabWarned = false;
+let minimizeDetected = false;
+let wasHidden = false;
+
+document.addEventListener('visibilitychange', () => {
+  if (!quizScreen || quizScreen.classList.contains('hidden')) return;
+
+  if (document.hidden) {
+    wasHidden = true;
+    minimizeDetected = true;
+    lastActivity = Date.now();
+    console.log('User left exam — timer continues');
+    return;
+  }
+
+  if (wasHidden) {
+    wasHidden = false;
+
+    if (quizEndTime) {
+      timeLeft = Math.max(Math.floor((quizEndTime - Date.now()) / 1000), 0);
+      updateTimerDisplay();
+    }
+
+    if (timeLeft <= 0) {
+      console.log('Timer expired while away — submitting');
+      endQuiz();
+      return;
+    }
+
+    ensureFullscreenWithPrompt();
+
     const absenceTime = Date.now() - lastActivity;
     if (absenceTime > 30000 && !hiddenTabWarned) {
       hiddenTabWarned = true;
-      alert('Utangiye ikizamini mu bice. Gerageza gukora neza!');
+      showToast('Wagarutse. Igihe cyawe cyakomeje kugenda. Komeza ikizamini.');
     }
+
+    lastActivity = Date.now();
   }
 });
 
-document.addEventListener('mousemove', () => { lastActivity = Date.now(); inactivityCheck(); });
-document.addEventListener('keydown', () => { lastActivity = Date.now(); inactivityCheck(); });
+document.addEventListener('mousemove', () => { lastActivity = Date.now(); });
+document.addEventListener('keydown', () => { lastActivity = Date.now(); });
+
 function inactivityCheck() {
-  if (!quizScreen || quizScreen.classList.contains('hidden')) return;
+  if (!quizScreen || quizScreen.classList.contains('hidden') || document.hidden || wasHidden) return;
   const inactiveTime = Date.now() - lastActivity;
   if (inactiveTime > 120000 && !inactivityWarned) {
     inactivityWarned = true;
-    alert('Ntabwo uri mu ikizamini? Ikizamini kirongera gutangira mu munota 1!');
+    showToast('Ntabwo uri mu ikizamini? Ikizamini kizahagarara mu munota 1!');
     setTimeout(() => {
-      if (Date.now() - lastActivity > 180000) {
-        console.log('Inactivity timeout, resetting quiz');
-        resetQuizToHome();
-      }
+      if (!document.hidden && !wasHidden && Date.now() - lastActivity > 180000) endQuiz();
     }, 60000);
   }
 }
+setInterval(inactivityCheck, 5000);
 
 let alertAudio = null;
-function playAlertSound() {
-  if (alertAudio) {
-    alertAudio.play().catch(() => {});
-  }
-}
+function playAlertSound() { if (alertAudio) alertAudio.play().catch(() => {}); }
 
 async function loadQuestions() {
   try {
     const res = await fetch('questions.json');
     if (!res.ok) throw new Error(`Failed to load questions.json: ${res.statusText}`);
     const externalQuestions = await res.json();
-    if (!Array.isArray(externalQuestions) || externalQuestions.length === 0) {
-      throw new Error('questions.json is empty or not an array');
-    }
-
+    
     questionsPool = externalQuestions
       .filter(q => q && q.id && q.question && ['a', 'b', 'c', 'd'].every(key => q[key]) && ['a', 'b', 'c', 'd'].includes((q.answer || '').toLowerCase()))
       .map(q => ({
-        id: String(q.id),
-        question: q.question,
-        image: q.image ? `images/${q.image}` : null,
-        a: q.a,
-        b: q.b,
-        c: q.c,
-        d: q.d,
-        answer: (q.answer || '').toLowerCase()
+        id: String(q.id), question: q.question, image: q.image ? `images/${q.image}` : null,
+        a: q.a, b: q.b, c: q.c, d: q.d, answer: (q.answer || '').toLowerCase()
       }));
 
-    if (questionsPool.length < MIN_QUESTIONS_REQUIRED) {
-      throw new Error(`Insufficient questions in questions.json: ${questionsPool.length}/${MIN_QUESTIONS_REQUIRED} required`);
-    }
-
-    const imageQuestionsCount = questionsPool.filter(q => q.image).length;
-    if (imageQuestionsCount < 3) {
-      throw new Error(`Insufficient image questions in questions.json: ${imageQuestionsCount}/3 required`);
-    }
-
+    if (questionsPool.length < MIN_QUESTIONS_REQUIRED) throw new Error('Insufficient questions in questions.json');
+    
     safeElementAccess(startBtn).disabled = false;
-    console.log(`Loaded ${questionsPool.length} valid questions, ${imageQuestionsCount} with images.`);
   } catch (err) {
-    console.error('Failed to load questions:', err);
-    alert('Error: Questions could not be loaded. Check console.');
+    showToast('Error: Questions could not be loaded. Check console.');
     safeElementAccess(startBtn).disabled = true;
   }
 }
 loadQuestions();
 
-// === FIXED: getExamSet with strict no-image enforcement ===
 async function getExamSet(allQuestions, count = 20, ip, iteration = 0) {
   const used = getUsedQuestionsForIP(ip);
   let available = allQuestions.filter(q => !used.has(q.id));
 
   if (available.length < count) {
-    alert(`Nta bibazo bihagije bishya bihari kuri iyi IP/device (${available.length}/${count}). Gerageza nyuma y'amasaha 1.`);
+    // Show the 2-minute silent wait overlay
+    showAutoRefreshOverlay();
     return [];
   }
 
   const completedExams = getCompletedExamCount(ip);
   const examInCycle = (completedExams % 6);
   const effectiveExamNumber = examInCycle === 0 ? 6 : examInCycle;
-
   const shouldHaveImages = [1, 2, 5, 6].includes(effectiveExamNumber);
 
   let selected = [];
-
   if (shouldHaveImages) {
     const imageQuestions = available.filter(q => q.image);
     const noImageQuestions = available.filter(q => !q.image);
-
     if (imageQuestions.length < 3 || noImageQuestions.length < (count - 3)) {
-      alert(`Nta bibazo bihagije bishya by'amashusho cyangwa bidafite amashusho. Gerageza nyuma y'amasaha 1.`);
+      showAutoRefreshOverlay();
       return [];
     }
-
-    selected = selected.concat(reservoirSample(imageQuestions, 3));
-    selected = selected.concat(reservoirSample(noImageQuestions, count - 3));
+    selected = selected.concat(reservoirSample(imageQuestions, 3), reservoirSample(noImageQuestions, count - 3));
   } else {
     const noImageQuestions = available.filter(q => !q.image);
     if (noImageQuestions.length < count) {
-      alert(`Nta bibazo bihagije bishya bidafite amashusho bihari (${noImageQuestions.length}/${count}). Gerageza nyuma y'amasaha 1.`);
+      showAutoRefreshOverlay();
       return [];
     }
     selected = reservoirSample(noImageQuestions, count);
   }
 
   if (!shouldHaveImages && selected.some(q => q.image)) {
-    console.error('IMAGE LEAK DETECTED IN NON-IMAGE EXAM!');
-    alert('Ikosa ryabaye mu guhitamo ibibazo. Gerageza vuba.');
-    return [];
-  }
-
-  if (selected.length !== count) {
-    console.error(`Failed to select ${count} questions, got ${selected.length}`);
-    alert(`Ikosa ryabaye mu guhitamo ibibazo ${count}. Gerageza vuba.`);
+    showToast('Ikosa ryabaye mu guhitamo ibibazo. Gerageza vuba.');
     return [];
   }
 
@@ -412,15 +509,12 @@ function reservoirSample(arr, k) {
 }
 
 function startTimer() {
-  const safeTimerEl = safeElementAccess(timerEl);
-  if (!safeTimerEl) return;
-
   const storedKey = `quizEndTime_${currentIP || 'unknown'}`;
   const savedEnd = safeLocalStorage(storedKey, 'get');
+  
   if (savedEnd) {
     quizEndTime = new Date(savedEnd).getTime();
-    const diff = Math.floor((quizEndTime - Date.now()) / 1000);
-    timeLeft = Math.max(diff, 0);
+    timeLeft = Math.max(Math.floor((quizEndTime - Date.now()) / 1000), 0);
   } else {
     quizEndTime = Date.now() + timeLeft * 1000;
     safeLocalStorage(storedKey, 'set', new Date(quizEndTime).toISOString());
@@ -429,21 +523,17 @@ function startTimer() {
   updateTimerDisplay();
   timerId = setInterval(() => {
     if (quizEndTime) {
-      const elapsed = Math.floor((quizEndTime - Date.now()) / 1000);
-      timeLeft = Math.max(elapsed, 0);
+      timeLeft = Math.max(Math.floor((quizEndTime - Date.now()) / 1000), 0);
       updateTimerDisplay();
     }
     if (timeLeft <= 0) {
-      console.log('Timer expired, resetting quiz');
-      clearInterval(timerId);
-      timerId = null;
-      resetQuizToHome();
+      clearInterval(timerId); timerId = null;
+      endQuiz();
       return;
     }
-
-    if (timeLeft === 60 && !warnedLastMinute) {
+    if (timeLeft <= 60 && !warnedLastMinute) {
       warnedLastMinute = true;
-      alert('Hasigaye umunota umwe ngo ikizamini kirangire!');
+      showToast('Hasigaye umunota umwe ngo ikizamini kirangire!');
       playAlertSound();
     }
   }, 1000);
@@ -451,22 +541,17 @@ function startTimer() {
 
 function updateTimerDisplay() {
   const safeTimerEl = safeElementAccess(timerEl);
-  if (!safeTimerEl) return;
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
   safeTimerEl.textContent = `Igihe: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
 function stopTimer() {
-  if (timerId) {
-    clearInterval(timerId);
-    timerId = null;
-  }
+  if (timerId) { clearInterval(timerId); timerId = null; }
   stopDevPoll();
 }
 
 function shuffleArray(array) {
-  if (!Array.isArray(array) || array.length === 0) return [];
   const arr = [...array];
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -477,18 +562,14 @@ function shuffleArray(array) {
 
 function updateProgress() {
   const safeProgressBar = safeElementAccess(progressBar);
-  if (!safeProgressBar || questions.length === 0) return;
-  const prog = ((currentIndex + 1) / questions.length) * 100;
-  safeProgressBar.style.width = `${prog}%`;
+  if (questions.length === 0) return;
+  safeProgressBar.style.width = `${((currentIndex + 1) / questions.length) * 100}%`;
   safeProgressBar.textContent = `${currentIndex + 1}/${questions.length}`;
 }
 
 function showQuestion() {
   if (questions.length === 0 || currentIndex >= questions.length || currentIndex < 0) {
-    console.error('Invalid question index:', currentIndex, 'Questions length:', questions.length);
-    alert('Ikosa ryabaye mu kugaragaza ibibazo. Ikizamini kirongera.');
-    resetQuizToHome();
-    return;
+    resetQuizToHome(); return;
   }
   const q = questions[currentIndex];
   const safeQuestionText = safeElementAccess(questionText);
@@ -499,26 +580,24 @@ function showQuestion() {
   const safeSubmitBtn = safeElementAccess(submitBtn);
 
   safeQuestionText.textContent = `${currentIndex + 1}. ${q.question}`;
+  safeImageContainer.innerHTML = q.image ? `<img src="${q.image}" class="question-img" onerror="this.style.display='none'">` : '';
 
-  safeImageContainer.innerHTML = q.image ? `<img src="${q.image}" class="question-img" alt="Question image" loading="lazy" onerror="this.style.display='none'">` : '';
-
-  const optionKeys = ['a', 'b', 'c', 'd'];
   const inputs = safeOptionsForm.querySelectorAll('input[type="radio"]');
-  if (inputs.length !== 4) {
-    console.error('Expected 4 radio inputs, found:', inputs.length);
-    alert('Ikosa ryabaye mu kugaragaza ibyavugwa. Ikizamini kirongera.');
-    resetQuizToHome();
-    return;
-  }
+  const labels = safeOptionsForm.querySelectorAll('label');
 
   inputs.forEach((input, idx) => {
-    const key = optionKeys[idx];
+    const key = ['a', 'b', 'c', 'd'][idx];
     input.value = key;
+    
     const optionText = document.getElementById(`option-${key}`);
-    const safeOptionText = safeElementAccess(optionText, { textContent: '' });
-    safeOptionText.textContent = q[key] || '';
-    input.checked = selectedAnswers[currentIndex] === key;
-    safeOptionText.style.backgroundColor = selectedAnswers[currentIndex] === key ? '#e0e0e0' : '';
+    safeElementAccess(optionText).textContent = q[key] || '';
+    
+    const isSelected = selectedAnswers[currentIndex] === key;
+    input.checked = isSelected;
+    
+    if (labels[idx]) {
+      labels[idx].style.backgroundColor = isSelected ? '#e0e0e0' : '';
+    }
   });
 
   safePrevBtn.disabled = currentIndex === 0;
@@ -532,217 +611,197 @@ function showQuestion() {
     safeSubmitBtn.classList.add('hidden');
   }
 
+  // === HIDE NAV BUTTONS UNTIL ANSWER IS SELECTED ===
+  if (selectedAnswers[currentIndex]) {
+    safeElementAccess(navButtons).style.display = 'flex';
+  } else {
+    safeElementAccess(navButtons).style.display = 'none';
+  }
+
+  // Scroll to top of the quiz screen so they read the new question
+  safeElementAccess(quizScreen).scrollTop = 0;
   updateProgress();
 }
 
 function setupOptionListeners() {
-  const safeOptionsForm = safeElementAccess(optionsForm);
-  if (!safeOptionsForm) return;
-
-  const inputs = safeOptionsForm.querySelectorAll('input[type="radio"]');
+  const inputs = safeElementAccess(optionsForm).querySelectorAll('input[type="radio"]');
   inputs.forEach((input) => {
     input.addEventListener('change', () => {
       if (currentIndex >= 0 && currentIndex < selectedAnswers.length) {
         selectedAnswers[currentIndex] = input.value;
-        const labels = safeOptionsForm.querySelectorAll('label');
+        const labels = safeElementAccess(optionsForm).querySelectorAll('label');
         labels.forEach((label, i) => {
           label.style.backgroundColor = selectedAnswers[currentIndex] === input.value && i === ['a', 'b', 'c', 'd'].indexOf(input.value) ? '#e0e0e0' : '';
         });
+        
+        // === SHOW NAV BUTTONS ONCE AN ANSWER IS SELECTED ===
+        safeElementAccess(navButtons).style.display = 'flex';
+
+        safeLocalStorage(`quizState_${currentIP || 'unknown'}`, 'set', {
+          questions: questions,
+          selectedAnswers: selectedAnswers,
+          currentIndex: currentIndex,
+          quizEndTime: quizEndTime
+        });
       }
       lastActivity = Date.now();
-      inactivityCheck();
     });
   });
 }
 setupOptionListeners();
 
+// === STRICT NEXT BUTTON LOGIC (Cannot Skip) ===
 function nextQuestion() {
-  if (currentIndex < questions.length - 1) {
-    currentIndex++;
-    showQuestion();
+  // Check if the current question has an answer
+  if (!selectedAnswers[currentIndex]) {
+    showToast('Nyamuneka hitamo igisubizo mbere yuko ukomeza! (Please select an answer before proceeding!)');
+    return;
+  }
+
+  if (currentIndex < questions.length - 1) { 
+    currentIndex++; 
+    showQuestion(); 
   } else {
-    console.log('Reached last question, ending quiz via next');
     endQuiz();
   }
   lastActivity = Date.now();
+  
+  safeLocalStorage(`quizState_${currentIP || 'unknown'}`, 'set', {
+    questions: questions,
+    selectedAnswers: selectedAnswers,
+    currentIndex: currentIndex,
+    quizEndTime: quizEndTime
+  });
 }
 
 function prevQuestion() {
-  if (currentIndex > 0) {
-    currentIndex--;
-    showQuestion();
-  }
+  if (currentIndex > 0) { currentIndex--; showQuestion(); }
   lastActivity = Date.now();
+  
+  safeLocalStorage(`quizState_${currentIP || 'unknown'}`, 'set', {
+    questions: questions,
+    selectedAnswers: selectedAnswers,
+    currentIndex: currentIndex,
+    quizEndTime: quizEndTime
+  });
 }
 
 function resetQuizToHome() {
   stopTimer();
-  const storedKey = `quizEndTime_${currentIP || 'unknown'}`;
-  safeLocalStorage(storedKey, 'set', null);
+  safeLocalStorage(`quizEndTime_${currentIP || 'unknown'}`, 'set', null);
+  safeLocalStorage(`quizState_${currentIP || 'unknown'}`, 'set', null);
 
-  questions = [];
-  selectedAnswers = [];
-  currentIndex = 0;
-  timeLeft = 20 * 60;
-  warnedLastMinute = false;
-  quizEndTime = null;
-  devToolsDetected = false;
-  hiddenTabWarned = false;
-  inactivityWarned = false;
-  minimizeDetected = false;
-  lastActivity = Date.now();
+  questions = []; selectedAnswers = []; currentIndex = 0; timeLeft = 20 * 60;
+  warnedLastMinute = false; quizEndTime = null; devToolsDetected = false;
+  hiddenTabWarned = false; inactivityWarned = false; minimizeDetected = false;
+  wasHidden = false; lastActivity = Date.now();
+  fullscreenExitStrikes = 0; hasEverEnteredFullscreen = false;
 
-  const safeQuizScreen = safeElementAccess(quizScreen);
-  const safeResultScreen = safeElementAccess(resultScreen);
-  const safeReviewScreen = safeElementAccess(reviewScreen);
-  const safeHomeScreen = safeElementAccess(homeScreen);
+  safeElementAccess(quizScreen).classList.add('hidden');
+  safeElementAccess(resultScreen).classList.add('hidden');
+  safeElementAccess(reviewScreen).classList.add('hidden');
+  safeElementAccess(homeScreen).classList.remove('hidden');
 
-  safeQuizScreen.classList.add('hidden');
-  safeResultScreen.classList.add('hidden');
-  safeReviewScreen.classList.add('hidden');
-  safeHomeScreen.classList.remove('hidden');
+  const banner = document.getElementById('fs-banner');
+  if (banner) banner.remove();
 
   exitFullscreen();
   fullscreenEnabled = false;
-
   window.onpopstate = null;
 
-  // SHOW FOOTER when returning to home
   if (typeof window.showFooter === 'function') window.showFooter();
-
-  alert('Ikizamini kirahari. Kanda "Tangira" kugirango urongere utangire.');
+  showToast('Ikizamini kirahari. Kanda "Tangira" kugirango urongere utangire.');
 }
 
 function endQuiz() {
   stopTimer();
-  const storedKey = `quizEndTime_${currentIP || 'unknown'}`;
-  safeLocalStorage(storedKey, 'set', null);
+  safeLocalStorage(`quizEndTime_${currentIP || 'unknown'}`, 'set', null);
+  safeLocalStorage(`quizState_${currentIP || 'unknown'}`, 'set', null);
 
-  const safeQuizScreen = safeElementAccess(quizScreen);
-  const safeResultScreen = safeElementAccess(resultScreen);
-  const safeHomeScreen = safeElementAccess(homeScreen);
-  const safeReviewScreen = safeElementAccess(reviewScreen);
-
-  safeQuizScreen.classList.add('hidden');
-  safeHomeScreen.classList.add('hidden');
-  safeReviewScreen.classList.add('hidden');
-  safeResultScreen.classList.remove('hidden');
+  safeElementAccess(quizScreen).classList.add('hidden');
+  safeElementAccess(homeScreen).classList.add('hidden');
+  safeElementAccess(reviewScreen).classList.add('hidden');
+  safeElementAccess(resultScreen).classList.remove('hidden');
 
   let score = 0;
   if (selectedAnswers.length === questions.length) {
     score = selectedAnswers.reduce((acc, ans, idx) => {
       const q = questions[idx];
-      if (!q || !q.answer) return acc;
-      return acc + (ans === q.answer ? 1 : 0);
+      return acc + (q && q.answer && ans === q.answer ? 1 : 0);
     }, 0);
   }
 
   incrementCompletedExamCount(currentIP);
 
-  const safeScoreEl = safeElementAccess(scoreEl);
-  safeScoreEl.textContent = `${score}/${questions.length}`;
-  const safePassMessage = safeElementAccess(passMessage);
+  safeElementAccess(scoreEl).textContent = `${score}/${questions.length}`;
   const passed = score >= questions.length * 0.6;
-  safePassMessage.textContent = passed ? 'Watsinze' : 'Watsinzwe';
-  safePassMessage.style.color = passed ? 'green' : 'red';
+  safeElementAccess(passMessage).textContent = passed ? 'Watsinze' : 'Watsinzwe';
+  safeElementAccess(passMessage).style.color = passed ? 'green' : 'red';
 
-  window.onpopstate = e => {
-    if (!safeResultScreen.classList.contains('hidden')) {
-      history.go(1);
-    }
+  window.onpopstate = () => {
+    if (!safeElementAccess(resultScreen).classList.contains('hidden')) history.go(1);
   };
+
+  const banner = document.getElementById('fs-banner');
+  if (banner) banner.remove();
 
   exitFullscreen();
   fullscreenEnabled = false;
+  hasEverEnteredFullscreen = false;
 
-  // SHOW FOOTER when showing result
   if (typeof window.showFooter === 'function') window.showFooter();
 }
 
 function reviewAnswers() {
-  const safeResultScreen = safeElementAccess(resultScreen);
-  const safeReviewScreen = safeElementAccess(reviewScreen);
-  const safeHomeScreen = safeElementAccess(homeScreen);
-  const safeQuizScreen = safeElementAccess(quizScreen);
-
-  safeResultScreen.classList.add('hidden');
-  safeHomeScreen.classList.add('hidden');
-  safeQuizScreen.classList.add('hidden');
-  safeReviewScreen.classList.remove('hidden');
+  safeElementAccess(resultScreen).classList.add('hidden');
+  safeElementAccess(homeScreen).classList.add('hidden');
+  safeElementAccess(quizScreen).classList.add('hidden');
+  safeElementAccess(reviewScreen).classList.remove('hidden');
 
   const safeReviewContainer = safeElementAccess(reviewContainer);
-  if (!safeReviewContainer) return;
   safeReviewContainer.innerHTML = '';
-
   const fragment = document.createDocumentFragment();
 
   questions.forEach((q, idx) => {
-    if (!q) return;
     const block = document.createElement('div');
     block.className = 'question-block';
-
     block.innerHTML = `<h3>${idx + 1}. ${q.question}</h3>` +
-      (q.image ? `<img src="${q.image}" class="question-img" alt="Review image" loading="lazy" onerror="this.style.display='none'">` : '');
+      (q.image ? `<img src="${q.image}" class="question-img" onerror="this.style.display='none'">` : '');
 
-    const optionKeys = ['a', 'b', 'c', 'd'];
-    optionKeys.forEach((key, i) => {
+    ['a', 'b', 'c', 'd'].forEach((key) => {
       if (!q[key]) return;
-      let style = '';
-      let mark = '';
+      let style = '', mark = '';
       if (key === q.answer) style += 'color:green;font-weight:bold;';
       if (key === selectedAnswers[idx] && key !== q.answer) style += 'color:red;';
-      if (key === selectedAnswers[idx]) {
-        mark = key === q.answer ? 'Correct' : 'Wrong';
-      } else if (key === q.answer && selectedAnswers[idx] !== key) {
-        mark = 'Correct';
-      }
+      if (key === selectedAnswers[idx]) mark = key === q.answer ? 'Correct' : 'Wrong';
+      else if (key === q.answer && selectedAnswers[idx] !== key) mark = 'Correct';
+      
       block.innerHTML += `<p style="${style}">${key.toUpperCase()}. ${q[key]}${mark}</p>`;
     });
-
     fragment.appendChild(block);
   });
 
   const backBtn = document.createElement('button');
   backBtn.textContent = 'Home';
-  backBtn.id = 'review-home-btn';
   backBtn.addEventListener('click', returnToHome);
   fragment.appendChild(backBtn);
 
   safeReviewContainer.appendChild(fragment);
-
-  // SHOW FOOTER when showing review
   if (typeof window.showFooter === 'function') window.showFooter();
 }
 
 function returnToHome() {
-  const safeReviewScreen = safeElementAccess(reviewScreen);
-  const safeHomeScreen = safeElementAccess(homeScreen);
-  const safeQuizScreen = safeElementAccess(quizScreen);
-  const safeResultScreen = safeElementAccess(resultScreen);
+  safeElementAccess(reviewScreen).classList.add('hidden');
+  safeElementAccess(quizScreen).classList.add('hidden');
+  safeElementAccess(resultScreen).classList.add('hidden');
+  safeElementAccess(homeScreen).classList.remove('hidden');
 
-  safeReviewScreen.classList.add('hidden');
-  safeQuizScreen.classList.add('hidden');
-  safeResultScreen.classList.add('hidden');
-  safeHomeScreen.classList.remove('hidden');
-
-  questions = [];
-  selectedAnswers = [];
-  currentIndex = 0;
-  timeLeft = 20 * 60;
-  warnedLastMinute = false;
-  quizEndTime = null;
-  devToolsDetected = false;
-  hiddenTabWarned = false;
-  inactivityWarned = false;
-  minimizeDetected = false;
-  lastActivity = Date.now();
-
-  const storedKey = `quizEndTime_${currentIP || 'unknown'}`;
-  safeLocalStorage(storedKey, 'set', null);
+  questions = []; selectedAnswers = []; currentIndex = 0; timeLeft = 20 * 60;
+  quizEndTime = null; fullscreenExitStrikes = 0; hasEverEnteredFullscreen = false;
+  safeLocalStorage(`quizEndTime_${currentIP || 'unknown'}`, 'set', null);
+  safeLocalStorage(`quizState_${currentIP || 'unknown'}`, 'set', null);
 
   window.onpopstate = null;
-
-  // SHOW FOOTER when returning to home
   if (typeof window.showFooter === 'function') window.showFooter();
 }
 
@@ -750,63 +809,76 @@ async function startQuiz() {
   if (authorizedPassword) {
     const pwdKey = `passwordTime_${currentIP || 'unknown'}`;
     const pwdTime = safeLocalStorage(pwdKey, 'get');
-    const now = Date.now();
-    const sixHours = 6 * 60 * 60 * 1000;
-
-    if (!pwdTime || (now - pwdTime) > sixHours) {
+    if (!pwdTime || (Date.now() - pwdTime) > 6 * 60 * 60 * 1000) {
       const pwd = prompt('Shyiramo ijambo ry\'ibanga kugirango utangire ikizamini:');
       if (pwd !== authorizedPassword) {
-        alert('Ntushobora gutangira ikizamini. Ijambo ry\'ibanga ritariho cyangwa si ryo!');
+        showToast('Ijambo ry\'ibanga ritariho cyangwa si ryo!');
         return;
       }
-      safeLocalStorage(pwdKey, 'set', now);
+      safeLocalStorage(pwdKey, 'set', Date.now());
     }
   }
 
   if (!questionsPool.length) {
     await loadQuestions();
-    if (!questionsPool.length) {
-      alert('Ibibazo ntibiruzura. Tegereza gato.');
-      return;
-    }
+    if (!questionsPool.length) { showToast('Ibibazo ntibiruzura. Tegereza gato.'); return; }
   }
 
   currentIP = await getIP();
-  console.log(`Detected IP: ${currentIP}`);
+  
+  // --- RESTORE EXAM STATE IF MINIMIZED/CLOSED AND RETURNED ---
+  const savedState = safeLocalStorage(`quizState_${currentIP}`, 'get');
+  if (savedState && savedState.quizEndTime && Date.now() < savedState.quizEndTime) {
+    questions = savedState.questions;
+    selectedAnswers = savedState.selectedAnswers;
+    currentIndex = savedState.currentIndex;
+    quizEndTime = savedState.quizEndTime;
+    timeLeft = Math.max(Math.floor((quizEndTime - Date.now()) / 1000), 0);
+    
+    safeElementAccess(homeScreen).classList.add('hidden');
+    safeElementAccess(resultScreen).classList.add('hidden');
+    safeElementAccess(reviewScreen).classList.add('hidden');
+    safeElementAccess(quizScreen).classList.remove('hidden');
 
-  const iterationKey = `iterationCount_${currentIP}`;
-  let currentIteration = safeLocalStorage(iterationKey, 'get') || 0;
-  currentIteration++;
-  safeLocalStorage(iterationKey, 'set', currentIteration);
-  console.log(`Starting iteration ${currentIteration} for IP ${currentIP}.`);
-
-  questions = await getExamSet(questionsPool, 20, currentIP, currentIteration);
-  if (!questions || questions.length === 0) {
+    requestFullscreen();
+    fullscreenEnabled = true;
+    setTimeout(() => { if (isFullscreenActive()) hasEverEnteredFullscreen = true; }, 500);
+    
+    showQuestion();
+    startTimer();
+    startDevPoll();
+    if (typeof window.hideFooter === 'function') window.hideFooter();
+    
+    showToast('Murakaza neza. Ikizamini cyawe cyakomeje aho wari ugeze!');
     return;
   }
 
+  // --- FRESH START ---
+  let currentIteration = (safeLocalStorage(`iterationCount_${currentIP}`, 'get') || 0) + 1;
+  safeLocalStorage(`iterationCount_${currentIP}`, 'set', currentIteration);
+
+  questions = await getExamSet(questionsPool, 20, currentIP, currentIteration);
+  if (!questions || questions.length === 0) return; // Will stop here if overlay was shown
+
   selectedAnswers = new Array(questions.length).fill(null);
-  currentIndex = 0;
-  timeLeft = 20 * 60;
-  warnedLastMinute = false;
-  devToolsDetected = false;
-  hiddenTabWarned = false;
-  inactivityWarned = false;
-  minimizeDetected = false;
+  currentIndex = 0; timeLeft = 20 * 60;
+  warnedLastMinute = false; devToolsDetected = false; hiddenTabWarned = false;
+  inactivityWarned = false; minimizeDetected = false; wasHidden = false;
   lastActivity = Date.now();
+  fullscreenExitStrikes = 0;
+  hasEverEnteredFullscreen = false;
 
-  const safeHomeScreen = safeElementAccess(homeScreen);
-  const safeQuizScreen = safeElementAccess(quizScreen);
-  const safeResultScreen = safeElementAccess(resultScreen);
-  const safeReviewScreen = safeElementAccess(reviewScreen);
-
-  safeHomeScreen.classList.add('hidden');
-  safeResultScreen.classList.add('hidden');
-  safeReviewScreen.classList.add('hidden');
-  safeQuizScreen.classList.remove('hidden');
+  safeElementAccess(homeScreen).classList.add('hidden');
+  safeElementAccess(resultScreen).classList.add('hidden');
+  safeElementAccess(reviewScreen).classList.add('hidden');
+  safeElementAccess(quizScreen).classList.remove('hidden');
 
   requestFullscreen();
   fullscreenEnabled = true;
+  
+  setTimeout(() => {
+    if (isFullscreenActive()) hasEverEnteredFullscreen = true;
+  }, 500);
 
   alertAudio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVpGn+DyvmwhBjiR5/DMeSwFJHfH8N2QQAoUXrTp66hVFApGn+Dyvmwh');
 
@@ -814,15 +886,12 @@ async function startQuiz() {
   startTimer();
   startDevPoll();
 
-  // HIDE FOOTER when entering quiz
   if (typeof window.hideFooter === 'function') window.hideFooter();
 }
 
 function attachEventListener(el, event, handler) {
   const safeEl = safeElementAccess(el);
-  if (safeEl && safeEl.addEventListener) {
-    safeEl.addEventListener(event, handler);
-  }
+  if (safeEl && safeEl.addEventListener) safeEl.addEventListener(event, handler);
 }
 
 attachEventListener(startBtn, 'click', startQuiz);
@@ -832,6 +901,7 @@ attachEventListener(submitBtn, 'click', endQuiz);
 attachEventListener(restartBtn, 'click', () => location.reload());
 attachEventListener(reviewBtn, 'click', reviewAnswers);
 attachEventListener(homeBtn, 'click', returnToHome);
+
 window.addEventListener('beforeunload', () => {
   stopTimer();
   exitFullscreen();

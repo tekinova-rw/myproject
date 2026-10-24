@@ -4,27 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ikizamini cyo Gutwara Ibinyabiziga</title>
+  
   <!-- SEO Meta Tags -->
   <meta name="description" content="Gukora ikizamini cya provizwari cyo gutwara ibinyabiziga mu Rwanda. Menyereza ubumenyi bwawe muri amasomo y'ibinyabiziga na code USSD yo kwishyura.">
   <meta name="keywords" content="ikizamini cya provizwari, gutwara ibinyabiziga, amasomo y'ibinyabiziga, Rwanda driving test, USSD payment, quiz ibinyabiziga">
   <meta name="author" content="Driving Test Rwanda">
+  
   <!-- Open Graph Tags -->
   <meta property="og:title" content="Ikizamini cyo Gutwara Ibinyabiziga - Rwanda">
   <meta property="og:description" content="Menyereza ubumenyi bwawe mu gutwara ibinyabiziga nikizamini cya provizwari. Ishyura uhereye kuri telefoni yawe na code USSD.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://example.com/ikizamini-cyo-gutwara-ibinyabiziga">
   <meta property="og:image" content="https://example.com/images/driving-test-og.jpg">
+  
   <!-- Twitter Card Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Ikizamini cyo Gutwara Ibinyabiziga - Rwanda">
   <meta name="twitter:description" content="Menyereza ubumenyi bwawe mu gutwara ibinyabiziga na quiz ya provizwari. Ishyura uhereye kuri telefoni yawe.">
   <meta name="twitter:image" content="https://example.com/images/driving-test-twitter.jpg">
+  
   <!-- Canonical URL -->
   <link rel="canonical" href="https://example.com/ikizamini-cyo-gutwara-ibinyabiziga">
-  <!-- Poppins Font -->
+  
+  <!-- Poppins Font & Font Awesome -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -37,6 +42,7 @@
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
+      transition: padding 0.3s ease;
     }
     .hidden {
       display: none !important;
@@ -56,20 +62,31 @@
       margin-top: 40px;
       animation: fadeIn 0.6s ease;
     }
+    
+    /* === NEW: Bring the Quiz Screen UP === */
+    #quiz-screen {
+      margin-top: 5px; /* Was 40px */
+      padding: 15px;    /* Was 30px */
+      padding-top: 60px; /* Room for the fixed timer */
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    
     #image-container {
-      margin: 15px 0;
+      margin: 10px 0;
       text-align: center;
     }
     .question-img {
       display: block;
       margin: 0 auto;
       max-width: 250px;
+      max-height: 200px;
+      object-fit: contain;
       border: 2px solid #ddd;
-      padding: 8px;
+      padding: 4px;
       background-color: #fff;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -88,38 +105,35 @@
       font-size: 2.4em;
       margin-bottom: 10px;
     }
+
     /* OPTION STYLE */
     .option-label {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 12px;
-      padding: 15px;
-      margin-bottom: 12px;
+      padding: 12px 15px;
+      margin-bottom: 10px;
       border: 2px solid #e0e0e0;
       border-radius: 12px;
       cursor: pointer;
       background: #fff;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
     .option-label:hover {
       background-color: #f1f7ff;
       border-color: #007bff;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(0,123,255,0.25);
     }
     .option-label.selected {
       background-color: #e3f2fd;
       border-color: #2196f3;
-      box-shadow: 0 6px 15px rgba(33,150,243,0.3);
-      transform: translateY(-1px);
     }
     .option-label input {
       display: none;
     }
     .option-circle {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border: 2px solid #007bff;
       border-radius: 50%;
       display: flex;
@@ -128,9 +142,7 @@
       font-weight: bold;
       color: #007bff;
       font-size: 14px;
-      transition: all 0.3s ease;
       flex-shrink: 0;
-      margin-top: 2px;
     }
     .option-label input:checked + .option-circle {
       background-color: #007bff;
@@ -139,22 +151,32 @@
     }
     .option-text {
       flex: 1;
-      line-height: 1.4;
+      line-height: 1.3;
       color: #2c3e50;
       font-size: 15px;
     }
+
+    /* =========================================
+       === FLOATING TIMER (Top Left) ===
+       ========================================= */
     #timer {
-      font-size: 24px;
+      font-size: 18px;
       font-weight: bold;
-      margin: 15px 0 25px 0;
       color: #e74c3c;
       text-align: center;
-      background: rgba(231, 76, 60, 0.12);
-      padding: 10px 20px;
-      border-radius: 10px;
-      display: inline-block;
-      box-shadow: inset 0 2px 6px rgba(0,0,0,0.08);
+      background: rgba(255, 255, 255, 0.98);
+      border: 2px solid #e74c3c;
+      padding: 6px 15px;
+      border-radius: 50px;
+      box-shadow: 0 6px 15px rgba(231, 76, 60, 0.4);
+      
+      /* Pins the timer to the top left of the screen */
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 9999;
     }
+
     button {
       margin: 8px 4px;
       padding: 12px 28px;
@@ -171,8 +193,7 @@
     }
     button:hover:not(:disabled) {
       background: linear-gradient(135deg, #0056b3, #00408d);
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 6px 15px rgba(0,123,255,0.4);
+      transform: translateY(-2px);
     }
     button:disabled {
       background: #6c757d;
@@ -180,16 +201,28 @@
       opacity: 0.6;
       box-shadow: none;
     }
+
+    /* =========================================
+       === HIDDEN NAV BUTTONS (Until answered) ===
+       ========================================= */
     #nav-buttons {
+      display: none; /* Hidden by default */
+      position: sticky;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.98);
       text-align: center;
-      margin-top: 25px;
-      padding-top: 20px;
+      margin-top: 15px;
+      padding: 15px 0;
       border-top: 1px solid #e0e0e0;
-      display: flex;
-      justify-content: center;
+      justify-content: space-between;
       gap: 10px;
-      flex-wrap: wrap;
+      z-index: 50;
     }
+    #nav-buttons button {
+      flex: 1;
+      margin: 0;
+    }
+
     #review-container .question-block {
       background: #fff;
       padding: 25px;
@@ -198,6 +231,7 @@
       border: 1px solid #e0e0e0;
       box-shadow: 0 6px 18px rgba(0,0,0,0.12);
     }
+
     /* Payment section styles */
     section {
       margin: 20px 0;
@@ -264,7 +298,7 @@
       background: linear-gradient(135deg, #43a047, #1b5e20);
       transform: scale(1.05);
     }
-    /* Animation for shaking */
+
     @keyframes shake {
       0% { transform: translateX(0); }
       25% { transform: translateX(-6px); }
@@ -272,9 +306,8 @@
       75% { transform: translateX(-6px); }
       100% { transform: translateX(0); }
     }
-    .shake {
-      animation: shake 0.4s;
-    }
+    .shake { animation: shake 0.4s; }
+
     /* Code page */
     .code-page {
       display: none;
@@ -320,15 +353,12 @@
     .back-btn:hover {
       background: #1b5e20;
     }
+
     /* Hidden dial link */
-    #dialLink {
-      display: none;
-    }
+    #dialLink { display: none; }
+
     /* Result screen styling */
-    #result-screen {
-      text-align: center;
-      padding: 40px 20px;
-    }
+    #result-screen { text-align: center; padding: 40px 20px; }
     #score {
       font-size: 4.5em;
       color: #28a745;
@@ -354,6 +384,7 @@
       color: #dc3545;
       border: 2px solid rgba(220, 53, 69, 0.3);
     }
+
     /* Footer styles */
     footer {
       margin-top: auto;
@@ -388,19 +419,10 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .counter-box:hover {
-      transform: translateY(-5px);
-    }
-    .counter-box i {
-      font-size: 28px;
-      margin-bottom: 12px;
-    }
-    .counter-box i.fa-users, .counter-box i.fa-graduation-cap {
-      color: #05ceb6; /* Teal for visitors and passers */
-    }
-    .counter-box i.fa-heart {
-      color: #d40a1f; /* Red for appreciators */
-    }
+    .counter-box:hover { transform: translateY(-5px); }
+    .counter-box i { font-size: 28px; margin-bottom: 12px; }
+    .counter-box i.fa-users, .counter-box i.fa-graduation-cap { color: #05ceb6; }
+    .counter-box i.fa-heart { color: #d40a1f; }
     .counter-number {
       font-size: 2.2em;
       font-weight: bold;
@@ -428,238 +450,132 @@
       background: linear-gradient(135deg, #a71d2a, #7a1a1f);
       transform: translateY(-2px) scale(1.02);
     }
-    /* Responsive styles */
+
+    /* =========================================
+       === RESPONSIVE STYLES & QUIZ COMPACT MODE ===
+       ========================================= */
     @media (max-width: 768px) {
-      body {
-        padding: 15px;
-      }
-      h1 {
-        font-size: 2em;
-      }
-      h2 {
-        font-size: 1.5em;
-      }
-      #home-screen, #quiz-screen, #result-screen, #review-screen {
+      body { padding: 15px; }
+      h1 { font-size: 2em; }
+      h2 { font-size: 1.5em; }
+      #home-screen, #result-screen, #review-screen {
         padding: 20px;
         margin-top: 20px;
       }
+      
+      /* QUIZ COMPACT MODE */
+      body.quiz-active { padding: 5px; }
+      body.quiz-active #quiz-screen {
+        padding: 12px;
+        padding-top: 55px; /* Room for the fixed timer on mobile */
+        margin-top: 5px;   /* Bring it higher up */
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      body.quiz-active h2 { font-size: 1.1em; margin-bottom: 8px; text-align: left; line-height: 1.3; }
+      body.quiz-active #timer { font-size: 14px; padding: 6px 15px; top: 10px; left: 10px; }
+      
+      body.quiz-active .option-label {
+        padding: 8px 10px;
+        margin-bottom: 6px;
+        gap: 8px;
+        min-height: 45px; /* Easy to tap */
+      }
+      body.quiz-active .option-circle { width: 24px; height: 24px; font-size: 12px; }
+      body.quiz-active .option-text { font-size: 14px; line-height: 1.2; }
+      
+      body.quiz-active .question-img { max-height: 100px; max-width: 100%; }
+      body.quiz-active #image-container { margin: 5px 0; }
+      
+      body.quiz-active #nav-buttons { 
+        margin-top: 10px; 
+        padding: 10px 0; 
+        flex-direction: row; 
+        gap: 10px;
+      }
+      body.quiz-active #nav-buttons button { 
+        padding: 14px 10px; 
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      /* Other Mobile Adjustments */
       section {
         padding: 15px;
         height: auto;
         min-height: 40vh;
       }
-      #mainPage {
-        max-width: 100%;
-      }
-      #payBtn, .back-btn, #amountInput {
-        max-width: 100%;
-      }
-      .code-page {
-        height: auto;
-        min-height: 50vh;
-        padding: 15px;
-      }
-      .code-page h1 {
-        font-size: 24px;
-      }
-      .code-box {
-        font-size: 18px;
-        padding: 15px 20px;
-        max-width: 100%;
-      }
-      .counter-section {
-        flex-direction: column;
-        padding: 15px;
-        gap: 12px;
-      }
-      .counter-box {
-        min-width: 100%;
-        padding: 12px;
-      }
-      .counter-box i {
-        font-size: 24px;
-      }
-      .counter-number {
-        font-size: 1.8em;
-      }
-      .counter-label {
-        font-size: 0.9em;
-      }
-      #appreciate-btn {
-        font-size: 13px;
-        padding: 8px 16px;
-        max-width: 180px;
-      }
+      #mainPage { max-width: 100%; }
+      #payBtn, .back-btn, #amountInput { max-width: 100%; }
+      .code-page { height: auto; min-height: 50vh; padding: 15px; }
+      .code-page h1 { font-size: 24px; }
+      .code-box { font-size: 18px; padding: 15px 20px; max-width: 100%; }
+      
+      .counter-section { flex-direction: column; padding: 15px; gap: 12px; }
+      .counter-box { min-width: 100%; padding: 12px; }
+      .counter-box i { font-size: 24px; }
+      .counter-number { font-size: 1.8em; }
+      .counter-label { font-size: 0.9em; }
+      #appreciate-btn { font-size: 13px; padding: 8px 16px; max-width: 180px; }
     }
+
     @media (max-width: 500px) {
-      body {
-        padding: 10px;
-      }
-      h1 {
-        font-size: 1.8em;
-      }
-      h2 {
-        font-size: 1.3em;
-      }
-      .question-img {
-        max-width: 100%;
-      }
-      button {
-        width: 100%;
-        margin: 8px 0;
-        padding: 12px;
-        font-size: 15px;
-      }
-      #nav-buttons {
-        flex-direction: column-reverse;
-        gap: 8px;
-      }
-      #timer {
-        font-size: 20px;
-        padding: 8px 15px;
-      }
-      #score {
-        font-size: 3.5em;
-      }
-      #pass-message {
-        font-size: 1.4em;
-        padding: 10px 20px;
-      }
-      .option-label {
-        padding: 10px;
-        gap: 10px;
-      }
-      .option-circle {
-        width: 28px;
-        height: 28px;
-        font-size: 12px;
-      }
-      .option-text {
-        font-size: 14px;
-      }
-      #amountInput {
-        padding: 12px;
-        font-size: 15px;
-      }
-      #payBtn {
-        padding: 12px;
-        font-size: 16px;
-      }
-      .code-page h1 {
-        font-size: 20px;
-      }
-      .code-box {
-        font-size: 16px;
-        padding: 12px 15px;
-      }
-      .back-btn {
-        font-size: 16px;
-        padding: 12px;
-      }
-      #messageBox {
-        font-size: 13px;
-        max-width: 100%;
-      }
-      .counter-section {
-        padding: 12px;
-        gap: 10px;
-      }
-      .counter-box {
-        padding: 10px;
-      }
-      .counter-box i {
-        font-size: 22px;
-      }
-      .counter-number {
-        font-size: 1.6em;
-      }
-      .counter-label {
-        font-size: 0.85em;
-      }
-      #appreciate-btn {
-        font-size: 12px;
-        padding: 8px 14px;
-        max-width: 160px;
-      }
+      body { padding: 10px; }
+      h1 { font-size: 1.8em; }
+      h2 { font-size: 1.3em; }
+      .question-img { max-width: 100%; }
+      button { width: 100%; margin: 8px 0; padding: 12px; font-size: 15px; }
+      #nav-buttons { flex-direction: column-reverse; gap: 8px; }
+      #timer { font-size: 16px; padding: 6px 15px; }
+      #score { font-size: 3.5em; }
+      #pass-message { font-size: 1.4em; padding: 10px 20px; }
+      .option-label { padding: 10px; gap: 10px; }
+      .option-circle { width: 28px; height: 28px; font-size: 12px; }
+      .option-text { font-size: 14px; }
+      #amountInput { padding: 12px; font-size: 15px; }
+      #payBtn { padding: 12px; font-size: 16px; }
+      .code-page h1 { font-size: 20px; }
+      .code-box { font-size: 16px; padding: 12px 15px; }
+      .back-btn { font-size: 16px; padding: 12px; }
+      #messageBox { font-size: 13px; max-width: 100%; }
+      .counter-section { padding: 12px; gap: 10px; }
+      .counter-box { padding: 10px; }
+      .counter-box i { font-size: 22px; }
+      .counter-number { font-size: 1.6em; }
+      .counter-label { font-size: 0.85em; }
+      #appreciate-btn { font-size: 12px; padding: 8px 14px; max-width: 160px; }
     }
+
     @media (max-width: 360px) {
-      body {
-        padding: 8px;
-      }
-      h1 {
-        font-size: 1.6em;
-      }
-      h2 {
-        font-size: 1.2em;
-      }
-      #home-screen, #quiz-screen, #result-screen, #review-screen {
+      body { padding: 8px; }
+      h1 { font-size: 1.6em; }
+      h2 { font-size: 1.2em; }
+      #home-screen, #result-screen, #review-screen {
         padding: 15px;
         margin-top: 15px;
       }
-      .counter-section {
-        padding: 10px;
-        gap: 8px;
-      }
-      .counter-box {
-        padding: 8px;
-        min-width: 100%;
-      }
-      .counter-box i {
-        font-size: 20px;
-        margin-bottom: 8px;
-      }
-      .counter-number {
-        font-size: 1.4em;
-      }
-      .counter-label {
-        font-size: 0.8em;
-      }
-      #appreciate-btn {
-        font-size: 11px;
-        padding: 7px 12px;
-        max-width: 140px;
-      }
+      .counter-section { padding: 10px; gap: 8px; }
+      .counter-box { padding: 8px; min-width: 100%; }
+      .counter-box i { font-size: 20px; margin-bottom: 8px; }
+      .counter-number { font-size: 1.4em; }
+      .counter-label { font-size: 0.8em; }
+      #appreciate-btn { font-size: 11px; padding: 7px 12px; max-width: 140px; }
     }
+
     @media (max-width: 320px) {
-      body {
-        padding: 6px;
-      }
-      h1 {
-        font-size: 1.4em;
-      }
-      #amountInput, #payBtn, .back-btn {
-        padding: 10px;
-        font-size: 14px;
-      }
-      .code-page h1 {
-        font-size: 18px;
-      }
-      .code-box {
-        font-size: 14px;
-        padding: 10px 12px;
-      }
-      .counter-section {
-        padding: 8px;
-        gap: 6px;
-      }
-      .counter-box {
-        padding: 6px;
-      }
-      .counter-box i {
-        font-size: 18px;
-        margin-bottom: 6px;
-      }
-      .counter-number {
-        font-size: 1.3em;
-      }
-      .counter-label {
-        font-size: 0.75em;
-      }
-      #appreciate-btn {
-        font-size: 10px;
-        padding: 6px 10px;
-        max-width: 120px;
-      }
+      body { padding: 6px; }
+      h1 { font-size: 1.4em; }
+      #amountInput, #payBtn, .back-btn { padding: 10px; font-size: 14px; }
+      .code-page h1 { font-size: 18px; }
+      .code-box { font-size: 14px; padding: 10px 12px; }
+      .counter-section { padding: 8px; gap: 6px; }
+      .counter-box { padding: 6px; }
+      .counter-box i { font-size: 18px; margin-bottom: 6px; }
+      .counter-number { font-size: 1.3em; }
+      .counter-label { font-size: 0.75em; }
+      #appreciate-btn { font-size: 10px; padding: 6px 10px; max-width: 120px; }
     }
   </style>
 </head>
@@ -676,6 +592,12 @@
       <li><strong>(iminsi 30)</strong> Uhabwa ingana n'ukwezi kose wimenyereza ntankomyi</li>
       <li><strong>Ishyura 1000 kuri Pacifique</strong> mbere yuko utangira ikizamini.</li>
     </ul>
+
+    <!-- Start Button Moved UP for better visibility -->
+    <div style="text-align: center; margin-bottom: 20px;">
+      <button id="start-btn" style="background: linear-gradient(135deg,#28a745,#1e7e34); font-size: 18px; padding: 15px 40px;" aria-label="Start the quiz">Tangira Ikizamini</button>
+    </div>
+
     <section>
       <!-- PAGE ya mbere (button) -->
       <div id="mainPage">
@@ -692,15 +614,17 @@
       <!-- Hidden dial link -->
       <a id="dialLink" href="" style="display: none;"></a>
     </section>
-    <div style="text-align: center;">
-      <button id="start-btn" aria-label="Start the quiz">Tangira Ikizamini</button>
-    </div>
   </div>
+
   <!-- QUIZ SCREEN -->
   <div id="quiz-screen" class="hidden">
-    <div id="timer" role="timer">20:00</div>
+    
+    <!-- Timer & Question -->
+    <div id="timer" role="timer">Igihe: 20:00</div>
     <h2 id="question-text"></h2>
+
     <div id="image-container"></div>
+    
     <!-- Options -->
     <form id="options-form" role="form">
       <label class="option-label" id="label-a">
@@ -724,12 +648,15 @@
         <span id="option-d" class="option-text"></span>
       </label>
     </form>
+
+    <!-- Navigation Buttons directly below options (Hidden until selected) -->
     <div id="nav-buttons">
-      <button id="prev-btn" disabled aria-label="Previous question">Gusubira Inyuma</button>
-      <button id="next-btn" disabled aria-label="Next question">Gukomeza</button>
-      <button id="submit-btn" class="hidden" style="background: linear-gradient(135deg,#28a745,#1e7e34);" aria-label="Submit answers">Ohereza Ibisubizo</button>
+      <button id="prev-btn" disabled aria-label="Previous question">Inyuma</button>
+      <button id="next-btn" disabled aria-label="Next question">Komeza</button>
+      <button id="submit-btn" class="hidden" style="background: linear-gradient(135deg,#28a745,#1e7e34);" aria-label="Submit answers">Ohereza</button>
     </div>
   </div>
+
   <!-- RESULT SCREEN -->
   <div id="result-screen" class="hidden">
     <h2>Ugize amanota:</h2>
@@ -740,6 +667,7 @@
       <button id="restart-btn" style="background: linear-gradient(135deg,#28a745,#1e7e34);" aria-label="Restart quiz">Garuka Ahabanza</button>
     </div>
   </div>
+
   <!-- REVIEW SCREEN -->
   <div id="review-screen" class="hidden">
     <h2>Gusubiramo Ibisubizo</h2>
@@ -748,6 +676,7 @@
       <button id="finish-btn" style="background: linear-gradient(135deg,#28a745,#1e7e34);" aria-label="Return to home">Garuka Ahabanza</button>
     </div>
   </div>
+
   <!-- FOOTER -->
   <footer>
     <div class="counter-section">
@@ -770,19 +699,20 @@
     <button id="appreciate-btn" aria-label="Appreciate our work">Murakoze Kushyigikira</button>
   </footer>
 
-  <!-- === FOOTER CONTROL SCRIPT (Add to index.html) === -->
+  <!-- === FOOTER CONTROL SCRIPT === -->
   <script>
-    // Wait for DOM
     document.addEventListener('DOMContentLoaded', () => {
       const footer = document.querySelector('footer');
 
       // Expose globally so app.js can use
       window.hideFooter = () => {
         if (footer) footer.classList.add('footer-hidden');
+        document.body.classList.add('quiz-active'); // Activates the compact mobile CSS
       };
 
       window.showFooter = () => {
         if (footer) footer.classList.remove('footer-hidden');
+        document.body.classList.remove('quiz-active'); // Deactivates the compact mobile CSS
       };
 
       // Show by default
@@ -790,7 +720,7 @@
     });
   </script>
 
-  <!-- Your existing script (unchanged) -->
+  <!-- === PAYMENT & COUNTER SCRIPT === -->
   <script>
     const payBtn = document.getElementById("payBtn");
     const mainPage = document.getElementById("mainPage");
@@ -805,26 +735,24 @@
     const visitorCounter = document.getElementById("visitor-counter");
     const appreciateCounter = document.getElementById("appreciate-counter");
     const appreciateBtn = document.getElementById("appreciate-btn");
-    // Prevent multiple dial pad triggers
+    
     let isDialing = false;
-    // Animation for shaking the payment button every 3 seconds
+    
     setInterval(() => {
       payBtn.classList.add("shake");
-      setTimeout(() => {
-        payBtn.classList.remove("shake");
-      }, 500);
+      setTimeout(() => { payBtn.classList.remove("shake"); }, 500);
     }, 3000);
-    // Enforce fixed amount: 1000
+    
     amountInput.value = "1000";
     amountInput.setAttribute("readonly", true);
-    // Handle payment button click
+    
     payBtn.addEventListener("click", () => {
       if (isDialing) return;
-      const amount = 1000; // Fixed amount
-      // Generate USSD code
+      const amount = 1000;
       const ussdCode = `*182*8*1*814570*${amount}#`;
       ussdCodeDisplay.textContent = ussdCode;
       const isMobile = /Mobi|Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
       if (isMobile) {
         messageBox.textContent = `Dial pad irimo gufungura na code: ${ussdCode}`;
         isDialing = true;
@@ -846,13 +774,13 @@
         codePage.style.display = "flex";
       }
     });
-    // Handle back button click
+    
     backBtn.addEventListener("click", () => {
       codePage.style.display = "none";
       mainPage.style.display = "flex";
       messageBox.textContent = "";
     });
-    // Counter Animation
+    
     function animateCounter(element, start, end, duration) {
       let startTimestamp = null;
       const step = (timestamp) => {
@@ -860,13 +788,11 @@
         const progress = Math.min((timestamp - startTimestamp) / duration, 1);
         const value = Math.floor(progress * (end - start) + start);
         element.textContent = '+' + value.toLocaleString();
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        }
+        if (progress < 1) { requestAnimationFrame(step); }
       };
       requestAnimationFrame(step);
     }
-    // Initialize counters from localStorage or defaults
+    
     function initializeCounters() {
       let passers, visitors, appreciators;
       try {
@@ -874,10 +800,7 @@
         visitors = parseInt(localStorage.getItem('visitors')) || 10001;
         appreciators = parseInt(localStorage.getItem('appreciators')) || 9000;
       } catch (e) {
-        console.error('Error accessing localStorage:', e);
-        passers = 3579;
-        visitors = 10001;
-        appreciators = 9000;
+        passers = 3579; visitors = 10001; appreciators = 9000;
       }
       animateCounter(visitorCounter, 0, visitors, 2000);
       animateCounter(appreciateCounter, 0, appreciators, 2000);
@@ -886,65 +809,50 @@
         localStorage.setItem('passers', passers);
         localStorage.setItem('visitors', visitors);
         localStorage.setItem('appreciators', appreciators);
-      } catch (e) {
-        console.error('Error saving to localStorage:', e);
-      }
+      } catch (e) {}
       return { passers, visitors, appreciators };
     }
-    // Increment visitor count on page load
+    
     function incrementVisitor() {
       let visitors;
       try {
         visitors = parseInt(localStorage.getItem('visitors')) || 10001;
         visitors += 1;
         localStorage.setItem('visitors', visitors);
-      } catch (e) {
-        console.error('Error updating visitors in localStorage:', e);
-        visitors = 10001 + 1;
-      }
+      } catch (e) { visitors = 10001 + 1; }
       animateCounter(visitorCounter, 0, visitors, 2000);
     }
-    // Increment passer count when quiz is passed
+    
     function incrementPasser() {
       let passers;
       try {
         passers = parseInt(localStorage.getItem('passers')) || 3579;
         passers += 1;
         localStorage.setItem('passers', passers);
-      } catch (e) {
-        console.error('Error updating passers in localStorage:', e);
-        passers = 3579 + 1;
-      }
+      } catch (e) { passers = 3579 + 1; }
       animateCounter(passCounter, 0, passers, 2000);
     }
-    // Increment appreciator count
+    
     function incrementAppreciator() {
       let appreciators;
       try {
         appreciators = parseInt(localStorage.getItem('appreciators')) || 9000;
         appreciators += 1;
         localStorage.setItem('appreciators', appreciators);
-      } catch (e) {
-        console.error('Error updating appreciators in localStorage:', e);
-        appreciators = 9000 + 1;
-      }
+      } catch (e) { appreciators = 9000 + 1; }
       animateCounter(appreciateCounter, 0, appreciators, 2000);
       appreciateBtn.disabled = true;
       appreciateBtn.style.opacity = '0.6';
     }
-    // Handle appreciation button click
+    
     appreciateBtn.addEventListener("click", () => {
       const hasAppreciated = localStorage.getItem('hasAppreciated');
       if (!hasAppreciated) {
         incrementAppreciator();
-        try {
-          localStorage.setItem('hasAppreciated', 'true');
-        } catch (e) {
-          console.error('Error setting hasAppreciated in localStorage:', e);
-        }
+        try { localStorage.setItem('hasAppreciated', 'true'); } catch (e) {}
       }
     });
-    // Monitor quiz result to detect pass
+    
     function monitorQuizResult() {
       const observer = new MutationObserver((mutations) => {
         mutations.forEach(() => {
@@ -959,39 +867,32 @@
             const hasPassed = localStorage.getItem('hasPassedQuiz');
             if (!hasPassed) {
               incrementPasser();
-              try {
-                localStorage.setItem('hasPassedQuiz', 'true');
-              } catch (e) {
-                console.error('Error setting hasPassedQuiz in localStorage:', e);
-              }
+              try { localStorage.setItem('hasPassedQuiz', 'true'); } catch (e) {}
             }
           }
         });
       });
       observer.observe(scoreElement, { childList: true, characterData: true, subtree: true });
     }
-    // Reset flags when restarting
+    
     document.getElementById("restart-btn").addEventListener("click", () => {
       try {
         localStorage.removeItem('hasPassedQuiz');
         localStorage.removeItem('hasAppreciated');
         appreciateBtn.disabled = false;
         appreciateBtn.style.opacity = '1';
-      } catch (e) {
-        console.error('Error removing flags from localStorage:', e);
-      }
+      } catch (e) {}
     });
+    
     document.getElementById("finish-btn").addEventListener("click", () => {
       try {
         localStorage.removeItem('hasPassedQuiz');
         localStorage.removeItem('hasAppreciated');
         appreciateBtn.disabled = false;
         appreciateBtn.style.opacity = '1';
-      } catch (e) {
-        console.error('Error removing flags from localStorage:', e);
-      }
+      } catch (e) {}
     });
-    // Start on load
+    
     window.addEventListener("load", () => {
       const hasAppreciated = localStorage.getItem('hasAppreciated');
       if (hasAppreciated) {
@@ -1003,6 +904,8 @@
       monitorQuizResult();
     });
   </script>
+  
+  <!-- APP LOGIC -->
   <script src="app.js"></script>
 </body>
 </html>
