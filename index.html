@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>JobsandScholarships</title>
+  <title>NEW UPDATE RWANDA</title>
   <!-- SEO Meta Tags -->
   <meta name="description" content="Find job opportunities, internships, and scholarships in Rwanda. Connect with us for career guidance and tech-related services.">
   <meta name="keywords" content="jobs, internships, scholarships, Rwanda, careers, tech services, job opportunities">
@@ -26,61 +26,91 @@
     body{
       font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
       background:#f4f4f4;color:#333;line-height:1.6;
-      padding-top:68px;position:relative;overflow-x:hidden;
+      padding-top: 160px; /* Space for Header + Slider + Banner */
+      position:relative;overflow-x:hidden;
     }
     .page-wrapper{width:100%;max-width:1600px;margin:0 auto;padding:0 15px;}
+    
+    /* =========================================
+       === FIXED HEADER ===
+       ========================================= */
     header{
-      background:#012f47;color:#fff;padding:6px 8px;
+      background:#012f47;color:#fff;padding:0 15px;
       display:flex;justify-content:space-between;align-items:center;
       position:fixed;top:0;left:0;width:100%;z-index:1000;
+      height: 70px; /* Fixed height */
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
-    .logo{display:flex;align-items:center}
-    .logo img{width:32px;height:32px;border-radius:50%;border:2px solid #fff;margin-right:8px}
-    .logo h1{color:#fff;font-size:18px;font-weight:700}
-    nav ul{list-style:none;display:flex;gap:15px}
+    .logo{display:flex;align-items:center; flex: 1;}
+    .logo img{width:36px;height:36px;border-radius:50%;border:2px solid #fff;margin-right:10px}
+    .logo h1{color:#fff;font-size:18px;font-weight:700; white-space: nowrap;}
+    
+    nav ul{list-style:none;display:flex;gap:10px}
     nav a{
       text-decoration:none;color:#fff;font-weight:600;font-size:13px;
-      padding:4px 8px;border-radius:6px;transition:background .3s;
+      padding:6px 10px;border-radius:6px;transition:background .3s;
     }
     nav a:hover{background:#033d3d;color:gold}
-    .menu-toggle{font-size:18px;cursor:pointer;padding:6px;display:none;color:#fff}
+    
+    .menu-toggle{font-size:22px;cursor:pointer;padding:6px;display:none;color:#fff}
     .menu-toggle:hover{background:rgba(255,255,255,.1);border-radius:50%}
-    .sidebar{
-      position:fixed;top:0;right:-250px;width:240px;height:100vh;
-      background:#002240;color:#fff;padding:15px;transition:right .3s ease;
-      z-index:999;box-shadow:-5px 0 15px rgba(0,0,0,.2);overflow-y:auto;
+    
+    /* =========================================
+       === FIXED SLIDER (Moving Words) ===
+       ========================================= */
+    .top-right-slider{
+      position:fixed;
+      top: 70px; /* Exactly below header */
+      left: 0;
+      width:100%;
+      background:#3781ca;
+      color:#fff;
+      padding:8px 0;
+      text-align:center;
+      overflow:hidden;
+      z-index:900;
+      height: 40px;
     }
-    .sidebar.active{right:0}
-    .sidebar-header{display:flex;justify-content:space-between;align-items:center;
-      font-size:18px;color:gold;margin-bottom:15px;padding-bottom:10px;
-      border-bottom:1px solid #555}
-    .sidebar-header i{cursor:pointer;transition:color .3s}
-    .sidebar-header i:hover{color:#d4af37}
-    .sidebar a{display:flex;align-items:center;gap:8px;color:#fff;padding:10px 0;
-      text-decoration:none;transition:color .3s}
-    .sidebar a:hover{color:gold}
-    .sidebar i{width:18px;text-align:center}
-    .menu-widget{
-      background:rgba(255,255,255,.1);border-radius:8px;padding:10px;margin:10px 0;
+    .slider-text{
+      display:inline-block;
+      padding-left:100%;
+      white-space:nowrap;
+      animation:slide-left 35s linear infinite;
+      font-size:1rem;
+      font-weight: 500;
     }
-    .menu-widget h3{color:gold;margin-bottom:8px;font-size:15px}
-    .menu-widget p{font-size:13px;margin-bottom:6px}
-    .widget-stats{display:flex;justify-content:space-between;margin-top:8px}
-    .widget-stats div{text-align:center;flex:1}
-    .widget-stats span{display:block;font-size:16px;font-weight:bold;color:gold}
-    .widget-stats small{font-size:11px;opacity:.8}
+    @keyframes slide-left{
+      0%{transform:translateX(0)}
+      100%{transform:translateX(-100%)}
+    }
+    .slider-text b{font-family:'Times New Roman',Times,serif;font-size:larger; color: gold;}
+
+    /* =========================================
+       === FIXED LIVE BANNER ===
+       ========================================= */
+    .live-info-banner{
+      background:linear-gradient(135deg,#012f47,#003d3d);color:gold;
+      text-align:center;padding:8px 15px;font-size:.9rem;font-weight:600;
+      border-bottom:2px solid gold;position:fixed;
+      top: 110px; /* Exactly below slider (70 + 40) */
+      left: 0;
+      width: 100%;
+      z-index:899;
+      height: 38px;
+      box-shadow:0 2px 8px rgba(0,0,0,.1);
+      display: flex; justify-content: center; align-items: center; gap: 20px;
+    }
+    .live-info-banner i{color:#f7df1e;margin-right:6px}
+    .live-info-banner span{display:inline-flex;align-items:center;gap:6px;}
+
+    /* =========================================
+       === MAIN CONTENT & CARDS ===
+       ========================================= */
     .main-content{
-      max-width:1600px;width:95%;margin:30px auto;padding:15px;
+      max-width:1600px;width:95%;margin:20px auto;padding:15px;
     }
     .main-content h2{
       font-size:1.8rem;text-align:center;margin-bottom:1rem;color:#012f47;
-    }
-    .section-title {
-      font-size: 1.5rem;
-      color: #012f47;
-      margin: 2rem 0 1rem;
-      text-align: center;
-      font-weight: 700;
     }
     .filter-bar{
       display:flex;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;
@@ -146,21 +176,24 @@
       justify-content:center;gap:6px;
     }
     .btn-review:hover{background:#003d3d}
+
     /* ----- SOCIAL SHARE IN FOOTER ----- */
     .footer-social{
       display:flex;gap:12px;justify-content:center;margin-top:20px;
+      flex-wrap: wrap;
     }
     .footer-social a{
       width:42px;height:42px;border-radius:50%;display:flex;
       align-items:center;justify-content:center;color:#fff;
-      font-size:1.1rem;transition:transform .2s;
+      font-size:1.1rem;transition:transform .2s; text-decoration: none;
     }
     .footer-social a:hover{transform:scale(1.15)}
     .footer-social .fb{background:#3b5998}
     .footer-social .tw{background:#1da1f2}
     .footer-social .li{background:#0077b5}
     .footer-social .wa{background:#25d366}
-    /* ----------------------------------- */
+    .footer-social .channel{background:#075e54} /* WhatsApp channel green */
+
     footer{
       background:#012f47;color:#fff;padding:30px 15px;margin-top:40px;
     }
@@ -190,27 +223,45 @@
     .dropdown a{padding:10px 14px;display:block;color:#fff;text-decoration:none}
     .dropdown a:hover{background:#033d3d}
     .navbar li:hover .dropdown{display:block}
-    .floating-whatsapp-buttons{
-      position:fixed;bottom:15px;left:15px;z-index:9999;
-      display:flex;flex-direction:column;gap:10px;
+    
+    /* =========================================
+       === LARGER FLOATING BUTTONS (Left & Right) ===
+       ========================================= */
+    
+    /* Left Side: Provizwari only */
+    .floating-left {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 9999;
     }
+    
+    /* Right Side: WhatsApp Chat */
+    .floating-right {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+
     .float-btn{
-      display:flex;align-items:center;gap:6px;background:#2e69b8;
-      color:#fff;padding:.4rem .8rem;border-radius:999px;
-      text-decoration:none;font-size:14px;box-shadow:0 4px 12px rgba(12,12,12,.2);
-      transition:transform .2s,background .3s;min-width:140px;
+      display:flex;align-items:center;gap:12px;background:#2e69b8;
+      color:#fff;padding:16px 24px;border-radius:50px;
+      text-decoration:none;font-size:20px;font-weight:bold;
+      box-shadow:0 6px 16px rgba(12,12,12,.3);
+      transition:transform .2s,background .3s;
       justify-content:center;
     }
     .float-btn:hover{transform:scale(1.05);background:#000c05}
     .float-btn .icon{
-      width:18px;height:18px;background-size:contain;
+      width:32px;height:32px;background-size:contain;
       background-repeat:no-repeat;display:inline-block;
     }
     .float-btn.chat .icon{background-image:url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg')}
-    .float-btn.group .icon{background-image:url('https://cdn-icons-png.flaticon.com/512/124/124034.png')}
     .float-btn.car .icon{background-image:url('https://cdn-icons-png.flaticon.com/512/55/55283.png')}
+    
     .mobile-menu{
-      display:none;position:fixed;top:48px;left:0;width:100%;
+      display:none;position:fixed;top:70px;left:0;width:100%;
       background:#012f47;z-index:998;box-shadow:0 5px 10px rgba(0,0,0,.2);
       max-height:0;overflow:hidden;transition:max-height .3s ease-out;
     }
@@ -234,32 +285,7 @@
     }
     .mobile-dropdown-toggle i{transition:transform .3s}
     .mobile-dropdown-toggle.active i{transform:rotate(180deg)}
-    .top-right-slider{
-      position:fixed;top:48px;width:100%;background:#3781ca;color:#fff;
-      padding:8px 0;text-align:center;overflow:hidden;z-index:900;
-    }
-    .slider-text{
-      display:inline-block;padding-left:100%;white-space:nowrap;
-      animation:slide-left 35s linear infinite;font-size:1rem;
-    }
-    @keyframes slide-left{
-      0%{transform:translateX(0)}
-      100%{transform:translateX(-100%)}
-    }
-    .slider-text b{font-family:'Times New Roman',Times,serif;font-size:x-large}
-    @media (max-width:576px){.top-right-slider{top:40px}}
-    .live-info-banner{
-      background:linear-gradient(135deg,#012f47,#003d3d);color:gold;
-      text-align:center;padding:10px 15px;font-size:.95rem;font-weight:600;
-      border-bottom:2px solid gold;position:relative;z-index:899;
-      box-shadow:0 2px 8px rgba(0,0,0,.1);
-    }
-    .live-info-banner i{color:#f7df1e;margin-right:6px}
-    .live-info-banner span{display:inline-flex;align-items:center;gap:6px;margin:0 12px}
-    @media (max-width:576px){
-      .live-info-banner{font-size:.85rem;padding:8px 10px}
-      .live-info-banner span{margin:0 6px;font-size:.8rem}
-    }
+    
     #service-dutanga{
       --sd-bg:#9fb2c5;--sd-panel:#005f73;--sd-accent:#f7df1e;
       --sd-brown:#b67c2f;--sd-text:#fff;--sd-radius:16px;
@@ -463,71 +489,96 @@
       .opportunities-container, .internships-container, .scholarships-container { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
       .main-content h2 { font-size: 1.6rem; }
     }
-    @media (max-width: 992px) {
-      .navbar ul { gap: 10px; }
-      nav a { font-size: 12px; padding: 4px 6px; }
-      .logo h1 { font-size: 16px; }
-      .logo img { width: 28px; height: 28px; }
-      .top-right-slider { top: 44px; }
-      .live-info-banner { padding: 8px 12px; }
-    }
+    
+    /* =========================================
+       === MOBILE RESPONSIVENESS (768px) ===
+       ========================================= */
     @media (max-width: 768px) {
+      body { padding-top: 140px; } 
+      
+      header { height: 60px; padding: 0 10px; }
+      .logo img { width: 30px; height: 30px; }
+      .logo h1 { font-size: 15px; }
+      
+      .top-right-slider { top: 60px; height: 35px; padding: 6px 0; }
+      .slider-text { font-size: 0.9rem; }
+      
+      .live-info-banner { top: 95px; height: 35px; padding: 6px 10px; font-size: 0.8rem; gap: 10px; }
+      
+      .navbar ul { display: none; }
+      .menu-toggle { display: block; order: 3; }
+      .sidebar { display: none; }
+      
+      .mobile-menu { top: 60px; }
+      .mobile-menu.active { max-height: calc(100vh - 60px); }
+      
+      .main-content { padding: 15px 10px; margin: 20px auto; }
+      
+      /* Responsive Floating Buttons */
+      .floating-left { bottom: 10px; left: 10px; }
+      .floating-right { bottom: 10px; right: 10px; }
+      .float-btn { font-size: 15px; padding: 10px 16px; }
+      .float-btn .icon { width: 24px; height: 24px; }
+      
+      .footer-columns { gap: 15px; }
+      .footer-columns .col { flex: 1 1 140px; min-width: 140px; }
+      
       .opportunities-container, .internships-container, .scholarships-container { grid-template-columns: 1fr; }
       .opportunity-header { padding: 12px 12px 8px; gap: 12px; }
       .opportunity-header img { width: 50px; height: 50px; }
       .opportunity-title { font-size: 1.1rem; }
       .opportunity-body { padding: 0 12px 12px; }
-      .navbar ul { display: none; }
-      .menu-toggle { display: block; color: #fff; order: 3; }
-      .sidebar { display: none; }
-      .mobile-menu { display: block; }
-      header { padding: 4px 8px; flex-wrap: wrap; }
-      .main-content { padding: 15px 10px; margin: 20px auto; }
-      .floating-whatsapp-buttons { bottom: 10px; left: 10px; gap: 8px; }
-      .float-btn { font-size: 12px; padding: .35rem .6rem; min-width: 120px; }
-      .footer-columns { gap: 15px; }
-      .footer-columns .col { flex: 1 1 140px; min-width: 140px; }
     }
+
+    /* =========================================
+       === EXTRA SMALL RESPONSIVENESS (576px) ===
+       ========================================= */
     @media (max-width: 576px) {
-      body { padding-top: 60px; }
-      .logo h1 { font-size: 14px; }
-      .logo img { width: 24px; height: 24px; }
+      body { padding-top: 130px; }
+      header { height: 54px; }
+      .logo img { width: 26px; height: 26px; }
+      .logo h1 { font-size: 13px; white-space: normal; line-height: 1.1; }
+      
+      .top-right-slider { top: 54px; height: 32px; padding: 5px 0; }
+      .slider-text { font-size: 0.8rem; }
+      
+      .live-info-banner { top: 86px; height: 32px; padding: 5px 8px; font-size: 0.75rem; gap: 5px; }
+      
+      .mobile-menu { top: 54px; }
+      
       .main-content h2 { font-size: 1.4rem; }
-      .mobile-menu { top: 40px; }
-      .top-right-slider { top: 40px; font-size: 0.9rem; }
-      .slider-text b { font-size: large; }
-      .live-info-banner { font-size: .8rem; padding: 6px 8px; }
-      .live-info-banner span { font-size: .75rem; margin: 0 4px; }
       .services-toggle-btn { font-size: 16px; padding: 12px 24px; }
-      .floating-whatsapp-buttons { bottom: 8px; left: 8px; }
-      .float-btn { font-size: 11px; padding: .3rem .5rem; min-width: 100px; }
+      
+      /* Responsive Floating Buttons */
+      .floating-left { bottom: 8px; left: 8px; }
+      .floating-right { bottom: 8px; right: 8px; }
+      .float-btn { font-size: 13px; padding: 8px 12px; }
+      .float-btn .icon { width: 20px; height: 20px; }
+      
       .modal-content { width: 95%; padding: 18px; }
       .auth-tab { padding: 8px; font-size: 12px; }
     }
-    @media (max-width: 480px) {
-      .logo img { width: 22px; height: 22px; }
-      .logo h1 { font-size: 13px; }
-      .top-right-slider { padding: 6px 0; }
-      .slider-text { font-size: 0.85rem; }
-      .slider-text b { font-size: medium; }
-      .float-btn { font-size: 10px; min-width: 90px; padding: .25rem .4rem; }
-      .float-btn .icon { width: 16px; height: 16px; }
-      #topBtn { bottom: 15px; right: 15px; font-size: 18px; padding: 10px 12px; }
-    }
-    /* countering date  */
-    .countdown-timer {
-  font-weight: bold;
-  font-size: 0.85rem;
-  margin-left: 8px;
-  transition: color 0.4s ease;
-}
-.countdown-timer.safe { color: #019e43; }
-.countdown-timer.warning { color: #ee05ee; animation: pulse 2s infinite; }
-.countdown-timer.urgent { color: #e74c3c; animation: blink 1.5s infinite; }
-.countdown-timer.expired { color: #e74c3c; font-weight: bold; }
 
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
-@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+    @media (max-width: 480px) {
+      .logo h1 { font-size: 12px; }
+      .float-btn { font-size: 11px; padding: 6px 10px; }
+      .float-btn .icon { width: 18px; height: 18px; }
+      #topBtn { bottom: 70px; right: 15px; font-size: 18px; padding: 10px 12px; }
+    }
+
+    .countdown-timer {
+      font-weight: bold;
+      font-size: 0.85rem;
+      margin-left: 8px;
+      transition: color 0.4s ease;
+    }
+    .countdown-timer.safe { color: #019e43; }
+    .countdown-timer.warning { color: #ee05ee; animation: pulse 2s infinite; }
+    .countdown-timer.urgent { color: #e74c3c; animation: blink 1.5s infinite; }
+    .countdown-timer.expired { color: #e74c3c; font-weight: bold; }
+
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
   </style>
 </head>
 <body>
@@ -575,11 +626,12 @@
       <div id="authMessage"></div>
     </div>
   </div>
+  
   <!-- HEADER -->
   <header>
     <div class="logo">
-      <img src="./jo.jpeg" alt="Logo">
-      <h1 lang="en">Jobs, Internships & Scholarships</h1>
+      <img src="./jo.jpeg" alt="Logo" onerror="this.src='https://via.placeholder.com/40'">
+      <h1 lang="en">NEW-UPDATE-RWANDA</h1>
     </div>
     <nav class="navbar">
       <ul>
@@ -645,20 +697,23 @@
         </li>
       </ul>
     </nav>
-    <button id="openAuthBtn" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;margin-left:auto;padding:0 12px;">
+    <button id="openAuthBtn" style="background:none;border:none;color:#fff;font-size:22px;cursor:pointer;margin-left:15px;padding:0;">
       <i class="fas fa-user-circle"></i>
     </button>
     <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
   </header>
+  
   <!-- Moving words -->
   <div class="top-right-slider">
     <div class="slider-text"><b lang="rw">Ushaka ko tugufasha zimwe murizi services zikurikira watwandikira unyuze kuri buto ya twandikire cyangwa ukaduhamagara kuri (+250)780019239!</b></div>
   </div>
+  
   <!-- Live info banner with COUNTDOWN -->
   <div class="live-info-banner">
     <span><i class="fas fa-clock"></i> <span id="liveTime">November 17, 2025 06:58:00 PM</span> CAT</span>
     <span><i class="fas fa-map-marker-alt"></i> Country: Rwanda (RW)</span>
   </div>
+  
   <!-- MAIN CONTENT -->
   <main class="main-content">
     <!-- FILTER BAR -->
@@ -672,10 +727,12 @@
     <h2 lang="en">Latest Opportunities</h2>
     <div class="opportunities-container" id="allContainer"></div>
   </main>
+  
   <!-- Show services button -->
   <button class="services-toggle-btn" id="toggleServicesBtn">
     Show Services <i class="fas fa-chevron-down"></i>
   </button>
+  
   <!-- Services section -->
   <section class="sd" id="service-dutanga">
     <div class="sd-left">
@@ -692,6 +749,7 @@
       </div>
     </div>
   </section>
+  
   <!-- Mobile menu -->
   <div class="mobile-menu" id="mobileMenu">
     <ul>
@@ -768,6 +826,7 @@
       <li><a href="contact_us.html" lang="en">Contact</a></li>
     </ul>
   </div>
+  
   <!-- Sidebar -->
   <aside class="sidebar" id="menuSidebar">
     <div class="sidebar-header">
@@ -799,19 +858,25 @@
       <p lang="en"><i class="fas fa-sync-alt"></i> Website updated</p>
     </div>
   </aside>
-  <!-- Floating WhatsApp Buttons -->
-  <div class="floating-whatsapp-buttons">
+  
+  <!-- =========================================
+       === FLOATING BUTTONS (Provizwari Left, Chat Right) ===
+       ========================================= -->
+  
+  <!-- Left Side: Provizwari Button -->
+  <div class="floating-left">
     <a href="PROVI/index.html" class="float-btn car" target="_blank" rel="noopener noreferrer">
       <span class="icon"></span><span class="label" lang="rw">Provizwari</span>
     </a>
-    <a href="https://whatsapp.com/channel/0029VbBUVsPDTkKD9z89s20H" class="float-btn group" target="_blank" rel="noopener noreferrer">
-      <span class="icon"></span><span class="label" lang="en">Follow Channel</span>
-    </a>
-   
-    <a href="https://chat.whatsapp.com/CoPf3siZOpKB2B9UNh2fYC" class="float-btn group" target="_blank" rel="noopener noreferrer">
-      <span class="icon"></span><span class="label" lang="en">Join Group</span>
+  </div>
+
+  <!-- Right Side: WhatsApp Chat Button -->
+  <div class="floating-right">
+    <a href="https://wa.me/250733253803" class="float-btn chat" target="_blank" rel="noopener noreferrer">
+      <span class="icon"></span><span class="label" lang="en">Chat Us</span>
     </a>
   </div>
+  
   <!-- Content Modal (full-screen viewer) -->
   <div class="content-modal" id="contentModal">
     <div class="modal-content-area">
@@ -819,6 +884,7 @@
       <div id="contentViewer"></div>
     </div>
   </div>
+  
   <!-- Footer -->
   <footer>
     <div class="footer-columns">
@@ -867,16 +933,21 @@
         <a href="features.html#scholarshipsContainer" style="text-decoration: underline;" lang="en"><b>View All</b></a>
       </div>
     </div>
-    <!-- SOCIAL MEDIA LINKS IN FOOTER -->
+    
+    <!-- SOCIAL MEDIA LINKS IN FOOTER (Added Channel & Group) -->
     <div class="footer-social">
-      <a href="https://facebook.com" target="_blank" class="fb"><i class="fab fa-facebook-f"></i></a>
-      <a href="https://twitter.com" target="_blank" class="tw"><i class="fab fa-twitter"></i></a>
-      <a href="https://linkedin.com" target="_blank" class="li"><i class="fab fa-linkedin-in"></i></a>
-      <a href="https://wa.me/250733253803" target="_blank" class="wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://facebook.com" target="_blank" class="fb" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://twitter.com" target="_blank" class="tw" title="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="https://linkedin.com" target="_blank" class="li" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://wa.me/250733253803" target="_blank" class="wa" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://whatsapp.com/channel/0029VbBUVsPDTkKD9z89s20H" target="_blank" class="channel" title="Follow Channel"><i class="fas fa-bullhorn"></i></a>
+      <a href="https://chat.whatsapp.com/CoPf3siZOpKB2B9UNh2fYC" target="_blank" class="wa" title="Join Group"><i class="fas fa-users"></i></a>
     </div>
+    
     <div style="text-align:center;margin-top:30px;padding:20px;background:rgba(255,255,255,.05);border-radius:8px;">
       <a href="./QUIARA.html" style="color:gold;text-decoration:none;font-weight:bold;">Generate own QR code</a>
     </div>
+    
     <button onclick="topFunction()" id="topBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
   </footer>
 </div>
@@ -936,7 +1007,7 @@
   }
 
   // -------------------------------------------------
-  // BUILD CARD — NOW WITH COUNTDOWN SPAN
+  // BUILD CARD
   // -------------------------------------------------
   function buildCard(op) {
     const typeBadge = `<span style="background:#012f47;color:gold;padding:2px 8px;border-radius:12px;font-size:0.75rem;margin-left:6px;">${op.type.charAt(0).toUpperCase() + op.type.slice(1)}</span>`;
@@ -964,7 +1035,7 @@
   }
 
   // -------------------------------------------------
-  // PERFECT LIVE COUNTDOWN (No flicker, clean UX)
+  // PERFECT LIVE COUNTDOWN
   // -------------------------------------------------
   function updateAllCountdowns() {
     document.querySelectorAll('.opportunity-card').forEach(card => {
@@ -1031,7 +1102,7 @@
   });
 
   // -------------------------------------------------
-  // ALL YOUR MODALS, SHARE, AUTH, MENU — 100% UNCHANGED
+  // ALL YOUR MODALS, SHARE, AUTH, MENU
   // -------------------------------------------------
   const contentModal = document.getElementById('contentModal');
   const contentViewer = document.getElementById('contentViewer');
@@ -1135,7 +1206,7 @@
     });
   }
 
-  // Auth, Mobile Menu, Scroll to Top, Services Toggle — all unchanged
+  // Auth, Mobile Menu, Scroll to Top, Services Toggle
   const authModal = document.getElementById('authModal');
   const openBtn = document.getElementById('openAuthBtn');
   const closeBtn = document.getElementById('closeAuthModal');

@@ -349,23 +349,62 @@ document.addEventListener('webkitfullscreenchange', handleFullscreenLoss);
 document.addEventListener('mozfullscreenchange', handleFullscreenLoss);
 document.addEventListener('MSFullscreenChange', handleFullscreenLoss);
 
+// === NEW & IMPROVED FULLSCREEN PROMPT ===
 function ensureFullscreenWithPrompt() {
   if (!fullscreenEnabled || isFullscreenActive()) return;
+  
+  // Try to request fullscreen automatically
   requestFullscreen();
 
   setTimeout(() => {
     if (isFullscreenActive() || !fullscreenEnabled || document.hidden) return;
+    
+    // If we are here, the browser blocked auto-fullscreen
     if (document.getElementById('fs-banner')) return;
 
     const banner = document.createElement('div');
     banner.id = 'fs-banner';
-    banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#c00;color:#fff;padding:16px;text-align:center;z-index:99999;font-size:16px;cursor:pointer;';
-    banner.textContent = 'Kanda hano kugirango usubire kuri fullscreen ukomeze ikizamini';
-    banner.onclick = () => { requestFullscreen(); banner.remove(); };
+    banner.style.cssText = `
+      position: fixed;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #e74c3c;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 8px;
+      text-align: center;
+      z-index: 99999;
+      font-size: 15px;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      cursor: pointer;
+      width: 90%;
+      max-width: 400px;
+    `;
+    banner.textContent = 'Kanda aha cyangwa ahantu aho ariho hose kugirango ukomeze ikizamini mu buryo bwuzuye.';
+    
+    // Clicking ANYWHERE on the screen triggers fullscreen and hides the banner
+    const handleScreenClick = () => {
+      requestFullscreen();
+      banner.remove();
+      document.removeEventListener('click', handleScreenClick);
+    };
+
+    // Small delay so the click that woke up the screen doesn't instantly trigger it
+    setTimeout(() => {
+      document.addEventListener('click', handleScreenClick);
+    }, 300);
+
     document.body.appendChild(banner);
 
+    // If fullscreen is successfully activated, remove the banner and listener
     const check = setInterval(() => {
-      if (isFullscreenActive()) { clearInterval(check); banner.remove(); }
+      if (isFullscreenActive()) { 
+        clearInterval(check); 
+        banner.remove(); 
+        document.removeEventListener('click', handleScreenClick);
+      }
     }, 500);
   }, 500);
 }
@@ -379,7 +418,6 @@ document.addEventListener('visibilitychange', () => {
   if (!quizScreen || quizScreen.classList.contains('hidden')) return;
 
   if (document.hidden) {
-    // User left the exam (phone call, notification, app switch, minimize)
     wasHidden = true;
     minimizeDetected = true;
     lastActivity = Date.now();
@@ -387,7 +425,6 @@ document.addEventListener('visibilitychange', () => {
     return;
   }
 
-  // User returned
   if (wasHidden) {
     wasHidden = false;
 
@@ -396,17 +433,14 @@ document.addEventListener('visibilitychange', () => {
       updateTimerDisplay();
     }
 
-    // If time expired while they were away -> submit (don't reset)
     if (timeLeft <= 0) {
       console.log('Timer expired while away — submitting');
       endQuiz();
       return;
     }
 
-    // Force back to fullscreen (will show tap banner if browser blocks it)
     ensureFullscreenWithPrompt();
 
-    // Gentle notice for longer absences, but do NOT reset
     const absenceTime = Date.now() - lastActivity;
     if (absenceTime > 30000 && !hiddenTabWarned) {
       hiddenTabWarned = true;
@@ -640,6 +674,13 @@ function setupOptionListeners() {
         
         // === SHOW NAV BUTTONS ONCE AN ANSWER IS SELECTED ===
         safeElementAccess(navButtons).style.display = 'flex';
+
+        // === AUTOMATICALLY SCROLL DOWN TO THE BUTTONS ===
+        setTimeout(() => {
+          if (navButtons) {
+            navButtons.scrollIntoView({ behavior: 'smooth', block: 'end' });
+          }
+        }, 100);
 
         safeLocalStorage(`quizState_${currentIP || 'unknown'}`, 'set', {
           questions: questions,
