@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NEW UPDATE RWANDA</title>
+  <title>JobsandScholarships</title>
   <!-- SEO Meta Tags -->
   <meta name="description" content="Find job opportunities, internships, and scholarships in Rwanda. Connect with us for career guidance and tech-related services.">
   <meta name="keywords" content="jobs, internships, scholarships, Rwanda, careers, tech services, job opportunities">
@@ -225,18 +225,19 @@
     .navbar li:hover .dropdown{display:block}
     
     /* =========================================
-       === LARGER FLOATING BUTTONS (Left & Right) ===
+       === FLOATING BUTTONS (Icon Only + Animation) ===
        ========================================= */
     
-    /* Left Side: Provizwari only */
+    /* Left Side: Provizwari button in the middle */
     .floating-left {
       position: fixed;
-      bottom: 20px;
+      top: 50%;
+      transform: translateY(-50%);
       left: 20px;
       z-index: 9999;
     }
     
-    /* Right Side: WhatsApp Chat */
+    /* Right Side: WhatsApp Chat (bottom right) */
     .floating-right {
       position: fixed;
       bottom: 20px;
@@ -244,21 +245,70 @@
       z-index: 9999;
     }
 
-    .float-btn{
-      display:flex;align-items:center;gap:12px;background:#2e69b8;
-      color:#fff;padding:16px 24px;border-radius:50px;
-      text-decoration:none;font-size:20px;font-weight:bold;
-      box-shadow:0 6px 16px rgba(12,12,12,.3);
-      transition:transform .2s,background .3s;
-      justify-content:center;
+    /* WhatsApp Circle Button */
+    .float-btn.chat {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #25d366;
+      box-shadow: 0 6px 16px rgba(12,12,12,.3);
+      transition: transform .2s;
     }
-    .float-btn:hover{transform:scale(1.05);background:#000c05}
-    .float-btn .icon{
-      width:32px;height:32px;background-size:contain;
-      background-repeat:no-repeat;display:inline-block;
+    .float-btn.chat:hover { transform: scale(1.1); }
+    .float-btn.chat .icon {
+      width: 40px;
+      height: 40px;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
     }
-    .float-btn.chat .icon{background-image:url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg')}
-    .float-btn.car .icon{background-image:url('https://cdn-icons-png.flaticon.com/512/55/55283.png')}
+
+    /* Provizwari Pill Button (with Text) */
+    .float-btn.car {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #e67e22; /* Base orange color */
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 6px 16px rgba(12,12,12,.3);
+      animation: pulse-car 2s infinite;
+      transition: transform .2s;
+    }
+    .float-btn.car:hover { transform: scale(1.05); }
+    .float-btn.car .icon {
+      width: 32px;
+      height: 32px;
+      background-image: url('https://cdn-icons-png.flaticon.com/512/55/55283.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      filter: brightness(0) invert(1); /* Makes icon white */
+    }
+
+    @keyframes pulse-car {
+      0% {
+        box-shadow: 0 0 0 0 rgba(230, 126, 34, 0.7);
+        transform: scale(1);
+      }
+      50% {
+        background: #d35400; /* Darker orange */
+        transform: scale(1.05);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(230, 126, 34, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(230, 126, 34, 0);
+        transform: scale(1);
+      }
+    }
     
     .mobile-menu{
       display:none;position:fixed;top:70px;left:0;width:100%;
@@ -515,10 +565,14 @@
       .main-content { padding: 15px 10px; margin: 20px auto; }
       
       /* Responsive Floating Buttons */
-      .floating-left { bottom: 10px; left: 10px; }
-      .floating-right { bottom: 10px; right: 10px; }
-      .float-btn { font-size: 15px; padding: 10px 16px; }
-      .float-btn .icon { width: 24px; height: 24px; }
+      .floating-left { top: 50%; left: 10px; transform: translateY(-50%); }
+      .floating-right { bottom: 15px; right: 15px; }
+      
+      .float-btn.car { padding: 8px 16px; font-size: 14px; gap: 8px; }
+      .float-btn.car .icon { width: 24px; height: 24px; }
+      
+      .float-btn.chat { width: 60px; height: 60px; }
+      .float-btn.chat .icon { width: 35px; height: 35px; }
       
       .footer-columns { gap: 15px; }
       .footer-columns .col { flex: 1 1 140px; min-width: 140px; }
@@ -550,10 +604,14 @@
       .services-toggle-btn { font-size: 16px; padding: 12px 24px; }
       
       /* Responsive Floating Buttons */
-      .floating-left { bottom: 8px; left: 8px; }
-      .floating-right { bottom: 8px; right: 8px; }
-      .float-btn { font-size: 13px; padding: 8px 12px; }
-      .float-btn .icon { width: 20px; height: 20px; }
+      .floating-left { top: 45%; left: 5px; transform: translateY(-45%); }
+      .floating-right { bottom: 10px; right: 10px; }
+      
+      .float-btn.car { padding: 6px 12px; font-size: 12px; gap: 6px; }
+      .float-btn.car .icon { width: 20px; height: 20px; }
+      
+      .float-btn.chat { width: 55px; height: 55px; }
+      .float-btn.chat .icon { width: 30px; height: 30px; }
       
       .modal-content { width: 95%; padding: 18px; }
       .auth-tab { padding: 8px; font-size: 12px; }
@@ -561,9 +619,11 @@
 
     @media (max-width: 480px) {
       .logo h1 { font-size: 12px; }
-      .float-btn { font-size: 11px; padding: 6px 10px; }
-      .float-btn .icon { width: 18px; height: 18px; }
-      #topBtn { bottom: 70px; right: 15px; font-size: 18px; padding: 10px 12px; }
+      .float-btn.car { padding: 5px 10px; font-size: 11px; }
+      .float-btn.car .icon { width: 18px; height: 18px; }
+      .float-btn.chat { width: 50px; height: 50px; }
+      .float-btn.chat .icon { width: 26px; height: 26px; }
+      #topBtn { bottom: 15px; right: 75px; font-size: 16px; padding: 8px 10px; } /* Moved to avoid overlapping WhatsApp */
     }
 
     .countdown-timer {
@@ -635,7 +695,7 @@
     </div>
     <nav class="navbar">
       <ul>
-        <li><a href="features.html" lang="en">OPPORTUNITIES</a></li>
+
         <li>
           <a href="#" lang="en">About</a>
           <div class="dropdown">
@@ -865,15 +925,16 @@
   
   <!-- Left Side: Provizwari Button -->
   <div class="floating-left">
-    <a href="PROVI/index.html" class="float-btn car" target="_blank" rel="noopener noreferrer">
-      <span class="icon"></span><span class="label" lang="rw">Provizwari</span>
+    <a href="PROVI/index.html" class="float-btn car" target="_blank" rel="noopener noreferrer" title="Provizwari">
+      <span class="icon"></span>
+      <span>PROVIZWARI</span>
     </a>
   </div>
 
   <!-- Right Side: WhatsApp Chat Button -->
   <div class="floating-right">
-    <a href="https://wa.me/250733253803" class="float-btn chat" target="_blank" rel="noopener noreferrer">
-      <span class="icon"></span><span class="label" lang="en">Chat Us</span>
+    <a href="https://wa.me/250733253803" class="float-btn chat" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
+      <span class="icon"></span>
     </a>
   </div>
   
